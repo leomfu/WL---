@@ -7,7 +7,7 @@
 
 ## 硬性规则
 
-- **技术栈锁定**：Next.js 15 (App Router) + TypeScript + Tailwind CSS v4 + Framer Motion + next-intl。不得更换框架或引入数据库/后端。整站必须兼容静态导出（部署平台未定）。
+- **技术栈锁定**：Next.js 16 (App Router) + TypeScript + Tailwind CSS v4 + Framer Motion + next-intl。不得更换框架或引入数据库/后端。整站必须兼容静态导出（部署平台未定，因此不用 middleware/proxy 等服务器运行时特性）。
 - **只做当前阶段**：进度文件里标注了下一个待做阶段，只做它，不要提前做后面阶段的内容。
 - **视觉稿是唯一视觉依据**：`docs/design/` 下五个画板（Intro/Main/BlogContact/Lounge/Tools 的 .dc.html，用浏览器打开查看）。实现涉及的页面必须先打开对应画板对照，还原其布局、间距、灰阶层级与动效气质；PLAN.md §5 是从画板提取的 tokens 摘要。除工具页图标 hover 亮品牌色外，全站只用黑白灰。
 - **黑白设计系统**：严格遵守 PLAN.md §5。动效克制，尊重 prefers-reduced-motion。

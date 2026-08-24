@@ -27,7 +27,7 @@
 
 ## 3. 技术栈（所有终端必须遵守，不得擅自更换）
 
-- **框架**：Next.js 15（App Router）+ TypeScript
+- **框架**：Next.js 16（App Router）+ TypeScript
 - **样式**：Tailwind CSS v4
 - **动画**：Framer Motion（`motion` 包）
 - **内容**：Markdown + gray-matter 解析 front-matter，`content/` 目录，构建时读取（不引数据库、不做后端）
