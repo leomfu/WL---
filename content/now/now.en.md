@@ -2,5 +2,6 @@
 updated: 2026-08-24
 ---
 
-[Placeholder — what you're building, reading and learning lately.
-Rendered in the "Now" block on the homepage.]
+Building [Project A](/projects) — [one line on what it solves].
+
+Reading [book placeholder], learning [placeholder], and writing the process down as I go.

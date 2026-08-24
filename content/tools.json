@@ -1,10 +1,66 @@
 [
-  { "name": "Claude Code", "desc": "编程代理", "desc_en": "Coding agent", "url": "https://claude.com/claude-code", "icon": "claude", "brandColor": "#C15F3C" },
-  { "name": "ChatGPT", "desc": "AI 助手", "desc_en": "AI assistant", "url": "https://chatgpt.com", "icon": "chatgpt", "brandColor": "" },
-  { "name": "VS Code", "desc": "编辑器", "desc_en": "Editor", "url": "https://code.visualstudio.com", "icon": "vscode", "brandColor": "" },
-  { "name": "GitHub", "desc": "代码托管", "desc_en": "Code hosting", "url": "https://github.com", "icon": "github", "brandColor": "" },
-  { "name": "Figma", "desc": "设计稿", "desc_en": "Design", "url": "https://figma.com", "icon": "figma", "brandColor": "" },
-  { "name": "Notion", "desc": "笔记与知识库", "desc_en": "Notes", "url": "https://notion.so", "icon": "notion", "brandColor": "" },
-  { "name": "Vercel", "desc": "部署", "desc_en": "Deploys", "url": "https://vercel.com", "icon": "vercel", "brandColor": "" },
-  { "name": "Spotify", "desc": "写代码时听", "desc_en": "Listening", "url": "https://spotify.com", "icon": "spotify", "brandColor": "" }
+  {
+    "name": "Claude Code",
+    "desc": "编程代理",
+    "desc_en": "Coding agent",
+    "url": "https://claude.com/claude-code",
+    "icon": "claude",
+    "brandColor": "#C15F3C"
+  },
+  {
+    "name": "ChatGPT",
+    "desc": "AI 助手",
+    "desc_en": "AI assistant",
+    "url": "https://chatgpt.com",
+    "icon": "chatgpt",
+    "brandColor": "#10A37F"
+  },
+  {
+    "name": "VS Code",
+    "desc": "编辑器",
+    "desc_en": "Editor",
+    "url": "https://code.visualstudio.com",
+    "icon": "vscode",
+    "brandColor": "#0078D4"
+  },
+  {
+    "name": "GitHub",
+    "desc": "代码托管",
+    "desc_en": "Code hosting",
+    "url": "https://github.com",
+    "icon": "github",
+    "brandColor": "#181717"
+  },
+  {
+    "name": "Figma",
+    "desc": "设计稿",
+    "desc_en": "Design",
+    "url": "https://figma.com",
+    "icon": "figma",
+    "brandColor": "#F24E1E"
+  },
+  {
+    "name": "Notion",
+    "desc": "笔记与知识库",
+    "desc_en": "Notes",
+    "url": "https://notion.so",
+    "icon": "notion",
+    "brandColor": "#111111"
+  },
+  {
+    "name": "Vercel",
+    "desc": "部署",
+    "desc_en": "Deploys",
+    "url": "https://vercel.com",
+    "icon": "vercel",
+    "brandColor": "#111111"
+  },
+  {
+    "name": "Spotify",
+    "desc": "写代码时听",
+    "desc_en": "Listening",
+    "url": "https://spotify.com",
+    "icon": "spotify",
+    "brandColor": "#1DB954"
+  }
 ]

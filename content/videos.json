@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "platform": "bilibili",
+    "id": "BV1GJ411x7h7",
+    "title": "[视频占位 A]",
+    "title_en": "[Video placeholder A]",
+    "date": "2026-07-02",
+    "desc": "[一句话介绍这条视频讲了什么]。素材到位后把 BV 号换成你自己的。",
+    "desc_en": "[One line on what this video is about.] Replace the BV id with your own."
+  },
+  {
+    "platform": "youtube",
+    "id": "aqz-KE-bpKQ",
+    "title": "[视频占位 B]",
+    "title_en": "[Video placeholder B]",
+    "date": "2026-05-18",
+    "desc": "[一句话介绍]。素材到位后把 YouTube 视频 id 换成你自己的。",
+    "desc_en": "[One line intro.] Replace the YouTube video id with your own."
+  }
+]

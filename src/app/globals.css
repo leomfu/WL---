@@ -193,3 +193,152 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* ==========================================================================
+   .prose-bw —— markdown 正文的排版（content/ 里的 md 渲染进来都套这个）
+   彩色一律不进来：代码高亮走 src/lib/markdown.ts 里的灰阶主题。
+   ========================================================================== */
+.prose-bw {
+  color: var(--color-body);
+  font-size: 16px;
+  line-height: 1.9;
+  text-wrap: pretty;
+}
+
+.prose-bw > * + * {
+  margin-top: 20px;
+}
+
+/* 首页「现在是」这类短板块，段间距收紧一点（画板是 16px） */
+.prose-tight > * + * {
+  margin-top: 16px;
+}
+
+.prose-bw h2 {
+  margin-top: 52px;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.5;
+  color: var(--color-ink);
+}
+
+.prose-bw h3 {
+  margin-top: 38px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-ink);
+}
+
+.prose-bw h2 + *,
+.prose-bw h3 + * {
+  margin-top: 14px;
+}
+
+.prose-bw strong {
+  font-weight: 500;
+  color: var(--color-ink);
+}
+
+.prose-bw em {
+  font-style: italic;
+}
+
+.prose-bw ul,
+.prose-bw ol {
+  padding-left: 1.25em;
+}
+
+.prose-bw ul {
+  list-style: none;
+}
+
+.prose-bw ul > li {
+  position: relative;
+}
+
+.prose-bw ul > li::before {
+  content: "";
+  position: absolute;
+  left: -1em;
+  top: 0.85em;
+  width: 5px;
+  height: 1px;
+  background: var(--color-line-strong);
+}
+
+.prose-bw ol {
+  list-style: decimal;
+}
+
+.prose-bw li + li {
+  margin-top: 8px;
+}
+
+.prose-bw blockquote {
+  border-left: 1px solid var(--color-line-strong);
+  padding: 2px 0 2px 20px;
+  color: var(--color-muted);
+}
+
+.prose-bw hr {
+  border: 0;
+  border-top: 1px solid var(--color-line);
+  margin: 44px 0;
+}
+
+.prose-bw img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--color-line);
+  filter: grayscale(1);
+  transition: filter 400ms ease;
+}
+
+.prose-bw img:hover {
+  filter: grayscale(0.35);
+}
+
+.prose-bw :not(pre) > code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.88em;
+  background: #f2f2f2;
+  border: 1px solid var(--color-line);
+  border-radius: 3px;
+  padding: 1px 5px;
+  color: var(--color-ink);
+}
+
+/* shiki 输出的代码块 */
+.prose-bw pre {
+  overflow-x: auto;
+  border: 1px solid var(--color-line);
+  border-radius: 6px;
+  padding: 18px 20px;
+  font-size: 13.5px;
+  line-height: 1.75;
+  background: #fbfbfb !important;
+}
+
+.prose-bw pre code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.prose-bw table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14.5px;
+}
+
+.prose-bw th,
+.prose-bw td {
+  border-bottom: 1px solid var(--color-line);
+  padding: 10px 12px;
+  text-align: left;
+}
+
+.prose-bw th {
+  font-weight: 500;
+  color: var(--color-ink);
+  letter-spacing: 0.02em;
+}

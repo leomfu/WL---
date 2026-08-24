@@ -3,6 +3,18 @@
     "title": "[你的名字]",
     "description": "[一句话定位] —— 个人网站：项目、文章、想法，以及一个用来发呆的放松区。"
   },
+  "pageMeta": {
+    "home": { "title": "首页", "description": "[你的名字] 的个人网站：现在在做什么、做过的项目、写下的文章。" },
+    "projects": { "title": "项目", "description": "做过的东西，一个个列在这里。" },
+    "videos": { "title": "视频", "description": "在哔哩哔哩和 YouTube 上发过的视频。" },
+    "blog": { "title": "写字的地方", "description": "长文、博客和一些没头没尾的想法。" },
+    "about": { "title": "关于", "description": "关于我：背景、在做什么、感兴趣的东西。" },
+    "tools": { "title": "工具", "description": "我每天在用的软件、服务和硬件。" },
+    "lounge": { "title": "放松区", "description": "雨声、海浪、歌单和播客 —— 什么都不干也行。" },
+    "contact": { "title": "说点什么", "description": "邮箱、社交账号，以及一块留言板。" },
+    "library": { "title": "书影音", "description": "最近在看的书、电影和专辑。" },
+    "guestbook": { "title": "留言板", "description": "随便写一句，我都会看到。" }
+  },
   "intro": {
     "eyebrow": "个人网站 · PERSONAL SITE",
     "nameLabel": "NAME",
@@ -25,16 +37,133 @@
     "tools": "工具",
     "lounge": "放松区",
     "contact": "联系",
-    "connect": "连接 / CONNECT"
-  },
-  "home": {
-    "placeholderTitle": "首页",
-    "placeholderNote": "这一页在阶段 2 做：左侧暗色侧边栏 + 名字大标题 + 自我介绍 + 「现在是」 + 「我在做的」 + 「我写的」。对照 docs/design/Main.dc.html。",
-    "backToIntro": "回开场页"
+    "library": "书影音",
+    "guestbook": "留言板",
+    "connect": "连接 / CONNECT",
+    "collapse": "收起侧栏",
+    "expand": "展开侧栏",
+    "menu": "打开菜单",
+    "close": "关闭菜单"
   },
   "common": {
     "language": "语言",
     "zh": "中",
-    "en": "EN"
+    "en": "EN",
+    "search": "搜索",
+    "copy": "复制地址",
+    "copied": "已复制 ✓",
+    "empty": "这里还什么都没有。",
+    "placeholder": "占位内容 —— 素材到位后替换",
+    "backToHome": "回首页"
+  },
+  "home": {
+    "nowTitle": "现在是",
+    "buildingTitle": "我在做的",
+    "writingTitle": "我写的",
+    "moreProjects": "更早的东西都在 <link>项目页</link> 里。",
+    "morePosts": "更多文章在 <link>写字的地方</link>。",
+    "noPosts": "还没有文章 —— 第一篇很快就写。",
+    "footerNote": "想说点什么就 <link>写封邮件</link>，我一般两三天内回。",
+    "copyright": "© {year} {name}"
+  },
+  "projects": {
+    "title": "项目",
+    "lead": "做过的东西，一个个列在这里。有线上地址的点标题就能去。",
+    "visit": "线上",
+    "repo": "源码",
+    "noLink": "暂无公开链接",
+    "footerNote": "想聊聊其中任何一个，<link>写封邮件</link> 就好。"
+  },
+  "videos": {
+    "title": "视频",
+    "lead": "自己拍的、剪的、发出去的东西。点播放键直接在这一页看。",
+    "onBilibili": "在哔哩哔哩打开",
+    "onYoutube": "在 YouTube 打开",
+    "load": "点击加载播放器",
+    "empty": "还没有视频 —— 清单在 content/videos.json 里，加进去就会出现在这一页。"
+  },
+  "tools": {
+    "title": "工具",
+    "lead": "我每天在用的东西。点一下直接去它们的官网。",
+    "note": "图标平时是黑白的，鼠标移上去才亮起各自的品牌色。"
+  },
+  "about": {
+    "title": "关于"
+  },
+  "contact": {
+    "title": "说点什么",
+    "lead": "合作、提问，或者只是想聊两句，都可以发邮件给我。我一般两三天内回。",
+    "emailLabel": "邮箱 / EMAIL",
+    "write": "写邮件",
+    "elsewhere": "在别处 / ELSEWHERE",
+    "footerNote": "不想发邮件？去 <link>留言板</link> 写一句也行。"
+  },
+  "blog": {
+    "title": "写字的地方",
+    "lead": "长文、博客和一些没头没尾的想法，都放在这里。共 <count>{count}</count> 篇。",
+    "filterAll": "全部",
+    "order": "按时间倒序",
+    "minutes": "{minutes} 分钟",
+    "empty": "还没有文章。放一份 markdown 进 content/posts/ 就会出现在这里。",
+    "toc": "目录",
+    "prev": "上一篇",
+    "next": "下一篇",
+    "backToList": "回到列表",
+    "originalLang": "原文为{lang}，暂无{target}版本",
+    "langZh": "中文",
+    "langEn": "英文",
+    "comments": "评论",
+    "types": { "blog": "博客", "essay": "长文", "thought": "想法" }
+  },
+  "library": {
+    "title": "书影音",
+    "lead": "最近在看的、看过的，和还想再看一遍的。",
+    "filterAll": "全部",
+    "types": { "book": "书", "movie": "影", "album": "音" },
+    "empty": "还没有条目。清单在 content/library/library.json 里。"
+  },
+  "guestbook": {
+    "title": "留言板",
+    "lead": "路过写一句就好 —— 用 GitHub 账号登录即可，留言存在这个仓库的 Discussions 里。",
+    "footerNote": "想聊得久一点？也可以 <link>写封邮件</link>。"
+  },
+  "giscus": {
+    "notConfigured": "评论还没配好 —— 需要一个 public 的 GitHub 仓库并开启 Discussions，然后把 giscus 的四个 id 填进 site.config.ts。"
+  },
+  "lounge": {
+    "title": "放松区",
+    "enter": "轻点开始",
+    "enterHint": "浏览器需要一次点击才允许出声",
+    "navCollapsed": "导航已收起 · 鼠标移到左侧或按 ESC 退出",
+    "exit": "退出沉浸",
+    "ringNote": "圆环随氛围音音量呼吸",
+    "tabAmbient": "氛围",
+    "tabMusic": "音乐",
+    "tabPodcast": "播客",
+    "play": "播放",
+    "pause": "暂停",
+    "volume": "音量",
+    "loopNote": "循环 · 交叉淡入",
+    "audioMissing": "这个场景的氛围音还没放进来（public/audio/ambient/），画面照旧，只是没有声音。",
+    "musicEmpty": "网易云歌单还没配 —— 建好歌单后把 id 填进 site.config.ts 的 lounge.neteasePlaylists。",
+    "podcastEmpty": "播客嵌入还没配 —— 把小宇宙或 YouTube 播放列表链接填进 site.config.ts 的 lounge.podcastEmbeds。",
+    "playlist": "歌单 {index}",
+    "scenes": {
+      "rain": { "name": "雨夜", "en": "RAINY NIGHT" },
+      "waves": { "name": "海浪", "en": "WAVES" },
+      "fire": { "name": "篝火", "en": "CAMPFIRE" },
+      "space": { "name": "深空", "en": "DEEP SPACE" }
+    }
+  },
+  "palette": {
+    "placeholder": "搜文章、跳页面…",
+    "pages": "页面",
+    "posts": "文章",
+    "actions": "操作",
+    "switchToEn": "切换到英文",
+    "switchToZh": "切换到中文",
+    "empty": "没有匹配的结果。",
+    "hint": "↑↓ 选择 · ↵ 打开 · esc 关闭",
+    "close": "关闭"
   }
 }

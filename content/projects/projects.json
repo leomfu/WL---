@@ -1,0 +1,38 @@
+[
+  {
+    "slug": "project-a",
+    "name": "[项目名 A]",
+    "name_en": "[Project A]",
+    "desc": "[一句话介绍这个项目解决了什么问题]。",
+    "desc_en": "[One line on the problem this project solves.]",
+    "stack": ["Next.js", "TypeScript"],
+    "link": "",
+    "repo": "",
+    "featured": true,
+    "year": "2026"
+  },
+  {
+    "slug": "project-b",
+    "name": "[项目名 B]",
+    "name_en": "[Project B]",
+    "desc": "[一句话介绍]。",
+    "desc_en": "[One line intro.]",
+    "stack": ["React"],
+    "link": "",
+    "repo": "",
+    "featured": true,
+    "year": "2025"
+  },
+  {
+    "slug": "project-c",
+    "name": "[项目名 C]",
+    "name_en": "[Project C]",
+    "desc": "[更早的一个小东西，一句话介绍]。",
+    "desc_en": "[An earlier small thing, one line.]",
+    "stack": [],
+    "link": "",
+    "repo": "",
+    "featured": false,
+    "year": "2024"
+  }
+]
