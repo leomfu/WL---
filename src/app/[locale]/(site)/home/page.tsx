@@ -97,10 +97,15 @@ export default async function HomePage({
                     {label}
                   </Link>
                 )}
-                {" —— "}
+                {/* 分隔符和句末符号跟着语言走（中文 —— / 。，英文 · / .） */}
+                {t("projectSeparator")}
                 {desc}
                 {project.stack && project.stack.length > 0 && (
-                  <span className="text-muted"> {project.stack.join(" / ")}。</span>
+                  <span className="text-muted">
+                    {" "}
+                    {project.stack.join(" / ")}
+                    {t("stackSuffix")}
+                  </span>
                 )}
               </p>
             );

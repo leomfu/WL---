@@ -1,10 +1,10 @@
 {
   "meta": {
-    "title": "[Your Name]",
-    "description": "[ONE LINE IN ENGLISH] — a personal site: projects, writing, thoughts, and a lounge for doing nothing at all."
+    "title": "Weiliang",
+    "description": "A support newcomer who chases problems down to the root, then writes the answer down for the next person. A personal site: projects, writing, thoughts, and a lounge for doing nothing at all."
   },
   "pageMeta": {
-    "home": { "title": "Home", "description": "[Your Name]'s personal site: what I'm doing now, what I've built, what I've written." },
+    "home": { "title": "Home", "description": "Weiliang's personal site: what I'm doing now, what I've built, what I've written." },
     "projects": { "title": "Projects", "description": "Things I've built, listed one by one." },
     "videos": { "title": "Videos", "description": "Videos I've posted on Bilibili and YouTube." },
     "blog": { "title": "Writing", "description": "Essays, posts, and a few loose thoughts." },
@@ -19,14 +19,14 @@
     "eyebrow": "个人网站 · PERSONAL SITE",
     "nameLabel": "NAME",
     "sinceLabel": "SINCE",
-    "tagline": "[ONE LINE IN ENGLISH]",
-    "taglineSub": "[一句话定位 —— 这句我们一起磨]",
+    "tagline": "A support newcomer who chases problems down to the root, then writes the answer down for the next person.",
+    "taglineSub": "一个喜欢把问题查到根上、再把答案写下来给下一个人的技术支持新人。",
     "enter": "SCROLL TO ENTER",
     "enterHintPrefix": "or press",
     "enterKey": "Enter ↵",
     "footer": "MONOCHROME BY DESIGN",
     "switchLocale": "Switch to Chinese",
-    "logoAlt": "[Your Name]'s logo"
+    "logoAlt": "Weiliang's logo"
   },
   "nav": {
     "home": "Home",
@@ -59,6 +59,8 @@
   "home": {
     "nowTitle": "Right now",
     "buildingTitle": "What I'm building",
+    "projectSeparator": " · ",
+    "stackSuffix": ".",
     "writingTitle": "What I've written",
     "moreProjects": "Older things live on the <link>projects page</link>.",
     "morePosts": "More of it under <link>writing</link>.",

@@ -20,7 +20,8 @@ const field = (name, fallback) =>
   source.match(new RegExp(`${name}:\\s*"([^"]*)"`))?.[1] ?? fallback;
 
 const nameEn = field("nameEn", "[Your Name]");
-const taglineEn = field("taglineEn", "");
+// 用短版：图上这一行是单行排版，整句英文一句话会溢出画布
+const taglineEn = field("taglineShortEn", "");
 const since = field("since", "2026");
 
 const box = (style, children) => h("div", { style: { display: "flex", ...style } }, children);

@@ -1,10 +1,10 @@
 {
   "meta": {
-    "title": "[你的名字]",
-    "description": "[一句话定位] —— 个人网站：项目、文章、想法，以及一个用来发呆的放松区。"
+    "title": "伟良",
+    "description": "一个喜欢把问题查到根上、再把答案写下来给下一个人的技术支持新人。个人网站：项目、文章、想法，以及一个用来发呆的放松区。"
   },
   "pageMeta": {
-    "home": { "title": "首页", "description": "[你的名字] 的个人网站：现在在做什么、做过的项目、写下的文章。" },
+    "home": { "title": "首页", "description": "伟良的个人网站：现在在做什么、做过的项目、写下的文章。" },
     "projects": { "title": "项目", "description": "做过的东西，一个个列在这里。" },
     "videos": { "title": "视频", "description": "在哔哩哔哩和 YouTube 上发过的视频。" },
     "blog": { "title": "写字的地方", "description": "长文、博客和一些没头没尾的想法。" },
@@ -19,14 +19,14 @@
     "eyebrow": "个人网站 · PERSONAL SITE",
     "nameLabel": "NAME",
     "sinceLabel": "SINCE",
-    "tagline": "[一句话定位 —— 这句我们一起磨]",
-    "taglineSub": "[ONE LINE IN ENGLISH]",
+    "tagline": "一个喜欢把问题查到根上、再把答案写下来给下一个人的技术支持新人。",
+    "taglineSub": "A support newcomer who chases problems down to the root, then writes the answer down for the next person.",
     "enter": "向下滚动进入",
     "enterHintPrefix": "或按",
     "enterKey": "Enter ↵",
     "footer": "黑白呈现 · MONOCHROME BY DESIGN",
     "switchLocale": "切换到英文",
-    "logoAlt": "[你的名字] 的 Logo"
+    "logoAlt": "伟良的 Logo"
   },
   "nav": {
     "home": "首页",
@@ -59,6 +59,8 @@
   "home": {
     "nowTitle": "现在是",
     "buildingTitle": "我在做的",
+    "projectSeparator": " —— ",
+    "stackSuffix": "。",
     "writingTitle": "我写的",
     "moreProjects": "更早的东西都在 <link>项目页</link> 里。",
     "morePosts": "更多文章在 <link>写字的地方</link>。",

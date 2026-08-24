@@ -22,14 +22,21 @@ export type Social = {
 
 export const siteConfig = {
   /* --- 身份 --- */
-  name: "[你的名字]",
-  nameEn: "[Your Name]",
-  tagline: "[一句话定位 —— 这句我们一起磨]",
-  taglineEn: "[ONE LINE IN ENGLISH]",
+  name: "伟良",
+  nameEn: "Weiliang",
+  tagline: "一个喜欢把问题查到根上、再把答案写下来给下一个人的技术支持新人。",
+  taglineEn:
+    "A support newcomer who chases problems down to the root, then writes the answer down for the next person.",
+  /**
+   * 短版一句话 —— 侧边栏那一行和分享图（og.png）都只有一行的位置，
+   * 整句放不下会被截断，所以那两处用这个短版。改了要重跑 `npm run og`。
+   */
+  taglineShort: "把问题查到根上，再写下来",
+  taglineShortEn: "Root causes, written down",
   since: "2026",
 
   /* --- 联系方式 --- */
-  email: "[your@email.com]",
+  email: "weiliang99520@gmail.com",
 
   /* --- 站点元信息（部署平台定了再填真实域名）--- */
   url: "https://example.com",
@@ -41,11 +48,37 @@ export const siteConfig = {
 
   /* --- 社交平台（链接留空 = 暂未提供，UI 上按占位处理）--- */
   socials: [
-    { key: "x", label: "X", labelEn: "X", href: "", handle: "@[用户名]" },
-    { key: "github", label: "GitHub", labelEn: "GitHub", href: "", handle: "@[用户名]" },
-    { key: "bilibili", label: "哔哩哔哩", labelEn: "Bilibili", href: "", handle: "[主页]" },
+    {
+      key: "x",
+      label: "X",
+      labelEn: "X",
+      href: "https://x.com/WeiliangF27854",
+      handle: "@WeiliangF27854",
+    },
+    {
+      key: "github",
+      label: "GitHub",
+      labelEn: "GitHub",
+      href: "https://github.com/weiliang99520-a11y",
+      handle: "@weiliang99520-a11y",
+    },
+    {
+      key: "bilibili",
+      label: "哔哩哔哩",
+      labelEn: "Bilibili",
+      href: "https://space.bilibili.com/3546677612907455",
+      handle: "主页",
+    },
+    // YouTube / 抖音：用户给的链接分别是 youtube 首页和 douyin.com/user/self（只对本人生效），
+    // 都不是可分享的主页地址，等正确链接（见 docs/素材清单.md）。留空时 UI 渲染成不可点的灰字。
     { key: "youtube", label: "YouTube", labelEn: "YouTube", href: "", handle: "[频道]" },
-    { key: "xiaohongshu", label: "小红书", labelEn: "Xiaohongshu", href: "", handle: "[主页]" },
+    {
+      key: "xiaohongshu",
+      label: "小红书",
+      labelEn: "Xiaohongshu",
+      href: "https://www.xiaohongshu.com/user/profile/63057ac300000000120001cf",
+      handle: "主页",
+    },
     { key: "douyin", label: "抖音", labelEn: "Douyin", href: "", handle: "[主页]" },
     { key: "rss", label: "RSS", labelEn: "RSS", href: "/rss.xml", handle: "" },
   ] satisfies Social[],

@@ -52,7 +52,8 @@ export function Sidebar() {
   const otherLocaleHref = pathname.replace(/^\/[^/]+/, `/${otherLocale}`) || `/${otherLocale}/`;
 
   const name = locale === "en" ? siteConfig.nameEn : siteConfig.name;
-  const tagline = locale === "en" ? siteConfig.taglineEn : siteConfig.tagline;
+  /** 这一行只有一行高、还要 truncate，所以用短版一句话（整句在开场页和 meta 里） */
+  const tagline = locale === "en" ? siteConfig.taglineShortEn : siteConfig.taglineShort;
 
   const panel = (
     <div className="flex h-full flex-col gap-7 overflow-y-auto px-[18px] pt-[26px] pb-[30px]">

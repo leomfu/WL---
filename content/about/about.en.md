@@ -1,17 +1,19 @@
-[Placeholder — your personal introduction. Replace it once you have the copy; see docs/素材清单.md.]
+I'm Weiliang, currently in Shanghai.
 
-I'm [Your Name], a developer and maker working on [your field], currently based in [city]. I write code by day, words by night, and shoot a little video in between.
+For the past year I've been working in customer support. The job taught me one thing: when a customer is anxious, the first thing to give them isn't an explanation — it's something certain. Where things stand, what I'm doing about it, and when it will be fixed.
 
 ## What I'm doing
 
-[Placeholder — your current work and projects, two or three sentences.]
+That same year, I started using AI in earnest. Not to chat with — to get work done.
 
-## Before this
+I built my own knowledge base with Claude Code and Obsidian. I drop in whatever I read, and the AI does the rest: reads it through, writes the summary, pulls out the concepts, cross-links them, appends to the log. It also runs a regular "health check" — looking for conclusions that contradict each other, orphaned notes nothing links to, and gaps that ought to be filled. I wrote those rules myself; essentially it's an SOP written for an AI to follow.
 
-[Placeholder — a short history: what you studied, where you worked, what you built. It reads better as a story than as a résumé.]
+I also built Claude-Anki: it turns my notes into flashcards with real human pronunciation, automatically. Three decks and 220 cards so far, and I go through them every day.
 
-## Things I like
+Both come down to the same thing: I can take an idea, turn it into something that actually runs, and keep it running on its own.
 
-[Placeholder — interests outside of work: books, films, music, other crafts.]
+## Where I'm headed
 
-If you'd like to talk, just [send an email](/contact).
+I want to work in AI-related technical roles. Networking, databases and Linux are what I study; I've spent a year talking to customers, and putting complicated things into plain words is what I'm good at. The hands-on experience I'm still missing, I'm willing to learn from scratch.
+
+Both projects are over in [projects](/projects). If you'd like to talk, just [send an email](/contact).
