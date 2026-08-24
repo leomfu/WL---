@@ -71,9 +71,9 @@ export function LoungeStage() {
 
   return (
     <div className="relative flex h-dvh w-full overflow-hidden bg-shell text-shell-ink">
-      {/* 鼠标移到最左边就展开导航 */}
+      {/* 鼠标移到最左边就展开导航。只留 12px：再宽会盖住图标条上的图标，点不动 */}
       <div
-        className="absolute top-0 bottom-0 left-0 z-30 w-6"
+        className="absolute top-0 bottom-0 left-0 z-30 w-3"
         onMouseEnter={() => setRailExpanded(true)}
       />
       <div
