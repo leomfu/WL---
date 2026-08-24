@@ -7,7 +7,7 @@ import { localePath } from "./nav";
 /**
  * 每页的双语 metadata（标题 / 描述 / canonical / hreflang / OG）。
  * 文案走 messages 的 pageMeta 命名空间，两种语言都有。
- * OG 图不在这里指定 —— Next 会自动挂上 app/[locale]/opengraph-image 生成的那张。
+ * 分享图是 public/og.png（由 `npm run og` 生成，见 scripts/generate-og.mjs）。
  */
 export async function pageMetadata(
   locale: string,
@@ -37,11 +37,13 @@ export async function pageMetadata(
       title,
       description,
       url,
+      images: [{ url: "/og.png", width: 1200, height: 630, alt: title }],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: ["/og.png"],
     },
     metadataBase: new URL(siteConfig.url),
   };
