@@ -342,3 +342,54 @@
   color: var(--color-ink);
   letter-spacing: 0.02em;
 }
+
+/* ==========================================================================
+   放松区专用的循环动画（阶段 4）—— 场景背景全部靠渐变 + 噪点生成，不加载大图
+   ========================================================================== */
+
+/* 海浪：横向缓慢漂移 */
+@keyframes dcDriftX {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 900px 0;
+  }
+}
+
+/* 篝火：不规则的明暗跳动 */
+@keyframes dcFlicker {
+  0%,
+  100% {
+    opacity: 0.62;
+    transform: scale(1);
+  }
+  18% {
+    opacity: 0.86;
+    transform: scale(1.015);
+  }
+  37% {
+    opacity: 0.7;
+  }
+  54% {
+    opacity: 0.95;
+    transform: scale(1.03);
+  }
+  71% {
+    opacity: 0.74;
+  }
+  88% {
+    opacity: 0.9;
+    transform: scale(1.01);
+  }
+}
+
+/* 雨夜：斜纹雨丝下落 */
+@keyframes dcRain {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 180px 900px;
+  }
+}

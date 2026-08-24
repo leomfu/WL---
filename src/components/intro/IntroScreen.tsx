@@ -8,6 +8,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
 import { Starfield } from "./Starfield";
 import { Grain } from "./Grain";
+import { useStoredState } from "@/lib/useStoredState";
 import { siteConfig } from "~/site.config";
 
 const INTRO_SEEN_KEY = "intro-seen";
@@ -33,40 +34,27 @@ export function IntroScreen() {
   const reduced = useReducedMotion() ?? false;
 
   /** 本次会话已经进过站就不再看开场页，直接放行 */
-  const [ready, setReady] = useState(false);
+  const [seen, setSeen] = useStoredState(INTRO_SEEN_KEY, "0", "session");
+  const ready = seen !== "1";
   const [leaving, setLeaving] = useState(false);
   const leavingRef = useRef(false);
 
   const otherLocale = locale === "zh" ? "en" : "zh";
   const homeHref = `/${locale}/home/`;
 
+  /** 客户端路由跳回开场页时的兜底（首次访问由 page.tsx 里那段内联脚本处理） */
   useEffect(() => {
-    let seen = false;
-    try {
-      seen = window.sessionStorage.getItem(INTRO_SEEN_KEY) === "1";
-    } catch {
-      // 隐私模式下 sessionStorage 可能直接抛错，当作没看过处理
-    }
-
-    if (seen) {
-      router.replace(homeHref);
-      return;
-    }
-    setReady(true);
-  }, [homeHref, router]);
+    if (seen === "1" && !leavingRef.current) router.replace(homeHref);
+  }, [homeHref, router, seen]);
 
   const enter = useCallback(() => {
     if (leavingRef.current) return;
     leavingRef.current = true;
     setLeaving(true);
 
-    try {
-      window.sessionStorage.setItem(INTRO_SEEN_KEY, "1");
-    } catch {
-      // 存不下就算了，最多下次再看一遍开场页
-    }
+    setSeen("1");
     window.setTimeout(() => router.push(homeHref), reduced ? 0 : 620);
-  }, [homeHref, reduced, router]);
+  }, [homeHref, reduced, router, setSeen]);
 
   /** 滚动 / 回车 / 点击，三种都能进站 */
   useEffect(() => {

@@ -9,6 +9,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { NavIcon } from "@/components/icons/NavIcon";
 import { SocialIcon } from "@/components/icons/SocialIcon";
 import { NAV_ITEMS, localePath, type NavKey } from "@/lib/nav";
+import { useStoredState } from "@/lib/useStoredState";
 import { siteConfig } from "~/site.config";
 
 /**
@@ -25,31 +26,11 @@ export function Sidebar() {
   const pathname = usePathname();
   const reduced = useReducedMotion() ?? false;
 
-  const [collapsed, setCollapsed] = useState(false);
+  const [storedCollapsed, setStoredCollapsed] = useStoredState(COLLAPSE_KEY, "0");
+  const collapsed = storedCollapsed === "1";
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  useEffect(() => {
-    try {
-      setCollapsed(window.localStorage.getItem(COLLAPSE_KEY) === "1");
-    } catch {
-      // 隐私模式下读不到就当没折叠
-    }
-  }, []);
-
-  const toggleCollapsed = () => {
-    setCollapsed((prev) => {
-      const next = !prev;
-      try {
-        window.localStorage.setItem(COLLAPSE_KEY, next ? "1" : "0");
-      } catch {
-        // 存不下不影响本次使用
-      }
-      return next;
-    });
-  };
-
-  /** 路由一变就把抽屉收起来 */
-  useEffect(() => setDrawerOpen(false), [pathname]);
+  const toggleCollapsed = () => setStoredCollapsed(collapsed ? "0" : "1");
 
   /** 抽屉打开时锁住背景滚动 */
   useEffect(() => {
@@ -269,7 +250,10 @@ export function Sidebar() {
             >
               <CloseIcon />
             </button>
-            <div className="h-full pt-2">{panel}</div>
+            {/* 点抽屉里任何一处（导航链接也算）就收起来 */}
+            <div className="h-full pt-2" onClick={() => setDrawerOpen(false)}>
+              {panel}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

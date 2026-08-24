@@ -78,8 +78,6 @@ export function CommandPalette({
     return [...pageRows, ...postRows, ...actionRows];
   }, [locale, otherLocaleHref, pages, posts, query, t, tNav]);
 
-  useEffect(() => setCursor(0), [query]);
-
   const close = useCallback(() => {
     setOpen(false);
     setQuery("");
@@ -135,7 +133,11 @@ export function CommandPalette({
   const groupLabel = (kind: Row["kind"]) =>
     kind === "page" ? t("pages") : kind === "post" ? t("posts") : t("actions");
 
-  let lastKind: Row["kind"] | null = null;
+  /** 每组第一条才显示分组标题；先算好，别在渲染里改外部变量 */
+  const listed = rows.map((row, i) => ({
+    row,
+    showGroup: i === 0 || rows[i - 1].kind !== row.kind,
+  }));
 
   return (
     <AnimatePresence>
@@ -163,7 +165,10 @@ export function CommandPalette({
               <input
                 ref={inputRef}
                 value={query}
-                onChange={(e) => setQuery(e.target.value)}
+                onChange={(e) => {
+                  setQuery(e.target.value);
+                  setCursor(0);
+                }}
                 onKeyDown={onInputKeyDown}
                 placeholder={t("placeholder")}
                 aria-label={t("placeholder")}
@@ -184,9 +189,7 @@ export function CommandPalette({
                 <p className="px-4 py-6 text-[13px] text-muted">{t("empty")}</p>
               )}
 
-              {rows.map((row, i) => {
-                const showGroup = row.kind !== lastKind;
-                lastKind = row.kind;
+              {listed.map(({ row, showGroup }, i) => {
                 const active = i === cursor;
 
                 return (

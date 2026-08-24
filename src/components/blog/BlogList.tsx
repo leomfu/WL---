@@ -38,7 +38,16 @@ export function BlogList({ posts }: { posts: PostCard[] }) {
     [filter, posts],
   );
 
-  let lastYear = "";
+  /** 年份分隔行：跟上一条比一下就知道该不该插，别在渲染里改外部变量 */
+  const rows = useMemo(
+    () =>
+      visible.map((post, i) => ({
+        post,
+        year: yearOf(post.date),
+        showYear: i > 0 && yearOf(post.date) !== yearOf(visible[i - 1].date),
+      })),
+    [visible],
+  );
 
   return (
     <>
@@ -73,14 +82,10 @@ export function BlogList({ posts }: { posts: PostCard[] }) {
           <p className="py-10 text-base leading-[1.9] text-muted">{t("empty")}</p>
         )}
 
-        {visible.map((post, i) => {
-          const year = yearOf(post.date);
-          const newYear = year !== lastYear;
-          lastYear = year;
-
+        {rows.map(({ post, year, showYear }, i) => {
           return (
             <div key={post.slug}>
-              {newYear && i > 0 && (
+              {showYear && (
                 <div className="flex items-center gap-[30px] pt-8 pb-2">
                   <span className="w-[86px] shrink-0 text-[11px] tracking-(--tracking-label) text-faint">
                     {year}
@@ -92,7 +97,7 @@ export function BlogList({ posts }: { posts: PostCard[] }) {
               <Link
                 href={localePath(locale, `/blog/${post.slug}`)}
                 className={`group flex flex-col gap-2.5 py-[25px] sm:flex-row sm:gap-[30px] ${
-                  i === visible.length - 1 ? "" : "border-b border-line"
+                  i === rows.length - 1 ? "" : "border-b border-line"
                 }`}
               >
                 <span className="w-[86px] shrink-0 pt-1 text-[12.5px] whitespace-nowrap text-faint">

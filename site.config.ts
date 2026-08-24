@@ -56,12 +56,17 @@ export const siteConfig = {
     neteasePlaylists: [] as string[],
     /** 播客嵌入地址（小宇宙 / YouTube 播放列表） */
     podcastEmbeds: [] as string[],
-    /** 氛围场景，音频文件放 public/audio/ambient/ */
+    /**
+     * 氛围场景。音频路径已按约定的文件名预填好 —— 把 CC0 素材下载成这些名字丢进
+     * `public/audio/ambient/` 就自动生效，不用改这里（见该目录的 README）。
+     * 文件还不在时页面照常运行，只是没声音，底部会提示一行。
+     * 场景名走 messages 的 lounge.scenes（双语），这里只管 key 和音频。
+     */
     scenes: [
-      { key: "rain", label: "雨夜", labelEn: "Rainy Night", audio: "" },
-      { key: "waves", label: "海浪", labelEn: "Waves", audio: "" },
-      { key: "fire", label: "篝火", labelEn: "Campfire", audio: "" },
-      { key: "space", label: "深空", labelEn: "Deep Space", audio: "" },
+      { key: "rain", audio: "/audio/ambient/rain.mp3" },
+      { key: "waves", audio: "/audio/ambient/waves.mp3" },
+      { key: "fire", audio: "/audio/ambient/fire.mp3" },
+      { key: "space", audio: "/audio/ambient/space.mp3" },
     ],
   },
 
