@@ -1,0 +1,195 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   黑白设计系统 —— tokens 从 docs/design/ 五个画板中提取（见 PLAN.md §5）
+   除工具页图标 hover 亮品牌色外，全站只用黑白灰。
+   ========================================================================== */
+@theme {
+  /* --- 亮侧：内容区 --- */
+  --color-ink: #111111;        /* 标题、主文字 */
+  --color-body: #333333;       /* 正文 */
+  --color-muted: #666666;      /* 次要文字 */
+  --color-faint: #999999;      /* 日期、标签、占位 */
+  --color-line: #e5e5e5;       /* 分割线、描边 */
+  --color-line-strong: #c9c9c9;/* 正文链接下划线 */
+  --color-card: #ffffff;
+  --color-paper: #fafafa;
+
+  /* --- 暗侧：侧边栏 / 开场页 / 放松区 --- */
+  --color-shell: #0a0a0a;
+  --color-void: #060606;       /* 开场页底色，比侧栏再深一档 */
+  --color-shell-ink: #ededed;
+  --color-shell-muted: #a3a3a3;
+  --color-shell-dim: #8a8a8a;
+  --color-shell-faint: #5a5a5a;
+  --color-shell-mute: #4a4a4a;
+  --color-shell-line: #1f1f1f;
+  --color-shell-line-2: #262626;
+  --color-shell-line-3: #333333;
+
+  /* --- 彩色的唯一例外：工具页图标 hover --- */
+  --color-brand-claude: #c15f3c;
+
+  /* --- 字体 --- */
+  --font-sans: var(--font-inter), "PingFang SC", "Hiragino Sans GB", system-ui,
+    sans-serif;
+  --font-serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", Georgia,
+    serif;
+
+  /* --- 布局尺寸（画板定稿）--- */
+  --spacing-sidebar: 264px;   /* 左侧暗色侧边栏 */
+  --spacing-column: 700px;    /* 内容列 */
+  --spacing-rail: 64px;       /* 放松区收窄后的图标条 */
+
+  /* --- 小标签字距 --- */
+  --tracking-label: 0.2em;
+  --tracking-eyebrow: 0.36em;
+}
+
+/* ==========================================================================
+   基础层
+   ========================================================================== */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+}
+
+/* ==========================================================================
+   工具类
+   ========================================================================== */
+
+/* 内容区背景：不是纯白，是极缓的浅灰渐变 + 右上角一点柔光（画板定稿） */
+@utility bg-content {
+  background-image:
+    radial-gradient(
+      70% 55% at 76% 6%,
+      #ffffff 0%,
+      rgba(255, 255, 255, 0) 62%
+    ),
+    linear-gradient(158deg, #f1f1f1 0%, #fafafa 34%, #f7f7f7 66%, #ececec 100%);
+}
+
+/* 开场页的细分割线：两端淡出，中间实（画板定稿） */
+@utility bg-rule {
+  background-image: linear-gradient(
+    90deg,
+    rgba(237, 237, 237, 0) 0%,
+    rgba(237, 237, 237, 0.55) 22%,
+    rgba(237, 237, 237, 0.55) 78%,
+    rgba(237, 237, 237, 0) 100%
+  );
+}
+
+/* 正文内联链接：细灰底线，hover 变深 */
+@utility link-underline {
+  color: var(--color-ink);
+  border-bottom: 1px solid var(--color-line-strong);
+  padding-bottom: 1px;
+  transition: border-color 200ms ease;
+
+  &:hover {
+    border-bottom-color: var(--color-ink);
+  }
+}
+
+/* ==========================================================================
+   动效词汇表（PLAN.md §5）
+   Framer Motion 负责入场编排，这里放的是持续循环的氛围动画——
+   数量多（星点 46 个）或纯装饰的，交给 CSS 更省。
+   ========================================================================== */
+@keyframes dcTwinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes dcGlow {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+@keyframes dcFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+@keyframes dcSheen {
+  0%,
+  100% {
+    background-position: 0% 8%;
+  }
+  50% {
+    background-position: 0% 92%;
+  }
+}
+
+@keyframes dcBob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+@keyframes dcDrift {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 240px 720px;
+  }
+}
+
+@keyframes dcBreathe {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.075);
+    opacity: 1;
+  }
+}
+
+/* 系统设置里开了「减少动态效果」就全部停掉（PLAN.md §5 硬性要求） */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

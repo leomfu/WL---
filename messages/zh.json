@@ -1,0 +1,40 @@
+{
+  "meta": {
+    "title": "[你的名字]",
+    "description": "[一句话定位] —— 个人网站：项目、文章、想法，以及一个用来发呆的放松区。"
+  },
+  "intro": {
+    "eyebrow": "个人网站 · PERSONAL SITE",
+    "nameLabel": "NAME",
+    "sinceLabel": "SINCE",
+    "tagline": "[一句话定位 —— 这句我们一起磨]",
+    "taglineSub": "[ONE LINE IN ENGLISH]",
+    "enter": "向下滚动进入",
+    "enterHintPrefix": "或按",
+    "enterKey": "Enter ↵",
+    "footer": "黑白呈现 · MONOCHROME BY DESIGN",
+    "switchLocale": "切换到英文",
+    "logoAlt": "[你的名字] 的 Logo"
+  },
+  "nav": {
+    "home": "首页",
+    "projects": "项目",
+    "videos": "视频",
+    "blog": "博客",
+    "about": "关于",
+    "tools": "工具",
+    "lounge": "放松区",
+    "contact": "联系",
+    "connect": "连接 / CONNECT"
+  },
+  "home": {
+    "placeholderTitle": "首页",
+    "placeholderNote": "这一页在阶段 2 做：左侧暗色侧边栏 + 名字大标题 + 自我介绍 + 「现在是」 + 「我在做的」 + 「我写的」。对照 docs/design/Main.dc.html。",
+    "backToIntro": "回开场页"
+  },
+  "common": {
+    "language": "语言",
+    "zh": "中",
+    "en": "EN"
+  }
+}

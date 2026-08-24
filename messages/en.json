@@ -1,0 +1,40 @@
+{
+  "meta": {
+    "title": "[Your Name]",
+    "description": "[One line in English] — personal site: projects, writing, thoughts, and a quiet place to do nothing."
+  },
+  "intro": {
+    "eyebrow": "个人网站 · PERSONAL SITE",
+    "nameLabel": "NAME",
+    "sinceLabel": "SINCE",
+    "tagline": "[ONE LINE IN ENGLISH]",
+    "taglineSub": "[一句话定位 —— 这句我们一起磨]",
+    "enter": "SCROLL TO ENTER",
+    "enterHintPrefix": "or press",
+    "enterKey": "Enter ↵",
+    "footer": "黑白呈现 · MONOCHROME BY DESIGN",
+    "switchLocale": "Switch to Chinese",
+    "logoAlt": "[Your Name] logo"
+  },
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "videos": "Videos",
+    "blog": "Blog",
+    "about": "About",
+    "tools": "Tools",
+    "lounge": "Lounge",
+    "contact": "Contact",
+    "connect": "连接 / CONNECT"
+  },
+  "home": {
+    "placeholderTitle": "Home",
+    "placeholderNote": "Built in stage 2: dark sidebar + serif name + intro + \"Now\" + \"What I'm building\" + \"What I write\". Matches docs/design/Main.dc.html.",
+    "backToIntro": "Back to the intro"
+  },
+  "common": {
+    "language": "Language",
+    "zh": "中",
+    "en": "EN"
+  }
+}
