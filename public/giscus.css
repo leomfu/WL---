@@ -1,0 +1,44 @@
+/*
+ * giscus 的黑白主题 —— 部署后把 site.config.ts 里 giscus.theme 换成这个文件的绝对地址
+ * （例如 https://你的域名/giscus.css）才会生效：giscus 的 iframe 在 giscus.app 域下，
+ * 只接受绝对 URL，且托管平台需允许跨域读取它。
+ */
+main {
+  --color-prettylights-syntax-comment: #a3a3a3;
+  --color-prettylights-syntax-constant: #111111;
+  --color-prettylights-syntax-entity: #111111;
+  --color-prettylights-syntax-string: #5c5c5c;
+  --color-prettylights-syntax-keyword: #111111;
+  --color-btn-text: #111111;
+  --color-btn-bg: #ffffff;
+  --color-btn-border: #e5e5e5;
+  --color-btn-primary-text: #fafafa;
+  --color-btn-primary-bg: #111111;
+  --color-btn-primary-border: #111111;
+  --color-fg-default: #333333;
+  --color-fg-muted: #666666;
+  --color-fg-subtle: #999999;
+  --color-canvas-default: transparent;
+  --color-canvas-subtle: #fafafa;
+  --color-border-default: #e5e5e5;
+  --color-border-muted: #ececec;
+  --color-accent-fg: #111111;
+  --color-accent-emphasis: #111111;
+  --color-social-reaction-bg-hover: #f2f2f2;
+
+  font-family: Inter, "PingFang SC", system-ui, sans-serif;
+  font-size: 14px;
+}
+
+main .gsc-timeline {
+  gap: 14px;
+}
+
+main .gsc-comment-box-tabs,
+main .gsc-comment-header {
+  border-color: #e5e5e5;
+}
+
+main .gsc-reactions-count {
+  display: none;
+}

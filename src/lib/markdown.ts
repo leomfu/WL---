@@ -1,4 +1,4 @@
-import { Marked } from "marked";
+import { Marked, type Tokens } from "marked";
 import { bundledLanguages, codeToHtml, type ThemeRegistrationRaw } from "shiki";
 
 /**
@@ -80,6 +80,12 @@ export async function renderMarkdown(source: string, locale: string) {
 
   marked.use({
     renderer: {
+      // 标题挂 id，供文章详情页的目录跳转
+      heading({ tokens, depth }) {
+        const inner = this.parser.parseInline(tokens);
+        const id = slugifyHeading(inner.replace(/<[^>]*>/g, ""));
+        return `<h${depth} id="${id}">${inner}</h${depth}>`;
+      },
       link({ href, title, tokens }) {
         const text = this.parser.parseInline(tokens);
         const external = /^https?:\/\//.test(href);
@@ -111,4 +117,26 @@ export async function renderMarkdown(source: string, locale: string) {
   });
 
   return (await marked.parse(source)) as string;
+}
+
+/** 标题 id：小写、空格转连字符，中文原样留着（浏览器锚点支持 UTF-8） */
+export function slugifyHeading(text: string) {
+  return text
+    .trim()
+    .toLowerCase()
+    .replace(/[\s]+/g, "-")
+    .replace(/[^\p{Letter}\p{Number}-]/gu, "");
+}
+
+export type Heading = { depth: number; text: string; id: string };
+
+/** 抽出 h2/h3 给文章目录用（只走 lexer，不渲染，很便宜） */
+export function extractHeadings(source: string): Heading[] {
+  const tokens = new Marked({ gfm: true }).lexer(source) as Tokens.Generic[];
+  return tokens
+    .filter((token) => token.type === "heading" && (token.depth === 2 || token.depth === 3))
+    .map((token) => {
+      const text = String(token.text ?? "").replace(/[*_`]/g, "");
+      return { depth: Number(token.depth), text, id: slugifyHeading(text) };
+    });
 }

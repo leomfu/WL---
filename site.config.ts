@@ -69,8 +69,15 @@ export const siteConfig = {
   giscus: {
     repo: "",
     repoId: "",
-    category: "",
+    category: "Announcements",
     categoryId: "",
+    /**
+     * giscus 主题。默认 light（内容区本来就是浅灰底）。
+     * 想用 public/giscus.css 那份黑白主题，填它的**绝对地址**，
+     * 例如 "https://你的域名/giscus.css" —— giscus 的 iframe 在别的域，
+     * 只认绝对 URL，而且托管方要允许跨域取这个文件。
+     */
+    theme: "light",
   },
 
   /* --- 访问统计（阶段 5 部署时接）--- */

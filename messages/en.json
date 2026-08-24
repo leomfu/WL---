@@ -100,7 +100,7 @@
   },
   "blog": {
     "title": "Writing",
-    "lead": "Essays, posts and a few loose thoughts, all in one place. <count>{count}</count> in total.",
+    "lead": "Essays, posts and a few loose thoughts, all in one place. <em>{count}</em> in total.",
     "filterAll": "All",
     "order": "Newest first",
     "minutes": "{minutes} min",

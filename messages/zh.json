@@ -100,7 +100,7 @@
   },
   "blog": {
     "title": "写字的地方",
-    "lead": "长文、博客和一些没头没尾的想法，都放在这里。共 <count>{count}</count> 篇。",
+    "lead": "长文、博客和一些没头没尾的想法，都放在这里。共 <em>{count}</em> 篇。",
     "filterAll": "全部",
     "order": "按时间倒序",
     "minutes": "{minutes} 分钟",

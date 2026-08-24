@@ -1,0 +1,49 @@
+[
+  {
+    "type": "book",
+    "title": "[书名占位 A]",
+    "title_en": "[Book placeholder A]",
+    "creator": "[作者]",
+    "creator_en": "[Author]",
+    "rating": 4,
+    "note": "[一句话短评 —— 为什么值得看，或者哪一章最好。]",
+    "note_en": "[One-line note — why it's worth reading.]",
+    "date": "2026-08-10",
+    "link": ""
+  },
+  {
+    "type": "movie",
+    "title": "[电影占位 A]",
+    "title_en": "[Film placeholder A]",
+    "creator": "[导演]",
+    "creator_en": "[Director]",
+    "rating": 5,
+    "note": "[一句话短评。]",
+    "note_en": "[One-line note.]",
+    "date": "2026-07-22",
+    "link": ""
+  },
+  {
+    "type": "album",
+    "title": "[专辑占位 A]",
+    "title_en": "[Album placeholder A]",
+    "creator": "[乐队/音乐人]",
+    "creator_en": "[Artist]",
+    "rating": 4,
+    "note": "[写代码时一直在放的一张。]",
+    "note_en": "[On repeat while coding.]",
+    "date": "2026-07-05",
+    "link": ""
+  },
+  {
+    "type": "book",
+    "title": "[书名占位 B]",
+    "title_en": "[Book placeholder B]",
+    "creator": "[作者]",
+    "creator_en": "[Author]",
+    "note": "[还在读，没打分。]",
+    "note_en": "[Still reading, no rating yet.]",
+    "date": "2026-06-18",
+    "link": ""
+  }
+]
