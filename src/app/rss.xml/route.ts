@@ -4,7 +4,8 @@ import { siteConfig } from "~/site.config";
 
 /**
  * RSS —— 静态导出下的 route handler 必须是静态的（只有 GET + force-static），
- * 构建时会写成 out/rss.xml。侧边栏的 RSS 那一项指向它。
+ * 构建时会写成 out/rss.xml。订阅地址是 /rss.xml（用户要求侧边栏不再展示 RSS 入口，
+ * 功能本身保留，直接给地址就能订阅）。
  * 条目用文章原文语言的标题（一篇文章只发一次，不按语言拆两份）。
  */
 export const dynamic = "force-static";

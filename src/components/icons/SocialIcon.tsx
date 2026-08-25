@@ -30,9 +30,6 @@ const PATHS: Record<SocialKey, React.ReactNode> = {
   douyin: (
     <path d="M13.4 3.5a3.9 3.9 0 0 1-2.4-.8A3.9 3.9 0 0 1 9.5.5H7v9.8a2.1 2.1 0 1 1-1.7-2.1V5.7A4.7 4.7 0 1 0 9.5 10.3V5.8a6.1 6.1 0 0 0 3.9 1.3z" />
   ),
-  rss: (
-    <path d="M3.2 11.1a1.9 1.9 0 1 1 0 3.8 1.9 1.9 0 0 1 0-3.8zM1.4 6.2a8.7 8.7 0 0 1 8.7 8.7H7.7A6.3 6.3 0 0 0 1.4 8.6zm0-4.9A13.6 13.6 0 0 1 15 14.9h-2.4A11.2 11.2 0 0 0 1.4 3.7z" />
-  ),
 };
 
 export function SocialIcon({ name, size = 16 }: { name: SocialKey; size?: number }) {

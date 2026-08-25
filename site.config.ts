@@ -9,8 +9,7 @@ export type SocialKey =
   | "bilibili"
   | "youtube"
   | "xiaohongshu"
-  | "douyin"
-  | "rss";
+  | "douyin";
 
 export type Social = {
   key: SocialKey;
@@ -69,9 +68,13 @@ export const siteConfig = {
       href: "https://space.bilibili.com/3546677612907455",
       handle: "主页",
     },
-    // YouTube / 抖音：用户给的链接分别是 youtube 首页和 douyin.com/user/self（只对本人生效），
-    // 都不是可分享的主页地址，等正确链接（见 docs/素材清单.md）。留空时 UI 渲染成不可点的灰字。
-    { key: "youtube", label: "YouTube", labelEn: "YouTube", href: "", handle: "[频道]" },
+    {
+      key: "youtube",
+      label: "YouTube",
+      labelEn: "YouTube",
+      href: "https://www.youtube.com/@WEILIANGFU-s7q",
+      handle: "@WEILIANGFU-s7q",
+    },
     {
       key: "xiaohongshu",
       label: "小红书",
@@ -79,8 +82,9 @@ export const siteConfig = {
       href: "https://www.xiaohongshu.com/user/profile/63057ac300000000120001cf",
       handle: "主页",
     },
+    // 抖音：用户给的 douyin.com/user/self 只对本人生效，不是可分享的主页地址，
+    // 等正确链接（见 docs/素材清单.md）。留空时 UI 渲染成不可点的灰字。
     { key: "douyin", label: "抖音", labelEn: "Douyin", href: "", handle: "[主页]" },
-    { key: "rss", label: "RSS", labelEn: "RSS", href: "/rss.xml", handle: "" },
   ] satisfies Social[],
 
   /* --- 放松区（阶段 4 用）--- */

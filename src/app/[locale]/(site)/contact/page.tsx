@@ -34,8 +34,7 @@ export default async function ContactPage({
   const tHome = await getTranslations("home");
 
   const name = locale === "en" ? siteConfig.nameEn : siteConfig.name;
-  /** RSS 不算「在别处」，它在侧边栏里 */
-  const socials = siteConfig.socials.filter((s) => s.key !== "rss");
+  const socials = siteConfig.socials;
 
   return (
     <>

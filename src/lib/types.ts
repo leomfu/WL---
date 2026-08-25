@@ -26,6 +26,8 @@ export type Video = {
   date: string;
   desc: string;
   desc_en?: string;
+  /** 封面图（public 下路径），未加载播放器时显示 */
+  cover?: string;
 };
 
 export type Tool = {
