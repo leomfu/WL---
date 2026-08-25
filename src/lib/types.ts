@@ -69,3 +69,32 @@ export type LibraryItem = {
   date: string;
   link?: string;
 };
+
+/**
+ * 放松区「音乐」层的一首歌。两个来源：
+ * - kind "local"：自己托管在 public/audio/music/ 的公共领域录音，永远能放（「常驻」）
+ * - kind "netease"：网易云外链，只收录构建前验证过能真放出声的（「我在听」，见 scripts/fetch-netease.mjs）
+ */
+export type TrackKind = "local" | "netease";
+
+export type Track = {
+  id: string;
+  kind: TrackKind;
+  /** 音频地址：本地是站内路径，网易云是外链 */
+  src: string;
+  title: string;
+  titleEn: string;
+  artist: string;
+  artistEn: string;
+  /** 秒。本地曲目是准的；网易云那边给的是元数据时长 */
+  duration: number;
+};
+
+export type MusicLibrary = {
+  resident: Track[];
+  netease: Track[];
+  /** 网易云歌单主页，放在页脚做「听完整歌单」的外链 */
+  playlistUrl: string;
+  /** 常驻曲库的出处声明 */
+  residentCredit: string;
+};

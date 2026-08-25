@@ -204,6 +204,22 @@
         "name": "深空",
         "en": "DEEP SPACE"
       }
+    },
+    "music": {
+      "groupNetease": "我在听",
+      "groupResident": "常驻",
+      "play": "播放",
+      "pause": "暂停",
+      "prev": "上一首",
+      "next": "下一首",
+      "volume": "音量",
+      "seek": "点圆盘跳到那个位置",
+      "showList": "曲目",
+      "hideList": "收起",
+      "unplayable": "· 放不出来",
+      "residentCredit": "常驻曲库：{credit}，自己托管，断不了。",
+      "neteaseNote": "来自我的网易云歌单，只收了外链能真放出声的那些。",
+      "fullPlaylist": "听完整歌单 →"
     }
   },
   "palette": {

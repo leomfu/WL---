@@ -4,10 +4,12 @@ import matter from "gray-matter";
 import { excerpt, readingMinutes } from "./format";
 import type {
   LibraryItem,
+  MusicLibrary,
   Post,
   PostType,
   Project,
   Tool,
+  Track,
   Video,
 } from "./types";
 
@@ -120,4 +122,36 @@ export function getLibrary(): LibraryItem[] {
   return readJson<LibraryItem[]>("library/library.json", []).sort((a, b) =>
     b.date.localeCompare(a.date),
   );
+}
+
+/** 放松区音乐层：常驻（自托管公共领域）+ 我在听（网易云外链，构建前验过能放） */
+type ResidentFile = {
+  credit: string;
+  tracks: Array<Omit<Track, "kind">>;
+};
+type NeteaseFile = {
+  playlistUrl: string;
+  tracks: Array<{ id: string; title: string; artist: string; duration: number }>;
+};
+
+export function getMusic(): MusicLibrary {
+  const resident = readJson<ResidentFile>("music/resident.json", { credit: "", tracks: [] });
+  const netease = readJson<NeteaseFile>("music/netease.json", { playlistUrl: "", tracks: [] });
+
+  return {
+    resident: resident.tracks.map((t) => ({ ...t, kind: "local" as const })),
+    netease: netease.tracks.map((t) => ({
+      id: t.id,
+      kind: "netease" as const,
+      // 外链走 https，让浏览器自己跟 302；http 直链会被当成混合内容拦掉
+      src: `https://music.163.com/song/media/outer/url?id=${t.id}.mp3`,
+      title: t.title,
+      titleEn: t.title,
+      artist: t.artist,
+      artistEn: t.artist,
+      duration: t.duration,
+    })),
+    playlistUrl: netease.playlistUrl,
+    residentCredit: resident.credit,
+  };
 }

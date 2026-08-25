@@ -204,6 +204,22 @@
         "name": "Deep Space",
         "en": "DEEP SPACE"
       }
+    },
+    "music": {
+      "groupNetease": "On repeat",
+      "groupResident": "Always here",
+      "play": "Play",
+      "pause": "Pause",
+      "prev": "Previous",
+      "next": "Next",
+      "volume": "Volume",
+      "seek": "Click the dial to jump",
+      "showList": "Tracks",
+      "hideList": "Hide",
+      "unplayable": "· unavailable",
+      "residentCredit": "Always-here set: {credit}. Self-hosted, never goes down.",
+      "neteaseNote": "From my NetEase playlist — only the tracks that actually stream.",
+      "fullPlaylist": "Full playlist →"
     }
   },
   "palette": {

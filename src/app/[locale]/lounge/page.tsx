@@ -1,6 +1,7 @@
 import { setRequestLocale } from "next-intl/server";
 import { LoungeStage } from "@/components/lounge/LoungeStage";
 import { pageMetadata } from "@/lib/metadata";
+import { getMusic } from "@/lib/content";
 import { routing } from "@/i18n/routing";
 
 export function generateStaticParams() {
@@ -28,5 +29,5 @@ export default async function LoungePage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  return <LoungeStage />;
+  return <LoungeStage music={getMusic()} />;
 }

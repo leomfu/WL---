@@ -2,11 +2,13 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { LoungeRail } from "./LoungeRail";
+import { MusicDial } from "./MusicDial";
 import { SceneBackdrop } from "./SceneBackdrop";
 import { useAmbient } from "./useAmbient";
 import { siteConfig } from "~/site.config";
+import type { MusicLibrary } from "@/lib/types";
 
 /**
  * 放松区沉浸模式 —— 对照 docs/design/Lounge.dc.html。
@@ -21,9 +23,8 @@ type Tab = (typeof TABS)[number];
 
 const EASE = [0.22, 0.61, 0.36, 1] as const;
 
-export function LoungeStage() {
+export function LoungeStage({ music }: { music: MusicLibrary }) {
   const t = useTranslations("lounge");
-  const locale = useLocale();
   const reduced = useReducedMotion() ?? false;
 
   const scenes = siteConfig.lounge.scenes;
@@ -35,11 +36,10 @@ export function LoungeStage() {
   const [tab, setTab] = useState<Tab>("ambient");
   const [started, setStarted] = useState(false);
   const [railExpanded, setRailExpanded] = useState(false);
-  const [playlistIndex, setPlaylistIndex] = useState(0);
   const [podcastIndex, setPodcastIndex] = useState(0);
 
-  const playlists = siteConfig.lounge.neteasePlaylists;
   const podcasts = siteConfig.lounge.podcastEmbeds;
+  const hasMusic = music.resident.length + music.netease.length > 0;
 
   /** 没素材的那一层直接不显示 —— 与其给访客看一句「还没配」，不如让它不存在 */
   const tabs = useMemo(
@@ -47,10 +47,10 @@ export function LoungeStage() {
       TABS.filter(
         (key) =>
           key === "ambient" ||
-          (key === "music" && playlists.length > 0) ||
+          (key === "music" && hasMusic) ||
           (key === "podcast" && podcasts.length > 0),
       ),
-    [playlists.length, podcasts.length],
+    [hasMusic, podcasts.length],
   );
 
   /** ESC：收起/展开左侧导航（视觉稿底部那行「ESC 退出沉浸」说的就是这个） */
@@ -164,22 +164,9 @@ export function LoungeStage() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: reduced ? 0.01 : 0.5 }}
-                className="w-full max-w-[460px]"
+                className="w-full max-w-[560px]"
               >
-                {/* 网易云播放器是红白配色、样式不可改，收进一个黑白相框里并去色，
-                    鼠标移上去再还原颜色（PLAN.md §6 第 3 条） */}
-                <div className="rounded-[3px] border border-shell-line-2 bg-[#0E0E0E] p-3">
-                  <iframe
-                    key={playlists[playlistIndex].id}
-                    title={`${t("tabMusic")} · ${playlistName(playlists[playlistIndex], locale)}`}
-                    src={`https://music.163.com/outchain/player?type=0&id=${playlists[playlistIndex].id}&auto=0&height=430`}
-                    width="100%"
-                    height={452}
-                    loading="lazy"
-                    className="block border-0 grayscale transition-[filter] duration-500 hover:grayscale-0"
-                    sandbox="allow-scripts allow-same-origin allow-popups allow-presentation"
-                  />
-                </div>
+                <MusicDial library={music} active={tab === "music"} reduced={reduced} />
               </motion.div>
             )}
 
@@ -268,18 +255,6 @@ export function LoungeStage() {
                   </button>
                 );
               })}
-
-            {/* 只有一个歌单时不显示 chip —— 一个孤零零的按钮没有意义 */}
-            {tab === "music" &&
-              playlists.length > 1 &&
-              playlists.map((item, i) => (
-                <Chip
-                  key={item.id}
-                  active={i === playlistIndex}
-                  onClick={() => setPlaylistIndex(i)}
-                  label={playlistName(item, locale)}
-                />
-              ))}
 
             {tab === "podcast" &&
               podcasts.map((src, i) => (
@@ -415,14 +390,6 @@ export function LoungeStage() {
       </AnimatePresence>
     </div>
   );
-}
-
-/** chip 和 iframe 标题上的歌单名，跟着页面语言走 */
-function playlistName(
-  item: { label: string; labelEn: string },
-  locale: string,
-) {
-  return locale === "en" ? item.labelEn : item.label;
 }
 
 function Chip({

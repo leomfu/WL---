@@ -1,0 +1,42 @@
+{
+  "note": "「常驻」曲库：自己托管的公共领域录音，永远能放，直链挂了也不至于没声音。音频文件在 public/audio/music/。",
+  "credit": "Musopen（musopen.org）· 公共领域 / CC0",
+  "tracks": [
+    {
+      "id": "nocturne-op9-no2",
+      "src": "/audio/music/nocturne-op9-no2.mp3",
+      "title": "夜曲 作品9第2号",
+      "titleEn": "Nocturne Op. 9 No. 2",
+      "artist": "肖邦",
+      "artistEn": "Chopin",
+      "duration": 277
+    },
+    {
+      "id": "prelude-op28-no15-raindrop",
+      "src": "/audio/music/prelude-op28-no15-raindrop.mp3",
+      "title": "前奏曲 作品28第15号「雨滴」",
+      "titleEn": "Prelude Op. 28 No. 15 'Raindrop'",
+      "artist": "肖邦",
+      "artistEn": "Chopin",
+      "duration": 295
+    },
+    {
+      "id": "nocturne-op55-no1",
+      "src": "/audio/music/nocturne-op55-no1.mp3",
+      "title": "夜曲 作品55第1号",
+      "titleEn": "Nocturne Op. 55 No. 1",
+      "artist": "肖邦",
+      "artistEn": "Chopin",
+      "duration": 317
+    },
+    {
+      "id": "nocturne-b49-lento",
+      "src": "/audio/music/nocturne-b49-lento.mp3",
+      "title": "夜曲 B.49「充满深情的慢板」",
+      "titleEn": "Nocturne B. 49 'Lento con gran espressione'",
+      "artist": "肖邦",
+      "artistEn": "Chopin",
+      "duration": 239
+    }
+  ]
+}
