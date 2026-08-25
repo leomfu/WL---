@@ -120,7 +120,7 @@ export const siteConfig = {
      *   curl "https://giscus.app/api/discussions/categories?repo=weiliang99520-a11y/WL---"
      * 没填之前评论区显示一行"还没开放"，不会向 GitHub 发任何请求。
      */
-    categoryId: "",
+    categoryId: "DIC_kwDOUCPA3s4DEK0W",
     /**
      * giscus 主题。用的是本站那份黑白主题 public/giscus.css —— giscus 的 iframe 在
      * giscus.app 域下，只认**绝对地址**，所以换域名之后这里要跟着改。
