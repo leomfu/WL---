@@ -166,11 +166,15 @@
   },
   "guestbook": {
     "title": "留言板",
-    "lead": "路过写一句就好 —— 用 GitHub 账号登录即可，留言存在这个仓库的 Discussions 里。",
-    "footerNote": "想聊得久一点？也可以 <link>写封邮件</link>。"
+    "lead": "路过写一句就好。留言存在本站 GitHub 仓库的 Discussions 里，我都会看。",
+    "footerNote": "想聊得久一点？也可以 <link>写封邮件</link>。",
+    "noAccountTitle": "没有 GitHub 账号？",
+    "noAccountBody": "留言板走 GitHub 登录，是因为这个站没有后端也没有数据库，只有这样才能把留言长久留住。你要是没有账号、也不想为一句话去注册，直接写邮件给我就行——一样看得到，只是不会公开显示在这一页。"
   },
   "giscus": {
-    "notConfigured": "评论还没配好 —— 需要一个 public 的 GitHub 仓库并开启 Discussions，然后把 giscus 的四个 id 填进 site.config.ts。"
+    "notOpenYet": "留言区还没开放，过阵子再来。",
+    "load": "打开留言区",
+    "loadHint": "点开才会连到 GitHub —— 留言用 GitHub 账号登录，内容存在本站仓库的 Discussions 里。"
   },
   "lounge": {
     "title": "放松区",

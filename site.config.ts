@@ -111,17 +111,21 @@ export const siteConfig = {
 
   /* --- 评论 / 留言板（阶段 3 用，需要 public 仓库 + 开 Discussions）--- */
   giscus: {
-    repo: "",
-    repoId: "",
+    repo: "weiliang99520-a11y/WL---",
+    /** 仓库的 GraphQL node id。取法：curl https://api.github.com/repos/<owner>/<repo> 里的 node_id */
+    repoId: "R_kgDOUCPA3g",
     category: "Announcements",
+    /**
+     * 分类 id。要等仓库开了 Discussions **并且**装好 giscus app 之后才能拿到：
+     *   curl "https://giscus.app/api/discussions/categories?repo=weiliang99520-a11y/WL---"
+     * 没填之前评论区显示一行"还没开放"，不会向 GitHub 发任何请求。
+     */
     categoryId: "",
     /**
-     * giscus 主题。默认 light（内容区本来就是浅灰底）。
-     * 想用 public/giscus.css 那份黑白主题，填它的**绝对地址**，
-     * 例如 "https://你的域名/giscus.css" —— giscus 的 iframe 在别的域，
-     * 只认绝对 URL，而且托管方要允许跨域取这个文件。
+     * giscus 主题。用的是本站那份黑白主题 public/giscus.css —— giscus 的 iframe 在
+     * giscus.app 域下，只认**绝对地址**，所以换域名之后这里要跟着改。
      */
-    theme: "light",
+    theme: "https://weiliang-blush.vercel.app/giscus.css",
   },
 
   /* --- 访问统计（阶段 5 部署时接）--- */

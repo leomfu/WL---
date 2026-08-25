@@ -166,11 +166,15 @@
   },
   "guestbook": {
     "title": "Guestbook",
-    "lead": "Leave a line as you pass through — sign in with GitHub, and it's stored in this repo's Discussions.",
-    "footerNote": "Want a longer conversation? <link>Send an email</link>."
+    "lead": "Leave a line as you pass through. Notes live in this site's GitHub Discussions, and I read all of them.",
+    "footerNote": "Want a longer conversation? <link>Send an email</link>.",
+    "noAccountTitle": "No GitHub account?",
+    "noAccountBody": "The guestbook signs you in with GitHub because this site has no backend and no database — that's the only way a note here outlives the page. If you'd rather not sign up for one line, just email me instead. I'll read it; it simply won't show up publicly on this page."
   },
   "giscus": {
-    "notConfigured": "Comments aren't configured yet — they need a public GitHub repo with Discussions enabled, then the four giscus ids in site.config.ts."
+    "notOpenYet": "Comments aren't open yet. Check back later.",
+    "load": "Open the comments",
+    "loadHint": "Nothing reaches GitHub until you open this — commenting signs you in with GitHub, and the text lives in this site's repo Discussions."
   },
   "lounge": {
     "title": "Lounge",

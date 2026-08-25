@@ -42,3 +42,39 @@ main .gsc-comment-header {
 main .gsc-reactions-count {
   display: none;
 }
+
+/* 头像是评论区里唯一会带颜色的东西 —— 默认去色，鼠标移上去再还原，
+   和放松区那个网易云相框、工具页图标是同一个处理逻辑 */
+main .gsc-comment-author-avatar img,
+main .gsc-comment-box-write img {
+  filter: grayscale(1);
+  transition: filter 400ms ease;
+}
+main .gsc-comment-author-avatar img:hover {
+  filter: grayscale(0);
+}
+
+/* 全站没有圆角，评论区也别有 */
+main .gsc-comment,
+main .gsc-comment-box,
+main .gsc-comment-box-textarea,
+main .gsc-comment-box-tabs button,
+main .gsc-social-reaction-summary-item,
+main .btn {
+  border-radius: 0;
+}
+
+/* 输入框聚焦时 GitHub 默认给蓝色描边 */
+main .gsc-comment-box-textarea:focus,
+main .gsc-comment-box-textarea:focus-visible {
+  outline: none;
+  border-color: #111111;
+  box-shadow: none;
+}
+
+/* 「Powered by giscus」保留但压到最淡 */
+main .gsc-tp-link,
+main .gsc-tp-link a {
+  color: #999999;
+  font-size: 11px;
+}
