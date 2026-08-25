@@ -37,8 +37,9 @@ export const siteConfig = {
   /* --- 联系方式 --- */
   email: "weiliang99520@gmail.com",
 
-  /* --- 站点元信息（部署平台定了再填真实域名）--- */
-  url: "https://example.com",
+  /* --- 站点元信息 --- */
+  // 部署在 Vercel（项目 weiliang，GitHub 推送自动构建）。以后绑自定义域名时改这里，然后重跑 `npm run og`。
+  url: "https://weiliang.vercel.app",
   locales: ["zh", "en"] as const,
   defaultLocale: "zh" as const,
 
