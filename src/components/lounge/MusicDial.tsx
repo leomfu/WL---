@@ -155,10 +155,13 @@ export function MusicDial({
   library,
   active,
   reduced,
+  autoStart,
 }: {
   library: MusicLibrary;
   active: boolean;
   reduced: boolean;
+  /** 用户已经在这一页点过一次（过了浏览器的出声门槛）—— 切到音乐层就直接接着放 */
+  autoStart: boolean;
 }) {
   const t = useTranslations("lounge.music");
   const locale = useLocale();
@@ -174,7 +177,14 @@ export function MusicDial({
     hasNetease ? "netease" : "resident",
   );
   const [index, setIndex] = useState(0);
-  const [playing, setPlaying] = useState(false);
+  /**
+   * 播放意图，而不是「在不在放」。
+   * auto = 还没手动干预过（切到音乐层且用户点过页面就自动接着放）；play / pause = 手动按过。
+   * 真正在不在响由 <audio> 的事件回填到 live，图标看 live。
+   * 这样就不用在 effect 里 setState —— React 19 的 hooks 规则不允许那么写。
+   */
+  const [intent, setIntent] = useState<"auto" | "play" | "pause">("auto");
+  const [live, setLive] = useState(false);
   const [elapsed, setElapsed] = useState(0);
   const [duration, setDuration] = useState(0);
   const [listOpen, setListOpen] = useState(false);
@@ -183,6 +193,7 @@ export function MusicDial({
   const [volumeText, setVolumeText] = useStoredState("lounge-music-volume", "0.7");
   const volume = Number(volumeText) || 0.7;
 
+  const shouldPlay = active && (intent === "play" || (intent === "auto" && autoStart));
   const currentGroup: Group = group === "resident" || !hasNetease ? "resident" : "netease";
   const tracks = currentGroup === "resident" ? library.resident : library.netease;
   const track: Track | undefined = tracks[Math.min(index, tracks.length - 1)];
@@ -210,27 +221,25 @@ export function MusicDial({
     setDuration(0);
   };
 
-  /** 换歌：装 src、按需接着放 */
+  /** 换歌：装新的 src */
   useEffect(() => {
     const el = audioRef.current;
     if (!el || !track) return;
     el.src = track.src;
     el.load();
-    if (playing && active) void el.play().catch(() => setPlaying(false));
-    // playing 不进依赖：它变的时候由下面那个 effect 管播放/暂停，这里只管换源
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [track?.id, track?.src, active]);
+  }, [track]);
 
-  /** 播放 / 暂停；离开音乐层就停 */
+  /** 该不该响：切走、按了暂停、或者根本没开始过，都要停 */
   useEffect(() => {
     const el = audioRef.current;
     if (!el) return;
-    if (playing && active) {
-      void el.play().catch(() => setPlaying(false));
+    if (shouldPlay) {
+      // 放不出来时 play() 会 reject；此时 onError / onPause 会把状态回填，这里不用管
+      void el.play().catch(() => {});
     } else {
       el.pause();
     }
-  }, [playing, active]);
+  }, [shouldPlay, track]);
 
   useEffect(() => {
     const el = audioRef.current;
@@ -262,7 +271,7 @@ export function MusicDial({
     };
     raf = requestAnimationFrame(loop);
     return () => cancelAnimationFrame(raf);
-  }, [reduced, track?.duration]);
+  }, [reduced, track]);
 
   /** 键盘：空格播放/暂停，左右键 ±5 秒，L 开关清单。只在音乐层生效 */
   useEffect(() => {
@@ -272,7 +281,7 @@ export function MusicDial({
       if (!el) return;
       if (e.code === "Space") {
         e.preventDefault();
-        setPlaying((p) => !p);
+        setIntent((prev) => (prev === "pause" ? "play" : "pause"));
       } else if (e.key === "ArrowRight") {
         el.currentTime = Math.min(el.currentTime + 5, el.duration || el.currentTime);
       } else if (e.key === "ArrowLeft") {
@@ -300,7 +309,7 @@ export function MusicDial({
     const alive = tracks.filter((item) => !next[item.id]);
     if (alive.length === 0) {
       if (currentGroup === "netease" && library.resident.length > 0) switchGroup("resident");
-      else setPlaying(false);
+      else setIntent("pause");
       return;
     }
     goto(index + 1);
@@ -324,8 +333,8 @@ export function MusicDial({
         onTimeUpdate={(e) => setElapsed(e.currentTarget.currentTime)}
         onEnded={() => goto(index + 1)}
         onError={handleError}
-        onPlay={() => setPlaying(true)}
-        onPause={() => setPlaying(false)}
+        onPlay={() => setLive(true)}
+        onPause={() => setLive(false)}
       />
 
       {/* 时间盘 */}
@@ -385,11 +394,11 @@ export function MusicDial({
 
         <button
           type="button"
-          onClick={() => setPlaying((p) => !p)}
-          aria-label={playing ? t("pause") : t("play")}
+          onClick={() => setIntent(shouldPlay ? "pause" : "play")}
+          aria-label={shouldPlay ? t("pause") : t("play")}
           className="flex size-[52px] items-center justify-center rounded-full border border-white/25 transition-colors hover:border-white/50"
         >
-          {playing ? (
+          {live || shouldPlay ? (
             <svg width="14" height="16" viewBox="0 0 14 16" fill="none" stroke="#EDEDED" strokeWidth="1.4" aria-hidden>
               <line x1="4" y1="1" x2="4" y2="15" />
               <line x1="10" y1="1" x2="10" y2="15" />

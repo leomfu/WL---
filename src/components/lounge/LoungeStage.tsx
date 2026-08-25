@@ -166,7 +166,12 @@ export function LoungeStage({ music }: { music: MusicLibrary }) {
                 transition={{ duration: reduced ? 0.01 : 0.5 }}
                 className="w-full max-w-[560px]"
               >
-                <MusicDial library={music} active={tab === "music"} reduced={reduced} />
+                <MusicDial
+                  library={music}
+                  active={tab === "music"}
+                  reduced={reduced}
+                  autoStart={started}
+                />
               </motion.div>
             )}
 
