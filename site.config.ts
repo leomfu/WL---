@@ -38,8 +38,9 @@ export const siteConfig = {
   email: "weiliang99520@gmail.com",
 
   /* --- 站点元信息 --- */
-  // 部署在 Vercel（项目 weiliang，GitHub 推送自动构建）。以后绑自定义域名时改这里，然后重跑 `npm run og`。
-  url: "https://weiliang.vercel.app",
+  // 部署在 Vercel（项目 weiliang，GitHub 推送自动构建）。weiliang.vercel.app 被别人占了，
+  // Vercel 自动分配的正式域名是 weiliang-blush。以后绑自定义域名时改这里，然后重跑 `npm run og`。
+  url: "https://weiliang-blush.vercel.app",
   locales: ["zh", "en"] as const,
   defaultLocale: "zh" as const,
 
