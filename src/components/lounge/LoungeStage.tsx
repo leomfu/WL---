@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { LoungeRail } from "./LoungeRail";
 import { SceneBackdrop } from "./SceneBackdrop";
 import { useAmbient } from "./useAmbient";
@@ -23,6 +23,7 @@ const EASE = [0.22, 0.61, 0.36, 1] as const;
 
 export function LoungeStage() {
   const t = useTranslations("lounge");
+  const locale = useLocale();
   const reduced = useReducedMotion() ?? false;
 
   const scenes = siteConfig.lounge.scenes;
@@ -39,6 +40,18 @@ export function LoungeStage() {
 
   const playlists = siteConfig.lounge.neteasePlaylists;
   const podcasts = siteConfig.lounge.podcastEmbeds;
+
+  /** 没素材的那一层直接不显示 —— 与其给访客看一句「还没配」，不如让它不存在 */
+  const tabs = useMemo(
+    () =>
+      TABS.filter(
+        (key) =>
+          key === "ambient" ||
+          (key === "music" && playlists.length > 0) ||
+          (key === "podcast" && podcasts.length > 0),
+      ),
+    [playlists.length, podcasts.length],
+  );
 
   /** ESC：收起/展开左侧导航（视觉稿底部那行「ESC 退出沉浸」说的就是这个） */
   useEffect(() => {
@@ -76,10 +89,7 @@ export function LoungeStage() {
         className="absolute top-0 bottom-0 left-0 z-30 w-3"
         onMouseEnter={() => setRailExpanded(true)}
       />
-      <div
-        className="flex h-full"
-        onMouseLeave={() => setRailExpanded(false)}
-      >
+      <div className="flex h-full" onMouseLeave={() => setRailExpanded(false)}>
         <LoungeRail expanded={railExpanded} />
       </div>
 
@@ -107,7 +117,10 @@ export function LoungeStage() {
                 exit={{ opacity: 0 }}
                 transition={{ duration: reduced ? 0.01 : 0.5 }}
                 className="relative flex items-center justify-center"
-                style={{ width: "clamp(220px, 46vmin, 372px)", height: "clamp(220px, 46vmin, 372px)" }}
+                style={{
+                  width: "clamp(220px, 46vmin, 372px)",
+                  height: "clamp(220px, 46vmin, 372px)",
+                }}
               >
                 {rings.map((ring, i) => (
                   <div
@@ -120,11 +133,14 @@ export function LoungeStage() {
                       background: ring.glow
                         ? "radial-gradient(circle at 50% 50%, rgba(237,237,237,0.055), rgba(237,237,237,0) 70%)"
                         : undefined,
-                      transform: live ? `scale(${1 + ambient.level * ring.gain})` : undefined,
+                      transform: live
+                        ? `scale(${1 + ambient.level * ring.gain})`
+                        : undefined,
                       transition: live ? "transform 120ms linear" : undefined,
-                      animation: live || reduced
-                        ? undefined
-                        : `dcBreathe 7000ms ease-in-out ${ring.delay}ms infinite`,
+                      animation:
+                        live || reduced
+                          ? undefined
+                          : `dcBreathe 7000ms ease-in-out ${ring.delay}ms infinite`,
                     }}
                     aria-hidden
                   />
@@ -150,24 +166,20 @@ export function LoungeStage() {
                 transition={{ duration: reduced ? 0.01 : 0.5 }}
                 className="w-full max-w-[460px]"
               >
-                {playlists.length === 0 ? (
-                  <Notice text={t("musicEmpty")} />
-                ) : (
-                  /* 网易云播放器是红白配色、样式不可改，收进一个黑白相框里并去色，
-                     鼠标移上去再还原颜色（PLAN.md §6 第 3 条） */
-                  <div className="rounded-[3px] border border-shell-line-2 bg-[#0E0E0E] p-3">
-                    <iframe
-                      key={playlists[playlistIndex]}
-                      title={t("playlist", { index: playlistIndex + 1 })}
-                      src={`https://music.163.com/outchain/player?type=0&id=${playlists[playlistIndex]}&auto=0&height=430`}
-                      width="100%"
-                      height={452}
-                      loading="lazy"
-                      className="block border-0 grayscale transition-[filter] duration-500 hover:grayscale-0"
-                      sandbox="allow-scripts allow-same-origin allow-popups allow-presentation"
-                    />
-                  </div>
-                )}
+                {/* 网易云播放器是红白配色、样式不可改，收进一个黑白相框里并去色，
+                    鼠标移上去再还原颜色（PLAN.md §6 第 3 条） */}
+                <div className="rounded-[3px] border border-shell-line-2 bg-[#0E0E0E] p-3">
+                  <iframe
+                    key={playlists[playlistIndex].id}
+                    title={`${t("tabMusic")} · ${playlistName(playlists[playlistIndex], locale)}`}
+                    src={`https://music.163.com/outchain/player?type=0&id=${playlists[playlistIndex].id}&auto=0&height=430`}
+                    width="100%"
+                    height={452}
+                    loading="lazy"
+                    className="block border-0 grayscale transition-[filter] duration-500 hover:grayscale-0"
+                    sandbox="allow-scripts allow-same-origin allow-popups allow-presentation"
+                  />
+                </div>
               </motion.div>
             )}
 
@@ -180,22 +192,18 @@ export function LoungeStage() {
                 transition={{ duration: reduced ? 0.01 : 0.5 }}
                 className="w-full max-w-[560px]"
               >
-                {podcasts.length === 0 ? (
-                  <Notice text={t("podcastEmpty")} />
-                ) : (
-                  <div className="rounded-[3px] border border-shell-line-2 bg-[#0E0E0E] p-3">
-                    <iframe
-                      key={podcasts[podcastIndex]}
-                      title={t("tabPodcast")}
-                      src={podcasts[podcastIndex]}
-                      width="100%"
-                      height={420}
-                      loading="lazy"
-                      allow="encrypted-media; picture-in-picture"
-                      className="block border-0 grayscale transition-[filter] duration-500 hover:grayscale-0"
-                    />
-                  </div>
-                )}
+                <div className="rounded-[3px] border border-shell-line-2 bg-[#0E0E0E] p-3">
+                  <iframe
+                    key={podcasts[podcastIndex]}
+                    title={t("tabPodcast")}
+                    src={podcasts[podcastIndex]}
+                    width="100%"
+                    height={420}
+                    loading="lazy"
+                    allow="encrypted-media; picture-in-picture"
+                    className="block border-0 grayscale transition-[filter] duration-500 hover:grayscale-0"
+                  />
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
@@ -212,7 +220,7 @@ export function LoungeStage() {
         <div className="relative z-10 flex flex-col items-center gap-6 px-6 pb-10 sm:gap-7 sm:pb-[70px]">
           {/* 三个标签 */}
           <div className="flex items-center gap-8 text-[13px] tracking-[0.1em] sm:gap-[34px]">
-            {TABS.map((key) => {
+            {tabs.map((key) => {
               const active = tab === key;
               return (
                 <button
@@ -226,7 +234,13 @@ export function LoungeStage() {
                       : "border-b border-transparent pb-1.5 text-shell-faint transition-colors hover:text-shell-dim"
                   }
                 >
-                  {t(key === "ambient" ? "tabAmbient" : key === "music" ? "tabMusic" : "tabPodcast")}
+                  {t(
+                    key === "ambient"
+                      ? "tabAmbient"
+                      : key === "music"
+                        ? "tabMusic"
+                        : "tabPodcast",
+                  )}
                 </button>
               );
             })}
@@ -255,13 +269,15 @@ export function LoungeStage() {
                 );
               })}
 
+            {/* 只有一个歌单时不显示 chip —— 一个孤零零的按钮没有意义 */}
             {tab === "music" &&
-              playlists.map((id, i) => (
+              playlists.length > 1 &&
+              playlists.map((item, i) => (
                 <Chip
-                  key={id}
+                  key={item.id}
                   active={i === playlistIndex}
                   onClick={() => setPlaylistIndex(i)}
-                  label={t("playlist", { index: i + 1 })}
+                  label={playlistName(item, locale)}
                 />
               ))}
 
@@ -289,19 +305,42 @@ export function LoungeStage() {
                 className="flex size-[52px] items-center justify-center rounded-full border border-white/25 transition-colors hover:border-white/50"
               >
                 {ambient.playing ? (
-                  <svg width="14" height="16" viewBox="0 0 14 16" fill="none" stroke="#EDEDED" strokeWidth="1.4" aria-hidden>
+                  <svg
+                    width="14"
+                    height="16"
+                    viewBox="0 0 14 16"
+                    fill="none"
+                    stroke="#EDEDED"
+                    strokeWidth="1.4"
+                    aria-hidden
+                  >
                     <line x1="4" y1="1" x2="4" y2="15" />
                     <line x1="10" y1="1" x2="10" y2="15" />
                   </svg>
                 ) : (
-                  <svg width="14" height="16" viewBox="0 0 14 16" fill="#EDEDED" aria-hidden>
+                  <svg
+                    width="14"
+                    height="16"
+                    viewBox="0 0 14 16"
+                    fill="#EDEDED"
+                    aria-hidden
+                  >
                     <path d="M13 8 0 16V0z" />
                   </svg>
                 )}
               </button>
 
               <div className="flex items-center gap-3.5">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#8A8A8A" strokeWidth="1.2" strokeLinejoin="round" aria-hidden>
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                  stroke="#8A8A8A"
+                  strokeWidth="1.2"
+                  strokeLinejoin="round"
+                  aria-hidden
+                >
                   <path d="M8 3.5 4.5 6.5H2v5h2.5L8 14.5z" />
                   <path d="M11.2 6.4a3.6 3.6 0 0 1 0 5.2" />
                   <path d="M13.4 4.2a6.6 6.6 0 0 1 0 9.6" />
@@ -323,7 +362,9 @@ export function LoungeStage() {
                     min={0}
                     max={100}
                     value={Math.round(ambient.volume * 100)}
-                    onChange={(e) => ambient.changeVolume(Number(e.target.value) / 100)}
+                    onChange={(e) =>
+                      ambient.changeVolume(Number(e.target.value) / 100)
+                    }
                     aria-label={t("volume")}
                     className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
                   />
@@ -376,6 +417,14 @@ export function LoungeStage() {
   );
 }
 
+/** chip 和 iframe 标题上的歌单名，跟着页面语言走 */
+function playlistName(
+  item: { label: string; labelEn: string },
+  locale: string,
+) {
+  return locale === "en" ? item.labelEn : item.label;
+}
+
 function Chip({
   label,
   active,
@@ -399,13 +448,5 @@ function Chip({
     >
       {label}
     </button>
-  );
-}
-
-function Notice({ text }: { text: string }) {
-  return (
-    <p className="max-w-[440px] border border-dashed border-shell-line-2 px-6 py-7 text-center text-[12.5px] leading-[1.8] text-shell-dim">
-      {text}
-    </p>
   );
 }

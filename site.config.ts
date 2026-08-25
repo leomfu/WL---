@@ -91,9 +91,17 @@ export const siteConfig = {
 
   /* --- 放松区（阶段 4 用）--- */
   lounge: {
-    /** 网易云歌单外链 id，如 ["123456789"] */
-    neteasePlaylists: [] as string[],
-    /** 播客嵌入地址（小宇宙 / YouTube 播放列表） */
+    /**
+     * 网易云歌单（外链播放器）。id 是**歌单 id**，不是用户 id ——
+     * 在网易云里打开歌单，地址栏 `music.163.com/#/playlist?id=xxxxx` 里的那串就是。
+     * label / labelEn 是底部 chip 上显示的名字，想换歌单直接改这里。
+     * 歌单必须是公开的；有版权限制的单曲在外链播放器里放不出来（客户端里灰掉的那些）。
+     * 账号：飞翔的闪光蝴蝶侠（uid 6289139566）
+     */
+    neteasePlaylists: [
+      { id: "7044876104", label: "我喜欢的音乐", labelEn: "Favorites" },
+    ],
+    /** 播客嵌入地址（小宇宙 / YouTube 播放列表）。留空时放松区不显示「播客」这一层 */
     podcastEmbeds: [] as string[],
     /**
      * 氛围场景。音频路径已按约定的文件名预填好 —— 把 CC0 素材下载成这些名字丢进

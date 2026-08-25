@@ -4,16 +4,46 @@
     "description": "A support newcomer who chases problems down to the root, then writes the answer down for the next person. A personal site: projects, writing, thoughts, and a lounge for doing nothing at all."
   },
   "pageMeta": {
-    "home": { "title": "Home", "description": "Weiliang's personal site: what I'm doing now, what I've built, what I've written." },
-    "projects": { "title": "Projects", "description": "Things I've built, listed one by one." },
-    "videos": { "title": "Videos", "description": "Videos I've posted on Bilibili and YouTube." },
-    "blog": { "title": "Writing", "description": "Essays, posts, and a few loose thoughts." },
-    "about": { "title": "About", "description": "About me: background, current work, and what I'm into." },
-    "tools": { "title": "Tools", "description": "The software, services and hardware I use every day." },
-    "lounge": { "title": "Lounge", "description": "Rain, waves, playlists and podcasts — doing nothing is allowed." },
-    "contact": { "title": "Say something", "description": "Email, social accounts, and a guestbook." },
-    "library": { "title": "Library", "description": "Books, films and albums I've been through lately." },
-    "guestbook": { "title": "Guestbook", "description": "Leave a line — I read all of them." }
+    "home": {
+      "title": "Home",
+      "description": "Weiliang's personal site: what I'm doing now, what I've built, what I've written."
+    },
+    "projects": {
+      "title": "Projects",
+      "description": "Things I've built, listed one by one."
+    },
+    "videos": {
+      "title": "Videos",
+      "description": "Videos I've posted on Bilibili and YouTube."
+    },
+    "blog": {
+      "title": "Writing",
+      "description": "Essays, posts, and a few loose thoughts."
+    },
+    "about": {
+      "title": "About",
+      "description": "About me: background, current work, and what I'm into."
+    },
+    "tools": {
+      "title": "Tools",
+      "description": "The software, services and hardware I use every day."
+    },
+    "lounge": {
+      "title": "Lounge",
+      "description": "Rain, waves, playlists and podcasts — doing nothing is allowed."
+    },
+    "contact": {
+      "title": "Say something",
+      "description": "Email, social accounts, and a guestbook."
+    },
+    "library": {
+      "title": "Library",
+      "description": "Books, films and albums I've been through lately."
+    },
+    "guestbook": {
+      "title": "Guestbook",
+      "description": "Leave a line — I read all of them."
+    }
   },
   "intro": {
     "eyebrow": "个人网站 · PERSONAL SITE",
@@ -117,13 +147,21 @@
     "langZh": "Chinese",
     "langEn": "English",
     "comments": "Comments",
-    "types": { "blog": "Post", "essay": "Essay", "thought": "Thought" }
+    "types": {
+      "blog": "Post",
+      "essay": "Essay",
+      "thought": "Thought"
+    }
   },
   "library": {
     "title": "Library",
     "lead": "What I've been reading, watching and listening to lately.",
     "filterAll": "All",
-    "types": { "book": "Books", "movie": "Films", "album": "Albums" },
+    "types": {
+      "book": "Books",
+      "movie": "Films",
+      "album": "Albums"
+    },
     "empty": "Nothing here yet. The list lives in content/library/library.json."
   },
   "guestbook": {
@@ -148,15 +186,24 @@
     "pause": "Pause",
     "volume": "Volume",
     "loopNote": "LOOPED · CROSSFADED",
-    "audioMissing": "The ambient track for this scene isn't in public/audio/ambient/ yet — the scene still runs, just silently.",
-    "musicEmpty": "No NetEase playlist configured yet — add its id to lounge.neteasePlaylists in site.config.ts.",
-    "podcastEmpty": "No podcast embed configured yet — add a Xiaoyuzhou or YouTube playlist link to lounge.podcastEmbeds in site.config.ts.",
-    "playlist": "Playlist {index}",
+    "audioMissing": "This scene's ambient track isn't here yet — the visuals run on, just quietly.",
     "scenes": {
-      "rain": { "name": "Rainy Night", "en": "RAINY NIGHT" },
-      "waves": { "name": "Waves", "en": "WAVES" },
-      "fire": { "name": "Campfire", "en": "CAMPFIRE" },
-      "space": { "name": "Deep Space", "en": "DEEP SPACE" }
+      "rain": {
+        "name": "Rainy Night",
+        "en": "RAINY NIGHT"
+      },
+      "waves": {
+        "name": "Waves",
+        "en": "WAVES"
+      },
+      "fire": {
+        "name": "Campfire",
+        "en": "CAMPFIRE"
+      },
+      "space": {
+        "name": "Deep Space",
+        "en": "DEEP SPACE"
+      }
     }
   },
   "palette": {
