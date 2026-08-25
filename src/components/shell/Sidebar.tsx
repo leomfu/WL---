@@ -51,6 +51,13 @@ export function Sidebar() {
   /** 语言切换保持当前路径：/zh/projects/ → /en/projects/ */
   const otherLocaleHref = pathname.replace(/^\/[^/]+/, `/${otherLocale}`) || `/${otherLocale}/`;
 
+  /**
+   * 点 Logo 回开场页。用原生 <a> 走整页跳转（不是 next/link 的软跳转）：
+   * 开场页那两道「本次会话看过就跳走」的拦截里，有一道是 HTML 解析阶段的内联脚本，
+   * 只有整页加载才会跑；?replay=1 就是给这两道拦截看的放行标记。
+   */
+  const introHref = `/${locale}/?replay=1`;
+
   const name = locale === "en" ? siteConfig.nameEn : siteConfig.name;
   /** 这一行只有一行高、还要 truncate，所以用短版一句话（整句在开场页和 meta 里） */
   const tagline = locale === "en" ? siteConfig.taglineShortEn : siteConfig.taglineShort;
@@ -67,12 +74,16 @@ export function Sidebar() {
         {collapsed ? "›" : "‹"}
       </button>
 
-      {/* Logo + 名字 + 一句话定位 */}
-      <Link
-        href={localePath(locale, "/home")}
+      {/* Logo 圆徽 → 重看开场页；名字 + 一句话定位 → 首页 */}
+      <div
         className={`flex items-center gap-[13px] ${collapsed ? "justify-center px-0" : "px-[5px]"}`}
       >
-        <span className="flex size-[46px] shrink-0 items-center justify-center rounded-full border border-shell-line-2 bg-[#131313]">
+        <a
+          href={introHref}
+          aria-label={t("nav.replayIntro")}
+          title={t("nav.replayIntro")}
+          className="flex size-[46px] shrink-0 cursor-pointer items-center justify-center rounded-full border border-shell-line-2 bg-[#131313] transition-colors hover:border-shell-line-3 hover:bg-white/[0.06]"
+        >
           <Image
             src={siteConfig.logo}
             alt={name}
@@ -80,18 +91,23 @@ export function Sidebar() {
             height={30}
             className="size-[30px] object-contain invert"
           />
-        </span>
+        </a>
         {!collapsed && (
-          <span className="flex min-w-0 flex-col gap-[3px]">
-            <span className="truncate text-base font-medium tracking-[0.01em] text-shell-ink">
+          <Link
+            href={localePath(locale, "/home")}
+            aria-label={t("nav.toHome")}
+            title={t("nav.toHome")}
+            className="group flex min-w-0 cursor-pointer flex-col gap-[3px]"
+          >
+            <span className="truncate text-base font-medium tracking-[0.01em] text-shell-ink decoration-shell-faint underline-offset-4 group-hover:underline">
               {name}
             </span>
-            <span className="truncate text-xs tracking-[0.02em] text-shell-dim">
+            <span className="truncate text-xs tracking-[0.02em] text-shell-dim transition-colors group-hover:text-shell-muted">
               {tagline}
             </span>
-          </span>
+          </Link>
         )}
-      </Link>
+      </div>
 
       {/* 导航 */}
       <nav className="flex flex-col gap-0.5">
@@ -201,8 +217,13 @@ export function Sidebar() {
 
       {/* ---------- 移动端：顶部条 ---------- */}
       <div className="fixed inset-x-0 top-0 z-40 flex h-14 items-center justify-between border-b border-shell-line bg-shell px-4 text-shell-ink lg:hidden">
-        <Link href={localePath(locale, "/home")} className="flex items-center gap-2.5">
-          <span className="flex size-8 items-center justify-center rounded-full border border-shell-line-2 bg-[#131313]">
+        {/* 和桌面侧栏一致：Logo → 开场页，名字 → 首页 */}
+        <div className="flex items-center gap-2.5">
+          <a
+            href={introHref}
+            aria-label={t("nav.replayIntro")}
+            className="flex size-8 cursor-pointer items-center justify-center rounded-full border border-shell-line-2 bg-[#131313] transition-colors hover:border-shell-line-3"
+          >
             <Image
               src={siteConfig.logo}
               alt={name}
@@ -210,9 +231,15 @@ export function Sidebar() {
               height={20}
               className="size-5 object-contain invert"
             />
-          </span>
-          <span className="text-sm font-medium">{name}</span>
-        </Link>
+          </a>
+          <Link
+            href={localePath(locale, "/home")}
+            aria-label={t("nav.toHome")}
+            className="cursor-pointer text-sm font-medium transition-colors hover:text-shell-muted"
+          >
+            {name}
+          </Link>
+        </div>
         <div className="flex items-center gap-1">
           <button
             type="button"

@@ -21,10 +21,10 @@
     "sinceLabel": "SINCE",
     "tagline": "A support newcomer who chases problems down to the root, then writes the answer down for the next person.",
     "taglineSub": "一个喜欢把问题查到根上、再把答案写下来给下一个人的技术支持新人。",
-    "enter": "SCROLL TO ENTER",
+    "enter": "SCROLL DOWN · STEP INSIDE",
     "enterHintPrefix": "or press",
     "enterKey": "Enter ↵",
-    "footer": "MONOCHROME BY DESIGN",
+    "footer": "WRITING, MAKING, DOING NOTHING · 写字、做东西、发呆",
     "switchLocale": "Switch to Chinese",
     "logoAlt": "Weiliang's logo"
   },
@@ -43,7 +43,9 @@
     "collapse": "Collapse sidebar",
     "expand": "Expand sidebar",
     "menu": "Open menu",
-    "close": "Close menu"
+    "close": "Close menu",
+    "replayIntro": "Back to the intro",
+    "toHome": "Back to the home page"
   },
   "common": {
     "language": "Language",

@@ -1,20 +1,11 @@
 [
   {
     "platform": "bilibili",
-    "id": "BV1GJ411x7h7",
-    "title": "[视频占位 A]",
-    "title_en": "[Video placeholder A]",
-    "date": "2026-07-02",
-    "desc": "[一句话介绍这条视频讲了什么]。素材到位后把 BV 号换成你自己的。",
-    "desc_en": "[One line on what this video is about.] Replace the BV id with your own."
-  },
-  {
-    "platform": "youtube",
-    "id": "aqz-KE-bpKQ",
-    "title": "[视频占位 B]",
-    "title_en": "[Video placeholder B]",
-    "date": "2026-05-18",
-    "desc": "[一句话介绍]。素材到位后把 YouTube 视频 id 换成你自己的。",
-    "desc_en": "[One line intro.] Replace the YouTube video id with your own."
+    "id": "BV1WHup6fEyA",
+    "title": "Claude-Anki 使用介绍",
+    "title_en": "Claude-Anki: A Walkthrough",
+    "date": "2026-08-01",
+    "desc": "把笔记自动加工成带真人发音的记忆卡片：一条视频讲清 Claude-Anki 怎么用，目前已经产出 3 个牌组、220 张卡。",
+    "desc_en": "Turning notes into flashcards with real human audio, automatically — a walkthrough of how Claude-Anki works. It has produced 3 decks and 220 cards so far."
   }
 ]

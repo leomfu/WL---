@@ -142,13 +142,17 @@
   }
 }
 
-@keyframes dcSheen {
-  0%,
-  100% {
-    background-position: 0% 8%;
+/* 进站过场：星点朝背离画面中心的方向甩出去并拉成光束（Starfield 喂 --warp-* 变量） */
+@keyframes dcWarp {
+  0% {
+    transform: rotate(var(--warp-a)) translateX(0) scaleX(1);
   }
-  50% {
-    background-position: 0% 92%;
+  22% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(var(--warp-a)) translateX(var(--warp-d)) scaleX(var(--warp-x));
+    opacity: 0;
   }
 }
 

@@ -21,10 +21,10 @@
     "sinceLabel": "SINCE",
     "tagline": "一个喜欢把问题查到根上、再把答案写下来给下一个人的技术支持新人。",
     "taglineSub": "A support newcomer who chases problems down to the root, then writes the answer down for the next person.",
-    "enter": "向下滚动进入",
+    "enter": "向下滚动 · 走进我的世界",
     "enterHintPrefix": "或按",
     "enterKey": "Enter ↵",
-    "footer": "黑白呈现 · MONOCHROME BY DESIGN",
+    "footer": "写字、做东西、发呆 · WRITING, MAKING, DOING NOTHING",
     "switchLocale": "切换到英文",
     "logoAlt": "伟良的 Logo"
   },
@@ -43,7 +43,9 @@
     "collapse": "收起侧栏",
     "expand": "展开侧栏",
     "menu": "打开菜单",
-    "close": "关闭菜单"
+    "close": "关闭菜单",
+    "replayIntro": "回到开场页",
+    "toHome": "回到首页"
   },
   "common": {
     "language": "语言",

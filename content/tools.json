@@ -5,7 +5,7 @@
     "desc_en": "Coding agent",
     "url": "https://claude.com/claude-code",
     "icon": "claude",
-    "brandColor": "#C15F3C"
+    "brandColor": "#D97757"
   },
   {
     "name": "ChatGPT",
@@ -13,7 +13,7 @@
     "desc_en": "AI assistant",
     "url": "https://chatgpt.com",
     "icon": "chatgpt",
-    "brandColor": "#10A37F"
+    "brandColor": "#412991"
   },
   {
     "name": "VS Code",
@@ -21,7 +21,7 @@
     "desc_en": "Editor",
     "url": "https://code.visualstudio.com",
     "icon": "vscode",
-    "brandColor": "#0078D4"
+    "brandColor": "#007ACC"
   },
   {
     "name": "GitHub",
@@ -45,7 +45,7 @@
     "desc_en": "Notes",
     "url": "https://notion.so",
     "icon": "notion",
-    "brandColor": "#111111"
+    "brandColor": "#000000"
   },
   {
     "name": "Vercel",
@@ -53,7 +53,7 @@
     "desc_en": "Deploys",
     "url": "https://vercel.com",
     "icon": "vercel",
-    "brandColor": "#111111"
+    "brandColor": "#000000"
   },
   {
     "name": "Spotify",
@@ -61,6 +61,6 @@
     "desc_en": "Listening",
     "url": "https://spotify.com",
     "icon": "spotify",
-    "brandColor": "#1DB954"
+    "brandColor": "#1ED760"
   }
 ]

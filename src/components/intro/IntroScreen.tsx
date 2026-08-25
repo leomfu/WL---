@@ -1,17 +1,33 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion, useReducedMotion } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
 import { Starfield } from "./Starfield";
 import { Grain } from "./Grain";
+import { TimeDial } from "./TimeDial";
 import { useStoredState } from "@/lib/useStoredState";
 import { siteConfig } from "~/site.config";
 
 const INTRO_SEEN_KEY = "intro-seen";
+
+/**
+ * 侧栏 Logo 点回开场页时带的标记：`/{locale}/?replay=1`。
+ * 带上它，「本次会话看过就跳走」的两道拦截（page.tsx 的内联脚本 + 下面的 useEffect）都放行。
+ */
+function isReplay() {
+  if (typeof window === "undefined") return false;
+  return /[?&]replay=1(?:&|$)/.test(window.location.search);
+}
+
+/** 进站过场：指针倒转 + 星点拉丝 → 淡出 → 跳转，整段 820ms */
+const EXIT = {
+  fadeDelay: 0.3,
+  fadeDuration: 0.45,
+  navigate: 820,
+} as const;
 
 /** 视觉稿里的入场节奏（ms），改这里就能整体调快慢 */
 const BEAT = {
@@ -33,9 +49,13 @@ export function IntroScreen() {
   const router = useRouter();
   const reduced = useReducedMotion() ?? false;
 
-  /** 本次会话已经进过站就不再看开场页，直接放行 */
+  /** 本次会话已经进过站就不再看开场页，直接放行；带 ?replay=1 是主动重看，照常放行 */
   const [seen, setSeen] = useStoredState(INTRO_SEEN_KEY, "0", "session");
-  const ready = seen !== "1";
+  /**
+   * 这里在 render 里读 URL：服务端恒为 false，客户端读真实 search。
+   * 它只决定要不要挂滚动/按键监听，不影响任何标记，所以不会 hydration mismatch。
+   */
+  const ready = seen !== "1" || isReplay();
   const [leaving, setLeaving] = useState(false);
   const leavingRef = useRef(false);
 
@@ -44,6 +64,7 @@ export function IntroScreen() {
 
   /** 客户端路由跳回开场页时的兜底（首次访问由 page.tsx 里那段内联脚本处理） */
   useEffect(() => {
+    if (isReplay()) return;
     if (seen === "1" && !leavingRef.current) router.replace(homeHref);
   }, [homeHref, router, seen]);
 
@@ -53,7 +74,7 @@ export function IntroScreen() {
     setLeaving(true);
 
     setSeen("1");
-    window.setTimeout(() => router.push(homeHref), reduced ? 0 : 620);
+    window.setTimeout(() => router.push(homeHref), reduced ? 0 : EXIT.navigate);
   }, [homeHref, reduced, router, setSeen]);
 
   /** 滚动 / 回车 / 点击，三种都能进站 */
@@ -107,15 +128,22 @@ export function IntroScreen() {
       ? undefined
       : `${name} ${duration}ms ease-in-out ${delay}ms infinite`;
 
+  /** 倒转 + 拉丝的「穿梭时间」阶段；prefers-reduced-motion 下直接跳过，只留淡出 */
+  const warping = leaving && !reduced;
+
   return (
     <motion.main
       onClick={enter}
       animate={
-        leaving && !reduced
-          ? { opacity: 0, scale: 1.035, filter: "blur(6px)" }
+        warping
+          ? { opacity: 0, scale: 1.08, filter: "blur(7px)" }
           : { opacity: leaving ? 0 : 1, scale: 1, filter: "blur(0px)" }
       }
-      transition={{ duration: leaving ? 0.6 : 0.3, ease: EASE }}
+      transition={
+        warping
+          ? { duration: EXIT.fadeDuration, delay: EXIT.fadeDelay, ease: EASE }
+          : { duration: leaving ? 0.2 : 0.3, ease: EASE }
+      }
       className="relative h-dvh w-full cursor-pointer overflow-hidden bg-void text-shell-ink select-none"
     >
       {/* --- 质感层：底部辉光 / 星点 / 噪点 / 暗角 --- */}
@@ -128,7 +156,17 @@ export function IntroScreen() {
         }}
         aria-hidden
       />
-      <Starfield animate={!reduced} />
+      {/* 穿梭时间那一下，中心的辉光短暂涨起来 */}
+      <div
+        className="absolute inset-0 transition-opacity duration-500 ease-out"
+        style={{
+          background:
+            "radial-gradient(46% 34% at 50% 46%, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.05) 42%, rgba(255,255,255,0) 72%)",
+          opacity: warping ? 1 : 0,
+        }}
+        aria-hidden
+      />
+      <Starfield animate={!reduced} warp={warping} />
       <Grain id="intro-grain" opacity={0.07} baseFrequency={0.8} />
       <div
         className="absolute inset-0"
@@ -171,32 +209,15 @@ export function IntroScreen() {
           <motion.div {...widen(BEAT.rules, "left")} className="h-px flex-1 bg-rule" />
         </div>
 
-        {/* Logo：反色显示 + 缓慢浮动 + 光泽扫过 */}
+        {/* 时间之钟：走真实时间，进站时指针倒转 */}
         <motion.div {...rise(BEAT.logo)} className="my-6 sm:my-8">
-          <div
-            className="relative h-[200px] w-[202px] sm:h-[280px] sm:w-[283px] lg:h-[352px] lg:w-[356px]"
+          <TimeDial
+            warping={warping}
+            reduced={reduced}
+            logoAlt={t("logoAlt")}
+            className="h-[200px] w-[200px] sm:h-[280px] sm:w-[280px] lg:h-[352px] lg:w-[352px]"
             style={{ animation: loop("dcFloat", 11000) }}
-          >
-            <Image
-              src={siteConfig.logo}
-              alt={t("logoAlt")}
-              fill
-              priority
-              sizes="356px"
-              className="object-contain invert"
-            />
-            <div
-              className="pointer-events-none absolute inset-0 mix-blend-multiply"
-              style={{
-                backgroundImage:
-                  "linear-gradient(177deg, #FFFFFF 0%, #FAFAFA 24%, #CFCFCF 48%, #7E7E7E 72%, #F2F2F2 100%)",
-                backgroundSize: "100% 220%",
-                backgroundRepeat: "no-repeat",
-                animation: loop("dcSheen", 8000),
-              }}
-              aria-hidden
-            />
-          </div>
+          />
         </motion.div>
 
         {/* NAME / 一句话定位 / SINCE */}
