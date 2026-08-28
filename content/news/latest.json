@@ -1,6 +1,6 @@
 {
   "note": "由 scripts/fetch-news.mjs 生成，别手改。源清单在 sources.json。",
-  "generatedAt": "2026-08-28T06:17:05.085Z",
+  "generatedAt": "2026-08-28T06:57:13.322Z",
   "boards": [
     {
       "key": "world",
@@ -53,15 +53,79 @@
       ],
       "items": [
         {
+          "title": "Armed with a whistle, Gaza’s lifeguards do what they can to save swimmers",
+          "url": "https://www.aljazeera.com/features/2026/8/28/armed-with-a-whistle-gazas-lifeguards-do-what-they-can-to-save-swimmers?traffic_source=rss",
+          "source": "半岛电视台",
+          "sourceEn": "Al Jazeera",
+          "at": "2026-08-28T06:45:10.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "Norway's King Harald dies at 89",
+          "url": "https://www.dw.com/en/norway-s-king-harald-dies-at-89/a-78524572?maca=en-rss-en-world-4025-rdf",
+          "source": "德国之声",
+          "sourceEn": "DW",
+          "at": "2026-08-28T06:42:00.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "Norway's King Harald dies aged 89",
+          "url": "https://www.bbc.co.uk/news/articles/clykn5p5172o?at_medium=RSS&at_campaign=rss",
+          "source": "BBC World",
+          "sourceEn": "BBC World",
+          "at": "2026-08-28T06:40:59.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "Six months on, Iran is still standing, but survival is becoming more costly",
+          "url": "https://www.aljazeera.com/opinions/2026/8/28/six-months-on-iran-is-still-standing-but-survival-is-becoming-more-costly?traffic_source=rss",
+          "source": "半岛电视台",
+          "sourceEn": "Al Jazeera",
+          "at": "2026-08-28T06:35:08.000Z",
+          "date": "2026-08-28"
+        },
+        {
           "title": "Rescuers Search for Missing and Stranded Under Threat of More Floods",
           "url": "https://www.nytimes.com/live/2026/08/27/world/nepal-tibet-flash-floods",
           "source": "纽约时报",
           "sourceEn": "NYT World",
-          "at": "2026-08-28T05:53:03.000Z",
+          "at": "2026-08-28T06:34:59.000Z",
           "date": "2026-08-28"
         },
         {
-          "title": "'High risk' of lake bursting and causing second flood, warns China",
+          "title": "Six months on, Trump’s Iran strategy is starting to pay off",
+          "url": "https://www.aljazeera.com/opinions/2026/8/28/six-months-on-trumps-iran-strategy-is-starting-to-pay-off?traffic_source=rss",
+          "source": "半岛电视台",
+          "sourceEn": "Al Jazeera",
+          "at": "2026-08-28T06:31:47.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "Singapore’s plans to clear forest for homes lead to rare public protests",
+          "url": "https://www.aljazeera.com/news/2026/8/28/singapores-plans-to-clear-forest-for-homes-lead-to-rare-public-protests?traffic_source=rss",
+          "source": "半岛电视台",
+          "sourceEn": "Al Jazeera",
+          "at": "2026-08-28T06:31:29.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "Nepal-China floods: Death toll climbs amid new flood risk",
+          "url": "https://www.dw.com/en/nepal-china-floods-death-toll-climbs-amid-new-flood-risk/a-78539559?maca=en-rss-en-world-4025-rdf",
+          "source": "德国之声",
+          "sourceEn": "DW",
+          "at": "2026-08-28T06:11:00.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "Death toll from Nepal-Tibet flood surpasses 470 as barrier lake threatens",
+          "url": "https://www.aljazeera.com/news/2026/8/28/death-toll-from-nepal-tibet-flood-passes-470-as-barrier-lake-threatens?traffic_source=rss",
+          "source": "半岛电视台",
+          "sourceEn": "Al Jazeera",
+          "at": "2026-08-28T06:08:12.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "'High risk' of lake breaching and causing second flood, warns China",
           "url": "https://www.bbc.co.uk/news/articles/ckg8l2x8wr8o?at_medium=RSS&at_campaign=rss",
           "source": "BBC World",
           "sourceEn": "BBC World",
@@ -77,22 +141,6 @@
           "date": "2026-08-28"
         },
         {
-          "title": "Record drought grips Europe as rivers and crops dry up",
-          "url": "https://www.aljazeera.com/video/newsfeed/2026/8/28/record-drought-grips-europe-as-rivers-and-crops-dry-up?traffic_source=rss",
-          "source": "半岛电视台",
-          "sourceEn": "Al Jazeera",
-          "at": "2026-08-28T05:43:34.000Z",
-          "date": "2026-08-28"
-        },
-        {
-          "title": "Six months of war between Iran, US leave Arab states facing tough questions",
-          "url": "https://www.aljazeera.com/news/2026/8/28/six-months-of-war-between-iran-us-leave-arab-states-facing-tough-questions?traffic_source=rss",
-          "source": "半岛电视台",
-          "sourceEn": "Al Jazeera",
-          "at": "2026-08-28T05:37:45.000Z",
-          "date": "2026-08-28"
-        },
-        {
           "title": "特朗普簽署行政命令，將「安大略湖」更名為「美國湖」",
           "url": "https://www.bbc.com/zhongwen/articles/c804ld7kl93o/trad?at_medium=RSS&at_campaign=rss",
           "source": "BBC 中文",
@@ -101,35 +149,11 @@
           "date": "2026-08-28"
         },
         {
-          "title": "Algeria residents mourn neighbours lost in wildfire aftermath",
-          "url": "https://www.aljazeera.com/video/newsfeed/2026/8/28/algeria-residents-mourn-neighbours-lost-in-wildfire-aftermath?traffic_source=rss",
-          "source": "半岛电视台",
-          "sourceEn": "Al Jazeera",
-          "at": "2026-08-28T05:18:33.000Z",
-          "date": "2026-08-28"
-        },
-        {
           "title": "「在我眼中它就是黃金」：香港捲起卡牌熱，一張卡如何從遊戲工具變資產？",
           "url": "https://www.bbc.com/zhongwen/articles/c0j3w0wxj18o/trad?at_medium=RSS&at_campaign=rss",
           "source": "BBC 中文",
           "sourceEn": "BBC Chinese",
           "at": "2026-08-28T04:32:04.000Z",
-          "date": "2026-08-28"
-        },
-        {
-          "title": "DRC begins vaccinating front-line healthcare workers against Ebola",
-          "url": "https://www.aljazeera.com/news/2026/8/28/drc-begins-vaccinating-front-line-healthcare-workers-against-ebola?traffic_source=rss",
-          "source": "半岛电视台",
-          "sourceEn": "Al Jazeera",
-          "at": "2026-08-28T04:27:54.000Z",
-          "date": "2026-08-28"
-        },
-        {
-          "title": "Nepal’s mudslide wiped out areas of eastern China, army helps search",
-          "url": "https://www.aljazeera.com/video/newsfeed/2026/8/28/nepals-mudslide-wiped-out-areas-of-eastern-china-army-helps-search?traffic_source=rss",
-          "source": "半岛电视台",
-          "sourceEn": "Al Jazeera",
-          "at": "2026-08-28T04:20:27.000Z",
           "date": "2026-08-28"
         },
         {
@@ -181,14 +205,6 @@
           "date": "2026-08-28"
         },
         {
-          "title": "Jury deliberating in trial of Lindsay Clancy, US woman accused of killing her children",
-          "url": "https://www.bbc.co.uk/news/articles/c33keeyyv70o?at_medium=RSS&at_campaign=rss",
-          "source": "BBC World",
-          "sourceEn": "BBC World",
-          "at": "2026-08-27T20:39:16.000Z",
-          "date": "2026-08-28"
-        },
-        {
           "title": "Helicopter pilot describes what he's seen rescuing people in Nepal",
           "url": "https://www.npr.org/2026/08/27/nx-s1-5946443/helicopter-pilot-describes-what-hes-seen-rescuing-people-in-nepal",
           "source": "NPR",
@@ -235,22 +251,6 @@
           "sourceEn": "NYT World",
           "at": "2026-08-27T16:39:47.000Z",
           "date": "2026-08-28"
-        },
-        {
-          "title": "Zambian opposition leader in police custody: state media",
-          "url": "https://www.dw.com/en/zambian-opposition-leader-in-police-custody-state-media/a-78531338?maca=en-rss-en-world-4025-rdf",
-          "source": "德国之声",
-          "sourceEn": "DW",
-          "at": "2026-08-27T15:53:00.000Z",
-          "date": "2026-08-27"
-        },
-        {
-          "title": "Nepal flooding: 'We are disconnected from Kathmandu'",
-          "url": "https://www.dw.com/en/nepal-flooding-we-are-disconnected-from-kathmandu/a-78536034?maca=en-rss-en-world-4025-rdf",
-          "source": "德国之声",
-          "sourceEn": "DW",
-          "at": "2026-08-27T15:15:00.000Z",
-          "date": "2026-08-27"
         },
         {
           "title": "Ratko Mladic, ex-Bosnian Serb warlord who oversaw atrocities, has died at 84",
