@@ -2,6 +2,15 @@
   "note": "AI 更新解读。每条对应一个官方更新，body 是中文解读（段落之间空一行）。手写或脚本生成都写进这里，格式一样。",
   "items": [
     {
+      "date": "2026-08-28",
+      "title": "把托管 Agent 接进聊天软件：Claude Managed Agents × Chat SDK",
+      "titleEn": "Claude Managed Agents meets Vercel's Chat SDK",
+      "source": "Anthropic 快速入门",
+      "url": "https://github.com/anthropics/claude-quickstarts/tree/main/managed-agents/chat-sdk",
+      "body": "官方加了一份把 Claude Managed Agents 接到 Vercel Chat SDK 的指南。两边各管一半：Managed Agents 是 Anthropic 托管的 agent——模型、工具循环、会话状态、沙箱里的网页调研全在他们服务器上跑；Chat SDK 是统一的聊天层，一套 type-safe 的 handler 配 15 个以上平台适配器（Slack、Teams、Discord、WhatsApp、网页）。\n\n合起来的效果是：一个会查资料的机器人，回答逐字流式吐出来，旁边一条实时的活动流显示它正在调什么工具，而你不用自己跑数据库——对话历史存在 Managed Agents 那边。以前自己搭这套，光是 agent loop 和会话存储就得写不少代码。\n\n跑起来要 Node 22.9 以上和一个 Anthropic API key，`npm run setup` 生成 agent id 和 environment id 就能本地起。有个坑文档里写明了：它靠长连接撑住一整轮对话，不适合有秒级超时限制的 serverless，生产环境得用能跑长连接的主机。\n\n计费按 API 用量走，和订阅是两回事。它真正划算的场景是「有人反复在某个聊天软件里问同一类问题」——没有这个场景之前，做出来只是个玩具。",
+      "bodyEn": "Anthropic published a guide for wiring Claude Managed Agents into Vercel's Chat SDK. Each side owns half: Managed Agents runs the model, the tool loop, session state and sandboxed web research on Anthropic's servers; Chat SDK is the chat layer — one type-safe handler behind 15+ platform adapters (Slack, Teams, Discord, WhatsApp, web).\n\nTogether you get a research bot that streams its answer token by token, with a live feed of the tool calls it is making — and no database of your own, because the conversation lives in the Managed Agents session.\n\nIt needs Node 22.9+ and an Anthropic API key; `npm run setup` mints the agent and environment ids. One catch the docs are explicit about: it holds a long-lived connection for a whole turn, so it does not fit serverless platforms with second-level timeouts.\n\nBilling is per API usage, separate from any subscription. It earns its keep when real people keep asking the same class of question in a chat tool — before that, it is a toy."
+    },
+    {
       "date": "2026-08-27",
       "title": "Claude Code 加了「受限模式」，终于敢在别人的仓库里跑它了",
       "titleEn": "Claude Code adds a restricted mode",
