@@ -1,5 +1,11 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { ContentFooter, FootNote, PageHeader, SectionTitle } from "@/components/ui/PageHeader";
+import { NewsTabs } from "@/components/news/NewsTabs";
+import {
+  ContentFooter,
+  FootNote,
+  PageHeader,
+  SectionTitle,
+} from "@/components/ui/PageHeader";
 import { Reveal } from "@/components/ui/Reveal";
 import { getNews } from "@/lib/content";
 import { longDate } from "@/lib/format";
@@ -62,7 +68,11 @@ export default async function NewsPage({
   const today = cnDay();
   const yesterday = cnDay(1);
   const dateLabel = (date: string) =>
-    date === today ? t("today") : date === yesterday ? t("yesterday") : longDate(date, locale);
+    date === today
+      ? t("today")
+      : date === yesterday
+        ? t("yesterday")
+        : longDate(date, locale);
 
   /** 已经写过解读的更新，不在下面的「其余更新」里重复出现 */
   const digested = new Set(news.digests.map((d) => d.url));
@@ -80,7 +90,9 @@ export default async function NewsPage({
           >
             {outlet.name} ↗
           </a>
-          {outlet.note && <span className="ml-2.5 text-[12px] text-faint">{outlet.note}</span>}
+          {outlet.note && (
+            <span className="ml-2.5 text-[12px] text-faint">{outlet.note}</span>
+          )}
         </li>
       ))}
     </ul>
@@ -90,120 +102,159 @@ export default async function NewsPage({
     <>
       <PageHeader title={t("title")} lead={t("lead")} />
 
-      {/* ───────── 板块一：世界新闻 ───────── */}
-      <Reveal delay={120} className="mt-12">
-        <SectionTitle
-          title={t("worldTitle")}
-          note={t("worldNote", { n: news.world.items.length, outlets: news.world.outlets.length })}
-        />
+      {/* 两个筛选：点一下切一块，不用往下滑 */}
+      <Reveal delay={80} className="mt-9">
+        <NewsTabs
+          worldLabel={t("worldTitle")}
+          aiLabel={t("aiTitle")}
+          world={
+            <div className="mt-8">
+              <SectionTitle
+                title={t("worldTitle")}
+                note={t("worldNote", {
+                  n: news.world.items.length,
+                  outlets: news.world.outlets.length,
+                })}
+              />
 
-        {news.world.items.length === 0 ? (
-          <p className="mt-5 text-[13.5px] leading-[1.9] text-muted">{t("empty")}</p>
-        ) : (
-          <div className="mt-6 flex flex-col gap-7">
-            {groupByDate(news.world.items).map(([date, items]) => (
-              <section key={date}>
-                <h3 className="flex items-baseline gap-3 text-[12px] tracking-[0.14em] text-faint">
-                  {dateLabel(date)}
-                  <span className="h-px grow bg-line" aria-hidden />
-                </h3>
-                <ul className="mt-2">
-                  {items.map((item) => (
-                    <li key={item.url} className="border-b border-line last:border-b-0">
-                      <a
-                        href={item.url}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="group flex flex-col gap-1 py-3 sm:flex-row sm:items-baseline sm:gap-4"
-                      >
-                        <span className="w-[5.5rem] shrink-0 text-[12px] text-faint">
-                          {en ? item.sourceEn : item.source}
-                        </span>
-                        <span className="grow text-[14.5px] leading-[1.7] text-ink transition-colors group-hover:text-muted">
-                          {item.title}
-                        </span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            ))}
-          </div>
-        )}
-
-        <p className="mt-9 text-[12.5px] tracking-[0.02em] text-faint">{t("outletsLead")}</p>
-        {outletList(news.world.outlets)}
-      </Reveal>
-
-      {/* ───────── 板块二：AI 更新解读 ───────── */}
-      <Reveal delay={200} className="mt-[86px]">
-        <SectionTitle title={t("aiTitle")} note={t("aiNote")} />
-
-        {news.digests.length === 0 ? (
-          <p className="mt-5 text-[13.5px] leading-[1.9] text-muted">{t("noDigest")}</p>
-        ) : (
-          <div className="mt-7 flex flex-col gap-10">
-            {news.digests.map((digest) => (
-              <article key={digest.url + digest.title} className="border-l border-line pl-5 sm:pl-6">
-                <p className="text-[11.5px] tracking-[0.12em] text-faint">
-                  {longDate(digest.date, locale)} · {digest.source}
+              {news.world.items.length === 0 ? (
+                <p className="mt-5 text-[13.5px] leading-[1.9] text-muted">
+                  {t("empty")}
                 </p>
-                <h3 className="mt-2 font-serif text-[19px] leading-[1.45] font-light text-ink sm:text-[21px]">
-                  {en ? digest.titleEn : digest.title}
-                </h3>
-                <div className="mt-3 flex flex-col gap-3">
-                  {(en ? digest.bodyEn : digest.body).split("\n\n").map((para, i) => (
-                    <p key={i} className="text-[14.5px] leading-[1.95] text-body">
-                      {para}
-                    </p>
+              ) : (
+                <div className="mt-6 flex flex-col gap-7">
+                  {groupByDate(news.world.items).map(([date, items]) => (
+                    <section key={date}>
+                      <h3 className="flex items-baseline gap-3 text-[12px] tracking-[0.14em] text-faint">
+                        {dateLabel(date)}
+                        <span className="h-px grow bg-line" aria-hidden />
+                      </h3>
+                      <ul className="mt-2">
+                        {items.map((item) => (
+                          <li
+                            key={item.url}
+                            className="border-b border-line last:border-b-0"
+                          >
+                            <a
+                              href={item.url}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="group flex flex-col gap-1 py-3 sm:flex-row sm:items-baseline sm:gap-4"
+                            >
+                              <span className="w-[5.5rem] shrink-0 text-[12px] text-faint">
+                                {en ? item.sourceEn : item.source}
+                              </span>
+                              <span className="grow text-[14.5px] leading-[1.7] text-ink transition-colors group-hover:text-muted">
+                                {item.title}
+                              </span>
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </section>
                   ))}
                 </div>
-                <a
-                  href={digest.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-3.5 inline-block text-[13px] text-muted link-underline"
-                >
-                  {t("readOriginal")} ↗
-                </a>
-              </article>
-            ))}
-          </div>
-        )}
+              )}
 
-        {restOfAi.length > 0 && (
-          <div className="mt-11">
-            <p className="text-[12.5px] tracking-[0.02em] text-faint">{t("restLead")}</p>
-            <ul className="mt-3">
-              {restOfAi.map((item) => (
-                <li key={item.url} className="border-b border-line last:border-b-0">
-                  <a
-                    href={item.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="group flex flex-col gap-1 py-2.5 sm:flex-row sm:items-baseline sm:gap-4"
-                  >
-                    <span className="w-[7rem] shrink-0 text-[12px] text-faint">
-                      {en ? item.sourceEn : item.source}
-                    </span>
-                    <span className="grow text-[13.5px] leading-[1.7] text-muted transition-colors group-hover:text-ink">
-                      {item.title}
-                    </span>
-                    <span className="shrink-0 text-[11.5px] text-faint">{item.date}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+              <p className="mt-9 text-[12.5px] tracking-[0.02em] text-faint">
+                {t("outletsLead")}
+              </p>
+              {outletList(news.world.outlets)}
+            </div>
+          }
+          ai={
+            <div className="mt-8">
+              <SectionTitle title={t("aiTitle")} note={t("aiNote")} />
 
-        <p className="mt-9 text-[12.5px] tracking-[0.02em] text-faint">{t("outletsLeadAi")}</p>
-        {outletList(news.ai.outlets)}
+              {news.digests.length === 0 ? (
+                <p className="mt-5 text-[13.5px] leading-[1.9] text-muted">
+                  {t("noDigest")}
+                </p>
+              ) : (
+                <div className="mt-7 flex flex-col gap-10">
+                  {news.digests.map((digest) => (
+                    <article
+                      key={digest.url + digest.title}
+                      className="border-l border-line pl-5 sm:pl-6"
+                    >
+                      <p className="text-[11.5px] tracking-[0.12em] text-faint">
+                        {longDate(digest.date, locale)} · {digest.source}
+                      </p>
+                      <h3 className="mt-2 font-serif text-[19px] leading-[1.45] font-light text-ink sm:text-[21px]">
+                        {en ? digest.titleEn : digest.title}
+                      </h3>
+                      <div className="mt-3 flex flex-col gap-3">
+                        {(en ? digest.bodyEn : digest.body)
+                          .split("\n\n")
+                          .map((para, i) => (
+                            <p
+                              key={i}
+                              className="text-[14.5px] leading-[1.95] text-body"
+                            >
+                              {para}
+                            </p>
+                          ))}
+                      </div>
+                      <a
+                        href={digest.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="mt-3.5 inline-block text-[13px] text-muted link-underline"
+                      >
+                        {t("readOriginal")} ↗
+                      </a>
+                    </article>
+                  ))}
+                </div>
+              )}
+
+              {restOfAi.length > 0 && (
+                <div className="mt-11">
+                  <p className="text-[12.5px] tracking-[0.02em] text-faint">
+                    {t("restLead")}
+                  </p>
+                  <ul className="mt-3">
+                    {restOfAi.map((item) => (
+                      <li
+                        key={item.url}
+                        className="border-b border-line last:border-b-0"
+                      >
+                        <a
+                          href={item.url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="group flex flex-col gap-1 py-2.5 sm:flex-row sm:items-baseline sm:gap-4"
+                        >
+                          <span className="w-[7rem] shrink-0 text-[12px] text-faint">
+                            {en ? item.sourceEn : item.source}
+                          </span>
+                          <span className="grow text-[13.5px] leading-[1.7] text-muted transition-colors group-hover:text-ink">
+                            {item.title}
+                          </span>
+                          <span className="shrink-0 text-[11.5px] text-faint">
+                            {item.date}
+                          </span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              <p className="mt-9 text-[12.5px] tracking-[0.02em] text-faint">
+                {t("outletsLeadAi")}
+              </p>
+              {outletList(news.ai.outlets)}
+            </div>
+          }
+        />
       </Reveal>
 
       <FootNote>
         {news.generatedAt
-          ? t("updated", { time: longDate(news.generatedAt.slice(0, 10), locale) })
+          ? t("updated", {
+              time: longDate(news.generatedAt.slice(0, 10), locale),
+            })
           : t("neverUpdated")}
       </FootNote>
 
