@@ -1,0 +1,41 @@
+{
+  "note": "AI 更新解读。每条对应一个官方更新，body 是中文解读（段落之间空一行）。手写或脚本生成都写进这里，格式一样。",
+  "items": [
+    {
+      "date": "2026-08-27",
+      "title": "Claude Code 加了「受限模式」，终于敢在别人的仓库里跑它了",
+      "titleEn": "Claude Code adds a restricted mode",
+      "source": "Claude Code v2.1.248",
+      "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.248",
+      "body": "新增 `--restricted` 参数（也可以用环境变量 `CLAUDE_CODE_RESTRICTED=1`）。开了之后，Claude Code 会砍掉所有能执行命令和代码的内置工具、砍掉 WebFetch，文件读写被锁在当前工作目录里，`bypassPermissions` 直接拒绝，连你自己的用户级、项目级、本地设置文件都不读。\n\n这解决的是一个很实际的顾虑：拿到一份不认识的代码想让 AI 帮你读一读，但又不放心让它在你机器上执行任何东西。以前只能靠权限提示一个个拦，现在一个参数就把执行能力整个摘掉。\n\n怎么用：`claude --restricted` 启动，需要放行个别工具就配 `--tools`。审计陌生代码、给别人看项目、在共享机器上临时跑一下，都适合。",
+      "bodyEn": "A new `--restricted` flag (or `CLAUDE_CODE_RESTRICTED=1`) strips out every built-in tool that runs commands or code, drops WebFetch, confines file tools to the working directory, refuses `bypassPermissions`, and ignores your user, project, and local settings files.\n\nIt answers a real worry: you want to read unfamiliar code with an AI, but you don't want that AI executing anything on your machine. Until now you had to catch each attempt at the permission prompt. Now you can remove the capability outright.\n\nRun `claude --restricted`, and name any tool you do want back with `--tools`."
+    },
+    {
+      "date": "2026-08-26",
+      "title": "自动模式（auto mode）从「玄学」变成了可以看、可以改的规则",
+      "titleEn": "Auto mode's rules are now visible and editable",
+      "source": "Claude Code v2.1.246 / v2.1.247",
+      "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.246",
+      "body": "`/permissions` 里多了一个 Auto mode 标签页，可以直接看和改自动模式的判定规则——以前它凭什么放行、凭什么拦你，是看不见的。同一批更新里还加了一条：Bash 权限提示上多了个一键选项「Yes, and switch to auto mode」，一个键就切过去，不用退出去改配置。\n\n顺带一个安全提醒值得记：如果你的 Bash 放行规则里通配符写在子命令前面（比如 `Bash(git * main)`），启动时现在会警告——因为这种写法也会匹配到插在子命令前面的选项，比实际意图放行得更宽。\n\n如果你被权限提示打断得很烦，这两条合起来是最值得用的改动：先在 `/permissions` 看清楚自动模式会放行什么，觉得能接受再切。",
+      "bodyEn": "`/permissions` gained an Auto mode tab where you can read and edit the classifier rules — until now, what auto mode let through was invisible. The same batch added a one-keystroke \"Yes, and switch to auto mode\" option on Bash permission prompts.\n\nWorth noting alongside it: Bash allow rules with a wildcard before the subcommand (e.g. `Bash(git * main)`) now warn at startup, because they also match options inserted before the subcommand — wider than you probably meant.\n\nIf permission prompts interrupt you constantly, read the Auto mode tab first, then switch once you're comfortable with what it covers."
+    },
+    {
+      "date": "2026-08-26",
+      "title": "`/claude-api cost-optimize`：一条命令给你的 API 账单做体检",
+      "titleEn": "/claude-api cost-optimize profiles your API spend",
+      "source": "Claude Code v2.1.247",
+      "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.247",
+      "body": "新增 `/claude-api cost-optimize`，用来给一个已经在跑的项目做 Claude API 花费剖析，然后带着你一项项调：缓存、token 卫生、批处理、推理强度、模型选型——每次只动一个变量并测量效果。\n\n它的价值不在于\"帮你省钱\"这句话，而在于**逼你按顺序做**。多数人调成本是一次改五个地方，然后不知道是哪个起了作用。\n\n只有你自己在调 Anthropic API 的项目时才用得上；纯用 Claude Code 订阅版的话这条跟你无关。",
+      "bodyEn": "A new `/claude-api cost-optimize` profiles an existing project's Claude API spend and walks you through the levers one at a time: caching, token hygiene, batching, effort, model choice — one measured change per step.\n\nThe value isn't the phrase \"save money.\" It's the enforced order. Most people change five things at once and never learn which one mattered.\n\nOnly relevant if you're building on the Anthropic API yourself; subscription-only Claude Code users can skip it."
+    },
+    {
+      "date": "2026-08-27",
+      "title": "同一台机器上的多个 Claude 会话，可以互相发消息了（现在覆盖到所有部署方式）",
+      "titleEn": "Cross-session messaging now works on every deployment",
+      "source": "Claude Code v2.1.248",
+      "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.248",
+      "body": "`SendMessage` / `ListAgents` 这套跨会话消息，这次扩展到了 Bedrock、Vertex、Foundry，以及关闭了遥测的环境——之前这些情况下用不了。\n\n用法上的意义：你可以开两个终端，一个专门规划和验收、一个专门写代码，两边直接对话，不用你在中间人肉转述。同一批更新还改了显示——收到的消息默认折叠成一行 `Message from @谁：第一行`，按 Ctrl+O 展开全文，免得别人的长消息把你的屏幕冲掉。\n\n本站就是这么建起来的：一个叫 plan 的窗口负责统筹，另一个窗口负责改代码。",
+      "bodyEn": "Cross-session messaging (`SendMessage` / `ListAgents`) now works on Bedrock, Vertex, and Foundry, and in setups with telemetry disabled — none of which were covered before.\n\nWhat it's for: run two terminals, one planning and reviewing, one writing code, and let them talk directly instead of relaying through you. The same release collapses incoming peer messages to a one-line preview (Ctrl+O expands) so a long message doesn't flood your screen.\n\nThis site was built that way — one window named plan coordinating, another doing the edits."
+    }
+  ]
+}

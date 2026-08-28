@@ -43,6 +43,10 @@
     "guestbook": {
       "title": "留言板",
       "description": "随便写一句，我都会看到。"
+    },
+    "news": {
+      "title": "新闻",
+      "description": "每天早上抓一次：可靠报社的世界新闻，以及 Claude 和 AI 行业更新的中文解读。"
     }
   },
   "intro": {
@@ -75,7 +79,8 @@
     "menu": "打开菜单",
     "close": "关闭菜单",
     "replayIntro": "回到开场页",
-    "toHome": "回到首页"
+    "toHome": "回到首页",
+    "news": "新闻"
   },
   "common": {
     "language": "语言",
@@ -236,5 +241,24 @@
     "empty": "没有匹配的结果。",
     "hint": "↑↓ 选择 · ↵ 打开 · esc 关闭",
     "close": "关闭"
+  },
+  "news": {
+    "title": "新闻",
+    "lead": "两件事：世界上今天发生了什么，以及 AI 这边又更新了什么、怎么用。都是外链，点了就走，这一页不转载正文。",
+    "worldTitle": "世界新闻",
+    "worldNote": "{n} 条 · {outlets} 家报社",
+    "outletsLead": "这些报社我自己常去 —— 想读全的直接进去：",
+    "aiTitle": "AI 更新解读",
+    "aiNote": "官方发了什么，以及它到底有什么用",
+    "noDigest": "还没有写解读。",
+    "readOriginal": "看官方原文",
+    "restLead": "还没写解读的更新：",
+    "outletsLeadAi": "一手源，出了事先看这里：",
+    "today": "今天",
+    "yesterday": "昨天",
+    "empty": "今天还没抓到内容。",
+    "updated": "最后一次抓取：{time}",
+    "neverUpdated": "还没抓过。",
+    "footerNote": "源清单在仓库的 content/news/sources.json 里，公开可查。"
   }
 }

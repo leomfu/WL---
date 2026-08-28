@@ -98,3 +98,41 @@ export type MusicLibrary = {
   /** 常驻曲库的出处声明 */
   residentCredit: string;
 };
+
+/** 新闻页（content/news/）—— 两个板块：世界新闻、AI 更新 */
+export type NewsItem = {
+  title: string;
+  url: string;
+  source: string;
+  sourceEn: string;
+  at: string | null;
+  /** 北京时间 YYYY-MM-DD，页面按它分组 */
+  date: string;
+};
+
+export type Outlet = { name: string; url: string; note: string };
+
+export type NewsBoard = {
+  key: "world" | "ai";
+  outlets: Outlet[];
+  items: NewsItem[];
+};
+
+/** 一条 AI 更新的中文解读（content/news/digests.json） */
+export type Digest = {
+  date: string;
+  title: string;
+  titleEn: string;
+  source: string;
+  url: string;
+  /** 段落之间用空行分隔 */
+  body: string;
+  bodyEn: string;
+};
+
+export type NewsData = {
+  generatedAt: string;
+  world: NewsBoard;
+  ai: NewsBoard;
+  digests: Digest[];
+};

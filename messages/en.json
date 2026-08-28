@@ -43,6 +43,10 @@
     "guestbook": {
       "title": "Guestbook",
       "description": "Leave a line — I read all of them."
+    },
+    "news": {
+      "title": "News",
+      "description": "Pulled each morning: world news from reliable outlets, plus plain-language notes on Claude and AI updates."
     }
   },
   "intro": {
@@ -75,7 +79,8 @@
     "menu": "Open menu",
     "close": "Close menu",
     "replayIntro": "Back to the intro",
-    "toHome": "Back to the home page"
+    "toHome": "Back to the home page",
+    "news": "News"
   },
   "common": {
     "language": "Language",
@@ -236,5 +241,24 @@
     "empty": "No matches.",
     "hint": "↑↓ to move · ↵ to open · esc to close",
     "close": "Close"
+  },
+  "news": {
+    "title": "News",
+    "lead": "Two things: what happened in the world today, and what shipped in AI — and what it's actually for. Everything here is an outbound link; nothing is reprinted.",
+    "worldTitle": "World",
+    "worldNote": "{n} stories · {outlets} outlets",
+    "outletsLead": "The outlets I go to myself — head in for the full story:",
+    "aiTitle": "AI updates, explained",
+    "aiNote": "what shipped, and what it is good for",
+    "noDigest": "No write-ups yet.",
+    "readOriginal": "Read the original",
+    "restLead": "Updates without a write-up yet:",
+    "outletsLeadAi": "First-hand sources — check these first when something breaks:",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "empty": "Nothing pulled yet today.",
+    "updated": "Last pulled {time}",
+    "neverUpdated": "Not pulled yet.",
+    "footerNote": "The source list lives in content/news/sources.json — open to read."
   }
 }

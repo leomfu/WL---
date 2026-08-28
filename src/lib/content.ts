@@ -4,7 +4,10 @@ import matter from "gray-matter";
 import { excerpt, readingMinutes } from "./format";
 import type {
   LibraryItem,
+  Digest,
   MusicLibrary,
+  NewsBoard,
+  NewsData,
   Post,
   PostType,
   Project,
@@ -153,5 +156,22 @@ export function getMusic(): MusicLibrary {
     })),
     playlistUrl: netease.playlistUrl,
     residentCredit: resident.credit,
+  };
+}
+
+/** 新闻页数据：latest.json 由 scripts/fetch-news.mjs 生成，digests.json 是手写/生成的解读 */
+export function getNews(): NewsData {
+  const latest = readJson<{ generatedAt: string; boards: NewsBoard[] }>("news/latest.json", {
+    generatedAt: "",
+    boards: [],
+  });
+  const digests = readJson<{ items: Digest[] }>("news/digests.json", { items: [] });
+  const empty = (key: NewsBoard["key"]): NewsBoard => ({ key, outlets: [], items: [] });
+
+  return {
+    generatedAt: latest.generatedAt,
+    world: latest.boards.find((b) => b.key === "world") ?? empty("world"),
+    ai: latest.boards.find((b) => b.key === "ai") ?? empty("ai"),
+    digests: [...digests.items].sort((a, b) => b.date.localeCompare(a.date)),
   };
 }

@@ -1,0 +1,48 @@
+{
+  "note": "新闻源清单。改完跑 `npm run news` 重新抓取。只有两个板块：世界新闻、AI 更新。",
+  "boards": [
+    {
+      "key": "world",
+      "feeds": [
+        { "name": "BBC 中文", "nameEn": "BBC Chinese", "url": "https://feeds.bbci.co.uk/zhongwen/simp/rss.xml" },
+        { "name": "BBC World", "nameEn": "BBC World", "url": "https://feeds.bbci.co.uk/news/world/rss.xml" },
+        { "name": "卫报", "nameEn": "The Guardian", "url": "https://www.theguardian.com/world/rss" },
+        { "name": "半岛电视台", "nameEn": "Al Jazeera", "url": "https://www.aljazeera.com/xml/rss/all.xml" },
+        { "name": "德国之声", "nameEn": "DW", "url": "https://rss.dw.com/rdf/rss-en-world" },
+        { "name": "纽约时报", "nameEn": "NYT World", "url": "https://rss.nytimes.com/services/xml/rss/nyt/World.xml" },
+        { "name": "NPR", "nameEn": "NPR", "url": "https://feeds.npr.org/1004/rss.xml" }
+      ],
+      "outlets": [
+        { "name": "BBC 中文", "url": "https://www.bbc.com/zhongwen/simp", "note": "有中文版，不用付费墙" },
+        { "name": "BBC News", "url": "https://www.bbc.com/news/world", "note": "英文原版，全文免费" },
+        { "name": "The Guardian", "url": "https://www.theguardian.com/world", "note": "全文免费，没有付费墙" },
+        { "name": "Al Jazeera", "url": "https://www.aljazeera.com/news/", "note": "中东视角" },
+        { "name": "Deutsche Welle", "url": "https://www.dw.com/en/top-stories/s-9097", "note": "欧洲视角，有中文版" },
+        { "name": "NPR", "url": "https://www.npr.org/sections/world/", "note": "美国公共广播，免费" },
+        { "name": "The New York Times", "url": "https://www.nytimes.com/section/world", "note": "每月有免费额度，超了要订阅" },
+        { "name": "Associated Press", "url": "https://apnews.com/hub/world-news", "note": "通讯社原稿，RSS 拉不到但网页能看" },
+        { "name": "Reuters", "url": "https://www.reuters.com/world/", "note": "同上，官方 RSS 已关停" }
+      ]
+    },
+    {
+      "key": "ai",
+      "feeds": [
+        { "name": "Claude Code 发版", "nameEn": "Claude Code releases", "url": "https://github.com/anthropics/claude-code/releases.atom" },
+        { "name": "Claude 状态", "nameEn": "Claude status", "url": "https://status.anthropic.com/history.rss" },
+        { "name": "OpenAI", "nameEn": "OpenAI", "url": "https://openai.com/news/rss.xml" },
+        { "name": "Google AI", "nameEn": "Google AI", "url": "https://blog.google/technology/ai/rss/" },
+        { "name": "DeepMind", "nameEn": "DeepMind", "url": "https://deepmind.google/blog/rss.xml" },
+        { "name": "Hugging Face", "nameEn": "Hugging Face", "url": "https://huggingface.co/blog/feed.xml" }
+      ],
+      "outlets": [
+        { "name": "Anthropic News", "url": "https://www.anthropic.com/news", "note": "官方发布，一手" },
+        { "name": "Claude 更新日志", "url": "https://docs.claude.com/en/release-notes/overview", "note": "每个产品线的变更记录" },
+        { "name": "Claude Code 发版", "url": "https://github.com/anthropics/claude-code/releases", "note": "最细的一手：每个版本改了什么" },
+        { "name": "Anthropic 工程博客", "url": "https://www.anthropic.com/engineering", "note": "怎么用好的深度文章" },
+        { "name": "Claude 状态页", "url": "https://status.claude.com/", "note": "服务出问题时先看这里" },
+        { "name": "OpenAI News", "url": "https://openai.com/news/", "note": "对手在做什么" },
+        { "name": "Simon Willison", "url": "https://simonwillison.net/", "note": "英文圈解读 Claude 最快最准的人" }
+      ]
+    }
+  ]
+}

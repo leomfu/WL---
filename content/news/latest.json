@@ -1,0 +1,532 @@
+{
+  "note": "由 scripts/fetch-news.mjs 生成，别手改。源清单在 sources.json。",
+  "generatedAt": "2026-08-28T06:17:05.085Z",
+  "boards": [
+    {
+      "key": "world",
+      "outlets": [
+        {
+          "name": "BBC 中文",
+          "url": "https://www.bbc.com/zhongwen/simp",
+          "note": "有中文版，不用付费墙"
+        },
+        {
+          "name": "BBC News",
+          "url": "https://www.bbc.com/news/world",
+          "note": "英文原版，全文免费"
+        },
+        {
+          "name": "The Guardian",
+          "url": "https://www.theguardian.com/world",
+          "note": "全文免费，没有付费墙"
+        },
+        {
+          "name": "Al Jazeera",
+          "url": "https://www.aljazeera.com/news/",
+          "note": "中东视角"
+        },
+        {
+          "name": "Deutsche Welle",
+          "url": "https://www.dw.com/en/top-stories/s-9097",
+          "note": "欧洲视角，有中文版"
+        },
+        {
+          "name": "NPR",
+          "url": "https://www.npr.org/sections/world/",
+          "note": "美国公共广播，免费"
+        },
+        {
+          "name": "The New York Times",
+          "url": "https://www.nytimes.com/section/world",
+          "note": "每月有免费额度，超了要订阅"
+        },
+        {
+          "name": "Associated Press",
+          "url": "https://apnews.com/hub/world-news",
+          "note": "通讯社原稿，RSS 拉不到但网页能看"
+        },
+        {
+          "name": "Reuters",
+          "url": "https://www.reuters.com/world/",
+          "note": "同上，官方 RSS 已关停"
+        }
+      ],
+      "items": [
+        {
+          "title": "Rescuers Search for Missing and Stranded Under Threat of More Floods",
+          "url": "https://www.nytimes.com/live/2026/08/27/world/nepal-tibet-flash-floods",
+          "source": "纽约时报",
+          "sourceEn": "NYT World",
+          "at": "2026-08-28T05:53:03.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "'High risk' of lake bursting and causing second flood, warns China",
+          "url": "https://www.bbc.co.uk/news/articles/ckg8l2x8wr8o?at_medium=RSS&at_campaign=rss",
+          "source": "BBC World",
+          "sourceEn": "BBC World",
+          "at": "2026-08-28T05:50:59.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "U.S., South Korea and Japan to hold drill as North Korea ramps up pressure on U.S.",
+          "url": "https://www.npr.org/2026/08/28/g-s1-140849/us-south-korea-japan-drill-north-korea",
+          "source": "NPR",
+          "sourceEn": "NPR",
+          "at": "2026-08-28T05:46:43.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "Record drought grips Europe as rivers and crops dry up",
+          "url": "https://www.aljazeera.com/video/newsfeed/2026/8/28/record-drought-grips-europe-as-rivers-and-crops-dry-up?traffic_source=rss",
+          "source": "半岛电视台",
+          "sourceEn": "Al Jazeera",
+          "at": "2026-08-28T05:43:34.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "Six months of war between Iran, US leave Arab states facing tough questions",
+          "url": "https://www.aljazeera.com/news/2026/8/28/six-months-of-war-between-iran-us-leave-arab-states-facing-tough-questions?traffic_source=rss",
+          "source": "半岛电视台",
+          "sourceEn": "Al Jazeera",
+          "at": "2026-08-28T05:37:45.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "特朗普簽署行政命令，將「安大略湖」更名為「美國湖」",
+          "url": "https://www.bbc.com/zhongwen/articles/c804ld7kl93o/trad?at_medium=RSS&at_campaign=rss",
+          "source": "BBC 中文",
+          "sourceEn": "BBC Chinese",
+          "at": "2026-08-28T05:35:04.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "Algeria residents mourn neighbours lost in wildfire aftermath",
+          "url": "https://www.aljazeera.com/video/newsfeed/2026/8/28/algeria-residents-mourn-neighbours-lost-in-wildfire-aftermath?traffic_source=rss",
+          "source": "半岛电视台",
+          "sourceEn": "Al Jazeera",
+          "at": "2026-08-28T05:18:33.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "「在我眼中它就是黃金」：香港捲起卡牌熱，一張卡如何從遊戲工具變資產？",
+          "url": "https://www.bbc.com/zhongwen/articles/c0j3w0wxj18o/trad?at_medium=RSS&at_campaign=rss",
+          "source": "BBC 中文",
+          "sourceEn": "BBC Chinese",
+          "at": "2026-08-28T04:32:04.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "DRC begins vaccinating front-line healthcare workers against Ebola",
+          "url": "https://www.aljazeera.com/news/2026/8/28/drc-begins-vaccinating-front-line-healthcare-workers-against-ebola?traffic_source=rss",
+          "source": "半岛电视台",
+          "sourceEn": "Al Jazeera",
+          "at": "2026-08-28T04:27:54.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "Nepal’s mudslide wiped out areas of eastern China, army helps search",
+          "url": "https://www.aljazeera.com/video/newsfeed/2026/8/28/nepals-mudslide-wiped-out-areas-of-eastern-china-army-helps-search?traffic_source=rss",
+          "source": "半岛电视台",
+          "sourceEn": "Al Jazeera",
+          "at": "2026-08-28T04:20:27.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "What could Meta’s US settlement mean around the world – and what now for other claims against firm?",
+          "url": "https://www.theguardian.com/technology/2026/aug/28/meta-facebook-us-lawsuit-settlement-world-impact",
+          "source": "卫报",
+          "sourceEn": "The Guardian",
+          "at": "2026-08-28T04:00:48.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "Trump administration illegally retaliated against Anthropic, judge rules",
+          "url": "https://www.bbc.co.uk/news/articles/cm2q7z5mlrmo?at_medium=RSS&at_campaign=rss",
+          "source": "BBC World",
+          "sourceEn": "BBC World",
+          "at": "2026-08-28T03:41:59.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "女性罵髒話很低劣嗎？莫迪批評言論引燃印度「蟑螂人民黨」示威後續辯論",
+          "url": "https://www.bbc.com/zhongwen/articles/c5y7w1xgp2ro/trad?at_medium=RSS&at_campaign=rss",
+          "source": "BBC 中文",
+          "sourceEn": "BBC Chinese",
+          "at": "2026-08-28T02:49:24.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "Tate brothers blast US jail conditions as they seek bail in UK extradition fight",
+          "url": "https://www.bbc.co.uk/news/articles/c9v9nndjznvo?at_medium=RSS&at_campaign=rss",
+          "source": "BBC World",
+          "sourceEn": "BBC World",
+          "at": "2026-08-28T01:43:41.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "Protesters set fire to migrant camp in Ceuta",
+          "url": "https://www.dw.com/en/protesters-set-fire-to-migrant-camp-in-ceuta/a-78538847?maca=en-rss-en-world-4025-rdf",
+          "source": "德国之声",
+          "sourceEn": "DW",
+          "at": "2026-08-28T00:34:00.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "What we know after the big Grand Theft Auto 6 preview",
+          "url": "https://www.bbc.co.uk/news/articles/c3d7exngd5no?at_medium=RSS&at_campaign=rss",
+          "source": "BBC World",
+          "sourceEn": "BBC World",
+          "at": "2026-08-27T22:10:05.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "Jury deliberating in trial of Lindsay Clancy, US woman accused of killing her children",
+          "url": "https://www.bbc.co.uk/news/articles/c33keeyyv70o?at_medium=RSS&at_campaign=rss",
+          "source": "BBC World",
+          "sourceEn": "BBC World",
+          "at": "2026-08-27T20:39:16.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "Helicopter pilot describes what he's seen rescuing people in Nepal",
+          "url": "https://www.npr.org/2026/08/27/nx-s1-5946443/helicopter-pilot-describes-what-hes-seen-rescuing-people-in-nepal",
+          "source": "NPR",
+          "sourceEn": "NPR",
+          "at": "2026-08-27T20:01:44.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "Spain: Thieves steal Bronze Age gold in lightning raid on Villena Museum",
+          "url": "https://www.dw.com/en/spain-thieves-steal-bronze-age-gold-in-lightning-raid-on-villena-museum/a-78538027?maca=en-rss-en-world-4025-rdf",
+          "source": "德国之声",
+          "sourceEn": "DW",
+          "at": "2026-08-27T19:38:00.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "The man behind Srebrenica: Ratko Mladic dies at 84",
+          "url": "https://www.dw.com/en/the-man-behind-srebrenica-ratko-mladic-dies-at-84/a-78536491?maca=en-rss-en-world-4025-rdf",
+          "source": "德国之声",
+          "sourceEn": "DW",
+          "at": "2026-08-27T19:28:00.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "Canada Hires U.S. Scholars From Harvard and Other Top Universities",
+          "url": "https://www.nytimes.com/2026/08/27/world/canada/canada-universities-hire-us-researchers.html",
+          "source": "纽约时报",
+          "sourceEn": "NYT World",
+          "at": "2026-08-27T18:39:24.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "科學家分析尼泊爾—西藏致命山洪的來龍去脈",
+          "url": "https://www.bbc.com/zhongwen/articles/ckgxvnv51x5o/trad?at_medium=RSS&at_campaign=rss",
+          "source": "BBC 中文",
+          "sourceEn": "BBC Chinese",
+          "at": "2026-08-27T16:52:46.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "Greenlandic Women Will Finally Get Money for Forced Contraception",
+          "url": "https://www.nytimes.com/2026/08/27/world/europe/denmark-greenland-forced-contraception-compensation.html",
+          "source": "纽约时报",
+          "sourceEn": "NYT World",
+          "at": "2026-08-27T16:39:47.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "Zambian opposition leader in police custody: state media",
+          "url": "https://www.dw.com/en/zambian-opposition-leader-in-police-custody-state-media/a-78531338?maca=en-rss-en-world-4025-rdf",
+          "source": "德国之声",
+          "sourceEn": "DW",
+          "at": "2026-08-27T15:53:00.000Z",
+          "date": "2026-08-27"
+        },
+        {
+          "title": "Nepal flooding: 'We are disconnected from Kathmandu'",
+          "url": "https://www.dw.com/en/nepal-flooding-we-are-disconnected-from-kathmandu/a-78536034?maca=en-rss-en-world-4025-rdf",
+          "source": "德国之声",
+          "sourceEn": "DW",
+          "at": "2026-08-27T15:15:00.000Z",
+          "date": "2026-08-27"
+        },
+        {
+          "title": "Ratko Mladic, ex-Bosnian Serb warlord who oversaw atrocities, has died at 84",
+          "url": "https://www.npr.org/2026/08/27/nx-s1-5946375/ratko-mladic-dead",
+          "source": "NPR",
+          "sourceEn": "NPR",
+          "at": "2026-08-27T13:32:43.000Z",
+          "date": "2026-08-27"
+        },
+        {
+          "title": "Russian Sanctions Are Fueling a Canadian Car Theft Epidemic",
+          "url": "https://www.nytimes.com/2026/08/27/world/canada/canada-car-theft-russia-sanctions.html",
+          "source": "纽约时报",
+          "sourceEn": "NYT World",
+          "at": "2026-08-27T11:38:20.000Z",
+          "date": "2026-08-27"
+        },
+        {
+          "title": "Meta reaches $17B settlement. And, nuclear regulator to abandon radiation safety rule",
+          "url": "https://www.npr.org/2026/08/27/g-s1-140414/up-first-newsletter-meta-settlement-mail-in-voting-nrc-regulations-nepal-tibet-flooding",
+          "source": "NPR",
+          "sourceEn": "NPR",
+          "at": "2026-08-27T11:02:41.000Z",
+          "date": "2026-08-27"
+        },
+        {
+          "title": "Floods kill more than 400 people in Nepal and Tibet, with 90 Americans among the missing",
+          "url": "https://www.npr.org/2026/08/27/nx-s1-5946309/nepal-tibet-deadly-floods",
+          "source": "NPR",
+          "sourceEn": "NPR",
+          "at": "2026-08-27T10:50:35.000Z",
+          "date": "2026-08-27"
+        },
+        {
+          "title": "Where Drones Cannot See, the Ukraine War Is a Deadly Game of Cat and Mouse",
+          "url": "https://www.nytimes.com/2026/08/27/world/europe/ukraine-russia-war-zaporizhzhia-frontline-fighting.html",
+          "source": "纽约时报",
+          "sourceEn": "NYT World",
+          "at": "2026-08-27T10:23:22.000Z",
+          "date": "2026-08-27"
+        }
+      ]
+    },
+    {
+      "key": "ai",
+      "outlets": [
+        {
+          "name": "Anthropic News",
+          "url": "https://www.anthropic.com/news",
+          "note": "官方发布，一手"
+        },
+        {
+          "name": "Claude 更新日志",
+          "url": "https://docs.claude.com/en/release-notes/overview",
+          "note": "每个产品线的变更记录"
+        },
+        {
+          "name": "Claude Code 发版",
+          "url": "https://github.com/anthropics/claude-code/releases",
+          "note": "最细的一手：每个版本改了什么"
+        },
+        {
+          "name": "Anthropic 工程博客",
+          "url": "https://www.anthropic.com/engineering",
+          "note": "怎么用好的深度文章"
+        },
+        {
+          "name": "Claude 状态页",
+          "url": "https://status.claude.com/",
+          "note": "服务出问题时先看这里"
+        },
+        {
+          "name": "OpenAI News",
+          "url": "https://openai.com/news/",
+          "note": "对手在做什么"
+        },
+        {
+          "name": "Simon Willison",
+          "url": "https://simonwillison.net/",
+          "note": "英文圈解读 Claude 最快最准的人"
+        }
+      ],
+      "items": [
+        {
+          "title": "v2.1.250",
+          "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.250",
+          "source": "Claude Code 发版",
+          "sourceEn": "Claude Code releases",
+          "at": "2026-08-28T00:49:16.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "v2.1.248",
+          "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.248",
+          "source": "Claude Code 发版",
+          "sourceEn": "Claude Code releases",
+          "at": "2026-08-27T22:12:20.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "Gemini Omni 1.1 Flash lets you build with more control",
+          "url": "https://deepmind.google/blog/gemini-omni-1-1-flash-lets-you-build-with-more-control/",
+          "source": "DeepMind",
+          "sourceEn": "DeepMind",
+          "at": "2026-08-27T16:11:32.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "3 new ways to plan and book travel in Search",
+          "url": "https://blog.google/products-and-platforms/products/search/book-travel-ai-mode/",
+          "source": "Google AI",
+          "sourceEn": "Google AI",
+          "at": "2026-08-27T16:00:00.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "Piloting the world's first double-blind AI evaluations",
+          "url": "https://deepmind.google/blog/piloting-the-worlds-first-double-blind-ai-evaluations/",
+          "source": "DeepMind",
+          "sourceEn": "DeepMind",
+          "at": "2026-08-27T12:59:16.000Z",
+          "date": "2026-08-27"
+        },
+        {
+          "title": "Better answers, broader thinking: What students gain from ChatGPT and critical-thinking training",
+          "url": "https://openai.com/index/what-students-gain-from-chatgpt-critical-thinking-training",
+          "source": "OpenAI",
+          "sourceEn": "OpenAI",
+          "at": "2026-08-27T09:00:00.000Z",
+          "date": "2026-08-27"
+        },
+        {
+          "title": "Expanding OpenAI’s presence in Brazil",
+          "url": "https://openai.com/index/expanding-our-presence-in-brazil",
+          "source": "OpenAI",
+          "sourceEn": "OpenAI",
+          "at": "2026-08-27T03:00:00.000Z",
+          "date": "2026-08-27"
+        },
+        {
+          "title": "v2.1.247",
+          "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.247",
+          "source": "Claude Code 发版",
+          "sourceEn": "Claude Code releases",
+          "at": "2026-08-26T23:06:39.000Z",
+          "date": "2026-08-27"
+        },
+        {
+          "title": "Intelligent transcription with Gemini 3.5 Transcribe",
+          "url": "https://deepmind.google/blog/intelligent-transcription-with-gemini-3-5-transcribe/",
+          "source": "DeepMind",
+          "sourceEn": "DeepMind",
+          "at": "2026-08-26T17:01:00.000Z",
+          "date": "2026-08-27"
+        },
+        {
+          "title": "Bringing ChatGPT for Teachers to more U.S. school districts",
+          "url": "https://openai.com/index/bringing-chatgpt-for-teachers-to-more-us-school-districts",
+          "source": "OpenAI",
+          "sourceEn": "OpenAI",
+          "at": "2026-08-26T10:00:00.000Z",
+          "date": "2026-08-26"
+        },
+        {
+          "title": "Learning never stops: How AI makes learning continuous",
+          "url": "https://openai.com/index/learning-never-stops",
+          "source": "OpenAI",
+          "sourceEn": "OpenAI",
+          "at": "2026-08-26T10:00:00.000Z",
+          "date": "2026-08-26"
+        },
+        {
+          "title": "The Hugging Face incident and the road ahead",
+          "url": "https://openai.com/index/hugging-face-incident-and-the-road-ahead",
+          "source": "OpenAI",
+          "sourceEn": "OpenAI",
+          "at": "2026-08-26T00:00:00.000Z",
+          "date": "2026-08-26"
+        },
+        {
+          "title": "How loveholidays is making everyone a builder with Codex",
+          "url": "https://openai.com/index/loveholidays",
+          "source": "OpenAI",
+          "sourceEn": "OpenAI",
+          "at": "2026-08-26T00:00:00.000Z",
+          "date": "2026-08-26"
+        },
+        {
+          "title": "Training and Finetuning Multi-Vector Embedding Models with Sentence Transformers",
+          "url": "https://huggingface.co/blog/train-multi-vector-encoder",
+          "source": "Hugging Face",
+          "sourceEn": "Hugging Face",
+          "at": "2026-08-26T00:00:00.000Z",
+          "date": "2026-08-26"
+        },
+        {
+          "title": "v2.1.246",
+          "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.246",
+          "source": "Claude Code 发版",
+          "sourceEn": "Claude Code releases",
+          "at": "2026-08-25T22:31:52.000Z",
+          "date": "2026-08-26"
+        },
+        {
+          "title": "5 ways to upgrade your home decor with Google Search",
+          "url": "https://blog.google/products-and-platforms/products/search/home-decor-tips/",
+          "source": "Google AI",
+          "sourceEn": "Google AI",
+          "at": "2026-08-25T16:00:00.000Z",
+          "date": "2026-08-26"
+        },
+        {
+          "title": "Granite 4.2 LLMs: How They're Built",
+          "url": "https://huggingface.co/blog/ibm-granite/granite-4-2",
+          "source": "Hugging Face",
+          "sourceEn": "Hugging Face",
+          "at": "2026-08-25T15:14:14.000Z",
+          "date": "2026-08-25"
+        },
+        {
+          "title": "Quantization-Aware Healing: a compressed, 4-bit model that outperforms its full-precision original",
+          "url": "https://huggingface.co/blog/MultiverseComputingCAI/quantization-aware-healing",
+          "source": "Hugging Face",
+          "sourceEn": "Hugging Face",
+          "at": "2026-08-25T11:39:24.000Z",
+          "date": "2026-08-25"
+        },
+        {
+          "title": "The full stack behind abundant intelligence",
+          "url": "https://openai.com/index/the-full-stack-behind-abundant-intelligence",
+          "source": "OpenAI",
+          "sourceEn": "OpenAI",
+          "at": "2026-08-25T07:05:00.000Z",
+          "date": "2026-08-25"
+        },
+        {
+          "title": "Jalapeño’s first results show industry-leading speed and efficiency in AI inference",
+          "url": "https://openai.com/index/jalapeno-first-results",
+          "source": "OpenAI",
+          "sourceEn": "OpenAI",
+          "at": "2026-08-25T07:00:00.000Z",
+          "date": "2026-08-25"
+        },
+        {
+          "title": "v2.1.245",
+          "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.245",
+          "source": "Claude Code 发版",
+          "sourceEn": "Claude Code releases",
+          "at": "2026-08-25T05:13:24.000Z",
+          "date": "2026-08-25"
+        },
+        {
+          "title": "Wire It, Run It, Deploy It: AI Workflows in Gradio",
+          "url": "https://huggingface.co/blog/gradio-workflow-guide",
+          "source": "Hugging Face",
+          "sourceEn": "Hugging Face",
+          "at": "2026-08-25T00:00:00.000Z",
+          "date": "2026-08-25"
+        },
+        {
+          "title": "v2.1.243",
+          "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.243",
+          "source": "Claude Code 发版",
+          "sourceEn": "Claude Code releases",
+          "at": "2026-08-24T23:40:18.000Z",
+          "date": "2026-08-25"
+        },
+        {
+          "title": "Issues logging into Claude.ai",
+          "url": "https://status.claude.com/incidents/n0rlp126qf8g",
+          "source": "Claude 状态",
+          "sourceEn": "Claude status",
+          "at": "2026-08-24T20:26:21.000Z",
+          "date": "2026-08-25"
+        }
+      ]
+    }
+  ]
+}
