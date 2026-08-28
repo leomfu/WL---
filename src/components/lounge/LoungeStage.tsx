@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { LoungeRail } from "./LoungeRail";
 import { MusicDial } from "./MusicDial";
 import { SceneBackdrop } from "./SceneBackdrop";
@@ -25,6 +25,7 @@ const EASE = [0.22, 0.61, 0.36, 1] as const;
 
 export function LoungeStage({ music }: { music: MusicLibrary }) {
   const t = useTranslations("lounge");
+  const locale = useLocale();
   const reduced = useReducedMotion() ?? false;
 
   const scenes = siteConfig.lounge.scenes;
@@ -168,6 +169,7 @@ export function LoungeStage({ music }: { music: MusicLibrary }) {
               >
                 <MusicDial
                   library={music}
+                  spotify={siteConfig.lounge.spotifyPlaylists}
                   active={tab === "music"}
                   reduced={reduced}
                   autoStart={started}
@@ -186,9 +188,9 @@ export function LoungeStage({ music }: { music: MusicLibrary }) {
               >
                 <div className="rounded-[3px] border border-shell-line-2 bg-[#0E0E0E] p-3">
                   <iframe
-                    key={podcasts[podcastIndex]}
-                    title={t("tabPodcast")}
-                    src={podcasts[podcastIndex]}
+                    key={podcasts[podcastIndex].url}
+                    title={podcasts[podcastIndex].label}
+                    src={podcasts[podcastIndex].url}
                     width="100%"
                     height={420}
                     loading="lazy"
@@ -261,13 +263,15 @@ export function LoungeStage({ music }: { music: MusicLibrary }) {
                 );
               })}
 
+            {/* 只有一个节目时不显示 chip —— 一个孤零零的按钮没意义 */}
             {tab === "podcast" &&
-              podcasts.map((src, i) => (
+              podcasts.length > 1 &&
+              podcasts.map((item, i) => (
                 <Chip
-                  key={src}
+                  key={item.url}
                   active={i === podcastIndex}
                   onClick={() => setPodcastIndex(i)}
-                  label={`${t("tabPodcast")} ${i + 1}`}
+                  label={locale === "en" ? item.labelEn : item.label}
                 />
               ))}
           </div>

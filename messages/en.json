@@ -228,7 +228,11 @@
       "unplayable": "· unavailable",
       "residentCredit": "Always-here set: {credit}. Self-hosted, never goes down.",
       "neteaseNote": "From my NetEase playlist — only the tracks that actually stream.",
-      "fullPlaylist": "Full playlist →"
+      "fullPlaylist": "Full playlist →",
+      "clusterHere": "Plays here",
+      "clusterSpotify": "Spotify",
+      "spotifyHint": "Needs a Spotify account (30s previews otherwise)",
+      "spotifyNote": "Spotify's official embed. Without a signed-in account it plays 30-second previews — the two sets above are unaffected."
     }
   },
   "palette": {

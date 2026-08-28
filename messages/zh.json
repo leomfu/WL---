@@ -228,7 +228,11 @@
       "unplayable": "· 放不出来",
       "residentCredit": "常驻曲库：{credit}，自己托管，断不了。",
       "neteaseNote": "来自我的网易云歌单，只收了外链能真放出声的那些。",
-      "fullPlaylist": "听完整歌单 →"
+      "fullPlaylist": "听完整歌单 →",
+      "clusterHere": "站内直接听",
+      "clusterSpotify": "Spotify",
+      "spotifyHint": "需要 Spotify 账号（未登录只有 30 秒）",
+      "spotifyNote": "Spotify 官方嵌入。未登录只给 30 秒试听，大陆需自备网络 —— 站内那两组不受影响。"
     }
   },
   "palette": {
