@@ -28,6 +28,34 @@
 
 <!-- BEGIN:nextjs-agent-rules -->
 
+## 更新新闻页（用户说「更新新闻」时照这个做）
+
+新闻页 `/news` 两个板块，两种维护方式：
+
+**世界新闻 —— 一条命令，不需要判断**
+```
+npm run news          # 抓 content/news/sources.json 里的源，写 content/news/latest.json
+```
+
+**AI 更新解读 —— 要动脑子的那半，写进 content/news/digests.json**
+
+1. 先跑 `npm run news`，再看 `content/news/latest.json` 里 `ai` 板块的新条目。
+2. **读原文再写**。Claude Code 的发版内容在 releases.atom 的 `<content>` 里，直接抓：
+   `curl -s https://github.com/anthropics/claude-code/releases.atom` 然后解析对应 entry。
+   **不许凭标题猜内容** —— 版本号本身说明不了任何事。
+3. 只给**值得解读的**写。纯 bug 修复、纯内部改动跳过；一批小改动可以合成一条。
+   判断标准：这条更新会改变用户明天的做法吗？不会就别写。
+4. 每条 digest 的结构（`content/news/digests.json` 的 items）：
+   - `title` / `titleEn`：一句话说清这次改了什么，**不是**照抄英文标题
+   - `source`：`Claude Code v2.1.248` 这种，让人知道出处
+   - `url`：官方原文链接
+   - `body` / `bodyEn`：2–3 段，段落之间空一行。第一段说是什么，
+     第二段说为什么重要（解决了什么实际顾虑），第三段说怎么用。
+     **说人话，不要复述 changelog。**
+5. 写完 `npm run build` 过一遍，然后提交推送。
+
+已有的四条是范例，照那个调子写。
+
 # This is NOT the Next.js you know
 
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
