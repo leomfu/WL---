@@ -38,9 +38,11 @@ export const siteConfig = {
   email: "weiliang99520@gmail.com",
 
   /* --- 站点元信息 --- */
-  // 部署在 Vercel（项目 weiliang，GitHub 推送自动构建）。weiliang.vercel.app 被别人占了，
-  // Vercel 自动分配的正式域名是 weiliang-blush。以后绑自定义域名时改这里，然后重跑 `npm run og`。
-  url: "https://weiliang-blush.vercel.app",
+  // 部署在 Vercel（项目 weiliang，GitHub 推送自动构建）。正式域名 weiliang.dev —— 2026-08-28
+  // 在 Vercel 买的，DNS 也用 Vercel 自家的，所以不用手配 A/CNAME 记录。裸域是主地址，
+  // www.weiliang.dev 会 308 永久跳回裸域，所以这里只写裸域。改了这个地址要重跑 `npm run og`
+  // （分享图上印着站点地址）。
+  url: "https://weiliang.dev",
   locales: ["zh", "en"] as const,
   defaultLocale: "zh" as const,
 
@@ -125,7 +127,7 @@ export const siteConfig = {
      * giscus 主题。用的是本站那份黑白主题 public/giscus.css —— giscus 的 iframe 在
      * giscus.app 域下，只认**绝对地址**，所以换域名之后这里要跟着改。
      */
-    theme: "https://weiliang-blush.vercel.app/giscus.css",
+    theme: "https://weiliang.dev/giscus.css",
   },
 
   /* --- 访问统计（阶段 5 部署时接）--- */
