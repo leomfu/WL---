@@ -98,3 +98,43 @@ export type MusicLibrary = {
   /** 常驻曲库的出处声明 */
   residentCredit: string;
 };
+
+/** 新闻聚合（content/news/，由 scripts/fetch-news.mjs 生成） */
+export type NewsItem = {
+  title: string;
+  url: string;
+  source: string;
+  sourceEn: string;
+  at: string | null;
+  /** 北京时间的 YYYY-MM-DD，页面按它分组 */
+  date: string;
+};
+
+export type NewsLink = { name: string; url: string };
+
+export type NewsCategory = {
+  key: string;
+  label: string;
+  labelEn: string;
+  desc: string;
+  descEn: string;
+  links: NewsLink[];
+  items: NewsItem[];
+};
+
+export type NewsPick = {
+  url: string;
+  title: string;
+  titleEn: string;
+  source: string;
+  comment: string;
+  commentEn: string;
+  date: string;
+};
+
+export type News = {
+  /** 抓取时间（ISO），页面上显示"最后更新" */
+  generatedAt: string;
+  categories: NewsCategory[];
+  picks: NewsPick[];
+};

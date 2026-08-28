@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint .",
     "og": "node scripts/generate-og.mjs",
-    "music": "node scripts/fetch-netease.mjs"
+    "music": "node scripts/fetch-netease.mjs",
+    "news": "node scripts/fetch-news.mjs",
+    "news:vault": "node scripts/fetch-news.mjs --vault=/Users/fuweiliang/obsidian/obsidian个人知识库"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

@@ -43,6 +43,10 @@
     "guestbook": {
       "title": "留言板",
       "description": "随便写一句，我都会看到。"
+    },
+    "news": {
+      "title": "新闻",
+      "description": "每天早上抓一次：Claude 官方发版、AI 圈值得读的文章，以及我自己挑的几条。"
     }
   },
   "intro": {
@@ -75,7 +79,8 @@
     "menu": "打开菜单",
     "close": "关闭菜单",
     "replayIntro": "回到开场页",
-    "toHome": "回到首页"
+    "toHome": "回到首页",
+    "news": "新闻"
   },
   "common": {
     "language": "语言",
@@ -236,5 +241,21 @@
     "empty": "没有匹配的结果。",
     "hint": "↑↓ 选择 · ↵ 打开 · esc 关闭",
     "close": "关闭"
+  },
+  "news": {
+    "title": "新闻",
+    "lead": "每天早上六点抓一次，只留一手源和值得点开的。这里不转载正文，点了就走。",
+    "all": "全部",
+    "today": "今天",
+    "yesterday": "昨天",
+    "count": "{n} 条",
+    "empty": "这个分类今天是空的。",
+    "picksTitle": "我挑的",
+    "picksNote": "手动收的，带一句为什么",
+    "linksTitle": "常去的地方",
+    "linksNote": "抓不到的就直接过去看",
+    "updated": "最后一次抓取：{time}",
+    "neverUpdated": "还没抓过。",
+    "footerNote": "源清单在仓库的 content/news/sources.json 里，公开可查。"
   }
 }

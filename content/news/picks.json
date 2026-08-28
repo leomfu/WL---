@@ -1,0 +1,14 @@
+{
+  "note": "手动精选 —— 在 X 或别处看到值得记一笔的东西，往下面 items 里加一条。comment 是你自己的一句话点评，那句才是这一栏真正的价值；没有点评就别收。",
+  "items": [
+    {
+      "url": "https://x.com/simonw/status/1",
+      "title": "示例：把这条删掉，换成你真正想收的",
+      "titleEn": "Sample entry — replace it",
+      "source": "@simonw",
+      "comment": "一句话说清你为什么收它 —— 这栏没有点评就只是一堆链接。",
+      "commentEn": "One line on why it's worth keeping — without that it's just another link.",
+      "date": "2026-08-28"
+    }
+  ]
+}
