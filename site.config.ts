@@ -40,8 +40,9 @@ export const siteConfig = {
   /* --- 站点元信息 --- */
   // 部署在 Vercel（项目 weiliang，GitHub 推送自动构建）。正式域名 weiliang.dev —— 2026-08-28
   // 在 Vercel 买的，DNS 也用 Vercel 自家的，所以不用手配 A/CNAME 记录。裸域是主地址，
-  // www.weiliang.dev 会 308 永久跳回裸域，所以这里只写裸域。改了这个地址要重跑 `npm run og`
-  // （分享图上印着站点地址）。
+  // www.weiliang.dev 会 308 永久跳回裸域，所以这里只写裸域。改这个地址**不用**重跑
+  // `npm run og` —— 分享图上不含站点地址（生成脚本只取 nameEn / taglineShortEn / since），
+  // 真正跟着变的是 meta 里 og:image 那个绝对地址，构建时自动生成。
   url: "https://weiliang.dev",
   locales: ["zh", "en"] as const,
   defaultLocale: "zh" as const,
