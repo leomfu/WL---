@@ -7,7 +7,6 @@ export const NAV_ITEMS = [
   { key: "projects", path: "/projects" },
   { key: "videos", path: "/videos" },
   { key: "blog", path: "/blog" },
-  { key: "news", path: "/news" },
   { key: "about", path: "/about" },
   { key: "tools", path: "/tools" },
   { key: "lounge", path: "/lounge" },

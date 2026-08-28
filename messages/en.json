@@ -43,10 +43,6 @@
     "guestbook": {
       "title": "Guestbook",
       "description": "Leave a line — I read all of them."
-    },
-    "news": {
-      "title": "News",
-      "description": "Pulled every morning: Claude releases, AI writing worth reading, and a few things I picked by hand."
     }
   },
   "intro": {
@@ -79,8 +75,7 @@
     "menu": "Open menu",
     "close": "Close menu",
     "replayIntro": "Back to the intro",
-    "toHome": "Back to the home page",
-    "news": "News"
+    "toHome": "Back to the home page"
   },
   "common": {
     "language": "Language",
@@ -241,21 +236,5 @@
     "empty": "No matches.",
     "hint": "↑↓ to move · ↵ to open · esc to close",
     "close": "Close"
-  },
-  "news": {
-    "title": "News",
-    "lead": "Pulled once every morning — first-hand sources only, nothing reprinted. Every line here leaves the site.",
-    "all": "All",
-    "today": "Today",
-    "yesterday": "Yesterday",
-    "count": "{n}",
-    "empty": "Nothing in this category today.",
-    "picksTitle": "Hand-picked",
-    "picksNote": "collected by hand, with a reason",
-    "linksTitle": "Where I go",
-    "linksNote": "for the sources that can't be pulled",
-    "updated": "Last pulled {time}",
-    "neverUpdated": "Not pulled yet.",
-    "footerNote": "The source list lives in content/news/sources.json — open to read."
   }
 }

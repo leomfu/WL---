@@ -5,9 +5,6 @@ import { excerpt, readingMinutes } from "./format";
 import type {
   LibraryItem,
   MusicLibrary,
-  News,
-  NewsCategory,
-  NewsPick,
   Post,
   PostType,
   Project,
@@ -156,20 +153,5 @@ export function getMusic(): MusicLibrary {
     })),
     playlistUrl: netease.playlistUrl,
     residentCredit: resident.credit,
-  };
-}
-
-/** 每日新闻聚合。latest.json 由 scripts/fetch-news.mjs 生成，picks.json 手写 */
-export function getNews(): News {
-  const latest = readJson<{ generatedAt: string; categories: NewsCategory[] }>(
-    "news/latest.json",
-    { generatedAt: "", categories: [] },
-  );
-  const picks = readJson<{ items: NewsPick[] }>("news/picks.json", { items: [] });
-
-  return {
-    generatedAt: latest.generatedAt,
-    categories: latest.categories,
-    picks: [...picks.items].sort((a, b) => b.date.localeCompare(a.date)),
   };
 }
