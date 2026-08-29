@@ -1,6 +1,6 @@
 {
   "note": "由 scripts/fetch-news.mjs 生成，别手改。源清单在 sources.json。",
-  "generatedAt": "2026-08-28T06:57:13.322Z",
+  "generatedAt": "2026-08-29T03:27:46.038Z",
   "boards": [
     {
       "key": "world",
@@ -53,244 +53,244 @@
       ],
       "items": [
         {
-          "title": "Armed with a whistle, Gaza’s lifeguards do what they can to save swimmers",
-          "url": "https://www.aljazeera.com/features/2026/8/28/armed-with-a-whistle-gazas-lifeguards-do-what-they-can-to-save-swimmers?traffic_source=rss",
-          "source": "半岛电视台",
-          "sourceEn": "Al Jazeera",
-          "at": "2026-08-28T06:45:10.000Z",
-          "date": "2026-08-28"
-        },
-        {
-          "title": "Norway's King Harald dies at 89",
-          "url": "https://www.dw.com/en/norway-s-king-harald-dies-at-89/a-78524572?maca=en-rss-en-world-4025-rdf",
-          "source": "德国之声",
-          "sourceEn": "DW",
-          "at": "2026-08-28T06:42:00.000Z",
-          "date": "2026-08-28"
-        },
-        {
-          "title": "Norway's King Harald dies aged 89",
-          "url": "https://www.bbc.co.uk/news/articles/clykn5p5172o?at_medium=RSS&at_campaign=rss",
+          "title": "Trump hails 'historic' deal for US to control 65bn barrels of Venezuela's oil",
+          "url": "https://www.bbc.co.uk/news/articles/cx2zlwe7qj1o?at_medium=RSS&at_campaign=rss",
           "source": "BBC World",
           "sourceEn": "BBC World",
-          "at": "2026-08-28T06:40:59.000Z",
-          "date": "2026-08-28"
+          "at": "2026-08-29T02:42:27.000Z",
+          "date": "2026-08-29"
         },
         {
-          "title": "Six months on, Iran is still standing, but survival is becoming more costly",
-          "url": "https://www.aljazeera.com/opinions/2026/8/28/six-months-on-iran-is-still-standing-but-survival-is-becoming-more-costly?traffic_source=rss",
+          "title": "Guinea-Bissau votes on a stronger presidency: What’s at stake?",
+          "url": "https://www.aljazeera.com/news/2026/8/29/guinea-bissau-votes-on-a-stronger-presidency-whats-at-stake?traffic_source=rss",
           "source": "半岛电视台",
           "sourceEn": "Al Jazeera",
-          "at": "2026-08-28T06:35:08.000Z",
-          "date": "2026-08-28"
+          "at": "2026-08-29T02:38:27.000Z",
+          "date": "2026-08-29"
         },
         {
-          "title": "Rescuers Search for Missing and Stranded Under Threat of More Floods",
-          "url": "https://www.nytimes.com/live/2026/08/27/world/nepal-tibet-flash-floods",
-          "source": "纽约时报",
-          "sourceEn": "NYT World",
-          "at": "2026-08-28T06:34:59.000Z",
-          "date": "2026-08-28"
-        },
-        {
-          "title": "Six months on, Trump’s Iran strategy is starting to pay off",
-          "url": "https://www.aljazeera.com/opinions/2026/8/28/six-months-on-trumps-iran-strategy-is-starting-to-pay-off?traffic_source=rss",
+          "title": "Trump announces ‘biggest oil deal in world history’ with Venezuela",
+          "url": "https://www.aljazeera.com/news/2026/8/29/trump-announces-biggest-oil-deal-in-world-history-with-venezuela?traffic_source=rss",
           "source": "半岛电视台",
           "sourceEn": "Al Jazeera",
-          "at": "2026-08-28T06:31:47.000Z",
-          "date": "2026-08-28"
+          "at": "2026-08-29T02:32:51.000Z",
+          "date": "2026-08-29"
         },
         {
-          "title": "Singapore’s plans to clear forest for homes lead to rare public protests",
-          "url": "https://www.aljazeera.com/news/2026/8/28/singapores-plans-to-clear-forest-for-homes-lead-to-rare-public-protests?traffic_source=rss",
-          "source": "半岛电视台",
-          "sourceEn": "Al Jazeera",
-          "at": "2026-08-28T06:31:29.000Z",
-          "date": "2026-08-28"
-        },
-        {
-          "title": "Nepal-China floods: Death toll climbs amid new flood risk",
-          "url": "https://www.dw.com/en/nepal-china-floods-death-toll-climbs-amid-new-flood-risk/a-78539559?maca=en-rss-en-world-4025-rdf",
-          "source": "德国之声",
-          "sourceEn": "DW",
-          "at": "2026-08-28T06:11:00.000Z",
-          "date": "2026-08-28"
-        },
-        {
-          "title": "Death toll from Nepal-Tibet flood surpasses 470 as barrier lake threatens",
-          "url": "https://www.aljazeera.com/news/2026/8/28/death-toll-from-nepal-tibet-flood-passes-470-as-barrier-lake-threatens?traffic_source=rss",
-          "source": "半岛电视台",
-          "sourceEn": "Al Jazeera",
-          "at": "2026-08-28T06:08:12.000Z",
-          "date": "2026-08-28"
-        },
-        {
-          "title": "'High risk' of lake breaching and causing second flood, warns China",
-          "url": "https://www.bbc.co.uk/news/articles/ckg8l2x8wr8o?at_medium=RSS&at_campaign=rss",
-          "source": "BBC World",
-          "sourceEn": "BBC World",
-          "at": "2026-08-28T05:50:59.000Z",
-          "date": "2026-08-28"
-        },
-        {
-          "title": "U.S., South Korea and Japan to hold drill as North Korea ramps up pressure on U.S.",
-          "url": "https://www.npr.org/2026/08/28/g-s1-140849/us-south-korea-japan-drill-north-korea",
+          "title": "Trump says U.S. has entered deal with Venezuela to take control of 65 billion barrels of oil reserves",
+          "url": "https://www.npr.org/2026/08/28/nx-s1-5948229/trump-says-u-s-has-entered-deal-with-venezuela-to-take-control-of-65-billion-barrels-of-oil-reserves",
           "source": "NPR",
           "sourceEn": "NPR",
-          "at": "2026-08-28T05:46:43.000Z",
-          "date": "2026-08-28"
+          "at": "2026-08-29T02:07:55.000Z",
+          "date": "2026-08-29"
         },
         {
-          "title": "特朗普簽署行政命令，將「安大略湖」更名為「美國湖」",
-          "url": "https://www.bbc.com/zhongwen/articles/c804ld7kl93o/trad?at_medium=RSS&at_campaign=rss",
-          "source": "BBC 中文",
-          "sourceEn": "BBC Chinese",
-          "at": "2026-08-28T05:35:04.000Z",
-          "date": "2026-08-28"
+          "title": "Tuareg rebels free more Malian soldiers in prisoner swap, sources say",
+          "url": "https://www.aljazeera.com/news/2026/8/29/tuareg-rebels-free-more-malian-soldiers-in-prisoner-swap-sources-say?traffic_source=rss",
+          "source": "半岛电视台",
+          "sourceEn": "Al Jazeera",
+          "at": "2026-08-29T01:50:03.000Z",
+          "date": "2026-08-29"
         },
         {
-          "title": "「在我眼中它就是黃金」：香港捲起卡牌熱，一張卡如何從遊戲工具變資產？",
-          "url": "https://www.bbc.com/zhongwen/articles/c0j3w0wxj18o/trad?at_medium=RSS&at_campaign=rss",
-          "source": "BBC 中文",
-          "sourceEn": "BBC Chinese",
-          "at": "2026-08-28T04:32:04.000Z",
-          "date": "2026-08-28"
+          "title": "Gunfire, blasts heard in several areas of Niger capital Niamey",
+          "url": "https://www.aljazeera.com/news/2026/8/29/gunfire-blasts-heard-in-several-areas-of-niger-capital-niamey?traffic_source=rss",
+          "source": "半岛电视台",
+          "sourceEn": "Al Jazeera",
+          "at": "2026-08-29T01:30:08.000Z",
+          "date": "2026-08-29"
         },
         {
-          "title": "What could Meta’s US settlement mean around the world – and what now for other claims against firm?",
-          "url": "https://www.theguardian.com/technology/2026/aug/28/meta-facebook-us-lawsuit-settlement-world-impact",
+          "title": "Live Updates: Scale of Flood Disaster Grows as Nepal Doubles Estimate of Missing",
+          "url": "https://www.nytimes.com/live/2026/08/28/world/nepal-tibet-flash-floods",
+          "source": "纽约时报",
+          "sourceEn": "NYT World",
+          "at": "2026-08-29T00:58:54.000Z",
+          "date": "2026-08-29"
+        },
+        {
+          "title": "Board of Peace’s Mladenov warns Gaza could be ‘gone for good’",
+          "url": "https://www.aljazeera.com/video/newsfeed/2026/8/29/board-of-peaces-mladenov-warns-gaza-could-be-gone-for?traffic_source=rss",
+          "source": "半岛电视台",
+          "sourceEn": "Al Jazeera",
+          "at": "2026-08-29T00:53:56.000Z",
+          "date": "2026-08-29"
+        },
+        {
+          "title": "Right-wing commentator Milo Yiannopoulos detained by ICE",
+          "url": "https://www.bbc.co.uk/news/articles/cj06jgq62v9o?at_medium=RSS&at_campaign=rss",
+          "source": "BBC World",
+          "sourceEn": "BBC World",
+          "at": "2026-08-29T00:46:02.000Z",
+          "date": "2026-08-29"
+        },
+        {
+          "title": "Landlady to 9/11 hijackers reveals their links to alleged Saudi spy",
+          "url": "https://www.bbc.co.uk/news/articles/c99dvm39mreo?at_medium=RSS&at_campaign=rss",
+          "source": "BBC World",
+          "sourceEn": "BBC World",
+          "at": "2026-08-29T00:32:17.000Z",
+          "date": "2026-08-29"
+        },
+        {
+          "title": "Trump announces new US oil agreement with Venezuela",
+          "url": "https://www.theguardian.com/us-news/2026/aug/28/trump-venezuela-oil-agreement",
           "source": "卫报",
           "sourceEn": "The Guardian",
-          "at": "2026-08-28T04:00:48.000Z",
-          "date": "2026-08-28"
+          "at": "2026-08-28T23:34:36.000Z",
+          "date": "2026-08-29"
         },
         {
-          "title": "Trump administration illegally retaliated against Anthropic, judge rules",
-          "url": "https://www.bbc.co.uk/news/articles/cm2q7z5mlrmo?at_medium=RSS&at_campaign=rss",
+          "title": "Footage of Tibet floods isn't being shown in China - and we know little about victims there",
+          "url": "https://www.bbc.co.uk/news/articles/cx2z415w2gpo?at_medium=RSS&at_campaign=rss",
           "source": "BBC World",
           "sourceEn": "BBC World",
-          "at": "2026-08-28T03:41:59.000Z",
+          "at": "2026-08-28T22:05:41.000Z",
+          "date": "2026-08-29"
+        },
+        {
+          "title": "Six Months In, Iran Appears Stronger and U.S. Goals Unclear",
+          "url": "https://www.nytimes.com/2026/08/28/world/europe/iran-regime-war-us.html",
+          "source": "纽约时报",
+          "sourceEn": "NYT World",
+          "at": "2026-08-28T19:43:42.000Z",
+          "date": "2026-08-29"
+        },
+        {
+          "title": "Norway mourns King Harald as Haakon VIII ascends throne",
+          "url": "https://www.bbc.co.uk/news/articles/cm2rzxrdr71o?at_medium=RSS&at_campaign=rss",
+          "source": "BBC World",
+          "sourceEn": "BBC World",
+          "at": "2026-08-28T19:40:45.000Z",
+          "date": "2026-08-29"
+        },
+        {
+          "title": "After 6 months of war, Iran's battered regime remains entrenched",
+          "url": "https://www.npr.org/2026/08/28/nx-s1-5947854/us-iran-war",
+          "source": "NPR",
+          "sourceEn": "NPR",
+          "at": "2026-08-28T19:35:24.000Z",
+          "date": "2026-08-29"
+        },
+        {
+          "title": "Why Many Iranians Are Losing Hope After Six Months of War",
+          "url": "https://www.nytimes.com/2026/08/28/world/middleeast/iran-war-six-months-israel-us.html",
+          "source": "纽约时报",
+          "sourceEn": "NYT World",
+          "at": "2026-08-28T18:14:28.000Z",
+          "date": "2026-08-29"
+        },
+        {
+          "title": "Venezuelan opposition up in arms over reports US wants big stake in oil and gas",
+          "url": "https://www.theguardian.com/world/2026/aug/28/us-venezuela-oil-gas-stake",
+          "source": "卫报",
+          "sourceEn": "The Guardian",
+          "at": "2026-08-28T17:41:37.000Z",
+          "date": "2026-08-29"
+        },
+        {
+          "title": "Inside Afghanistan’s Secret Schools for Girls",
+          "url": "https://www.nytimes.com/2026/08/28/world/asia/afghanistan-girls-education.html",
+          "source": "纽约时报",
+          "sourceEn": "NYT World",
+          "at": "2026-08-28T16:56:53.000Z",
+          "date": "2026-08-29"
+        },
+        {
+          "title": "What next? Kurds say yes, Druze still say no to united Syria",
+          "url": "https://www.dw.com/en/what-next-kurds-say-yes-druze-still-say-no-to-united-syria/a-78549925?maca=en-rss-en-world-4025-rdf",
+          "source": "德国之声",
+          "sourceEn": "DW",
+          "at": "2026-08-28T16:47:00.000Z",
+          "date": "2026-08-29"
+        },
+        {
+          "title": "Uganda: World's 'youngest monarch' dies aged 34",
+          "url": "https://www.dw.com/en/uganda-world-s-youngest-monarch-dies-aged-34/a-78549208?maca=en-rss-en-world-4025-rdf",
+          "source": "德国之声",
+          "sourceEn": "DW",
+          "at": "2026-08-28T14:50:00.000Z",
           "date": "2026-08-28"
         },
         {
-          "title": "女性罵髒話很低劣嗎？莫迪批評言論引燃印度「蟑螂人民黨」示威後續辯論",
-          "url": "https://www.bbc.com/zhongwen/articles/c5y7w1xgp2ro/trad?at_medium=RSS&at_campaign=rss",
+          "title": "Egyptian queen’s 673-diamond necklace stolen in Vienna smash-and-grab raid",
+          "url": "https://www.theguardian.com/artanddesign/2026/aug/28/egyptian-queen-diamond-necklace-stolen-vienna-raid",
+          "source": "卫报",
+          "sourceEn": "The Guardian",
+          "at": "2026-08-28T14:46:25.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "Africa's aging autocrats fight to stay in power",
+          "url": "https://www.dw.com/en/africa-s-aging-autocrats-fight-to-stay-in-power/a-78487210?maca=en-rss-en-world-4025-rdf",
+          "source": "德国之声",
+          "sourceEn": "DW",
+          "at": "2026-08-28T14:02:00.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "Serbia: Keeping EU, Russia in play ahead of key election",
+          "url": "https://www.dw.com/en/serbia-keeping-eu-russia-in-play-ahead-of-key-election/a-78543495?maca=en-rss-en-world-4025-rdf",
+          "source": "德国之声",
+          "sourceEn": "DW",
+          "at": "2026-08-28T12:49:00.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "South Korea leans toward military conscription for women",
+          "url": "https://www.dw.com/en/south-korea-leans-toward-military-conscription-for-women/a-78547426?maca=en-rss-en-world-4025-rdf",
+          "source": "德国之声",
+          "sourceEn": "DW",
+          "at": "2026-08-28T12:04:00.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "尼泊爾—西藏泥石流：逾2000人遇難或失聯，中國總理赴前線意味著什麼？",
+          "url": "https://www.bbc.com/zhongwen/articles/c980env4n78o/trad?at_medium=RSS&at_campaign=rss",
           "source": "BBC 中文",
           "sourceEn": "BBC Chinese",
-          "at": "2026-08-28T02:49:24.000Z",
+          "at": "2026-08-28T11:41:29.000Z",
           "date": "2026-08-28"
         },
         {
-          "title": "Tate brothers blast US jail conditions as they seek bail in UK extradition fight",
-          "url": "https://www.bbc.co.uk/news/articles/c9v9nndjznvo?at_medium=RSS&at_campaign=rss",
-          "source": "BBC World",
-          "sourceEn": "BBC World",
-          "at": "2026-08-28T01:43:41.000Z",
-          "date": "2026-08-28"
-        },
-        {
-          "title": "Protesters set fire to migrant camp in Ceuta",
-          "url": "https://www.dw.com/en/protesters-set-fire-to-migrant-camp-in-ceuta/a-78538847?maca=en-rss-en-world-4025-rdf",
-          "source": "德国之声",
-          "sourceEn": "DW",
-          "at": "2026-08-28T00:34:00.000Z",
-          "date": "2026-08-28"
-        },
-        {
-          "title": "What we know after the big Grand Theft Auto 6 preview",
-          "url": "https://www.bbc.co.uk/news/articles/c3d7exngd5no?at_medium=RSS&at_campaign=rss",
-          "source": "BBC World",
-          "sourceEn": "BBC World",
-          "at": "2026-08-27T22:10:05.000Z",
-          "date": "2026-08-28"
-        },
-        {
-          "title": "Helicopter pilot describes what he's seen rescuing people in Nepal",
-          "url": "https://www.npr.org/2026/08/27/nx-s1-5946443/helicopter-pilot-describes-what-hes-seen-rescuing-people-in-nepal",
+          "title": "Experts warn more flooding might hit Nepal. And, Fed chairman to give key address",
+          "url": "https://www.npr.org/2026/08/28/g-s1-140866/up-first-newsletter-nepal-tibet-floods-kevin-warsh-kennedy-center",
           "source": "NPR",
           "sourceEn": "NPR",
-          "at": "2026-08-27T20:01:44.000Z",
+          "at": "2026-08-28T11:01:11.000Z",
           "date": "2026-08-28"
         },
         {
-          "title": "Spain: Thieves steal Bronze Age gold in lightning raid on Villena Museum",
-          "url": "https://www.dw.com/en/spain-thieves-steal-bronze-age-gold-in-lightning-raid-on-villena-museum/a-78538027?maca=en-rss-en-world-4025-rdf",
-          "source": "德国之声",
-          "sourceEn": "DW",
-          "at": "2026-08-27T19:38:00.000Z",
+          "title": "Hundreds killed, over 1,000 missing after flash floods in Nepal and Tibet",
+          "url": "https://www.npr.org/2026/08/28/nx-s1-5946732/hundreds-killed-over-1-000-missing-after-flash-floods-in-nepal-and-tibet",
+          "source": "NPR",
+          "sourceEn": "NPR",
+          "at": "2026-08-28T10:56:17.000Z",
           "date": "2026-08-28"
         },
         {
-          "title": "The man behind Srebrenica: Ratko Mladic dies at 84",
-          "url": "https://www.dw.com/en/the-man-behind-srebrenica-ratko-mladic-dies-at-84/a-78536491?maca=en-rss-en-world-4025-rdf",
-          "source": "德国之声",
-          "sourceEn": "DW",
-          "at": "2026-08-27T19:28:00.000Z",
+          "title": "'It's essentially been one long day': A daughter details search for parents in Nepal",
+          "url": "https://www.npr.org/2026/08/28/nx-s1-5946690/nepal-floods-missing-parents-shreya-ahuja",
+          "source": "NPR",
+          "sourceEn": "NPR",
+          "at": "2026-08-28T10:54:22.000Z",
           "date": "2026-08-28"
         },
         {
-          "title": "Canada Hires U.S. Scholars From Harvard and Other Top Universities",
-          "url": "https://www.nytimes.com/2026/08/27/world/canada/canada-universities-hire-us-researchers.html",
+          "title": "Fear Over Malaysia’s Plan to Send Back Rohingya Migrants to Myanmar",
+          "url": "https://www.nytimes.com/2026/08/28/world/asia/rohingya-refugees-malaysia-myanmar.html",
           "source": "纽约时报",
           "sourceEn": "NYT World",
-          "at": "2026-08-27T18:39:24.000Z",
+          "at": "2026-08-28T09:04:28.000Z",
           "date": "2026-08-28"
         },
         {
-          "title": "科學家分析尼泊爾—西藏致命山洪的來龍去脈",
-          "url": "https://www.bbc.com/zhongwen/articles/ckgxvnv51x5o/trad?at_medium=RSS&at_campaign=rss",
+          "title": "中國科技公司新嘗試：「性愛」機器人，瞄準「陪伴經濟」",
+          "url": "https://www.bbc.com/zhongwen/articles/c9v9pkd7ejpo/trad?at_medium=RSS&at_campaign=rss",
           "source": "BBC 中文",
           "sourceEn": "BBC Chinese",
-          "at": "2026-08-27T16:52:46.000Z",
+          "at": "2026-08-28T08:51:11.000Z",
           "date": "2026-08-28"
-        },
-        {
-          "title": "Greenlandic Women Will Finally Get Money for Forced Contraception",
-          "url": "https://www.nytimes.com/2026/08/27/world/europe/denmark-greenland-forced-contraception-compensation.html",
-          "source": "纽约时报",
-          "sourceEn": "NYT World",
-          "at": "2026-08-27T16:39:47.000Z",
-          "date": "2026-08-28"
-        },
-        {
-          "title": "Ratko Mladic, ex-Bosnian Serb warlord who oversaw atrocities, has died at 84",
-          "url": "https://www.npr.org/2026/08/27/nx-s1-5946375/ratko-mladic-dead",
-          "source": "NPR",
-          "sourceEn": "NPR",
-          "at": "2026-08-27T13:32:43.000Z",
-          "date": "2026-08-27"
-        },
-        {
-          "title": "Russian Sanctions Are Fueling a Canadian Car Theft Epidemic",
-          "url": "https://www.nytimes.com/2026/08/27/world/canada/canada-car-theft-russia-sanctions.html",
-          "source": "纽约时报",
-          "sourceEn": "NYT World",
-          "at": "2026-08-27T11:38:20.000Z",
-          "date": "2026-08-27"
-        },
-        {
-          "title": "Meta reaches $17B settlement. And, nuclear regulator to abandon radiation safety rule",
-          "url": "https://www.npr.org/2026/08/27/g-s1-140414/up-first-newsletter-meta-settlement-mail-in-voting-nrc-regulations-nepal-tibet-flooding",
-          "source": "NPR",
-          "sourceEn": "NPR",
-          "at": "2026-08-27T11:02:41.000Z",
-          "date": "2026-08-27"
-        },
-        {
-          "title": "Floods kill more than 400 people in Nepal and Tibet, with 90 Americans among the missing",
-          "url": "https://www.npr.org/2026/08/27/nx-s1-5946309/nepal-tibet-deadly-floods",
-          "source": "NPR",
-          "sourceEn": "NPR",
-          "at": "2026-08-27T10:50:35.000Z",
-          "date": "2026-08-27"
-        },
-        {
-          "title": "Where Drones Cannot See, the Ukraine War Is a Deadly Game of Cat and Mouse",
-          "url": "https://www.nytimes.com/2026/08/27/world/europe/ukraine-russia-war-zaporizhzhia-frontline-fighting.html",
-          "source": "纽约时报",
-          "sourceEn": "NYT World",
-          "at": "2026-08-27T10:23:22.000Z",
-          "date": "2026-08-27"
         }
       ]
     },
@@ -335,11 +335,51 @@
       ],
       "items": [
         {
+          "title": "Elevated errors on Claude Code and Claude Cowork",
+          "url": "https://status.claude.com/incidents/vr9tpk8w7zr8",
+          "source": "Claude 状态",
+          "sourceEn": "Claude status",
+          "at": "2026-08-28T20:21:18.000Z",
+          "date": "2026-08-29"
+        },
+        {
+          "title": "v2.1.251",
+          "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.251",
+          "source": "Claude Code 发版",
+          "sourceEn": "Claude Code releases",
+          "at": "2026-08-28T18:19:32.000Z",
+          "date": "2026-08-29"
+        },
+        {
+          "title": "Our decision on Cursor following its acquisition by SpaceX",
+          "url": "https://openai.com/index/our-decision-on-cursor-following-its-acquisition-by-spacex",
+          "source": "OpenAI",
+          "sourceEn": "OpenAI",
+          "at": "2026-08-28T06:00:00.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "Supporting Thailand’s next generation of AI startups",
+          "url": "https://openai.com/index/supporting-next-generation-ai-startups-thailand",
+          "source": "OpenAI",
+          "sourceEn": "OpenAI",
+          "at": "2026-08-28T02:00:00.000Z",
+          "date": "2026-08-28"
+        },
+        {
           "title": "v2.1.250",
           "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.250",
           "source": "Claude Code 发版",
           "sourceEn": "Claude Code releases",
           "at": "2026-08-28T00:49:16.000Z",
+          "date": "2026-08-28"
+        },
+        {
+          "title": "The Open ASR Leaderboard Adds Its First Global South Language",
+          "url": "https://huggingface.co/blog/open-asr-leaderboard-global-south",
+          "source": "Hugging Face",
+          "sourceEn": "Hugging Face",
+          "at": "2026-08-28T00:00:00.000Z",
           "date": "2026-08-28"
         },
         {
@@ -407,16 +447,16 @@
           "date": "2026-08-27"
         },
         {
-          "title": "Bringing ChatGPT for Teachers to more U.S. school districts",
-          "url": "https://openai.com/index/bringing-chatgpt-for-teachers-to-more-us-school-districts",
+          "title": "Learning never stops: How AI makes learning continuous",
+          "url": "https://openai.com/index/learning-never-stops",
           "source": "OpenAI",
           "sourceEn": "OpenAI",
           "at": "2026-08-26T10:00:00.000Z",
           "date": "2026-08-26"
         },
         {
-          "title": "Learning never stops: How AI makes learning continuous",
-          "url": "https://openai.com/index/learning-never-stops",
+          "title": "Bringing ChatGPT for Teachers to more U.S. school districts",
+          "url": "https://openai.com/index/bringing-chatgpt-for-teachers-to-more-us-school-districts",
           "source": "OpenAI",
           "sourceEn": "OpenAI",
           "at": "2026-08-26T10:00:00.000Z",
@@ -479,51 +519,11 @@
           "date": "2026-08-25"
         },
         {
-          "title": "The full stack behind abundant intelligence",
-          "url": "https://openai.com/index/the-full-stack-behind-abundant-intelligence",
-          "source": "OpenAI",
-          "sourceEn": "OpenAI",
-          "at": "2026-08-25T07:05:00.000Z",
-          "date": "2026-08-25"
-        },
-        {
-          "title": "Jalapeño’s first results show industry-leading speed and efficiency in AI inference",
-          "url": "https://openai.com/index/jalapeno-first-results",
-          "source": "OpenAI",
-          "sourceEn": "OpenAI",
-          "at": "2026-08-25T07:00:00.000Z",
-          "date": "2026-08-25"
-        },
-        {
           "title": "v2.1.245",
           "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.245",
           "source": "Claude Code 发版",
           "sourceEn": "Claude Code releases",
           "at": "2026-08-25T05:13:24.000Z",
-          "date": "2026-08-25"
-        },
-        {
-          "title": "Wire It, Run It, Deploy It: AI Workflows in Gradio",
-          "url": "https://huggingface.co/blog/gradio-workflow-guide",
-          "source": "Hugging Face",
-          "sourceEn": "Hugging Face",
-          "at": "2026-08-25T00:00:00.000Z",
-          "date": "2026-08-25"
-        },
-        {
-          "title": "v2.1.243",
-          "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.243",
-          "source": "Claude Code 发版",
-          "sourceEn": "Claude Code releases",
-          "at": "2026-08-24T23:40:18.000Z",
-          "date": "2026-08-25"
-        },
-        {
-          "title": "Issues logging into Claude.ai",
-          "url": "https://status.claude.com/incidents/n0rlp126qf8g",
-          "source": "Claude 状态",
-          "sourceEn": "Claude status",
-          "at": "2026-08-24T20:26:21.000Z",
           "date": "2026-08-25"
         }
       ]
