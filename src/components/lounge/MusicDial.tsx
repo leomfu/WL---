@@ -3,7 +3,16 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
-import { SpotifyEmbed } from "./SpotifyEmbed";
+import {
+  BOX,
+  C,
+  Hub,
+  RING_R,
+  TICKS,
+  TickMarks,
+  clock,
+  handPoints,
+} from "./dial";
 import { useStoredState } from "@/lib/useStoredState";
 import type { MusicLibrary, Track } from "@/lib/types";
 
@@ -26,36 +35,8 @@ import type { MusicLibrary, Track } from "@/lib/types";
  * 那边照旧跟着实时音量呼吸。
  */
 
-const BOX = 200;
-const C = BOX / 2;
-const RING_R = 88;
-
-/** 60 道刻度，整点长而亮 —— 与 intro/TimeDial 保持一致 */
-const TICKS = Array.from({ length: 60 }, (_, i) => {
-  const major = i % 5 === 0;
-  const rad = (i * 6 * Math.PI) / 180;
-  const outer = RING_R;
-  const inner = major ? RING_R - 10 : RING_R - 4;
-  return {
-    key: i,
-    x1: C + Math.sin(rad) * outer,
-    y1: C - Math.cos(rad) * outer,
-    x2: C + Math.sin(rad) * inner,
-    y2: C - Math.cos(rad) * inner,
-    width: major ? 1.1 : 0.7,
-    color: major ? "rgba(237,237,237,0.5)" : "rgba(237,237,237,0.16)",
-  };
-});
-
-const clock = (seconds: number) => {
-  if (!Number.isFinite(seconds) || seconds < 0) return "--:--";
-  const total = Math.floor(seconds);
-  return `${String(Math.floor(total / 60)).padStart(2, "0")}:${String(total % 60).padStart(2, "0")}`;
-};
-
-/** 自播的两组 + Spotify 的每个歌单各算一组（Spotify 的 key 形如 sp:<id>） */
-type Group = "netease" | "resident" | `sp:${string}`;
-type SpotifyList = { id: string; label: string; labelEn: string };
+/** 自播的两组：网易云直链、自托管常驻 */
+type Group = "netease" | "resident";
 
 /** 盘面：刻度 + 进度弧 + 指针。指针角度逐帧由 ref 写，不走 React 重渲染 */
 const Face = memo(function Face({
@@ -108,20 +89,7 @@ const Face = memo(function Face({
         vectorEffect="non-scaling-stroke"
       />
 
-      <g strokeLinecap="round">
-        {TICKS.map((tick) => (
-          <line
-            key={tick.key}
-            x1={tick.x1}
-            y1={tick.y1}
-            x2={tick.x2}
-            y2={tick.y2}
-            stroke={tick.color}
-            strokeWidth={tick.width}
-            vectorEffect="non-scaling-stroke"
-          />
-        ))}
-      </g>
+      <TickMarks ticks={TICKS} />
 
       {/* 进度弧：pathLength=1 之后 dasharray 直接就是「已播比例」 */}
       <circle
@@ -142,34 +110,24 @@ const Face = memo(function Face({
       {/* 指针：和时间之钟的分针同款锥形 */}
       <g ref={handRef} transform={`rotate(0 ${C} ${C})`}>
         <polygon
-          points={`${C},${C - RING_R + 4} ${C + 1.15},${C} ${C},${C + 16} ${C - 1.15},${C}`}
+          points={handPoints(RING_R - 4)}
           fill="#EDEDED"
           opacity={0.92}
         />
       </g>
 
-      <circle
-        cx={C}
-        cy={C}
-        r={4.6}
-        fill="#060606"
-        stroke="rgba(237,237,237,0.28)"
-        strokeWidth={0.7}
-      />
-      <circle cx={C} cy={C} r={2.2} fill="#EDEDED" />
+      <Hub />
     </svg>
   );
 });
 
 export function MusicDial({
   library,
-  spotify,
   active,
   reduced,
   autoStart,
 }: {
   library: MusicLibrary;
-  spotify: readonly SpotifyList[];
   active: boolean;
   reduced: boolean;
   /** 用户已经在这一页点过一次（过了浏览器的出声门槛）—— 切到音乐层就直接接着放 */
@@ -208,21 +166,10 @@ export function MusicDial({
   );
   const volume = Number(volumeText) || 0.7;
 
-  /** 选中的 Spotify 歌单（没选就是 null，此时走自播那套） */
-  const spotifyPick = group.startsWith("sp:")
-    ? (spotify.find((item) => `sp:${item.id}` === group) ?? null)
-    : null;
-
-  // Spotify 是它自己的 iframe，自播的 <audio> 这时候必须闭嘴
   const shouldPlay =
-    active &&
-    !spotifyPick &&
-    (intent === "play" || (intent === "auto" && autoStart));
-  const currentGroup: Group = spotifyPick
-    ? (`sp:${spotifyPick.id}` as const)
-    : group === "resident" || !hasNetease
-      ? "resident"
-      : "netease";
+    active && (intent === "play" || (intent === "auto" && autoStart));
+  const currentGroup: Group =
+    group === "resident" || !hasNetease ? "resident" : "netease";
   const tracks =
     currentGroup === "resident" ? library.resident : library.netease;
   const track: Track | undefined = tracks[Math.min(index, tracks.length - 1)];
@@ -353,43 +300,22 @@ export function MusicDial({
 
   if (!track) return null;
 
-  /** 选择器分两簇：站内直接能听的，和要 Spotify 账号的 */
-  const clusters: Array<{
-    title: string;
-    hint?: string;
-    items: Array<{ key: Group; label: string; count?: number }>;
-  }> = [
-    {
-      title: t("clusterHere"),
-      items: [
-        ...(hasNetease
-          ? [
-              {
-                key: "netease" as const,
-                label: t("groupNetease"),
-                count: library.netease.length,
-              },
-            ]
-          : []),
-        {
-          key: "resident" as const,
-          label: t("groupResident"),
-          count: library.resident.length,
-        },
-      ],
-    },
-    ...(spotify.length
+  /** 一组分段控件：我在听 / 常驻。Spotify 那簇已经挪到「时刻表」层去了 */
+  const groups: Array<{ key: Group; label: string; count: number }> = [
+    ...(hasNetease
       ? [
           {
-            title: t("clusterSpotify"),
-            hint: t("spotifyHint"),
-            items: spotify.map((item) => ({
-              key: `sp:${item.id}` as Group,
-              label: en ? item.labelEn : item.label,
-            })),
+            key: "netease" as const,
+            label: t("groupNetease"),
+            count: library.netease.length,
           },
         ]
       : []),
+    {
+      key: "resident" as const,
+      label: t("groupResident"),
+      count: library.resident.length,
+    },
   ];
 
   return (
@@ -405,246 +331,215 @@ export function MusicDial({
         onPause={() => setLive(false)}
       />
 
-      {/* 选了 Spotify 就换成它的官方播放器 —— 它是跨域 iframe，时间盘控制不了它。
-          连不上 Spotify 时 SpotifyEmbed 会换成说明卡，并给一个切回站内曲库的按钮 */}
-      {spotifyPick ? (
-        <SpotifyEmbed
-          src={`https://open.spotify.com/embed/playlist/${spotifyPick.id}?theme=0`}
-          title={`Spotify · ${en ? spotifyPick.labelEn : spotifyPick.label}`}
-          height={380}
-          onFallback={() => switchGroup(hasNetease ? "netease" : "resident")}
-          fallbackLabel={t("backHere")}
-        />
-      ) : (
-        <>
-          {/* 时间盘 */}
+        {/* 时间盘 */}
+        <div
+          className="relative"
+          style={{
+            width: "clamp(240px, 46vmin, 372px)",
+            height: "clamp(240px, 46vmin, 372px)",
+          }}
+        >
           <div
-            className="relative"
+            className="pointer-events-none absolute -inset-[14%] rounded-full"
             style={{
-              width: "clamp(240px, 46vmin, 372px)",
-              height: "clamp(240px, 46vmin, 372px)",
+              background:
+                "radial-gradient(circle, rgba(237,237,237,0.09) 0%, rgba(237,237,237,0.03) 42%, rgba(237,237,237,0) 70%)",
             }}
-          >
-            <div
-              className="pointer-events-none absolute -inset-[14%] rounded-full"
-              style={{
-                background:
-                  "radial-gradient(circle, rgba(237,237,237,0.09) 0%, rgba(237,237,237,0.03) 42%, rgba(237,237,237,0) 70%)",
-              }}
-              aria-hidden
-            />
+            aria-hidden
+          />
 
-            <Face
-              handRef={handRef}
-              arcRef={arcRef}
-              onSeek={seek}
-              seekLabel={t("seek")}
-            />
+          <Face
+            handRef={handRef}
+            arcRef={arcRef}
+            onSeek={seek}
+            seekLabel={t("seek")}
+          />
 
-            {/* 盘心：曲名 + 艺人。指针从上面扫过 */}
-            <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-2 px-[22%] text-center">
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={track.id}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: reduced ? 0.01 : 0.45 }}
-                  className="font-serif text-[17px] leading-[1.45] font-light tracking-[0.04em] text-shell-ink sm:text-[19px]"
-                >
-                  {title}
-                </motion.span>
-              </AnimatePresence>
-              <span className="text-[10.5px] tracking-[0.18em] text-shell-dim">
-                {artist}
-              </span>
-            </div>
-          </div>
-
-          {/* 时间 */}
-          <div className="flex items-center gap-3 font-mono text-[12px] tracking-[0.1em] text-shell-dim tabular-nums">
-            <span className="text-shell-ink">{clock(elapsed)}</span>
-            <span className="text-shell-faint">/</span>
-            <span>{clock(total)}</span>
-          </div>
-
-          {/* 上一首 / 播放 / 下一首 */}
-          <div className="flex items-center gap-9">
-            <button
-              type="button"
-              onClick={() => goto(index - 1)}
-              aria-label={t("prev")}
-              className="text-shell-dim transition-colors hover:text-shell-ink"
-            >
-              <svg
-                width="17"
-                height="14"
-                viewBox="0 0 17 14"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.2"
-                aria-hidden
+          {/* 盘心：曲名 + 艺人。指针从上面扫过 */}
+          <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-2 px-[22%] text-center">
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={track.id}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: reduced ? 0.01 : 0.45 }}
+                className="font-serif text-[17px] leading-[1.45] font-light tracking-[0.04em] text-shell-ink sm:text-[19px]"
               >
-                <path d="M15.5 1 5.5 7l10 6z" />
-                <line x1="1.5" y1="1" x2="1.5" y2="13" />
-              </svg>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setIntent(shouldPlay ? "pause" : "play")}
-              aria-label={shouldPlay ? t("pause") : t("play")}
-              className="flex size-[52px] items-center justify-center rounded-full border border-white/25 transition-colors hover:border-white/50"
-            >
-              {live || shouldPlay ? (
-                <svg
-                  width="14"
-                  height="16"
-                  viewBox="0 0 14 16"
-                  fill="none"
-                  stroke="#EDEDED"
-                  strokeWidth="1.4"
-                  aria-hidden
-                >
-                  <line x1="4" y1="1" x2="4" y2="15" />
-                  <line x1="10" y1="1" x2="10" y2="15" />
-                </svg>
-              ) : (
-                <svg
-                  width="14"
-                  height="16"
-                  viewBox="0 0 14 16"
-                  fill="#EDEDED"
-                  aria-hidden
-                >
-                  <path d="M13 8 0 16V0z" />
-                </svg>
-              )}
-            </button>
-
-            <button
-              type="button"
-              onClick={() => goto(index + 1)}
-              aria-label={t("next")}
-              className="text-shell-dim transition-colors hover:text-shell-ink"
-            >
-              <svg
-                width="17"
-                height="14"
-                viewBox="0 0 17 14"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.2"
-                aria-hidden
-              >
-                <path d="M1.5 1 11.5 7l-10 6z" />
-                <line x1="15.5" y1="1" x2="15.5" y2="13" />
-              </svg>
-            </button>
-          </div>
-
-          {/* 音量 —— 和氛围层同一条细线 */}
-          <div className="flex items-center gap-3.5">
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 18 18"
-              fill="none"
-              stroke="#8A8A8A"
-              strokeWidth="1.2"
-              strokeLinejoin="round"
-              aria-hidden
-            >
-              <path d="M8 3.5 4.5 6.5H2v5h2.5L8 14.5z" />
-              <path d="M11.2 6.4a3.6 3.6 0 0 1 0 5.2" />
-            </svg>
-            <div className="relative h-4 w-[140px]">
-              <div className="absolute top-1/2 left-0 h-px w-full -translate-y-1/2 bg-white/[0.18]" />
-              <div
-                className="absolute top-1/2 left-0 h-px -translate-y-1/2 bg-shell-ink"
-                style={{ width: `${volume * 100}%` }}
-              />
-              <div
-                className="absolute top-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-shell-ink"
-                style={{ left: `${volume * 100}%` }}
-              />
-              <input
-                type="range"
-                min={0}
-                max={100}
-                value={Math.round(volume * 100)}
-                onChange={(e) =>
-                  setVolumeText(String(Number(e.target.value) / 100))
-                }
-                aria-label={t("volume")}
-                className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
-              />
-            </div>
-          </div>
-        </>
-      )}
-
-      {/* 选音乐 —— 两簇：站内 / Spotify */}
-      <div className="flex flex-col items-center gap-5 sm:flex-row sm:items-start sm:gap-11">
-        {clusters.map((cluster) => (
-          <div key={cluster.title} className="flex flex-col items-center gap-2">
-            <span className="text-[10px] tracking-[0.24em] text-shell-faint uppercase">
-              {cluster.title}
+                {title}
+              </motion.span>
+            </AnimatePresence>
+            <span className="text-[10.5px] tracking-[0.18em] text-shell-dim">
+              {artist}
             </span>
-            {/* 细线分段控件：选中的那格描白边，其余只有分隔线 */}
-            <div className="flex items-stretch border border-white/12">
-              {cluster.items.map((item, i) => {
-                const on = item.key === currentGroup;
-                return (
-                  <button
-                    key={item.key}
-                    type="button"
-                    onClick={() => switchGroup(item.key)}
-                    aria-pressed={on}
-                    className={[
-                      "px-4 py-2.5 text-[13px] tracking-[0.06em] transition-colors sm:px-[22px]",
-                      i > 0 ? "border-l border-white/12" : "",
-                      on
-                        ? "bg-white/[0.07] text-shell-ink"
-                        : "text-shell-dim hover:bg-white/[0.03] hover:text-shell-ink",
-                    ].join(" ")}
-                  >
-                    {item.label}
-                    {item.count !== undefined && (
-                      <span className="ml-2 text-[11px] text-shell-faint tabular-nums">
-                        {item.count}
-                      </span>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-            {cluster.hint && (
-              <span className="text-[10.5px] leading-[1.7] text-shell-faint">
-                {cluster.hint}
-              </span>
-            )}
           </div>
-        ))}
+        </div>
 
-        {!spotifyPick && (
+        {/* 时间 */}
+        <div className="flex items-center gap-3 font-mono text-[12px] tracking-[0.1em] text-shell-dim tabular-nums">
+          <span className="text-shell-ink">{clock(elapsed)}</span>
+          <span className="text-shell-faint">/</span>
+          <span>{clock(total)}</span>
+        </div>
+
+        {/* 上一首 / 播放 / 下一首 */}
+        <div className="flex items-center gap-9">
           <button
             type="button"
-            onClick={() => setListOpen((open) => !open)}
-            aria-expanded={listOpen}
-            className="self-center text-[13px] tracking-[0.06em] text-shell-dim transition-colors hover:text-shell-ink sm:mt-[26px]"
+            onClick={() => goto(index - 1)}
+            aria-label={t("prev")}
+            className="text-shell-dim transition-colors hover:text-shell-ink"
           >
-            {listOpen ? t("hideList") : t("showList")}
-            <span className="ml-2 text-[10px] tracking-[0.2em] text-shell-faint">
-              L
-            </span>
+            <svg
+              width="17"
+              height="14"
+              viewBox="0 0 17 14"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.2"
+              aria-hidden
+            >
+              <path d="M15.5 1 5.5 7l10 6z" />
+              <line x1="1.5" y1="1" x2="1.5" y2="13" />
+            </svg>
           </button>
-        )}
+
+          <button
+            type="button"
+            onClick={() => setIntent(shouldPlay ? "pause" : "play")}
+            aria-label={shouldPlay ? t("pause") : t("play")}
+            className="flex size-[52px] items-center justify-center rounded-full border border-white/25 transition-colors hover:border-white/50"
+          >
+            {live || shouldPlay ? (
+              <svg
+                width="14"
+                height="16"
+                viewBox="0 0 14 16"
+                fill="none"
+                stroke="#EDEDED"
+                strokeWidth="1.4"
+                aria-hidden
+              >
+                <line x1="4" y1="1" x2="4" y2="15" />
+                <line x1="10" y1="1" x2="10" y2="15" />
+              </svg>
+            ) : (
+              <svg
+                width="14"
+                height="16"
+                viewBox="0 0 14 16"
+                fill="#EDEDED"
+                aria-hidden
+              >
+                <path d="M13 8 0 16V0z" />
+              </svg>
+            )}
+          </button>
+
+          <button
+            type="button"
+            onClick={() => goto(index + 1)}
+            aria-label={t("next")}
+            className="text-shell-dim transition-colors hover:text-shell-ink"
+          >
+            <svg
+              width="17"
+              height="14"
+              viewBox="0 0 17 14"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.2"
+              aria-hidden
+            >
+              <path d="M1.5 1 11.5 7l-10 6z" />
+              <line x1="15.5" y1="1" x2="15.5" y2="13" />
+            </svg>
+          </button>
+        </div>
+
+        {/* 音量 —— 和氛围层同一条细线 */}
+        <div className="flex items-center gap-3.5">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 18 18"
+            fill="none"
+            stroke="#8A8A8A"
+            strokeWidth="1.2"
+            strokeLinejoin="round"
+            aria-hidden
+          >
+            <path d="M8 3.5 4.5 6.5H2v5h2.5L8 14.5z" />
+            <path d="M11.2 6.4a3.6 3.6 0 0 1 0 5.2" />
+          </svg>
+          <div className="relative h-4 w-[140px]">
+            <div className="absolute top-1/2 left-0 h-px w-full -translate-y-1/2 bg-white/[0.18]" />
+            <div
+              className="absolute top-1/2 left-0 h-px -translate-y-1/2 bg-shell-ink"
+              style={{ width: `${volume * 100}%` }}
+            />
+            <div
+              className="absolute top-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-shell-ink"
+              style={{ left: `${volume * 100}%` }}
+            />
+            <input
+              type="range"
+              min={0}
+              max={100}
+              value={Math.round(volume * 100)}
+              onChange={(e) =>
+                setVolumeText(String(Number(e.target.value) / 100))
+              }
+              aria-label={t("volume")}
+              className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+            />
+          </div>
+        </div>
+
+      {/* 选音乐 */}
+      <div className="flex flex-col items-center gap-5 sm:flex-row sm:items-center sm:gap-8">
+        <div className="flex items-stretch border border-white/12">
+          {groups.map((item, i) => {
+            const on = item.key === currentGroup;
+            return (
+              <button
+                key={item.key}
+                type="button"
+                onClick={() => switchGroup(item.key)}
+                aria-pressed={on}
+                className={[
+                  "px-4 py-2.5 text-[13px] tracking-[0.06em] transition-colors sm:px-[22px]",
+                  i > 0 ? "border-l border-white/12" : "",
+                  on
+                    ? "bg-white/[0.07] text-shell-ink"
+                    : "text-shell-dim hover:bg-white/[0.03] hover:text-shell-ink",
+                ].join(" ")}
+              >
+                {item.label}
+                <span className="ml-2 text-[11px] text-shell-faint tabular-nums">
+                  {item.count}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        <button
+          type="button"
+          onClick={() => setListOpen((open) => !open)}
+          aria-expanded={listOpen}
+          className="text-[13px] tracking-[0.06em] text-shell-dim transition-colors hover:text-shell-ink"
+        >
+          {listOpen ? t("hideList") : t("showList")}
+          <span className="ml-2 text-[10px] tracking-[0.2em] text-shell-faint">
+            L
+          </span>
+        </button>
       </div>
 
       {/* 曲目清单 */}
       <AnimatePresence>
-        {listOpen && !spotifyPick && (
+        {listOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
@@ -702,11 +597,9 @@ export function MusicDial({
 
       {/* 出处 / 外链 */}
       <p className="max-w-[520px] text-center text-[11px] leading-[1.9] tracking-[0.04em] text-shell-faint">
-        {spotifyPick
-          ? t("spotifyNote")
-          : currentGroup === "resident"
-            ? t("residentCredit", { credit: library.residentCredit })
-            : t("neteaseNote")}
+        {currentGroup === "resident"
+          ? t("residentCredit", { credit: library.residentCredit })
+          : t("neteaseNote")}
         {currentGroup === "netease" && library.playlistUrl && (
           <>
             {" "}

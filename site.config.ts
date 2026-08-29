@@ -97,23 +97,39 @@ export const siteConfig = {
     /* 音乐层的曲目不在这里 —— 常驻曲库在 content/music/resident.json，
        网易云那组由 scripts/fetch-netease.mjs 生成到 content/music/netease.json */
     /**
-     * Spotify 歌单（官方嵌入）。和上面自播的曲目并列在音乐层里，选到它就换成 Spotify 的播放器。
-     * ⚠️ 官方嵌入对**未登录访客只给 30 秒试听**，且大陆没有 Spotify 服务 —— 所以它是
-     * 「站主自己听」那一档，访客那档仍然是自托管的常驻曲库。界面上分成两组标清楚了。
+     * 时刻表 —— 放松区第三层。这一层不播放任何东西，只是「从这里去哪儿」。
+     *
+     * 原来这里是 Spotify 的嵌入播放器，撤掉了：正版流媒体给不出能塞进 <audio> 的直链，
+     * 嵌入永远是别人的白色方框，大陆还连不上。与其把残废的播放器伪装成一层，
+     * 不如老实做成一张时刻表。加去处就在下面加一行，顺序就是页面上的顺序。
      */
-    spotifyPlaylists: [
-      { id: "6kZrHBtYSgjtt4PB7i9yYo", label: "张震岳", labelEn: "A-Yue" },
-      { id: "4mPvpGE5wk2B3jO6wciAYW", label: "周杰伦", labelEn: "Jay Chou" },
-    ],
-
-    /** 播客嵌入（小宇宙 / Spotify / YouTube 播放列表）。留空时放松区不显示「播客」这一层 */
-    podcastEmbeds: [
+    departures: [
       {
+        platform: "Spotify",
+        platformEn: "Spotify",
+        label: "张震岳",
+        labelEn: "A-Yue",
+        url: "https://open.spotify.com/playlist/6kZrHBtYSgjtt4PB7i9yYo",
+      },
+      {
+        platform: "Spotify",
+        platformEn: "Spotify",
+        label: "周杰伦",
+        labelEn: "Jay Chou",
+        url: "https://open.spotify.com/playlist/4mPvpGE5wk2B3jO6wciAYW",
+      },
+      {
+        platform: "播客",
+        platformEn: "Podcast",
         label: "无人知晓",
         labelEn: "Unknown",
-        url: "https://open.spotify.com/embed/show/4TY2xLrxqaOEffz4B8eXpi?theme=0",
+        url: "https://open.spotify.com/show/4TY2xLrxqaOEffz4B8eXpi",
       },
     ],
+
+    /** 番茄钟。分钟数，cycle = 做满几个专注换一次长休 */
+    pomodoro: { focus: 25, short: 5, long: 15, cycle: 4 },
+
     /**
      * 氛围场景。音频路径已按约定的文件名预填好 —— 把 CC0 素材下载成这些名字丢进
      * `public/audio/ambient/` 就自动生效，不用改这里（见该目录的 README）。

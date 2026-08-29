@@ -30,7 +30,7 @@
     },
     "lounge": {
       "title": "Lounge",
-      "description": "Rain, waves, playlists and podcasts — doing nothing is allowed."
+      "description": "Rain, waves, a time dial and a pomodoro — doing nothing is allowed."
     },
     "contact": {
       "title": "Say something",
@@ -190,7 +190,6 @@
     "ringNote": "THE RINGS BREATHE WITH THE AMBIENT VOLUME",
     "tabAmbient": "Ambient",
     "tabMusic": "Music",
-    "tabPodcast": "Podcast",
     "play": "Play",
     "pause": "Pause",
     "volume": "Volume",
@@ -228,18 +227,33 @@
       "unplayable": "· unavailable",
       "residentCredit": "Always-here set: {credit}. Self-hosted, never goes down.",
       "neteaseNote": "From my NetEase playlist — only the tracks that actually stream.",
-      "fullPlaylist": "Full playlist →",
-      "clusterHere": "Plays here",
-      "clusterSpotify": "Spotify",
-      "spotifyHint": "Needs a Spotify account (30s previews otherwise)",
-      "spotifyNote": "Spotify's official embed. Without a signed-in account it plays 30-second previews — the two sets above are unaffected.",
-      "backHere": "Back to the local set"
+      "fullPlaylist": "Full playlist →"
     },
-    "spotify": {
-      "probing": "CONNECTING TO SPOTIFY",
-      "blockedTitle": "Spotify can't be reached on this network",
-      "blockedBody": "Spotify isn't available in mainland China — you'll need your own network to listen. Nothing is broken on this page.",
-      "open": "Open in Spotify ↗"
+    "tabPomodoro": "Pomodoro",
+    "tabDepartures": "Departures",
+    "departures": {
+      "nowLabel": "Now · local",
+      "note": "These live elsewhere · one click and you leave this page"
+    },
+    "pomodoro": {
+      "phase": {
+        "focus": "Focus",
+        "short": "Short break",
+        "long": "Long break"
+      },
+      "len": {
+        "focus": "25",
+        "short": "5",
+        "long": "15"
+      },
+      "start": "Start",
+      "pause": "Pause",
+      "reset": "Reset",
+      "chimeOn": "Chime on",
+      "chimeOff": "Chime off",
+      "doneCount": "{n} done",
+      "note": "One full revolution is one session. The timer keeps running in the background — switch layers or tabs, it doesn't care.",
+      "clearRound": "Click to clear"
     }
   },
   "palette": {

@@ -2,31 +2,34 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { LoungeRail } from "./LoungeRail";
 import { MusicDial } from "./MusicDial";
+import { Departures } from "./Departures";
+import { PomodoroDial } from "./PomodoroDial";
 import { SceneBackdrop } from "./SceneBackdrop";
-import { SpotifyEmbed } from "./SpotifyEmbed";
 import { useAmbient } from "./useAmbient";
+import { usePomodoro } from "./usePomodoro";
 import { siteConfig } from "~/site.config";
 import type { MusicLibrary } from "@/lib/types";
 
 /**
  * 放松区沉浸模式 —— 对照 docs/design/Lounge.dc.html。
  *
- * 三层：氛围（自托管音频 + 生成式背景）/ 音乐（网易云外链）/ 播客（第三方嵌入）。
- * 中间是三层错相呼吸的同心圆环；有氛围音在放时，圆环跟着实时音量呼吸，
- * 没有音频文件时退回固定节奏的 CSS 呼吸。
+ * 四层：
+ *   氛围   自托管音频 + 生成式背景，同心圆环跟着实时音量呼吸（没音频时退回 CSS 固定节奏）
+ *   音乐   站内直接播放的时间盘（网易云直链 + 自托管常驻曲库）
+ *   番茄钟 和音乐层同一张钟面，指针走这一段专注/休息的时间
+ *   时刻表 不播放任何东西，只是「从这里去哪儿」的外链（原来的播客嵌入层）
  */
 
-const TABS = ["ambient", "music", "podcast"] as const;
+const TABS = ["ambient", "music", "pomodoro", "departures"] as const;
 type Tab = (typeof TABS)[number];
 
 const EASE = [0.22, 0.61, 0.36, 1] as const;
 
 export function LoungeStage({ music }: { music: MusicLibrary }) {
   const t = useTranslations("lounge");
-  const locale = useLocale();
   const reduced = useReducedMotion() ?? false;
 
   const scenes = siteConfig.lounge.scenes;
@@ -38,9 +41,11 @@ export function LoungeStage({ music }: { music: MusicLibrary }) {
   const [tab, setTab] = useState<Tab>("ambient");
   const [started, setStarted] = useState(false);
   const [railExpanded, setRailExpanded] = useState(false);
-  const [podcastIndex, setPodcastIndex] = useState(0);
 
-  const podcasts = siteConfig.lounge.podcastEmbeds;
+  /** 番茄钟的状态放在这一层：切去音乐层、时刻表层，计时照走 */
+  const pomodoro = usePomodoro();
+
+  const departures = siteConfig.lounge.departures;
   const hasMusic = music.resident.length + music.netease.length > 0;
 
   /** 没素材的那一层直接不显示 —— 与其给访客看一句「还没配」，不如让它不存在 */
@@ -49,10 +54,11 @@ export function LoungeStage({ music }: { music: MusicLibrary }) {
       TABS.filter(
         (key) =>
           key === "ambient" ||
+          key === "pomodoro" ||
           (key === "music" && hasMusic) ||
-          (key === "podcast" && podcasts.length > 0),
+          (key === "departures" && departures.length > 0),
       ),
-    [hasMusic, podcasts.length],
+    [hasMusic, departures.length],
   );
 
   /** ESC：收起/展开左侧导航（视觉稿底部那行「ESC 退出沉浸」说的就是这个） */
@@ -64,9 +70,12 @@ export function LoungeStage({ music }: { music: MusicLibrary }) {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  /** 切到音乐/播客时把氛围音停掉，免得两路声音打架；切回来再续上 */
+  /**
+   * 只有音乐层会掐掉氛围音 —— 两路音乐一起响是打架。
+   * 番茄钟和时刻表不出声，让雨声接着放：一边下雨一边专注，本来就是这个功能该有的样子。
+   */
   useEffect(() => {
-    setPlaying(started && tab === "ambient");
+    setPlaying(started && tab !== "music");
   }, [setPlaying, started, tab]);
 
   const scene = scenes.find((s) => s.key === ambient.sceneKey) ?? scenes[0];
@@ -170,7 +179,6 @@ export function LoungeStage({ music }: { music: MusicLibrary }) {
               >
                 <MusicDial
                   library={music}
-                  spotify={siteConfig.lounge.spotifyPlaylists}
                   active={tab === "music"}
                   reduced={reduced}
                   autoStart={started}
@@ -178,30 +186,32 @@ export function LoungeStage({ music }: { music: MusicLibrary }) {
               </motion.div>
             )}
 
-            {tab === "podcast" && (
+            {tab === "pomodoro" && (
               <motion.div
-                key="podcast"
+                key="pomodoro"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: reduced ? 0.01 : 0.5 }}
                 className="w-full max-w-[560px]"
               >
-                {/* 同样过一遍可达性探测：连不上 Spotify 时给说明卡，
-                    而不是让浏览器的白色错误页糊在这一整页黑上 */}
-                <div className="flex justify-center">
-                  <SpotifyEmbed
-                    src={podcasts[podcastIndex].url}
-                    title={
-                      locale === "en"
-                        ? podcasts[podcastIndex].labelEn
-                        : podcasts[podcastIndex].label
-                    }
-                    height={420}
-                  />
-                </div>
+                <PomodoroDial pomodoro={pomodoro} reduced={reduced} />
               </motion.div>
             )}
+
+            {tab === "departures" && (
+              <motion.div
+                key="departures"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: reduced ? 0.01 : 0.5 }}
+                className="w-full max-w-[560px]"
+              >
+                <Departures reduced={reduced} />
+              </motion.div>
+            )}
+
           </AnimatePresence>
         </div>
 
@@ -235,7 +245,9 @@ export function LoungeStage({ music }: { music: MusicLibrary }) {
                       ? "tabAmbient"
                       : key === "music"
                         ? "tabMusic"
-                        : "tabPodcast",
+                        : key === "pomodoro"
+                          ? "tabPomodoro"
+                          : "tabDepartures",
                   )}
                 </button>
               );
@@ -265,17 +277,6 @@ export function LoungeStage({ music }: { music: MusicLibrary }) {
                 );
               })}
 
-            {/* 只有一个节目时不显示 chip —— 一个孤零零的按钮没意义 */}
-            {tab === "podcast" &&
-              podcasts.length > 1 &&
-              podcasts.map((item, i) => (
-                <Chip
-                  key={item.url}
-                  active={i === podcastIndex}
-                  onClick={() => setPodcastIndex(i)}
-                  label={locale === "en" ? item.labelEn : item.label}
-                />
-              ))}
           </div>
 
           {/* 播放/暂停 + 音量 + 循环标注（氛围层专属） */}
@@ -400,31 +401,5 @@ export function LoungeStage({ music }: { music: MusicLibrary }) {
         )}
       </AnimatePresence>
     </div>
-  );
-}
-
-function Chip({
-  label,
-  active,
-  onClick,
-}: {
-  label: string;
-  active: boolean;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      aria-pressed={active}
-      className={[
-        "px-4 py-2.5 text-[13px] tracking-[0.06em] transition-colors sm:px-5 sm:py-3",
-        active
-          ? "border border-white/30 text-shell-ink"
-          : "border border-transparent text-shell-dim hover:text-shell-ink",
-      ].join(" ")}
-    >
-      {label}
-    </button>
   );
 }

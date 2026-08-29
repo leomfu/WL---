@@ -30,7 +30,7 @@
     },
     "lounge": {
       "title": "放松区",
-      "description": "雨声、海浪、歌单和播客 —— 什么都不干也行。"
+      "description": "雨声、海浪、一张时间盘和一个番茄钟 —— 什么都不干也行。"
     },
     "contact": {
       "title": "说点什么",
@@ -190,7 +190,6 @@
     "ringNote": "圆环随氛围音音量呼吸",
     "tabAmbient": "氛围",
     "tabMusic": "音乐",
-    "tabPodcast": "播客",
     "play": "播放",
     "pause": "暂停",
     "volume": "音量",
@@ -228,18 +227,33 @@
       "unplayable": "· 放不出来",
       "residentCredit": "常驻曲库：{credit}，自己托管，断不了。",
       "neteaseNote": "来自我的网易云歌单，只收了外链能真放出声的那些。",
-      "fullPlaylist": "听完整歌单 →",
-      "clusterHere": "站内直接听",
-      "clusterSpotify": "Spotify",
-      "spotifyHint": "需要 Spotify 账号（未登录只有 30 秒）",
-      "spotifyNote": "Spotify 官方嵌入。未登录只给 30 秒试听，大陆需自备网络 —— 站内那两组不受影响。",
-      "backHere": "换回站内曲库"
+      "fullPlaylist": "听完整歌单 →"
     },
-    "spotify": {
-      "probing": "正在连接 SPOTIFY",
-      "blockedTitle": "当前网络连不上 Spotify",
-      "blockedBody": "大陆没有 Spotify 服务，需要自备网络才能听。不是这个页面坏了。",
-      "open": "在 Spotify 打开 ↗"
+    "tabPomodoro": "番茄钟",
+    "tabDepartures": "时刻表",
+    "departures": {
+      "nowLabel": "此刻 · 当地",
+      "note": "这些都在别处 · 点一下就离开这一页"
+    },
+    "pomodoro": {
+      "phase": {
+        "focus": "专注",
+        "short": "短休",
+        "long": "长休"
+      },
+      "len": {
+        "focus": "25",
+        "short": "5",
+        "long": "15"
+      },
+      "start": "开始",
+      "pause": "暂停",
+      "reset": "重置",
+      "chimeOn": "响铃 开",
+      "chimeOff": "响铃 关",
+      "doneCount": "已完成 {n}",
+      "note": "指针转满一圈就是这一段走完。计时在后台照走 —— 切去别的层、别的标签页都不影响。",
+      "clearRound": "点一下清零"
     }
   },
   "palette": {
