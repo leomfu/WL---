@@ -248,7 +248,35 @@
       "restoreDefault": "Restore defaults",
       "settingsNote": "Takes effect right away. A running session is never cut short — the new length starts with the next one."
     },
-    "sceneLabel": "Backdrop"
+    "sceneLabel": "Backdrop",
+    "tabNotes": "Notes",
+    "notes": {
+      "stack": "Notes {n}",
+      "new": "New",
+      "blank": "(empty)",
+      "kindMemo": "Memo",
+      "kindDraft": "Draft",
+      "remove": "Delete this note",
+      "focusLeft": "FOCUS LEFT",
+      "emptyLead": "No notes yet. Write whatever comes to mind — formatting can wait.",
+      "newFirst": "Write the first one",
+      "titlePlaceholder": "Title",
+      "titleLabel": "Post title",
+      "bodyPlaceholder": "Just write. Markdown works: ## headings, **bold**, - lists.",
+      "bodyLabel": "Body",
+      "stats": "{n} words · about {min} min read",
+      "statsEmpty": "Nothing yet",
+      "fileLabel": "Filename",
+      "copyMd": "Copy Markdown",
+      "downloadMd": "Download .md",
+      "toGithub": "Send to GitHub ↗",
+      "copyThenGithub": "Copy, then GitHub ↗",
+      "tooLongHint": "This one is longer than a GitHub URL can carry, so it copies to your clipboard and opens a blank new-file page instead — just paste.",
+      "copied": "Copied",
+      "copyAll": "Copy all",
+      "exportAll": "Export all",
+      "localOnly": "Lives only in this browser on this computer — no sync to your phone, gone if you clear browser data, and not encrypted. Export anything that matters."
+    }
   },
   "palette": {
     "placeholder": "Search posts, jump to a page…",

@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { Departures } from "./Departures";
 import { LoungeRail } from "./LoungeRail";
 import { MusicDial } from "./MusicDial";
+import { Notes } from "./Notes";
 import { PomodoroDial } from "./PomodoroDial";
 import { SceneBackdrop } from "./SceneBackdrop";
 import { usePomodoro } from "./usePomodoro";
@@ -19,6 +20,7 @@ import type { MusicLibrary } from "@/lib/types";
  * 三层：
  *   音乐   站内直接播放的时间盘（网易云直链 + 自托管常驻曲库）
  *   番茄钟 和音乐层同一张钟面，指针走这一段专注/休息的时间，时长可以自己设
+ *   手记   备忘和博客草稿共用一个写字面，存在 localStorage，导出走剪贴板 / GitHub 预填
  *   时刻表 不播放任何东西，只是「从这里去哪儿」的外链
  *
  * ── 氛围音去哪了（2026-08-29 撤掉，别再加回来）──
@@ -29,7 +31,7 @@ import type { MusicLibrary } from "@/lib/types";
  * 呼吸圆环画的是音量，没有音量它就没有要表达的东西，跟着一起去掉了。
  */
 
-const TABS = ["music", "pomodoro", "departures"] as const;
+const TABS = ["music", "pomodoro", "notes", "departures"] as const;
 type Tab = (typeof TABS)[number];
 
 export function LoungeStage({ music }: { music: MusicLibrary }) {
@@ -61,6 +63,7 @@ export function LoungeStage({ music }: { music: MusicLibrary }) {
       TABS.filter(
         (key) =>
           key === "pomodoro" ||
+          key === "notes" ||
           (key === "music" && hasMusic) ||
           (key === "departures" && departures.length > 0),
       ),
@@ -137,6 +140,19 @@ export function LoungeStage({ music }: { music: MusicLibrary }) {
               </motion.div>
             )}
 
+            {tab === "notes" && (
+              <motion.div
+                key="notes"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: reduced ? 0.01 : 0.5 }}
+                className="w-full max-w-[760px]"
+              >
+                <Notes pomodoro={pomodoro} reduced={reduced} />
+              </motion.div>
+            )}
+
             {tab === "departures" && (
               <motion.div
                 key="departures"
@@ -175,7 +191,9 @@ export function LoungeStage({ music }: { music: MusicLibrary }) {
                       ? "tabMusic"
                       : key === "pomodoro"
                         ? "tabPomodoro"
-                        : "tabDepartures",
+                        : key === "notes"
+                          ? "tabNotes"
+                          : "tabDepartures",
                   )}
                 </button>
               );

@@ -248,7 +248,35 @@
       "restoreDefault": "恢复默认",
       "settingsNote": "改完立刻生效。正在跑的这一段不打断 —— 新时长从下一段开始算。"
     },
-    "sceneLabel": "背景"
+    "sceneLabel": "背景",
+    "tabNotes": "手记",
+    "notes": {
+      "stack": "便签 {n}",
+      "new": "新建",
+      "blank": "（空）",
+      "kindMemo": "备忘",
+      "kindDraft": "草稿",
+      "remove": "删掉这条",
+      "focusLeft": "专注剩余",
+      "emptyLead": "还没有便签。想到什么先记下来，不用管格式。",
+      "newFirst": "写第一条",
+      "titlePlaceholder": "标题",
+      "titleLabel": "文章标题",
+      "bodyPlaceholder": "直接写。markdown 可以用：## 小标题、**加粗**、- 列表。",
+      "bodyLabel": "正文",
+      "stats": "{n} 字 · 约 {min} 分钟读完",
+      "statsEmpty": "还没写",
+      "fileLabel": "文件名",
+      "copyMd": "复制 Markdown",
+      "downloadMd": "下载 .md",
+      "toGithub": "发到 GitHub ↗",
+      "copyThenGithub": "复制后去 GitHub ↗",
+      "tooLongHint": "这篇超过了 GitHub 网址能带的长度，所以改成先复制、再打开空白的新建文件页，粘进去就行。",
+      "copied": "已复制",
+      "copyAll": "复制全部",
+      "exportAll": "导出全部",
+      "localOnly": "只存在这台电脑的这个浏览器里 —— 不同步到手机，清浏览器数据就没了，也不加密。要紧的东西记得导出一份。"
+    }
   },
   "palette": {
     "placeholder": "搜文章、跳页面…",
