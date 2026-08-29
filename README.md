@@ -12,7 +12,7 @@
 
 ## 技术栈
 
-Next.js 15（App Router）· TypeScript · Tailwind CSS v4 · Motion · next-intl · gray-matter
+Next.js 16（App Router）· TypeScript · Tailwind CSS v4 · Motion · next-intl · gray-matter
 
 全站 `output: "export"` 静态导出，不依赖服务器运行时，因此不使用 middleware。
 
