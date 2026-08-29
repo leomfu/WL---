@@ -23,6 +23,11 @@ export const siteConfig = {
   /* --- 身份 --- */
   name: "伟良",
   nameEn: "Weiliang",
+  /**
+   * 站点描述（RSS 的 <description>、分享出去时的介绍）—— 说清「这个人是做什么的」。
+   * ⚠️ 开场页正中那句**不是这个**，在 messages 的 intro.tagline 里，
+   * 那句是给自己看的一句话，和这句职能不同，2026-08-29 起就不一样了，别再同步成一样的。
+   */
   tagline: "一个喜欢把问题查到根上、再把答案写下来给下一个人的技术支持新人。",
   taglineEn:
     "A support newcomer who chases problems down to the root, then writes the answer down for the next person.",

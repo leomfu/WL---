@@ -8,6 +8,14 @@
     "brandColor": "#D97757"
   },
   {
+    "name": "Obsidian",
+    "desc": "知识库",
+    "desc_en": "Knowledge base",
+    "url": "https://obsidian.md",
+    "icon": "obsidian",
+    "brandColor": "#7C3AED"
+  },
+  {
     "name": "ChatGPT",
     "desc": "AI 助手",
     "desc_en": "AI assistant",
