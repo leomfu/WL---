@@ -224,7 +224,9 @@
     "tabDepartures": "时刻表",
     "departures": {
       "nowLabel": "此刻 · 当地",
-      "note": "这些都在别处 · 点一下就离开这一页"
+      "note": "这些都在别处 · 点一下就离开这一页",
+      "openApp": "App",
+      "appNote": "网页版打不开就点行尾的 App —— 代理的分流规则常常只放过网页而漏掉 Spotify，App 自己的连接是另一条路。"
     },
     "pomodoro": {
       "phase": {

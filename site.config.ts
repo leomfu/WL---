@@ -102,6 +102,11 @@ export const siteConfig = {
      * 原来这里是 Spotify 的嵌入播放器，撤掉了：正版流媒体给不出能塞进 <audio> 的直链，
      * 嵌入永远是别人的白色方框，大陆还连不上。与其把残废的播放器伪装成一层，
      * 不如老实做成一张时刻表。加去处就在下面加一行，顺序就是页面上的顺序。
+     *
+     * appUrl 可选：Spotify 这类有桌面/手机 App 的，填上它的 URI（spotify:playlist:<id>），
+     * 行尾会多一个小小的「App」。**大陆网络下这个往往是唯一能通的出口** ——
+     * 很多代理的分流规则把 open.spotify.com 单独放一组走直连，网页版就打不开，
+     * 但 App 自己的连接是另一条路。
      */
     departures: [
       {
@@ -110,6 +115,7 @@ export const siteConfig = {
         label: "张震岳",
         labelEn: "A-Yue",
         url: "https://open.spotify.com/playlist/6kZrHBtYSgjtt4PB7i9yYo",
+        appUrl: "spotify:playlist:6kZrHBtYSgjtt4PB7i9yYo",
       },
       {
         platform: "Spotify",
@@ -117,6 +123,7 @@ export const siteConfig = {
         label: "周杰伦",
         labelEn: "Jay Chou",
         url: "https://open.spotify.com/playlist/4mPvpGE5wk2B3jO6wciAYW",
+        appUrl: "spotify:playlist:4mPvpGE5wk2B3jO6wciAYW",
       },
       {
         platform: "播客",
@@ -124,6 +131,7 @@ export const siteConfig = {
         label: "无人知晓",
         labelEn: "Unknown",
         url: "https://open.spotify.com/show/4TY2xLrxqaOEffz4B8eXpi",
+        appUrl: "spotify:show:4TY2xLrxqaOEffz4B8eXpi",
       },
     ],
 

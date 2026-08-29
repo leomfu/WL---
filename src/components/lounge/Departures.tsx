@@ -130,12 +130,15 @@ export function Departures({ reduced }: { reduced: boolean }) {
       {/* 时刻表本体 —— 一行一个去处，加去处就在 site.config 的 departures 里加一行 */}
       <ul className="w-full max-w-[440px] border-t border-shell-line-2">
         {departures.map((item) => (
-          <li key={item.url} className="border-b border-shell-line-2">
+          <li
+            key={item.url}
+            className="group flex items-baseline border-b border-shell-line-2"
+          >
             <a
               href={item.url}
               target="_blank"
               rel="noreferrer"
-              className="group flex items-baseline gap-5 py-4 sm:gap-7"
+              className="flex grow items-baseline gap-5 py-4 sm:gap-7"
             >
               <span className="w-[4.6rem] shrink-0 text-[9.5px] tracking-[0.24em] text-shell-faint uppercase transition-colors group-hover:text-shell-dim sm:w-[5.4rem]">
                 {en ? item.platformEn : item.platform}
@@ -150,13 +153,28 @@ export function Departures({ reduced }: { reduced: boolean }) {
                 ↗
               </span>
             </a>
+
+            {/* 直接交给 App 打开。大陆网络下网页版常常连不上，这条往往是唯一通的 */}
+            {"appUrl" in item && item.appUrl && (
+              <a
+                href={item.appUrl}
+                className="shrink-0 py-4 pl-5 text-[10px] tracking-[0.16em] text-[#3E3E3E] uppercase transition-colors hover:text-shell-ink"
+              >
+                {t("openApp")}
+              </a>
+            )}
           </li>
         ))}
       </ul>
 
-      <p className="text-[11px] leading-[1.9] tracking-[0.06em] text-shell-faint">
-        {t("note")}
-      </p>
+      <div className="flex flex-col items-center gap-1.5">
+        <p className="text-[11px] leading-[1.9] tracking-[0.06em] text-shell-faint">
+          {t("note")}
+        </p>
+        <p className="max-w-[420px] text-center text-[10.5px] leading-[1.8] text-[#3E3E3E]">
+          {t("appNote")}
+        </p>
+      </div>
     </div>
   );
 }
