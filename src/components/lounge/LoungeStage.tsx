@@ -6,6 +6,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { LoungeRail } from "./LoungeRail";
 import { MusicDial } from "./MusicDial";
 import { SceneBackdrop } from "./SceneBackdrop";
+import { SpotifyEmbed } from "./SpotifyEmbed";
 import { useAmbient } from "./useAmbient";
 import { siteConfig } from "~/site.config";
 import type { MusicLibrary } from "@/lib/types";
@@ -186,16 +187,17 @@ export function LoungeStage({ music }: { music: MusicLibrary }) {
                 transition={{ duration: reduced ? 0.01 : 0.5 }}
                 className="w-full max-w-[560px]"
               >
-                <div className="rounded-[3px] border border-shell-line-2 bg-[#0E0E0E] p-3">
-                  <iframe
-                    key={podcasts[podcastIndex].url}
-                    title={podcasts[podcastIndex].label}
+                {/* 同样过一遍可达性探测：连不上 Spotify 时给说明卡，
+                    而不是让浏览器的白色错误页糊在这一整页黑上 */}
+                <div className="flex justify-center">
+                  <SpotifyEmbed
                     src={podcasts[podcastIndex].url}
-                    width="100%"
+                    title={
+                      locale === "en"
+                        ? podcasts[podcastIndex].labelEn
+                        : podcasts[podcastIndex].label
+                    }
                     height={420}
-                    loading="lazy"
-                    allow="encrypted-media; picture-in-picture"
-                    className="block border-0 grayscale transition-[filter] duration-500 hover:grayscale-0"
                   />
                 </div>
               </motion.div>

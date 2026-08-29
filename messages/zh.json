@@ -232,7 +232,14 @@
       "clusterHere": "站内直接听",
       "clusterSpotify": "Spotify",
       "spotifyHint": "需要 Spotify 账号（未登录只有 30 秒）",
-      "spotifyNote": "Spotify 官方嵌入。未登录只给 30 秒试听，大陆需自备网络 —— 站内那两组不受影响。"
+      "spotifyNote": "Spotify 官方嵌入。未登录只给 30 秒试听，大陆需自备网络 —— 站内那两组不受影响。",
+      "backHere": "换回站内曲库"
+    },
+    "spotify": {
+      "probing": "正在连接 SPOTIFY",
+      "blockedTitle": "当前网络连不上 Spotify",
+      "blockedBody": "大陆没有 Spotify 服务，需要自备网络才能听。不是这个页面坏了。",
+      "open": "在 Spotify 打开 ↗"
     }
   },
   "palette": {

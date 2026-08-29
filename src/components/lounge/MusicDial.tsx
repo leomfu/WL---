@@ -3,6 +3,7 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
+import { SpotifyEmbed } from "./SpotifyEmbed";
 import { useStoredState } from "@/lib/useStoredState";
 import type { MusicLibrary, Track } from "@/lib/types";
 
@@ -404,20 +405,16 @@ export function MusicDial({
         onPause={() => setLive(false)}
       />
 
-      {/* 选了 Spotify 就换成它的官方播放器 —— 它是跨域 iframe，时间盘控制不了它 */}
+      {/* 选了 Spotify 就换成它的官方播放器 —— 它是跨域 iframe，时间盘控制不了它。
+          连不上 Spotify 时 SpotifyEmbed 会换成说明卡，并给一个切回站内曲库的按钮 */}
       {spotifyPick ? (
-        <div className="w-full max-w-[460px] rounded-[3px] border border-shell-line-2 bg-[#0E0E0E] p-3">
-          <iframe
-            key={spotifyPick.id}
-            title={`Spotify · ${en ? spotifyPick.labelEn : spotifyPick.label}`}
-            src={`https://open.spotify.com/embed/playlist/${spotifyPick.id}?theme=0`}
-            width="100%"
-            height={380}
-            loading="lazy"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            className="block border-0 grayscale transition-[filter] duration-500 hover:grayscale-0"
-          />
-        </div>
+        <SpotifyEmbed
+          src={`https://open.spotify.com/embed/playlist/${spotifyPick.id}?theme=0`}
+          title={`Spotify · ${en ? spotifyPick.labelEn : spotifyPick.label}`}
+          height={380}
+          onFallback={() => switchGroup(hasNetease ? "netease" : "resident")}
+          fallbackLabel={t("backHere")}
+        />
       ) : (
         <>
           {/* 时间盘 */}

@@ -232,7 +232,14 @@
       "clusterHere": "Plays here",
       "clusterSpotify": "Spotify",
       "spotifyHint": "Needs a Spotify account (30s previews otherwise)",
-      "spotifyNote": "Spotify's official embed. Without a signed-in account it plays 30-second previews — the two sets above are unaffected."
+      "spotifyNote": "Spotify's official embed. Without a signed-in account it plays 30-second previews — the two sets above are unaffected.",
+      "backHere": "Back to the local set"
+    },
+    "spotify": {
+      "probing": "CONNECTING TO SPOTIFY",
+      "blockedTitle": "Spotify can't be reached on this network",
+      "blockedBody": "Spotify isn't available in mainland China — you'll need your own network to listen. Nothing is broken on this page.",
+      "open": "Open in Spotify ↗"
     }
   },
   "palette": {
