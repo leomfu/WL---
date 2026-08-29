@@ -63,8 +63,8 @@ export const siteConfig = {
       key: "github",
       label: "GitHub",
       labelEn: "GitHub",
-      href: "https://github.com/weiliang99520-a11y",
-      handle: "@weiliang99520-a11y",
+      href: "https://github.com/leomfu",
+      handle: "@leomfu",
     },
     {
       key: "bilibili",
@@ -130,13 +130,13 @@ export const siteConfig = {
 
   /* --- 评论 / 留言板（阶段 3 用，需要 public 仓库 + 开 Discussions）--- */
   giscus: {
-    repo: "weiliang99520-a11y/WL---",
+    repo: "leomfu/WL---",
     /** 仓库的 GraphQL node id。取法：curl https://api.github.com/repos/<owner>/<repo> 里的 node_id */
     repoId: "R_kgDOUCPA3g",
     category: "Announcements",
     /**
      * 分类 id。要等仓库开了 Discussions **并且**装好 giscus app 之后才能拿到：
-     *   curl "https://giscus.app/api/discussions/categories?repo=weiliang99520-a11y/WL---"
+     *   curl "https://giscus.app/api/discussions/categories?repo=leomfu/WL---"
      * 没填之前评论区显示一行"还没开放"，不会向 GitHub 发任何请求。
      */
     categoryId: "DIC_kwDOUCPA3s4DEK0W",

@@ -19,7 +19,7 @@
     "desc_en": "Turns my notes into flashcards with real human pronunciation, automatically. Three decks and 220 cards so far, reviewed every day.",
     "stack": ["Claude Code", "Anki", "TTS"],
     "link": "",
-    "repo": "",
+    "repo": "https://github.com/leomfu/claude-Anki",
     "featured": true,
     "year": "2026"
   },
@@ -31,7 +31,7 @@
     "desc_en": "The site you're reading. A statically exported Next.js 16 build with no backend — every page is markdown in the repo. Monochrome by design, bilingual throughout.",
     "stack": ["Next.js", "TypeScript", "Tailwind CSS"],
     "link": "",
-    "repo": "https://github.com/weiliang99520-a11y/WL---",
+    "repo": "https://github.com/leomfu/WL---",
     "featured": true,
     "year": "2026"
   }
