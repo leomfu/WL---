@@ -14,13 +14,23 @@ import { siteConfig } from "~/site.config";
  * endsAt，剩余时间永远由 Date.now() 现算 —— 睡醒回来数字是对的。
  *
  * ── 为什么不每秒 setState ──
- * 每秒重渲染会带着整个放松区（呼吸圆环、背景）一起重画。这里只在**阶段结束**时
+ * 每秒重渲染会带着整个放松区（背景动画）一起重画。这里只在**阶段结束**时
  * 更新一次状态（setTimeout 精确排到 endsAt），走针和数字由番茄钟组件自己用 ref 写 DOM。
  *
- * 状态整个序列化进 localStorage：刷新页面、关掉再回来，番茄还在走。
+ * 状态和自定义时长都序列化进 localStorage：刷新页面、关掉再回来，番茄还在走。
+ * site.config 的 pomodoro 只是**出厂默认值**，用户在界面上改过之后以 localStorage 为准。
  */
 
 export type Phase = "focus" | "short" | "long";
+
+export type Conf = {
+  /** 分钟 */
+  focus: number;
+  short: number;
+  long: number;
+  /** 做满几个专注换一次长休 */
+  cycle: number;
+};
 
 type State = {
   phase: Phase;
@@ -32,21 +42,46 @@ type State = {
   done: number;
 };
 
-const CONF = siteConfig.lounge.pomodoro;
+const DEFAULTS: Conf = siteConfig.lounge.pomodoro;
 
-const minutes = (phase: Phase) =>
-  phase === "focus" ? CONF.focus : phase === "short" ? CONF.short : CONF.long;
+/** 各项的上下限 —— 拦住 0 分钟和 999 小时这种输入 */
+export const LIMITS = {
+  focus: [1, 180],
+  short: [1, 60],
+  long: [1, 120],
+  cycle: [2, 8],
+} as const satisfies Record<keyof Conf, readonly [number, number]>;
 
-export const phaseMs = (phase: Phase) => minutes(phase) * 60_000;
+export const clampConf = (field: keyof Conf, value: number) => {
+  const [min, max] = LIMITS[field];
+  if (!Number.isFinite(value)) return DEFAULTS[field];
+  return Math.min(max, Math.max(min, Math.round(value)));
+};
 
-const fresh = (phase: Phase, done = 0): State => ({
+function parseConf(raw: string): Conf {
+  try {
+    const value = JSON.parse(raw) as Partial<Conf>;
+    return {
+      focus: clampConf("focus", value.focus ?? DEFAULTS.focus),
+      short: clampConf("short", value.short ?? DEFAULTS.short),
+      long: clampConf("long", value.long ?? DEFAULTS.long),
+      cycle: clampConf("cycle", value.cycle ?? DEFAULTS.cycle),
+    };
+  } catch {
+    return DEFAULTS;
+  }
+}
+
+const phaseMs = (phase: Phase, conf: Conf) => conf[phase] * 60_000;
+
+const fresh = (phase: Phase, conf: Conf, done = 0): State => ({
   phase,
   endsAt: null,
-  leftMs: phaseMs(phase),
+  leftMs: phaseMs(phase, conf),
   done,
 });
 
-function parse(raw: string): State {
+function parseState(raw: string, conf: Conf): State {
   try {
     const value = JSON.parse(raw) as Partial<State>;
     const phase: Phase =
@@ -54,11 +89,12 @@ function parse(raw: string): State {
     return {
       phase,
       endsAt: typeof value.endsAt === "number" ? value.endsAt : null,
-      leftMs: typeof value.leftMs === "number" ? value.leftMs : phaseMs(phase),
+      leftMs:
+        typeof value.leftMs === "number" ? value.leftMs : phaseMs(phase, conf),
       done: typeof value.done === "number" ? value.done : 0,
     };
   } catch {
-    return fresh("focus");
+    return fresh("focus", conf);
   }
 }
 
@@ -95,13 +131,19 @@ function chime() {
 }
 
 export function usePomodoro() {
+  const [confRaw, setConfRaw] = useStoredState(
+    "lounge-pomodoro-conf",
+    JSON.stringify(DEFAULTS),
+  );
+  const conf = useMemo(() => parseConf(confRaw), [confRaw]);
+
   const [raw, setRaw] = useStoredState(
     "lounge-pomodoro",
-    JSON.stringify(fresh("focus")),
+    JSON.stringify(fresh("focus", DEFAULTS)),
   );
   const [chimeOn, setChimeOn] = useStoredState("lounge-pomodoro-chime", "1");
 
-  const state = useMemo(() => parse(raw), [raw]);
+  const state = useMemo(() => parseState(raw, conf), [raw, conf]);
   const save = useCallback(
     (next: State) => setRaw(JSON.stringify(next)),
     [setRaw],
@@ -120,13 +162,13 @@ export function usePomodoro() {
   const complete = useCallback(() => {
     if (chimeOn === "1") chime();
     if (state.phase !== "focus") {
-      save(fresh("focus", state.done));
+      save(fresh("focus", conf, state.done));
       return;
     }
     const done = state.done + 1;
-    const next: Phase = done % CONF.cycle === 0 ? "long" : "short";
-    save(fresh(next, done));
-  }, [chimeOn, save, state.done, state.phase]);
+    const next: Phase = done % conf.cycle === 0 ? "long" : "short";
+    save(fresh(next, conf, done));
+  }, [chimeOn, conf, save, state.done, state.phase]);
 
   /** 只在结束那一刻醒一次。定时器被降频而提前醒了就重排，不会误判 */
   useEffect(() => {
@@ -165,43 +207,77 @@ export function usePomodoro() {
 
   const toggle = useCallback(() => {
     if (state.endsAt === null) {
-      const left = state.leftMs > 0 ? state.leftMs : phaseMs(state.phase);
+      const left = state.leftMs > 0 ? state.leftMs : phaseMs(state.phase, conf);
       save({ ...state, endsAt: Date.now() + left, leftMs: left });
     } else {
       save({ ...state, endsAt: null, leftMs: remaining() });
     }
-  }, [remaining, save, state]);
+  }, [conf, remaining, save, state]);
 
   const reset = useCallback(
-    () => save(fresh(state.phase, state.done)),
-    [save, state.done, state.phase],
+    () => save(fresh(state.phase, conf, state.done)),
+    [conf, save, state.done, state.phase],
   );
 
   /** 手动切阶段：切了就从头计，已完成的个数不动 */
   const choose = useCallback(
     (phase: Phase) => {
       if (phase === state.phase && state.endsAt === null) return;
-      save(fresh(phase, state.done));
+      save(fresh(phase, conf, state.done));
     },
-    [save, state.done, state.endsAt, state.phase],
+    [conf, save, state.done, state.endsAt, state.phase],
   );
 
   /** 清零这一轮 */
-  const clearRound = useCallback(() => save(fresh("focus", 0)), [save]);
+  const clearRound = useCallback(
+    () => save(fresh("focus", conf, 0)),
+    [conf, save],
+  );
+
+  /**
+   * 改时长。**正在跑的这一段不打断** —— 跑到一半被抹掉几分钟很讨厌；
+   * 停着的时候则立刻按新时长重排，改完就能看到数字变了。
+   */
+  const setConf = useCallback(
+    (field: keyof Conf, value: number) => {
+      const next = { ...conf, [field]: clampConf(field, value) };
+      setConfRaw(JSON.stringify(next));
+      if (state.endsAt === null && field === state.phase) {
+        save(fresh(state.phase, next, state.done));
+      }
+    },
+    [conf, save, setConfRaw, state.done, state.endsAt, state.phase],
+  );
+
+  const resetConf = useCallback(() => {
+    setConfRaw(JSON.stringify(DEFAULTS));
+    if (state.endsAt === null) {
+      save(fresh(state.phase, DEFAULTS, state.done));
+    }
+  }, [save, setConfRaw, state.done, state.endsAt, state.phase]);
+
+  const isDefault =
+    conf.focus === DEFAULTS.focus &&
+    conf.short === DEFAULTS.short &&
+    conf.long === DEFAULTS.long &&
+    conf.cycle === DEFAULTS.cycle;
 
   return {
     phase: state.phase,
     running: state.endsAt !== null,
     done: state.done,
-    cycle: CONF.cycle,
+    conf,
+    isDefault,
     remaining,
-    total: phaseMs(state.phase),
+    total: phaseMs(state.phase, conf),
     chimeOn: chimeOn === "1",
     toggleChime: () => setChimeOn(chimeOn === "1" ? "0" : "1"),
     toggle,
     reset,
     choose,
     clearRound,
+    setConf,
+    resetConf,
   };
 }
 

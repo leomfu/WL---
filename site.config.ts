@@ -131,16 +131,15 @@ export const siteConfig = {
     pomodoro: { focus: 25, short: 5, long: 15, cycle: 4 },
 
     /**
-     * 氛围场景。音频路径已按约定的文件名预填好 —— 把 CC0 素材下载成这些名字丢进
-     * `public/audio/ambient/` 就自动生效，不用改这里（见该目录的 README）。
-     * 文件还不在时页面照常运行，只是没声音，底部会提示一行。
-     * 场景名走 messages 的 lounge.scenes（双语），这里只管 key 和音频。
+     * 背景场景 —— 放松区的底，四套纯 CSS 生成的画面（渐变 + 噪点 + 动画，不加载图片）。
+     * 原来这是「氛围」层，配了四段合成的环境音；声音在 2026-08-29 撤掉了，
+     * 画面留下来当全局背景，底部一排小字切换。场景名走 messages 的 lounge.scenes（双语）。
      */
     scenes: [
-      { key: "rain", audio: "/audio/ambient/rain.mp3" },
-      { key: "waves", audio: "/audio/ambient/waves.mp3" },
-      { key: "fire", audio: "/audio/ambient/fire.mp3" },
-      { key: "space", audio: "/audio/ambient/space.mp3" },
+      { key: "rain" },
+      { key: "waves" },
+      { key: "fire" },
+      { key: "space" },
     ],
   },
 

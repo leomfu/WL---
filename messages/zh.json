@@ -183,18 +183,9 @@
   },
   "lounge": {
     "title": "放松区",
-    "enter": "轻点开始",
-    "enterHint": "浏览器需要一次点击才允许出声",
     "navCollapsed": "导航已收起 · 鼠标移到左侧或按 ESC 退出",
     "exit": "退出沉浸",
-    "ringNote": "圆环随氛围音音量呼吸",
-    "tabAmbient": "氛围",
     "tabMusic": "音乐",
-    "play": "播放",
-    "pause": "暂停",
-    "volume": "音量",
-    "loopNote": "循环 · 交叉淡入",
-    "audioMissing": "这个场景的氛围音还在路上，画面照旧，只是暂时没有声音。",
     "scenes": {
       "rain": {
         "name": "雨夜",
@@ -241,11 +232,6 @@
         "short": "短休",
         "long": "长休"
       },
-      "len": {
-        "focus": "25",
-        "short": "5",
-        "long": "15"
-      },
       "start": "开始",
       "pause": "暂停",
       "reset": "重置",
@@ -253,8 +239,16 @@
       "chimeOff": "响铃 关",
       "doneCount": "已完成 {n}",
       "note": "指针转满一圈就是这一段走完。计时在后台照走 —— 切去别的层、别的标签页都不影响。",
-      "clearRound": "点一下清零"
-    }
+      "clearRound": "点一下清零",
+      "settings": "设置时长",
+      "hideSettings": "收起",
+      "minutes": "分钟",
+      "cycleLabel": "长休间隔",
+      "cycleUnit": "个专注",
+      "restoreDefault": "恢复默认",
+      "settingsNote": "改完立刻生效。正在跑的这一段不打断 —— 新时长从下一段开始算。"
+    },
+    "sceneLabel": "背景"
   },
   "palette": {
     "placeholder": "搜文章、跳页面…",

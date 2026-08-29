@@ -183,18 +183,9 @@
   },
   "lounge": {
     "title": "Lounge",
-    "enter": "TAP TO START",
-    "enterHint": "Browsers need one tap before they'll play sound",
     "navCollapsed": "NAVIGATION COLLAPSED · MOVE LEFT OR PRESS ESC",
     "exit": "EXIT",
-    "ringNote": "THE RINGS BREATHE WITH THE AMBIENT VOLUME",
-    "tabAmbient": "Ambient",
     "tabMusic": "Music",
-    "play": "Play",
-    "pause": "Pause",
-    "volume": "Volume",
-    "loopNote": "LOOPED · CROSSFADED",
-    "audioMissing": "This scene's ambient track isn't here yet — the visuals run on, just quietly.",
     "scenes": {
       "rain": {
         "name": "Rainy Night",
@@ -241,11 +232,6 @@
         "short": "Short break",
         "long": "Long break"
       },
-      "len": {
-        "focus": "25",
-        "short": "5",
-        "long": "15"
-      },
       "start": "Start",
       "pause": "Pause",
       "reset": "Reset",
@@ -253,8 +239,16 @@
       "chimeOff": "Chime off",
       "doneCount": "{n} done",
       "note": "One full revolution is one session. The timer keeps running in the background — switch layers or tabs, it doesn't care.",
-      "clearRound": "Click to clear"
-    }
+      "clearRound": "Click to clear",
+      "settings": "Lengths",
+      "hideSettings": "Hide",
+      "minutes": "min",
+      "cycleLabel": "Long break every",
+      "cycleUnit": "sessions",
+      "restoreDefault": "Restore defaults",
+      "settingsNote": "Takes effect right away. A running session is never cut short — the new length starts with the next one."
+    },
+    "sceneLabel": "Backdrop"
   },
   "palette": {
     "placeholder": "Search posts, jump to a page…",
