@@ -1,0 +1,73 @@
+{
+  "note": "「我听的」——唱片页下半部分的专辑/歌手墙。手改这个文件就行。封面不热链：coverSource 是原始地址，跑 `npm run records` 会下载并转成 webp 存到 public/images/records/，页面只认 cover 那个站内路径。没有 cover 的条目自动退化成纯文字卡片，不会缺一块。",
+  "items": [
+    {
+      "id": "zhao-chuan",
+      "kind": "artist",
+      "title": "赵传",
+      "titleEn": "Zhao Chuan",
+      "cover": "/images/records/zhao-chuan.webp",
+      "coverSource": "https://p2.music.126.net/fzCdLnxpbk8TLnbAPDr4AQ==/109951166712171501.jpg",
+      "url": "https://music.163.com/#/artist?id=6463"
+    },
+    {
+      "id": "jay-chou",
+      "kind": "artist",
+      "title": "周杰伦",
+      "titleEn": "Jay Chou",
+      "cover": "/images/records/jay-chou.webp",
+      "coverSource": "https://p1.music.126.net/NWv6PtSBkyWZzqbJVzBr7g==/109951169164936450.jpg",
+      "url": "https://music.163.com/#/artist?id=6452"
+    },
+    {
+      "id": "chang-chen-yue",
+      "kind": "artist",
+      "title": "张震岳",
+      "titleEn": "Chang Chen-yue",
+      "cover": "/images/records/chang-chen-yue.webp",
+      "coverSource": "https://p2.music.126.net/Ac9FX01IRldHV999yt6BaQ==/109951170927213650.jpg",
+      "url": "https://music.163.com/#/artist?id=6453"
+    },
+    {
+      "id": "all-for-you",
+      "kind": "album",
+      "title": "All For You",
+      "artist": "Cian Ducrot",
+      "year": "2022",
+      "cover": "/images/records/all-for-you.webp",
+      "coverSource": "https://p1.music.126.net/owdBfBg04hFe04gs_fsnVw==/109951167258506115.jpg",
+      "url": "https://music.163.com/#/album?id=143147181"
+    },
+    {
+      "id": "red-right-hand",
+      "kind": "album",
+      "title": "Red Right Hand",
+      "artist": "Nick Cave & the Bad Seeds",
+      "year": "2015",
+      "cover": "/images/records/red-right-hand.webp",
+      "coverSource": "https://p1.music.126.net/yUnmGXGYMD4GepKDmqlFsA==/109951165032202553.jpg",
+      "url": "https://music.163.com/#/album?id=39261647"
+    },
+    {
+      "id": "not-for-me",
+      "kind": "album",
+      "title": "Not For Me",
+      "artist": "Sarah Proctor",
+      "year": "2021",
+      "cover": "/images/records/not-for-me.webp",
+      "coverSource": "https://p1.music.126.net/MmzkyhH1EfCI40MffAdYxA==/109951166543440028.jpg",
+      "url": "https://music.163.com/#/album?id=135103162"
+    },
+    {
+      "id": "chopin-nocturnes",
+      "kind": "album",
+      "title": "夜曲",
+      "titleEn": "Nocturnes",
+      "artist": "肖邦",
+      "artistEn": "Chopin",
+      "note": "唱机上「常驻」那一组，公共领域录音，断网断链都还在。",
+      "noteEn": "The resident side of the turntable — public-domain recordings that never go dead.",
+      "url": "https://musopen.org/music/composer/frederic-chopin/"
+    }
+  ]
+}

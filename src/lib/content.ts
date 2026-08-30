@@ -11,6 +11,7 @@ import type {
   Post,
   PostType,
   Project,
+  RecordItem,
   Tool,
   Track,
   Video,
@@ -157,6 +158,11 @@ export function getMusic(): MusicLibrary {
     playlistUrl: netease.playlistUrl,
     residentCredit: resident.credit,
   };
+}
+
+/** 唱片页「我听的」：一叠专辑/歌手，纯内容，封面已经下载到本地（见 content/music/records.json 的说明） */
+export function getRecords(): RecordItem[] {
+  return readJson<{ items: RecordItem[] }>("music/records.json", { items: [] }).items;
 }
 
 /** 新闻页数据：latest.json 由 scripts/fetch-news.mjs 生成，digests.json 是手写/生成的解读 */

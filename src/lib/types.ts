@@ -136,3 +136,25 @@ export type NewsData = {
   ai: NewsBoard;
   digests: Digest[];
 };
+
+/**
+ * 唱片页「我听的」那面墙的一条（content/music/records.json）。
+ * kind 只影响副标题的措辞：album 显示艺人，artist 显示「歌手」。
+ * cover 是**站内**路径（封面由 scripts/fetch-record-covers.mjs 下载到 public/images/records/，
+ * 不热链别人的图床）；没有 cover 的条目退化成纯文字卡片，页面不会开天窗。
+ */
+export type RecordItem = {
+  id: string;
+  kind: "album" | "artist";
+  title: string;
+  titleEn?: string;
+  artist?: string;
+  artistEn?: string;
+  year?: string;
+  cover?: string;
+  /** 封面原始地址，只给取图脚本用，页面不碰 */
+  coverSource?: string;
+  url?: string;
+  note?: string;
+  noteEn?: string;
+};

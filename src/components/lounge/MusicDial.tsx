@@ -13,8 +13,9 @@ import {
   clock,
   handPoints,
 } from "./dial";
+import { useAudioPlayer, useProgressPainter } from "@/lib/useAudioPlayer";
 import { useStoredState } from "@/lib/useStoredState";
-import type { MusicLibrary, Track } from "@/lib/types";
+import type { MusicLibrary } from "@/lib/types";
 
 /**
  * 放松区「音乐」层 —— 全屏的时间盘播放器，和开场页的时间之钟同一套语言
@@ -33,6 +34,9 @@ import type { MusicLibrary, Track } from "@/lib/types";
  * 没接 AnalyserNode 让圆环跟着音乐律动：一旦把 <audio> 接进 WebAudio 图，
  * 跨域且没有 CORS 的音源会被静音，网易云那条链路赌不起。氛围层是自托管的，
  * 那边照旧跟着实时音量呼吸。
+ *
+ * 播放的状态机（换歌 / 播放意图 / 音量 / 失效跳过）在 `lib/useAudioPlayer.ts`，
+ * 和唱片页的黑胶唱机共用一份 —— **这里只剩界面**。同一个文档里两处不会同时出声。
  */
 
 /** 自播的两组：网易云直链、自托管常驻 */
@@ -137,7 +141,6 @@ export function MusicDial({
   const locale = useLocale();
   const en = locale === "en";
 
-  const audioRef = useRef<HTMLAudioElement | null>(null);
   const handRef = useRef<SVGGElement | null>(null);
   const arcRef = useRef<SVGCircleElement | null>(null);
 
@@ -146,157 +149,68 @@ export function MusicDial({
     "lounge-music-group",
     hasNetease ? "netease" : "resident",
   );
-  const [index, setIndex] = useState(0);
-  /**
-   * 播放意图，而不是「在不在放」。
-   * auto = 还没手动干预过（切到音乐层且用户点过页面就自动接着放）；play / pause = 手动按过。
-   * 真正在不在响由 <audio> 的事件回填到 live，图标看 live。
-   * 这样就不用在 effect 里 setState —— React 19 的 hooks 规则不允许那么写。
-   */
-  const [intent, setIntent] = useState<"auto" | "play" | "pause">("auto");
-  const [live, setLive] = useState(false);
-  const [elapsed, setElapsed] = useState(0);
-  const [duration, setDuration] = useState(0);
   const [listOpen, setListOpen] = useState(false);
-  /** 运行时真的放不出来的曲目（外链失效 / 网络不通），标灰并跳过 */
-  const [broken, setBroken] = useState<Record<string, true>>({});
-  const [volumeText, setVolumeText] = useStoredState(
-    "lounge-music-volume",
-    "0.7",
-  );
-  const volume = Number(volumeText) || 0.7;
 
-  const shouldPlay =
-    active && (intent === "play" || (intent === "auto" && autoStart));
   const currentGroup: Group =
     group === "resident" || !hasNetease ? "resident" : "netease";
   const tracks =
     currentGroup === "resident" ? library.resident : library.netease;
-  const track: Track | undefined = tracks[Math.min(index, tracks.length - 1)];
+
+  /** 播放的状态机在 lib/useAudioPlayer，这里只画界面 */
+  const player = useAudioPlayer({
+    tracks,
+    active,
+    autoStart,
+    volumeKey: "lounge-music-volume",
+    // 「我在听」整组都放不出来了（直链哪天被封）→ 退回常驻曲库，页面不会变成一片死寂
+    onExhausted: () => {
+      if (currentGroup !== "netease" || library.resident.length === 0)
+        return false;
+      setGroup("resident");
+      return true;
+    },
+  });
+  const { track, total, broken, shouldPlay, live, elapsed, volume } = player;
+  const index = player.index;
 
   const title = track ? (en ? track.titleEn : track.title) : "";
   const artist = track ? (en ? track.artistEn : track.artist) : "";
-  /** 元数据还没到时先用清单里的时长，指针不至于卡在 12 点 */
-  const total = duration || track?.duration || 0;
-
-  const goto = useCallback(
-    (next: number) => {
-      if (tracks.length === 0) return;
-      setIndex(((next % tracks.length) + tracks.length) % tracks.length);
-      setElapsed(0);
-      setDuration(0);
-    },
-    [tracks.length],
-  );
 
   const switchGroup = (next: Group) => {
     if (next === currentGroup) return;
     setGroup(next);
-    setIndex(0);
-    setElapsed(0);
-    setDuration(0);
+    player.reset();
   };
 
-  /** 换歌：装新的 src */
-  useEffect(() => {
-    const el = audioRef.current;
-    if (!el || !track) return;
-    el.src = track.src;
-    el.load();
-  }, [track]);
-
-  /** 该不该响：切走、按了暂停、或者根本没开始过，都要停 */
-  useEffect(() => {
-    const el = audioRef.current;
-    if (!el) return;
-    if (shouldPlay) {
-      // 放不出来时 play() 会 reject；此时 onError / onPause 会把状态回填，这里不用管
-      void el.play().catch(() => {});
-    } else {
-      el.pause();
-    }
-  }, [shouldPlay, track]);
-
-  useEffect(() => {
-    const el = audioRef.current;
-    if (el) el.volume = volume;
-  }, [volume]);
-
   /** 逐帧把进度写进指针和弧线（不走 setState，省掉每帧重渲染） */
-  useEffect(() => {
-    const el = audioRef.current;
-    if (!el) return;
-
-    let raf = 0;
-    const paint = () => {
-      const dur = el.duration || track?.duration || 0;
-      const fraction = dur > 0 ? Math.min(1, el.currentTime / dur) : 0;
-      handRef.current?.setAttribute(
-        "transform",
-        `rotate(${fraction * 360} ${C} ${C})`,
-      );
-      arcRef.current?.setAttribute("stroke-dasharray", `${fraction} 1`);
-    };
-
-    if (reduced) {
-      paint();
-      const timer = window.setInterval(paint, 1000);
-      return () => window.clearInterval(timer);
-    }
-
-    const loop = () => {
-      paint();
-      raf = requestAnimationFrame(loop);
-    };
-    raf = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(raf);
-  }, [reduced, track]);
+  const paint = useCallback((fraction: number) => {
+    handRef.current?.setAttribute(
+      "transform",
+      `rotate(${fraction * 360} ${C} ${C})`,
+    );
+    arcRef.current?.setAttribute("stroke-dasharray", `${fraction} 1`);
+  }, []);
+  useProgressPainter(player.audioRef, track?.duration ?? 0, reduced, paint);
 
   /** 键盘：空格播放/暂停，左右键 ±5 秒，L 开关清单。只在音乐层生效 */
+  const { toggle, nudge } = player;
   useEffect(() => {
     if (!active) return;
     const onKeyDown = (e: KeyboardEvent) => {
-      const el = audioRef.current;
-      if (!el) return;
       if (e.code === "Space") {
         e.preventDefault();
-        setIntent((prev) => (prev === "pause" ? "play" : "pause"));
+        toggle();
       } else if (e.key === "ArrowRight") {
-        el.currentTime = Math.min(
-          el.currentTime + 5,
-          el.duration || el.currentTime,
-        );
+        nudge(5);
       } else if (e.key === "ArrowLeft") {
-        el.currentTime = Math.max(el.currentTime - 5, 0);
+        nudge(-5);
       } else if (e.key === "l" || e.key === "L") {
         setListOpen((open) => !open);
       }
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [active]);
-
-  const seek = (fraction: number) => {
-    const el = audioRef.current;
-    if (!el || !total) return;
-    el.currentTime = fraction * total;
-    setElapsed(el.currentTime);
-  };
-
-  /** 放不出来：标记这首，跳下一首；整组都挂了就退回常驻 */
-  const handleError = () => {
-    if (!track) return;
-    const next = { ...broken, [track.id]: true as const };
-    setBroken(next);
-    const alive = tracks.filter((item) => !next[item.id]);
-    if (alive.length === 0) {
-      if (currentGroup === "netease" && library.resident.length > 0)
-        switchGroup("resident");
-      else setIntent("pause");
-      return;
-    }
-    goto(index + 1);
-  };
+  }, [active, nudge, toggle]);
 
   if (!track) return null;
 
@@ -320,16 +234,7 @@ export function MusicDial({
 
   return (
     <div className="flex w-full flex-col items-center gap-7">
-      <audio
-        ref={audioRef}
-        preload="metadata"
-        onLoadedMetadata={(e) => setDuration(e.currentTarget.duration || 0)}
-        onTimeUpdate={(e) => setElapsed(e.currentTarget.currentTime)}
-        onEnded={() => goto(index + 1)}
-        onError={handleError}
-        onPlay={() => setLive(true)}
-        onPause={() => setLive(false)}
-      />
+      <audio {...player.audioProps} />
 
         {/* 时间盘 */}
         <div
@@ -351,7 +256,7 @@ export function MusicDial({
           <Face
             handRef={handRef}
             arcRef={arcRef}
-            onSeek={seek}
+            onSeek={player.seek}
             seekLabel={t("seek")}
           />
 
@@ -386,7 +291,7 @@ export function MusicDial({
         <div className="flex items-center gap-9">
           <button
             type="button"
-            onClick={() => goto(index - 1)}
+            onClick={() => player.goto(index - 1)}
             aria-label={t("prev")}
             className="text-shell-dim transition-colors hover:text-shell-ink"
           >
@@ -406,7 +311,7 @@ export function MusicDial({
 
           <button
             type="button"
-            onClick={() => setIntent(shouldPlay ? "pause" : "play")}
+            onClick={player.toggle}
             aria-label={shouldPlay ? t("pause") : t("play")}
             className="flex size-[52px] items-center justify-center rounded-full border border-white/25 transition-colors hover:border-white/50"
           >
@@ -438,7 +343,7 @@ export function MusicDial({
 
           <button
             type="button"
-            onClick={() => goto(index + 1)}
+            onClick={() => player.goto(index + 1)}
             aria-label={t("next")}
             className="text-shell-dim transition-colors hover:text-shell-ink"
           >
@@ -487,9 +392,7 @@ export function MusicDial({
               min={0}
               max={100}
               value={Math.round(volume * 100)}
-              onChange={(e) =>
-                setVolumeText(String(Number(e.target.value) / 100))
-              }
+              onChange={(e) => player.setVolume(Number(e.target.value) / 100)}
               aria-label={t("volume")}
               className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
             />
@@ -558,7 +461,7 @@ export function MusicDial({
                   <li key={item.id}>
                     <button
                       type="button"
-                      onClick={() => goto(i)}
+                      onClick={() => player.goto(i)}
                       disabled={dead}
                       className={[
                         "flex w-full items-baseline gap-4 border-b border-shell-line-2 px-2 py-3 text-left transition-colors",

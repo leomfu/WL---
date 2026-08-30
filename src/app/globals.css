@@ -398,3 +398,25 @@
     background-position: 180px 900px;
   }
 }
+
+/* ==========================================================================
+   唱片页（/records）—— 黑胶唱片的转动
+   转速取真实的 33⅓ 转/分（1.8 秒一圈）。暂停时只把 animation-play-state 切成
+   paused，唱片停在原地；上面 prefers-reduced-motion 那条全局兜底会把它掐停，
+   所以「减少动态效果」下唱片不转。
+   ========================================================================== */
+@keyframes dcSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 只转唱片这一层：转盘边框、唱臂、盘面高光都在外面，不跟着转 */
+.records-disc {
+  animation: dcSpin 1.8s linear infinite;
+  transform-box: view-box;
+  transform-origin: 190px 215px;
+}
