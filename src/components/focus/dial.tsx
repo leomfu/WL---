@@ -82,9 +82,5 @@ export function handPoints(length: number, halfWidth = 1.15, tail = 16) {
   return `${C},${C - length} ${C + halfWidth},${C} ${C},${C + tail} ${C - halfWidth},${C}`;
 }
 
-/** mm:ss；秒数不合法时给一个不跳版的占位 */
-export const clock = (seconds: number) => {
-  if (!Number.isFinite(seconds) || seconds < 0) return "--:--";
-  const total = Math.floor(seconds);
-  return `${String(Math.floor(total / 60)).padStart(2, "0")}:${String(total % 60).padStart(2, "0")}`;
-};
+/* mm:ss 的 clock() 挪到 lib/clock.ts 了 —— 唱片页和迷你播放器也要用，
+   跟表盘几何没关系，不该住在这儿。 */

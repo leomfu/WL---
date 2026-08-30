@@ -4,41 +4,43 @@ import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useTranslations } from "next-intl";
 import { Departures } from "./Departures";
-import { LoungeRail } from "./LoungeRail";
-import { MusicDial } from "./MusicDial";
+import { FocusRail } from "./FocusRail";
 import { Notes } from "./Notes";
 import { PomodoroDial } from "./PomodoroDial";
 import { SceneBackdrop } from "./SceneBackdrop";
 import { usePomodoro } from "./usePomodoro";
 import { useStoredState } from "@/lib/useStoredState";
 import { siteConfig } from "~/site.config";
-import type { MusicLibrary } from "@/lib/types";
 
 /**
- * 放松区沉浸模式 —— 对照 docs/design/Lounge.dc.html。
+ * 专注区沉浸模式 —— 对照 docs/design/Lounge.dc.html（画板名还叫 Lounge，没改）。
  *
  * 三层：
- *   音乐   站内直接播放的时间盘（网易云直链 + 自托管常驻曲库）
- *   番茄钟 和音乐层同一张钟面，指针走这一段专注/休息的时间，时长可以自己设
+ *   番茄钟 一张钟面，指针走这一段专注/休息的时间，时长可以自己设
  *   手记   备忘和博客草稿共用一个写字面，存在 localStorage，导出走剪贴板 / GitHub 预填
- *   时刻表 不播放任何东西，只是「从这里去哪儿」的外链
+ *   时刻表 不播放任何东西，只是「从这里去哪儿听」的外链
+ *
+ * ── 音乐层去哪了（2026-08-30 撤掉，别再加回来）──
+ * 原来第一层是站内直接播放的时间盘（MusicDial）。板块从「放松区」改名成「专注」之后，
+ * 一个能在这儿听整首歌的播放器和「专注」是拧着的；而且站内音乐现在有更好的去处 ——
+ * 唱片页那台唱机 + 右下角的迷你播放器（跨页不断）。
+ * 时刻表因此更有用了：站内只剩 30 秒试听，「去哪儿听完整版」正是它的活儿。
  *
  * ── 氛围音去哪了（2026-08-29 撤掉，别再加回来）──
- * 原来还有第四层「氛围」：四段自己用 ffmpeg 合成的环境音（雨/海浪/火/宇宙），
+ * 更早还有一层「氛围」：四段自己用 ffmpeg 合成的环境音（雨/海浪/火/宇宙），
  * 外加一圈跟着实时音量呼吸的同心圆。声音整个撤了，
- * 但那四套**全屏背景画面**留了下来，下放成整个放松区的底 ——
+ * 但那四套**全屏背景画面**留了下来，下放成整个专注区的底 ——
  * 不管你在哪一层，背后都是那片雨或那片星空，底部一排小字随时换。
- * 呼吸圆环画的是音量，没有音量它就没有要表达的东西，跟着一起去掉了。
  */
 
-const TABS = ["music", "pomodoro", "notes", "departures"] as const;
+const TABS = ["pomodoro", "notes", "departures"] as const;
 type Tab = (typeof TABS)[number];
 
-export function LoungeStage({ music }: { music: MusicLibrary }) {
-  const t = useTranslations("lounge");
+export function FocusStage() {
+  const t = useTranslations("focus");
   const reduced = useReducedMotion() ?? false;
 
-  const scenes = siteConfig.lounge.scenes;
+  const scenes = siteConfig.focus.scenes;
   /** 背景场景。localStorage 的 key 沿用原来氛围层那个，老用户上次选的场景不会丢 */
   const [storedScene, setScene] = useStoredState(
     "lounge-scene",
@@ -48,14 +50,13 @@ export function LoungeStage({ music }: { music: MusicLibrary }) {
     ? storedScene
     : (scenes[0]?.key ?? "");
 
-  const [chosenTab, setTab] = useState<Tab>("music");
+  const [chosenTab, setTab] = useState<Tab>("pomodoro");
   const [railExpanded, setRailExpanded] = useState(false);
 
   /** 番茄钟的状态放在这一层：切去音乐层、时刻表层，计时照走 */
   const pomodoro = usePomodoro();
 
-  const departures = siteConfig.lounge.departures;
-  const hasMusic = music.resident.length + music.netease.length > 0;
+  const departures = siteConfig.focus.departures;
 
   /** 没素材的那一层直接不显示 —— 与其给访客看一句「还没配」，不如让它不存在 */
   const tabs = useMemo(
@@ -64,10 +65,9 @@ export function LoungeStage({ music }: { music: MusicLibrary }) {
         (key) =>
           key === "pomodoro" ||
           key === "notes" ||
-          (key === "music" && hasMusic) ||
           (key === "departures" && departures.length > 0),
       ),
-    [hasMusic, departures.length],
+    [departures.length],
   );
 
   /** 万一停在一个已经不存在的标签上（曲库清空了），渲染时就落回第一个 —— 不用 effect 纠正 */
@@ -90,7 +90,7 @@ export function LoungeStage({ music }: { music: MusicLibrary }) {
         onMouseEnter={() => setRailExpanded(true)}
       />
       <div className="flex h-full" onMouseLeave={() => setRailExpanded(false)}>
-        <LoungeRail expanded={railExpanded} />
+        <FocusRail expanded={railExpanded} />
       </div>
 
       <div className="relative flex h-full grow flex-col overflow-hidden">
@@ -109,24 +109,6 @@ export function LoungeStage({ music }: { music: MusicLibrary }) {
         {/* 画面中心。番茄钟展开设置后会变高，所以这一格自己能滚 */}
         <div className="relative z-10 flex grow items-center justify-center overflow-y-auto px-6 py-6">
           <AnimatePresence mode="wait">
-            {tab === "music" && (
-              <motion.div
-                key="music"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: reduced ? 0.01 : 0.5 }}
-                className="w-full max-w-[560px]"
-              >
-                <MusicDial
-                  library={music}
-                  active={tab === "music"}
-                  reduced={reduced}
-                  autoStart={false}
-                />
-              </motion.div>
-            )}
-
             {tab === "pomodoro" && (
               <motion.div
                 key="pomodoro"
@@ -187,13 +169,11 @@ export function LoungeStage({ music }: { music: MusicLibrary }) {
                   }
                 >
                   {t(
-                    key === "music"
-                      ? "tabMusic"
-                      : key === "pomodoro"
-                        ? "tabPomodoro"
-                        : key === "notes"
-                          ? "tabNotes"
-                          : "tabDepartures",
+                    key === "pomodoro"
+                      ? "tabPomodoro"
+                      : key === "notes"
+                        ? "tabNotes"
+                        : "tabDepartures",
                   )}
                 </button>
               );

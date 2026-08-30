@@ -90,6 +90,24 @@ for (const entry of entries) {
   }
 }
 
+/**
+ * 站主手工调过的试听起点要留住 —— 这个脚本会整份重写 netease.json，
+ * 但 `previewStart` 是人填的（不是接口给的），重跑一次就没了太蠢。
+ * 所以先把旧文件里的 previewStart 按歌曲 id 记下来，写回去。
+ */
+let keepPreview = new Map();
+try {
+  const old = JSON.parse(await readFile(OUT, "utf8"));
+  keepPreview = new Map(
+    (old.tracks ?? [])
+      .filter((t) => typeof t.previewStart === "number")
+      .map((t) => [String(t.id), t.previewStart]),
+  );
+  if (keepPreview.size) console.log(`保留 ${keepPreview.size} 条手填的 previewStart`);
+} catch {
+  /* 还没有这个文件，或者内容坏了 —— 当成没有手工设置过 */
+}
+
 const details = await detail(ids);
 const tracks = [];
 const rejected = [];
@@ -102,7 +120,8 @@ for (const id of ids) {
   }
   const ok = await playable(id);
   if (ok) {
-    tracks.push({ id, ...info });
+    const previewStart = keepPreview.get(id);
+    tracks.push({ id, ...info, ...(previewStart === undefined ? {} : { previewStart }) });
     console.log(`  ✅ ${info.title} - ${info.artist}`);
   } else {
     rejected.push({ id, reason: "版权限制，外链放不出来", ...info });
@@ -116,6 +135,8 @@ await writeFile(
   JSON.stringify(
     {
       note: "由 scripts/fetch-netease.mjs 生成，别手改；要增删歌改 scripts/netease-songs.txt 后跑 npm run music",
+      previewNote:
+        "站内每首只放 30 秒试听（版权）。默认从「时长的 30% 与 60 秒里更小的那个」开始，避开前奏。想让某首从别处起，给那首加一行 \"previewStart\": 秒数，重跑本脚本也不会丢。",
       playlistUrl: "https://music.163.com/#/playlist?id=7044876104",
       tracks,
     },

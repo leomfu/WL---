@@ -34,7 +34,7 @@ const STILL_TICK_MS = 20_000;
 const two = (n: number) => String(n).padStart(2, "0");
 
 export function Departures({ reduced }: { reduced: boolean }) {
-  const t = useTranslations("lounge.departures");
+  const t = useTranslations("focus.departures");
   const locale = useLocale();
   const en = locale === "en";
 
@@ -69,7 +69,7 @@ export function Departures({ reduced }: { reduced: boolean }) {
     return () => clearInterval(timer);
   }, [reduced]);
 
-  const departures = siteConfig.lounge.departures;
+  const departures = siteConfig.focus.departures;
 
   return (
     <div className="flex w-full flex-col items-center gap-9">

@@ -400,23 +400,292 @@
 }
 
 /* ==========================================================================
-   唱片页（/records）—— 黑胶唱片的转动
+   唱片页（/records）—— 一张斜放的黑胶
+
+   2026-08-30 重做：原来是一张正对着看的平面 SVG，现在改成**真的斜放在透视里**。
+   结构（对应 components/records/Turntable.tsx）：
+
+     .vinyl-frame            容器查询的锚点（盘小到一定程度，标签上的曲目表让位）
+       .vinyl-scene          透视容器。perspective-origin 默认在正中 = 盘心，
+                             点击反投影（Turntable 里的 planeFromScreen）就是靠这个前提，
+                             改 perspective 的值要同步改那边的 PERSPECTIVE 常数
+         .vinyl-plane        rotateX(25deg) 的那个平面，preserve-3d
+           .vinyl-pool       盘背后的一小片光，让黑盘的轮廓有东西可挡（= 影子）
+           .vinyl-edge-*     盘的厚度：同一张盘沿自己的法线压下去两层，
+                             斜放之后落在盘的正下方，露出来的那一弯就是盘边
+           .vinyl-disc       盘身
+             .vinyl-grooves  沟槽（**这一层在转**，标签也在里面跟着转）
+             .vinyl-lands    导入槽和收尾槽那两圈没有纹路的平面
+             .vinyl-light    固定的单侧光（不跟着转 —— 灯是不动的，转的是碟）
+             .vinyl-sheen    一道慢慢扫过盘面的柔光
+           svg.vinyl-arm     唱臂，translateZ 浮在盘面上方，和盘在同一个透视平面里
+
    转速取真实的 33⅓ 转/分（1.8 秒一圈）。暂停时只把 animation-play-state 切成
    paused，唱片停在原地；上面 prefers-reduced-motion 那条全局兜底会把它掐停，
-   所以「减少动态效果」下唱片不转。
+   所以「减少动态效果」下唱片不转 —— 但透视和材质都还在。
    ========================================================================== */
 @keyframes dcSpin {
   from {
-    transform: rotate(0deg);
+    rotate: 0deg;
   }
   to {
-    transform: rotate(360deg);
+    rotate: 360deg;
   }
 }
 
-/* 只转唱片这一层：转盘边框、唱臂、盘面高光都在外面，不跟着转 */
+/* 只转沟槽这一层：厚度、唱臂、固定的那道光都在外面，不跟着转。
+   转的是个 div，绕自己的正中心，所以不要 transform-origin —— 别加回来 */
 .records-disc {
   animation: dcSpin 1.8s linear infinite;
-  transform-box: view-box;
-  transform-origin: 190px 215px;
+}
+
+.vinyl-frame {
+  container-type: inline-size;
+}
+
+.vinyl-scene {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1000 / 880;
+  perspective: 1500px;
+}
+
+.vinyl-plane {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateX(25deg);
+}
+
+/* 盘身和厚度层共用的定位：以盘心为中心，宽度是场景的 78%（= SVG 里的 R=390） */
+.vinyl-layer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  aspect-ratio: 1;
+  width: 78%;
+  border-radius: 50%;
+  translate: -50% -50%;
+}
+
+.vinyl-pool {
+  width: 104%;
+  background: radial-gradient(
+    circle closest-side at 44% 62%,
+    rgba(255, 255, 255, 0.085),
+    rgba(255, 255, 255, 0.02) 58%,
+    rgba(255, 255, 255, 0) 78%
+  );
+  filter: blur(14px);
+  transform: translateZ(-46px);
+}
+
+.vinyl-edge-deep {
+  background: #040404;
+  transform: translateZ(-13px);
+}
+
+.vinyl-edge {
+  background: linear-gradient(
+    104deg,
+    #3d3d3d,
+    #0f0f0f 34%,
+    #333333 68%,
+    #080808
+  );
+  transform: translateZ(-6px);
+}
+
+.vinyl-disc {
+  overflow: hidden;
+  background: #050505;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.11),
+    inset 0 0 26px 4px rgba(0, 0, 0, 0.85);
+}
+
+/* 沟槽。转动绕的是正中心，同心圆转起来不会有摩尔纹，所以纹路可以压得很细 */
+.vinyl-grooves {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    repeating-radial-gradient(
+      circle closest-side at 50% 50%,
+      rgba(255, 255, 255, 0.055) 0 0.5px,
+      rgba(0, 0, 0, 0.52) 0.5px 1.4px,
+      rgba(255, 255, 255, 0.018) 1.4px 2.1px,
+      rgba(0, 0, 0, 0.44) 2.1px 3px
+    ),
+    repeating-radial-gradient(
+      circle closest-side at 50% 50%,
+      rgba(255, 255, 255, 0.075) 0 1px,
+      rgba(255, 255, 255, 0) 1px 27px
+    ),
+    radial-gradient(
+      circle closest-side at 50% 50%,
+      #1c1c1c 0 34%,
+      #151515 58%,
+      #0d0d0d 80%,
+      #070707 100%
+    );
+  will-change: rotate;
+}
+
+/* 导入槽（贴着盘边）和收尾槽（贴着标签）：这两圈是平的，没有纹路。
+   ⚠️ 内圈那一环**不能盖到标签上**（标签在下面一层），盖上去奶白就变黑了 */
+.vinyl-lands {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle closest-side at 50% 50%,
+      rgba(7, 7, 7, 0) 0 39.5%,
+      rgba(7, 7, 7, 0.9) 41.5% 43%,
+      rgba(7, 7, 7, 0) 45.5%
+    ),
+    radial-gradient(
+      circle closest-side at 50% 50%,
+      rgba(7, 7, 7, 0) 94%,
+      rgba(7, 7, 7, 0.92) 96.5%,
+      #060606 100%
+    );
+}
+
+/* 固定的单侧光：灯不动，动的是碟 —— 所以这一层**不**跟着转 */
+.vinyl-light {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 196deg at 50% 50%,
+    rgba(255, 255, 255, 0) 0deg,
+    rgba(255, 255, 255, 0.07) 18deg,
+    rgba(255, 255, 255, 0.29) 37deg,
+    rgba(255, 255, 255, 0.09) 58deg,
+    rgba(255, 255, 255, 0) 84deg,
+    rgba(255, 255, 255, 0) 174deg,
+    rgba(255, 255, 255, 0.05) 196deg,
+    rgba(255, 255, 255, 0.2) 217deg,
+    rgba(255, 255, 255, 0.045) 242deg,
+    rgba(255, 255, 255, 0) 268deg,
+    rgba(255, 255, 255, 0) 360deg
+  );
+  mix-blend-mode: screen;
+  -webkit-mask-image: radial-gradient(
+    circle closest-side at 50% 50%,
+    transparent 0 40%,
+    #000 44% 91%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  mask-image: radial-gradient(
+    circle closest-side at 50% 50%,
+    transparent 0 40%,
+    #000 44% 91%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+}
+
+/* 一道慢慢扫过盘面的柔光（比转速慢得多，只是让盘面「活着」） */
+.vinyl-sheen {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    rgba(255, 255, 255, 0) 0deg,
+    rgba(255, 255, 255, 0.085) 24deg,
+    rgba(255, 255, 255, 0) 60deg,
+    rgba(255, 255, 255, 0) 360deg
+  );
+  mix-blend-mode: screen;
+  animation: dcSpin 9s linear infinite;
+  -webkit-mask-image: radial-gradient(
+    circle closest-side at 50% 50%,
+    transparent 0 38%,
+    #000 44% 92%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  mask-image: radial-gradient(
+    circle closest-side at 50% 50%,
+    transparent 0 38%,
+    #000 44% 92%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+/* 中心标签：跟着沟槽一起转，所以放在 .vinyl-grooves 里面。
+   宽度由 Turntable.tsx 里的 R_LABEL/R 算出来写在 style 上，这里不重复一份 */
+.vinyl-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+}
+
+.vinyl-arm {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  transform: translateZ(12px);
+}
+
+/* 唱臂投在盘面上的影子。filter 在 SVG 内部生效，不会把外面的 3D 压平 */
+.vinyl-arm-body {
+  filter: drop-shadow(0 7px 5px rgba(0, 0, 0, 0.6));
+}
+
+/* 盘小到这个程度，标签上的曲目表就成了灰点 —— 换成只印大字那一版。
+   看的是**盘所在的那一栏**有多宽，不是视口，所以用容器查询 */
+.vinyl-label-tight {
+  display: none;
+}
+
+@container (max-width: 430px) {
+  .vinyl-label-full {
+    display: none;
+  }
+
+  .vinyl-label-tight {
+    display: block;
+  }
+}
+
+/* ==========================================================================
+   右下角迷你播放器 —— 2026-08-30 新增（播放能力搬到全站层）
+   ========================================================================== */
+
+/* 迷你播放器左边那张小碟：同一套「黑胶 + 奶白标签」材质，缩到 34px 的纯 CSS 版，
+   不是复用大唱片那套（那边的沟槽是一层层画出来的，这个尺寸画不起那么细） */
+.mini-vinyl {
+  display: block;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle closest-side at 50% 50%,
+      #0a0a0a 0 7%,
+      rgba(0, 0, 0, 0) 8%
+    ),
+    radial-gradient(
+      circle closest-side at 50% 50%,
+      #ece7dc 0 30%,
+      rgba(0, 0, 0, 0) 31%
+    ),
+    repeating-radial-gradient(
+      circle closest-side at 50% 50%,
+      rgba(255, 255, 255, 0.11) 0 0.5px,
+      rgba(0, 0, 0, 0.55) 0.5px 2px
+    ),
+    radial-gradient(circle closest-side at 50% 50%, #1b1b1b, #050505);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.13);
+}
+
+/* 迷你唱片自己的转动。和 .records-disc 是同一份关键帧、同一个转速，
+   分开一条只是因为语义不同：那条属于唱片页那台唱机 */
+.mini-vinyl-spin {
+  animation: dcSpin 1.8s linear infinite;
 }

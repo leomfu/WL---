@@ -5,6 +5,8 @@ import { Inter, Noto_Serif_SC } from "next/font/google";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Analytics } from "@/components/analytics/Analytics";
+import { PlayerProvider } from "@/components/player/PlayerProvider";
+import { getMusic } from "@/lib/content";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
@@ -65,7 +67,14 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className={`${inter.variable} ${notoSerif.variable}`}>
       <body>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          {/*
+           * 播放器挂在这一层 —— 它是 (site) 和 focus 的共同祖先，客户端跳页不会卸载。
+           * 所以从唱片页走开之后音乐照放，右下角换成迷你卡片接着控制。
+           * 放进唱片页里就会随页面一起被卸掉，音乐当场断。
+           */}
+          <PlayerProvider library={getMusic()}>{children}</PlayerProvider>
+        </NextIntlClientProvider>
         <Analytics />
       </body>
     </html>

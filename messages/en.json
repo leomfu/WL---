@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Weiliang",
-    "description": "A support newcomer who chases problems down to the root, then writes the answer down for the next person. A personal site: projects, writing, thoughts, and a lounge for doing nothing at all."
+    "description": "A support newcomer who chases problems down to the root, then writes the answer down for the next person. A personal site: projects, writing, thoughts, and a focus corner for doing nothing at all."
   },
   "pageMeta": {
     "home": {
@@ -32,9 +32,9 @@
       "title": "Tools",
       "description": "The software, services and hardware I use every day."
     },
-    "lounge": {
-      "title": "Lounge",
-      "description": "Rain, waves, a time dial and a pomodoro — doing nothing is allowed."
+    "focus": {
+      "title": "Focus",
+      "description": "A clock face, a pomodoro, a stack of notes, and a departures board for where to go listen."
     },
     "contact": {
       "title": "Say something",
@@ -80,7 +80,7 @@
     "blog": "Writing",
     "about": "About",
     "tools": "Tools",
-    "lounge": "Lounge",
+    "focus": "Focus",
     "contact": "Contact",
     "library": "Library",
     "guestbook": "Guestbook",
@@ -214,7 +214,7 @@
   "records": {
     "title": "Records",
     "lead": "A turntable that really spins and really plays. The discs are this site's two libraries — wherever the needle sits is where the music is.",
-    "footnote": "The turntable and the lounge's music layer share one library and one playback core; only the face is different.",
+    "footnote": "The music keeps playing when you leave this page — a small card appears bottom-right to keep hold of it. “On repeat” plays 30 seconds per track; the resident set is public-domain and plays in full.",
     "player": {
       "regionLabel": "Turntable",
       "nowPlaying": "Now playing",
@@ -233,8 +233,15 @@
       "unplayable": "· unavailable",
       "hint": "Click any groove to jump there. With the record focused: space plays or pauses, arrow keys skip 5 seconds.",
       "residentCredit": "The resident disc: {credit} — self-hosted, it never goes dead.",
-      "neteaseNote": "“On repeat” comes from my NetEase playlist; only the tracks that genuinely stream are here.",
-      "fullPlaylist": "Full playlist →"
+      "neteaseNote": "“On repeat” comes from my NetEase playlist. Each track plays for 30 seconds here — the songs aren’t mine; hear them in full on the platform.",
+      "fullPlaylist": "Full playlist →",
+      "sideA": "SIDE A",
+      "labelPreview": "PREVIEW 30s",
+      "labelFull": "FULL LENGTH",
+      "labelFoot": "{n, plural, one {# TRACK} other {# TRACKS}} · {mode}",
+      "previewTag": "30-second preview",
+      "fullVersion": "Hear it in full on NetEase ↗",
+      "previewNote": "These are someone else’s songs, so this site plays 30 seconds of each and fades the last second and a half out on purpose — nothing is broken. Like what you hear? Go hear the rest on the platform."
     },
     "wall": {
       "title": "What I listen to",
@@ -255,11 +262,10 @@
     "load": "Open the comments",
     "loadHint": "Nothing reaches GitHub until you open this — commenting signs you in with GitHub, and the text lives in this site's repo Discussions."
   },
-  "lounge": {
-    "title": "Lounge",
+  "focus": {
+    "title": "Focus",
     "navCollapsed": "NAVIGATION COLLAPSED · MOVE LEFT OR PRESS ESC",
     "exit": "EXIT",
-    "tabMusic": "Music",
     "scenes": {
       "rain": {
         "name": "Rainy Night",
@@ -277,22 +283,6 @@
         "name": "Deep Space",
         "en": "DEEP SPACE"
       }
-    },
-    "music": {
-      "groupNetease": "On repeat",
-      "groupResident": "Always here",
-      "play": "Play",
-      "pause": "Pause",
-      "prev": "Previous",
-      "next": "Next",
-      "volume": "Volume",
-      "seek": "Click the dial to jump",
-      "showList": "Tracks",
-      "hideList": "Hide",
-      "unplayable": "· unavailable",
-      "residentCredit": "Always-here set: {credit}. Self-hosted, never goes down.",
-      "neteaseNote": "From my NetEase playlist — only the tracks that actually stream.",
-      "fullPlaylist": "Full playlist →"
     },
     "tabPomodoro": "Pomodoro",
     "tabDepartures": "Departures",
@@ -352,6 +342,11 @@
       "copyAll": "Copy all",
       "exportAll": "Export all",
       "localOnly": "Lives only in this browser on this computer — no sync to your phone, gone if you clear browser data, and not encrypted. Export anything that matters."
+    },
+    "moved": {
+      "label": "Moved",
+      "title": "“Lounge” is called “Focus” now",
+      "go": "Go to /focus/ →"
     }
   },
   "palette": {
@@ -383,5 +378,15 @@
     "updated": "Last pulled {time}",
     "neverUpdated": "Not pulled yet.",
     "footerNote": "The source list lives in content/news/sources.json — open to read."
+  },
+  "player": {
+    "regionLabel": "Mini player",
+    "play": "Play",
+    "pause": "Pause",
+    "close": "Stop and close",
+    "seek": "Seek",
+    "preview": "preview",
+    "toRecords": "Back to Records",
+    "fullVersion": "Hear it in full ↗"
   }
 }

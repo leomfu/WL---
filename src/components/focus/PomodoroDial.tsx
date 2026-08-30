@@ -29,7 +29,7 @@ export function PomodoroDial({
   pomodoro: Pomodoro;
   reduced: boolean;
 }) {
-  const t = useTranslations("lounge.pomodoro");
+  const t = useTranslations("focus.pomodoro");
   const [settingsOpen, setSettingsOpen] = useState(false);
 
   const handRef = useRef<SVGGElement | null>(null);

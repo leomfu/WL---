@@ -30,6 +30,11 @@ export type Note = {
   updated: number;
 };
 
+/**
+ * localStorage 的键。板块 2026-08-30 从「放松区 / lounge」改名成「专注 / focus」，
+ * **这个键没跟着改** —— 改了老用户已经写下的便签就全丢了。
+ * 同理 usePomodoro 的几个键、场景选择那个键也都留着原名。
+ */
 const KEY = "lounge-notes";
 
 const today = () => new Date().toISOString().slice(0, 10);

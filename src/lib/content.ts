@@ -128,15 +128,35 @@ export function getLibrary(): LibraryItem[] {
   );
 }
 
-/** 放松区音乐层：常驻（自托管公共领域）+ 我在听（网易云外链，构建前验过能放） */
+/** 站内曲库：常驻（自托管公共领域）+ 我在听（网易云外链，构建前验过能放） */
 type ResidentFile = {
   credit: string;
   tracks: Array<Omit<Track, "kind">>;
 };
 type NeteaseFile = {
   playlistUrl: string;
-  tracks: Array<{ id: string; title: string; artist: string; duration: number }>;
+  tracks: Array<{
+    id: string;
+    title: string;
+    artist: string;
+    duration: number;
+    /** 手填的试听起点（秒），可选。见 content/music/netease.json 里的 previewNote */
+    previewStart?: number;
+  }>;
 };
+
+/** 网易云那组每首放多少秒 */
+const PREVIEW_LENGTH = 30;
+
+/**
+ * 试听从哪儿开始 —— **不从 0 秒起**：多数歌前 30 秒是前奏，从头放等于放了个空。
+ * 默认取「时长的 30%」，但最多不超过 60 秒（长曲子也别等太久才进正题）。
+ * 站主想给某首手动挑一段，在 netease.json 那首上写 previewStart 覆盖即可。
+ */
+function previewStartOf(duration: number, manual?: number) {
+  if (typeof manual === "number" && manual >= 0) return Math.round(manual);
+  return Math.round(Math.min(duration * 0.3, 60));
+}
 
 export function getMusic(): MusicLibrary {
   const resident = readJson<ResidentFile>("music/resident.json", { credit: "", tracks: [] });
@@ -154,6 +174,11 @@ export function getMusic(): MusicLibrary {
       artist: t.artist,
       artistEn: t.artist,
       duration: t.duration,
+      preview: {
+        start: previewStartOf(t.duration, t.previewStart),
+        length: PREVIEW_LENGTH,
+      },
+      platformUrl: `https://music.163.com/#/song?id=${t.id}`,
     })),
     playlistUrl: netease.playlistUrl,
     residentCredit: resident.credit,

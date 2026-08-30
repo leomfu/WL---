@@ -42,7 +42,7 @@ type State = {
   done: number;
 };
 
-const DEFAULTS: Conf = siteConfig.lounge.pomodoro;
+const DEFAULTS: Conf = siteConfig.focus.pomodoro;
 
 /** 各项的上下限 —— 拦住 0 分钟和 999 小时这种输入 */
 export const LIMITS = {

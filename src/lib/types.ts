@@ -71,11 +71,23 @@ export type LibraryItem = {
 };
 
 /**
- * 放松区「音乐」层的一首歌。两个来源：
+ * 一首歌。两个来源：
  * - kind "local"：自己托管在 public/audio/music/ 的公共领域录音，永远能放（「常驻」）
  * - kind "netease"：网易云外链，只收录构建前验证过能真放出声的（「我在听」，见 scripts/fetch-netease.mjs）
  */
 export type TrackKind = "local" | "netease";
+
+/**
+ * 试听窗口 —— 只有网易云那组有。
+ * 站内不放完整首歌（别人的版权），只放 30 秒，听着不错就去平台听完整版。
+ * 常驻那组是公共领域录音，没有这个字段，完整播放。
+ */
+export type Preview = {
+  /** 从整首歌的第几秒开始（构建时算好，见 lib/content.ts） */
+  start: number;
+  /** 放多少秒 */
+  length: number;
+};
 
 export type Track = {
   id: string;
@@ -88,6 +100,10 @@ export type Track = {
   artistEn: string;
   /** 秒。本地曲目是准的；网易云那边给的是元数据时长 */
   duration: number;
+  /** 有这个字段就是试听片段；没有就是完整播放 */
+  preview?: Preview;
+  /** 去平台听完整版（网易云单曲页）。本地曲目没有 */
+  platformUrl?: string;
 };
 
 export type MusicLibrary = {

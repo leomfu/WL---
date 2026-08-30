@@ -13,7 +13,7 @@ import { siteConfig } from "~/site.config";
  * 64px 宽，只有 Logo + 图标导航，底部竖排「ESC 退出沉浸」。
  * 鼠标移到左侧或按 ESC 时展开成完整侧栏（expanded 由页面控制）。
  */
-export function LoungeRail({ expanded }: { expanded: boolean }) {
+export function FocusRail({ expanded }: { expanded: boolean }) {
   const t = useTranslations();
   const locale = useLocale();
 
@@ -43,7 +43,7 @@ export function LoungeRail({ expanded }: { expanded: boolean }) {
 
       <nav className="flex w-full flex-col gap-1">
         {NAV_ITEMS.map((item) => {
-          const active = item.key === "lounge";
+          const active = item.key === "focus";
           return (
             <Link
               key={item.key}
@@ -70,7 +70,7 @@ export function LoungeRail({ expanded }: { expanded: boolean }) {
           className="text-[9px] tracking-[0.12em] text-[#3A3A3A]"
           style={expanded ? undefined : { writingMode: "vertical-rl" }}
         >
-          {t("lounge.exit")}
+          {t("focus.exit")}
         </span>
       </div>
     </motion.aside>

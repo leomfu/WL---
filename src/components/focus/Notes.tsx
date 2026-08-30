@@ -38,7 +38,7 @@ export function Notes({
   pomodoro: Pomodoro;
   reduced: boolean;
 }) {
-  const t = useTranslations("lounge.notes");
+  const t = useTranslations("focus.notes");
   const { notes, current, select, create, update, remove } = useNotes();
   const [listOpen, setListOpen] = useState(false);
   const [copied, setCopied] = useState<"md" | "all" | null>(null);
@@ -268,7 +268,7 @@ function Editor({
   onDownload: (text: string, name: string) => void;
   copied: "md" | "all" | null;
 }) {
-  const t = useTranslations("lounge.notes");
+  const t = useTranslations("focus.notes");
   const [title, setTitle] = useState(note.title);
   const [slug, setSlug] = useState(note.slug);
   const [body, setBody] = useState(note.body);

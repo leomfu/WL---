@@ -98,11 +98,11 @@ export const siteConfig = {
   ] satisfies Social[],
 
   /* --- 放松区（阶段 4 用）--- */
-  lounge: {
+  focus: {
     /* 音乐层的曲目不在这里 —— 常驻曲库在 content/music/resident.json，
        网易云那组由 scripts/fetch-netease.mjs 生成到 content/music/netease.json */
     /**
-     * 时刻表 —— 放松区第三层。这一层不播放任何东西，只是「从这里去哪儿」。
+     * 时刻表 —— 专注区第三层。这一层不播放任何东西，只是「从这里去哪儿」。
      *
      * 原来这里是 Spotify 的嵌入播放器，撤掉了：正版流媒体给不出能塞进 <audio> 的直链，
      * 嵌入永远是别人的白色方框，大陆还连不上。与其把残废的播放器伪装成一层，
@@ -146,7 +146,7 @@ export const siteConfig = {
     /**
      * 背景场景 —— 放松区的底，四套纯 CSS 生成的画面（渐变 + 噪点 + 动画，不加载图片）。
      * 原来这是「氛围」层，配了四段合成的环境音；声音在 2026-08-29 撤掉了，
-     * 画面留下来当全局背景，底部一排小字切换。场景名走 messages 的 lounge.scenes（双语）。
+     * 画面留下来当全局背景，底部一排小字切换。场景名走 messages 的 focus.scenes（双语）。
      */
     scenes: [
       { key: "rain" },

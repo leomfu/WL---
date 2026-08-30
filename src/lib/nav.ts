@@ -32,7 +32,7 @@ export const NAV_GROUPS = [
       // /records 由唱片板块提供
       { key: "records", path: "/records" },
       { key: "library", path: "/library" },
-      { key: "lounge", path: "/lounge" },
+      { key: "focus", path: "/focus" },
     ],
   },
   {

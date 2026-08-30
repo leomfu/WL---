@@ -22,10 +22,11 @@ export async function generateMetadata({
 
 /**
  * 唱片 —— 两块：
- * ① 一台真能转、真出声的黑胶唱机（复用放松区那两组曲库，播放内核见 lib/useAudioPlayer）；
+ * ① 一台真能转、真出声的黑胶唱机（斜放在透视里，见 components/records/Turntable）；
  * ② 「我听的」专辑/歌手墙（content/music/records.json）。
  *
- * 曲库和放松区是同一份 getMusic()，不另起一套。
+ * 曲库和播放状态都在 app/[locale]/layout.tsx 的 PlayerProvider 上，
+ * 这一页只决定「有没有曲库，要不要摆这台唱机」。
  */
 export default async function RecordsPage({
   params,
@@ -46,7 +47,7 @@ export default async function RecordsPage({
 
       {hasMusic && (
         <Reveal delay={120} className="mt-10">
-          <Turntable library={music} />
+          <Turntable />
         </Reveal>
       )}
 
