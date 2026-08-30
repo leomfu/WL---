@@ -10,6 +10,7 @@
     "og": "node scripts/generate-og.mjs",
     "music": "node scripts/fetch-netease.mjs",
     "records": "node scripts/fetch-record-covers.mjs",
+    "chart": "node scripts/fetch-music-chart.mjs",
     "news": "node scripts/fetch-news.mjs",
     "photos": "node scripts/build-photos.mjs"
   },

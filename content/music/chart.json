@@ -1,0 +1,213 @@
+{
+  "note": "由 scripts/fetch-music-chart.mjs 生成，别手改；要增删歌改 scripts/music-chart.txt 后跑 npm run chart。",
+  "scenesNote": "⚠️ 场景名（key/label/labelEn）是代拟的，请站主改成自己的说法——改 scripts/music-chart.txt 里 `## key | 中文 / English` 那一行，重跑脚本。",
+  "placeholderNote": "placeholder: true 的条目是代选（不是站主明确点名的歌），标了这个字段方便站主一眼看出哪些该删该换。",
+  "unverifiedNote": "previewUrl 指向 audio-ssl.itunes.apple.com。本机（挂着代理）实测直链可用（HTTP 200，约 1MB 的 audio/x-m4p），但没有条件验证大陆裸连能否直连这个域名——上线前建议站主自己在真实网络环境下测一次。某条没有 previewUrl 时页面应退化成只显示封面 + platformUrl 外链，不要假设「一定能播」。",
+  "skipped": [],
+  "scenes": [
+    {
+      "key": "focus",
+      "label": "深度专注",
+      "labelEn": "Deep Focus",
+      "tracks": [
+        {
+          "query": "七里香 - 周杰伦",
+          "title": "七里香",
+          "artist": "周杰伦",
+          "album": "七里香",
+          "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/99/4e/e2/994ee285-7c0d-73ab-85b7-8d3899a17242/mzaf_12441330510018253101.plus.aac.p.m4a",
+          "cover": "/images/records/chart-536115195.webp",
+          "platformUrl": "https://music.apple.com/cn/album/%E4%B8%83%E9%87%8C%E9%A6%99/536114662?i=536115195&uo=4",
+          "durationMs": 297200,
+          "placeholder": true
+        },
+        {
+          "query": "Hold On - Zaini",
+          "title": "Hold on (feat. Dyslm & Dnakm)",
+          "artist": "Zaini",
+          "album": "Hold on (feat. Dyslm & Dnakm) - Single",
+          "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/8f/59/1c/8f591c03-855c-45e4-b6ca-ff87452cbe21/mzaf_2637891447644447169.plus.aac.p.m4a",
+          "cover": "/images/records/chart-1498329168.webp",
+          "platformUrl": "https://music.apple.com/us/album/hold-on-feat-dyslm-dnakm/1498329167?i=1498329168&uo=4",
+          "durationMs": 180000,
+          "placeholder": false
+        },
+        {
+          "query": "Not For Me - Sarah Proctor",
+          "title": "Not For Me",
+          "artist": "Sarah Proctor",
+          "album": "Not For Me - Single",
+          "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/56/09/da/5609da51-9818-bb55-5f55-6df8a13d4ade/mzaf_5316969741180838653.plus.aac.p.m4a",
+          "cover": "/images/records/chart-1589567390.webp",
+          "platformUrl": "https://music.apple.com/cn/album/not-for-me/1589567376?i=1589567390&uo=4",
+          "durationMs": 226405,
+          "placeholder": false
+        },
+        {
+          "query": "晴天 - 周杰伦",
+          "title": "晴天",
+          "artist": "周杰伦",
+          "album": "叶惠美",
+          "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/20/d0/e7/20d0e7db-9c12-795a-d738-2fc3dde4ac9a/mzaf_10317517925583301645.plus.aac.p.m4a",
+          "cover": "/images/records/chart-535824738.webp",
+          "platformUrl": "https://music.apple.com/cn/album/%E6%99%B4%E5%A4%A9/535824731?i=535824738&uo=4",
+          "durationMs": 269747,
+          "placeholder": true
+        }
+      ]
+    },
+    {
+      "key": "commute",
+      "label": "通勤路上",
+      "labelEn": "On the Commute",
+      "tracks": [
+        {
+          "query": "我是一只小小鸟 - 赵传",
+          "title": "我是一只小小鸟",
+          "artist": "赵传",
+          "album": "当我们年轻的时候 / 新歌+经典现场录音专辑",
+          "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/5d/ee/7d/5dee7dd7-05d6-7f1f-a95e-ba02cd67f653/mzaf_7923055419771443458.plus.aac.p.m4a",
+          "cover": "/images/records/chart-1889827218.webp",
+          "platformUrl": "https://music.apple.com/cn/album/%E6%88%91%E6%98%AF%E4%B8%80%E5%8F%AA%E5%B0%8F%E5%B0%8F%E9%B8%9F/1889826834?i=1889827218&uo=4",
+          "durationMs": 305650,
+          "placeholder": false
+        },
+        {
+          "query": "稻香 - 周杰伦",
+          "title": "稻香",
+          "artist": "周杰伦",
+          "album": "魔杰座",
+          "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/af/d8/da/afd8daa7-b2aa-fb44-b4e0-258ad25187f5/mzaf_18323630198043973445.plus.aac.p.m4a",
+          "cover": "/images/records/chart-1624001324.webp",
+          "platformUrl": "https://music.apple.com/cn/album/%E7%A8%BB%E9%A6%99/1624000713?i=1624001324&uo=4",
+          "durationMs": 223453,
+          "placeholder": true
+        },
+        {
+          "query": "All For You - Cian Ducrot",
+          "title": "All For You",
+          "artist": "Cian Ducrot",
+          "album": "All For You - Single",
+          "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/4d/6a/aa/4d6aaa59-1288-e289-fd59-61a975ff448a/mzaf_1082570872386878185.plus.aac.p.m4a",
+          "cover": "/images/records/chart-1618417650.webp",
+          "platformUrl": "https://music.apple.com/cn/album/all-for-you/1618417646?i=1618417650&uo=4",
+          "durationMs": 219376,
+          "placeholder": false
+        },
+        {
+          "query": "我相信 - 杨培安",
+          "title": "我相信",
+          "artist": "杨培安",
+          "album": "午夜两点半的我",
+          "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/3f/3f/bc/3f3fbc59-21ea-9c8e-6bfd-855767e55123/mzaf_5236376948628573037.plus.aac.p.m4a",
+          "cover": "/images/records/chart-1077738044.webp",
+          "platformUrl": "https://music.apple.com/cn/album/%E6%88%91%E7%9B%B8%E4%BF%A1/1077737886?i=1077738044&uo=4",
+          "durationMs": 247467,
+          "placeholder": false
+        }
+      ]
+    },
+    {
+      "key": "break",
+      "label": "番茄钟间隙",
+      "labelEn": "Pomodoro Break",
+      "tracks": [
+        {
+          "query": "告白气球 - 周杰伦",
+          "title": "告白气球",
+          "artist": "周杰伦",
+          "album": "周杰伦的床边故事",
+          "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/e5/24/59/e5245986-c2d0-a701-5bde-bbc9373da1dc/mzaf_13819014783674734406.plus.aac.p.m4a",
+          "cover": "/images/records/chart-1118757877.webp",
+          "platformUrl": "https://music.apple.com/cn/album/%E5%91%8A%E7%99%BD%E6%B0%94%E7%90%83/1118757859?i=1118757877&uo=4",
+          "durationMs": 215590,
+          "placeholder": true
+        },
+        {
+          "query": "爱的初体验 - 张震岳",
+          "title": "爱的初体验",
+          "artist": "张震岳",
+          "album": "这个下午很无聊",
+          "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/4b/04/14/4b041440-aedd-ff0c-a6e6-023328f7cb48/mzaf_17149575945522440076.plus.aac.p.m4a",
+          "cover": "/images/records/chart-153051320.webp",
+          "platformUrl": "https://music.apple.com/cn/album/%E7%88%B1%E7%9A%84%E5%88%9D%E4%BD%93%E9%AA%8C/153050820?i=153051320&uo=4",
+          "durationMs": 242093,
+          "placeholder": true
+        }
+      ]
+    },
+    {
+      "key": "wind-down",
+      "label": "深夜放空",
+      "labelEn": "Late-Night Wind-down",
+      "tracks": [
+        {
+          "query": "走慢一点点 - 张震岳",
+          "title": "走慢一点点",
+          "artist": "张震岳",
+          "album": "我是海雅谷慕",
+          "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/a8/53/54/a8535463-3db5-64da-d4ee-d9772b6e59cd/mzaf_10194748970587222918.plus.aac.p.m4a",
+          "cover": "/images/records/chart-656556814.webp",
+          "platformUrl": "https://music.apple.com/cn/album/%E8%B5%B0%E6%85%A2%E4%B8%80%E7%82%B9%E7%82%B9/656556065?i=656556814&uo=4",
+          "durationMs": 237800,
+          "placeholder": false
+        },
+        {
+          "query": "等我有一天 - 张震岳",
+          "title": "等我有一天",
+          "artist": "张震岳",
+          "album": "等我有一天",
+          "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/c0/09/51/c0095119-2b3a-e8b6-1e36-71acc25e0350/mzaf_1996246242005081888.plus.aac.p.m4a",
+          "cover": "/images/records/chart-153221119.webp",
+          "platformUrl": "https://music.apple.com/cn/album/%E7%AD%89%E6%88%91%E6%9C%89%E4%B8%80%E5%A4%A9/153219623?i=153221119&uo=4",
+          "durationMs": 294400,
+          "placeholder": false
+        },
+        {
+          "query": "爱要怎么说出口 - 赵传",
+          "title": "爱要怎么说出口",
+          "artist": "赵传",
+          "album": "当我们年轻的时候 / 新歌+经典现场录音专辑",
+          "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/c8/2f/00/c82f00f5-c185-85d6-ba34-ac4b3f345235/mzaf_10912917977489764554.plus.aac.p.m4a",
+          "cover": "/images/records/chart-1889826839.webp",
+          "platformUrl": "https://music.apple.com/cn/album/%E7%88%B1%E8%A6%81%E6%80%8E%E4%B9%88%E8%AF%B4%E5%87%BA%E5%8F%A3/1889826834?i=1889826839&uo=4",
+          "durationMs": 296609,
+          "placeholder": false
+        },
+        {
+          "query": "Shallow - Lady Gaga & Bradley Cooper",
+          "title": "Shallow",
+          "artist": "Lady Gaga & 布莱德利・古柏",
+          "album": "A Star Is Born Soundtrack",
+          "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/e5/79/c9/e579c93c-397f-4444-54ca-f069e2cbffab/mzaf_15042038284779176052.plus.aac.p.m4a",
+          "cover": "/images/records/chart-1434367891.webp",
+          "platformUrl": "https://music.apple.com/cn/album/shallow/1434367877?i=1434367891&uo=4",
+          "durationMs": 215737,
+          "placeholder": false
+        },
+        {
+          "query": "Red Right Hand - Nick Cave & the Bad Seeds",
+          "title": "Red Right Hand (2011 Remaster)",
+          "artist": "Nick Cave & The Bad Seeds",
+          "album": "Red Right Hand (Theme from 'Peaky Blinders') - Single",
+          "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/a2/1c/b7/a21cb773-d025-0a8a-8310-aa76b510f90a/mzaf_10903901519658217425.plus.aac.p.m4a",
+          "cover": "/images/records/chart-1435808593.webp",
+          "platformUrl": "https://music.apple.com/cn/album/red-right-hand-2011-remaster/1435808110?i=1435808593&uo=4",
+          "durationMs": 372573,
+          "placeholder": false
+        },
+        {
+          "query": "分手吧 - 张震岳",
+          "title": "分手吧",
+          "artist": "张震岳",
+          "album": "阿嶽正传",
+          "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/cf/88/44/cf8844f4-ff66-0458-2ec0-f839824fbc96/mzaf_3649879658202388936.plus.aac.p.m4a",
+          "cover": "/images/records/chart-164053745.webp",
+          "platformUrl": "https://music.apple.com/cn/album/%E5%88%86%E6%89%8B%E5%90%A7/164050980?i=164053745&uo=4",
+          "durationMs": 301947,
+          "placeholder": true
+        }
+      ]
+    }
+  ]
+}
