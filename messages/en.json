@@ -53,14 +53,15 @@
     "eyebrow": "个人网站 · PERSONAL SITE",
     "nameLabel": "NAME",
     "sinceLabel": "SINCE",
-    "tagline": "It takes a long time to get where I'm going. Maybe not today, maybe not tomorrow — but if I keep at it, I believe I'll get there, and become who I want to be.",
-    "taglineSub": "完成自己的目标虽然漫长但只要坚持和持续奋斗，也许不是今天也不是明天，但我相信自己总有一天一定可以完成目标，成为自己想要成为的样子。",
+    "tagline": "The life I want — I'm going after it.",
+    "taglineTail": "",
     "enter": "TIME TRAVEL · STEP INSIDE",
     "enterHintPrefix": "or press",
     "enterKey": "Enter ↵",
     "footer": "WRITING, MAKING, DOING NOTHING · 写字、做东西、发呆",
     "switchLocale": "Switch to Chinese",
-    "logoAlt": "Weiliang's logo"
+    "logoAlt": "Weiliang's logo",
+    "taglineSub": "活出自己想要的人生，加油"
   },
   "nav": {
     "home": "Home",

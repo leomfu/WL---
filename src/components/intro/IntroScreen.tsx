@@ -231,9 +231,26 @@ export function IntroScreen() {
             className="items-center lg:w-[190px] lg:items-start"
           />
 
-          <div className="flex max-w-[560px] flex-col items-center gap-2.5 text-center">
-            <span className="text-[15px] leading-relaxed tracking-[0.03em] text-shell-ink sm:text-base">
-              {t("tagline")}
+          {/* 一句话 + 一口气 + 另一种语言。三层依次变小变暗：
+              主句是陈述（衬线、亮），tail 是说完之后自己点的那下头（小一号、暗一档），
+              最下面那行是另一种语言的同一句。中文主句把字距拉开，英文收住 —— 
+              0.16em 之于汉字是舒展，之于拉丁字母是散架。 */}
+          <div className="flex max-w-[560px] flex-col items-center gap-3 text-center">
+            <span className="flex flex-wrap items-baseline justify-center gap-x-4 gap-y-1">
+              <span
+                className={[
+                  "font-serif font-light text-shell-ink",
+                  "text-[19px] leading-[1.5] sm:text-[22px]",
+                  locale === "zh" ? "tracking-[0.16em]" : "tracking-[0.04em]",
+                ].join(" ")}
+              >
+                {t("tagline")}
+              </span>
+              {t("taglineTail") && (
+                <span className="text-[12px] tracking-[0.22em] text-shell-dim sm:text-[13px]">
+                  {t("taglineTail")}
+                </span>
+              )}
             </span>
             <span className="text-[11px] tracking-[0.16em] text-[#6E6E6E] sm:text-[11.5px]">
               {t("taglineSub")}

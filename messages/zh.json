@@ -53,14 +53,15 @@
     "eyebrow": "个人网站 · PERSONAL SITE",
     "nameLabel": "NAME",
     "sinceLabel": "SINCE",
-    "tagline": "完成自己的目标虽然漫长但只要坚持和持续奋斗，也许不是今天也不是明天，但我相信自己总有一天一定可以完成目标，成为自己想要成为的样子。",
-    "taglineSub": "It takes a long time to get where I'm going. Maybe not today, maybe not tomorrow — but if I keep at it, I believe I'll get there, and become who I want to be.",
+    "tagline": "活出自己想要的人生",
+    "taglineTail": "加油",
     "enter": "穿梭时间 · 走进我的世界",
     "enterHintPrefix": "或按",
     "enterKey": "Enter ↵",
     "footer": "写字、做东西、发呆 · WRITING, MAKING, DOING NOTHING",
     "switchLocale": "切换到英文",
-    "logoAlt": "伟良的 Logo"
+    "logoAlt": "伟良的 Logo",
+    "taglineSub": "The life I want — I'm going after it."
   },
   "nav": {
     "home": "首页",
