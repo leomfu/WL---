@@ -26,7 +26,19 @@ const C = BOX / 2;
 const IDLE = { hour: 304.8, minute: 57.6, second: 216 } as const;
 
 /** 倒转过场时长（ms）——比 CityDepth 的上色略快，指针先动、颜色随后涌回 */
-const WARP_MS = 700;
+const WARP_MS = 1100;
+
+/**
+ * 夜光感：刻度/指针/盘心是带淡淡辉光的白线。
+ * 用两层 drop-shadow 叠在整张钟面上（近的一层给"线本身在发亮"，远的一层给空气里的散射），
+ * 克制在这个量级，再往上就成霓虹灯牌了。
+ * 进站时整层辉光转暖 —— 钟融进城市灯火，跟着颜色一起涌回来。
+ * 两个字符串的函数序列一致，所以 CSS 能把它们逐项插值成一次平滑的变暖。
+ */
+const GLOW_COOL =
+  "drop-shadow(0 0 2px rgba(237,237,237,0.55)) drop-shadow(0 0 9px rgba(237,237,237,0.26))";
+const GLOW_WARM =
+  "drop-shadow(0 0 3px rgba(255,216,172,0.92)) drop-shadow(0 0 18px rgba(255,168,86,0.55))";
 
 /** 倒转圈数：时针半圈、分针 6 圈、秒针 14 圈，越细的针转得越疯 */
 const REWIND_TURNS = { hour: 0.5, minute: 6, second: 14 } as const;
@@ -58,8 +70,8 @@ const TICKS: TickMark[] = Array.from({ length: 60 }, (_, i) => {
     y1: C - cos * outer,
     x2: C + sin * inner,
     y2: C - cos * inner,
-    width: major ? 1.1 : 0.7,
-    color: major ? "rgba(237,237,237,0.5)" : "rgba(237,237,237,0.16)",
+    width: major ? 1.2 : 0.7,
+    color: major ? "rgba(237,237,237,0.62)" : "rgba(237,237,237,0.24)",
   };
 });
 
@@ -226,12 +238,23 @@ export function TimeDial({
     <div className={`relative ${className}`} style={style}>
       {/* 钟盘后面的一层极淡辉光，倒转时短暂增强 */}
       <div
-        className="pointer-events-none absolute -inset-[16%] rounded-full transition-all duration-500 ease-out"
+        className="pointer-events-none absolute -inset-[16%] rounded-full transition-all duration-[900ms] ease-out"
         style={{
           background:
-            "radial-gradient(circle, rgba(237,237,237,0.11) 0%, rgba(237,237,237,0.035) 40%, rgba(237,237,237,0) 70%)",
-          opacity: warping && !reduced ? 1 : 0.7,
+            "radial-gradient(circle, rgba(237,237,237,0.13) 0%, rgba(237,237,237,0.045) 40%, rgba(237,237,237,0) 70%)",
+          opacity: warping && !reduced ? 0.35 : 0.85,
           transform: warping && !reduced ? "scale(1.18)" : "scale(1)",
+        }}
+        aria-hidden
+      />
+      {/* 同一圈辉光的暖色版本，进站时压着上面那层淡入：钟的光跟着城市灯火一起暖起来 */}
+      <div
+        className="pointer-events-none absolute -inset-[16%] rounded-full transition-all duration-[900ms] ease-out"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(255,196,132,0.26) 0%, rgba(255,160,80,0.09) 42%, rgba(255,160,80,0) 72%)",
+          opacity: warping && !reduced ? 1 : 0,
+          transform: warping && !reduced ? "scale(1.24)" : "scale(1)",
         }}
         aria-hidden
       />
@@ -248,12 +271,21 @@ export function TimeDial({
         />
       </div>
 
-      <Face
-        hourRef={hourRef}
-        minuteRef={minuteRef}
-        secondRef={secondRef}
-        showSecond={!reduced}
-      />
+      {/* 辉光挂在外面这层 div 上，Face 的 props 才能保持全稳定引用（memo 不被 warping 打断） */}
+      <div
+        className="absolute inset-0"
+        style={{
+          filter: warping && !reduced ? GLOW_WARM : GLOW_COOL,
+          transition: "filter 900ms ease-out",
+        }}
+      >
+        <Face
+          hourRef={hourRef}
+          minuteRef={minuteRef}
+          secondRef={secondRef}
+          showSecond={!reduced}
+        />
+      </div>
     </div>
   );
 }

@@ -28,18 +28,16 @@ function isReplay() {
  * 时间轴的另一半在 CityDepth 的 TL 里，两边要一起改。
  */
 const EXIT = {
-  fadeDelay: 0.95,
-  fadeDuration: 0.5,
-  navigate: 1600,
+  fadeDelay: 1.85,
+  fadeDuration: 0.6,
+  navigate: 2500,
 } as const;
 
 /** 视觉稿里的入场节奏（ms），改这里就能整体调快慢 */
 const BEAT = {
-  rules: 300,
   eyebrow: 260,
-  logo: 460,
+  dial: 460,
   meta: 780,
-  bottomRule: 900,
   button: 1080,
   footer: 1400,
   controls: 1600,
@@ -117,16 +115,6 @@ export function IntroScreen() {
           transition: { duration: 1.1, ease: EASE, delay: delay / 1000 },
         };
 
-  const widen = (delay: number, origin: "left" | "right" | "center") =>
-    reduced
-      ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.2 } }
-      : {
-          initial: { scaleX: 0 },
-          animate: { scaleX: 1 },
-          style: { transformOrigin: origin },
-          transition: { duration: 1.4, ease: EASE, delay: delay / 1000 },
-        };
-
   const loop = (name: string, duration: number, delay = 0) =>
     reduced
       ? undefined
@@ -164,9 +152,9 @@ export function IntroScreen() {
         }}
         aria-hidden
       />
-      {/* 穿梭时间那一下，中心的辉光短暂涨起来 */}
+      {/* 穿梭时间那一下，中心的辉光短暂涨起来（跟着 1.2s 的上色一起慢慢亮） */}
       <div
-        className="absolute inset-0 transition-opacity duration-700 ease-out"
+        className="absolute inset-0 transition-opacity duration-[1100ms] ease-out"
         style={{
           background:
             "radial-gradient(46% 34% at 50% 36%, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.06) 42%, rgba(255,255,255,0) 72%)",
@@ -202,40 +190,43 @@ export function IntroScreen() {
         </Link>
       </motion.div>
 
+      {/* --- 顶部眉行 ---
+          从主体那一列里拿出来单独定位：它是页面级的一行小字（和底下的页脚对称），
+          离屏幕顶留出一段呼吸，两边不再拉横线。绝对定位也顺带保证它永远不会被挤掉。 */}
+      <motion.div
+        {...rise(BEAT.eyebrow)}
+        className="pointer-events-none absolute inset-x-0 top-10 z-10 text-center sm:top-12"
+      >
+        <span className="whitespace-nowrap text-[10px] tracking-[0.28em] text-[#C4C4C4] sm:text-[11px] sm:tracking-(--tracking-eyebrow)">
+          {t("eyebrow")}
+        </span>
+      </motion.div>
+
       {/*
         --- 主体 ---
         只占屏幕上面这一段（天空 + 楼群），把下面的江面、堤岸和那个坐着的背影让出来：
-        文字压在人身上会两败俱伤。整块内容在这个框里垂直居中，
-        于是时间之钟正好落在陆家嘴上空、东方明珠塔尖之下。
+        文字压在人身上会两败俱伤。
+        时间之钟用固定上边距抬进眉行之下的那片空天里（`max(px, vh)`：矮屏保下限、
+        高屏跟着长，而且永远躲得开眉行），底下几块靠 auto 边距分掉剩下的空间；
+        空间不够时 auto 收成 0，内容只往下溢出——绝不会把钟或眉行裁掉。
       */}
       <div className="relative flex h-full flex-col items-center justify-start px-6 pb-[30vh] sm:px-16 lg:px-40">
-        {/* 上分割线 + 小标题。
-            首尾两块的 mt-auto / mb-auto 是「安全居中」：空间够时等同 justify-center，
-            空间不够时 auto 边距收成 0，内容只会往下溢出——绝不会把顶上这行裁掉。 */}
-        <div className="mt-auto flex w-full items-center gap-4 sm:gap-6">
-          <motion.div {...widen(BEAT.rules, "right")} className="h-px flex-1 bg-rule" />
-          <motion.span
-            {...rise(BEAT.eyebrow)}
-            className="whitespace-nowrap text-[10px] tracking-[0.28em] text-[#C4C4C4] sm:text-[11px] sm:tracking-(--tracking-eyebrow)"
-          >
-            {t("eyebrow")}
-          </motion.span>
-          <motion.div {...widen(BEAT.rules, "left")} className="h-px flex-1 bg-rule" />
-        </div>
-
         {/* 时间之钟：走真实时间，进站时指针倒转。
-            身后垫一块圆形玻璃（暗一点 + 极轻的背景模糊），
-            让白色表盘在晚霞里读得出来，又不至于把塔挡死。 */}
-        <motion.div {...rise(BEAT.logo)} className="relative my-5 sm:my-7">
+            身后垫一块圆形玻璃（压暗 + 背景模糊）——钟是悬在城市上空的那轮月亮，
+            塔身进不到盘面里来，白色夜光表盘在晚霞里也读得出来。 */}
+        <motion.div
+          {...rise(BEAT.dial)}
+          className="relative mt-[max(64px,8vh)] sm:mt-[max(72px,8vh)]"
+        >
           <div
-            className="pointer-events-none absolute inset-[-7%] rounded-full backdrop-blur-[2px]"
+            className="pointer-events-none absolute inset-[-9%] rounded-full backdrop-blur-[3px]"
             style={{
               background:
-                "radial-gradient(circle, rgba(6,6,6,0.46) 0%, rgba(6,6,6,0.30) 54%, rgba(6,6,6,0) 78%)",
+                "radial-gradient(circle, rgba(6,6,6,0.34) 0%, rgba(6,6,6,0.24) 56%, rgba(6,6,6,0) 80%)",
               maskImage:
-                "radial-gradient(circle, #000 0%, #000 62%, transparent 80%)",
+                "radial-gradient(circle, #000 0%, #000 60%, transparent 82%)",
               WebkitMaskImage:
-                "radial-gradient(circle, #000 0%, #000 62%, transparent 80%)",
+                "radial-gradient(circle, #000 0%, #000 60%, transparent 82%)",
             }}
             aria-hidden
           />
@@ -244,7 +235,7 @@ export function IntroScreen() {
             reduced={reduced}
             logoAlt={t("logoAlt")}
             /* 尺寸同时受 vh 约束：矮屏上表盘自己缩小，整块内容才不会压到江边那个人 */
-            className="h-[min(172px,25vh)] w-[min(172px,25vh)] sm:h-[min(228px,29vh)] sm:w-[min(228px,29vh)] lg:h-[min(272px,32vh)] lg:w-[min(272px,32vh)]"
+            className="h-[min(120px,15vh)] w-[min(120px,15vh)] sm:h-[min(136px,15vh)] sm:w-[min(136px,15vh)]"
             style={{ animation: loop("dcFloat", 11000) }}
           />
         </motion.div>
@@ -252,7 +243,7 @@ export function IntroScreen() {
         {/* NAME / 一句话定位 / SINCE */}
         <motion.div
           {...rise(BEAT.meta)}
-          className="flex w-full flex-col items-center gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-8"
+          className="mt-auto flex w-full flex-col items-center gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-8"
         >
           <MetaBlock
             label={t("nameLabel")}
@@ -293,16 +284,10 @@ export function IntroScreen() {
           />
         </motion.div>
 
-        {/* 下分割线 */}
-        <motion.div
-          {...widen(BEAT.bottomRule, "center")}
-          className="mt-6 h-px w-full bg-rule"
-        />
-
         {/* 进入按钮 */}
         <motion.div
           {...rise(BEAT.button)}
-          className="mt-8 mb-auto flex flex-col items-center gap-4 sm:mt-10"
+          className="mt-10 mb-auto flex flex-col items-center gap-4 sm:mt-12"
         >
           <Link
             href={homeHref}

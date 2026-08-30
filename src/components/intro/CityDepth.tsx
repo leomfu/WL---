@@ -32,11 +32,35 @@ const IMG_ASPECT = 1672 / 941;
 /** 采样区域略微放大，给视差位移留边，免得推到边缘露底 */
 const OVERSCAN = 1.06;
 
-/** 进站时序（ms）。总长与 IntroScreen 的 EXIT.navigate 对齐 */
+/**
+ * 顶上让出的一段夜空（占屏高的比例）。
+ *
+ * 为什么要有它：照片自己的天空在东方明珠塔尖之上只剩 3%，
+ * 满屏 cover 之后塔尖就顶在屏幕最上沿（实测 1440×900 下在 y≈4px），
+ * 时间之钟想「悬在城市上空」根本没地方站。
+ * 于是把整张照片压进屏幕下面那块（照片底边不动，人还坐在原地），
+ * 顶上空出的这条带子用**接缝处那一行天空竖着抹上去**补齐：
+ * 做法是把画面沿接缝镜像回去、同时压扁到 SKY_SQUEEZE ——
+ * 接缝一阶连续（不会有横线），左右的云和明暗也对得上（不像纯色块那样换个窗口宽度就露馅），
+ * 压扁又保证塔尖不会被整根镜像出来吊在屏幕顶上。
+ * shader 和静态图两条路走的是同一组数，几何完全一致。
+ */
+const SKY_STRIP = 0.09;
+/**
+ * 镜像回去时的压扁比例：1/50，等于把接缝那一行天空抹开。
+ * 别调大 —— 接缝下面 3px 就是东方明珠的塔尖，压扁比例一大，
+ * 塔尖会被镜像成一小截倒挂在屏幕顶上的针。
+ */
+const SKY_SQUEEZE = 0.02;
+
+/**
+ * 进站时序（ms）。总长与 IntroScreen 的 EXIT.navigate 对齐。
+ * 上色走 1.2 秒（不是早先的 0.76 秒）—— 要的是「慢慢亮起来」，不是闪一下。
+ */
 const TL = {
-  colorMs: 760,
-  dollyDelay: 240,
-  dollyMs: 1120,
+  colorMs: 1200,
+  dollyDelay: 420,
+  dollyMs: 1750,
 } as const;
 
 const VERT = `
@@ -47,7 +71,7 @@ void main() {
   gl_Position = vec4(aPos, 0.0, 1.0);
 }`;
 
-const FRAG = `
+const FRAG = /* glsl */ `
 precision mediump float;
 varying vec2 vUv;
 uniform sampler2D uTex;
@@ -56,6 +80,7 @@ uniform vec2 uCover;
 uniform vec2 uParallax;
 uniform float uDolly;
 uniform float uColor;
+uniform float uStrip;
 
 /** 视差的支点深度：比它远的往一边、比它近的往另一边，这一层保持不动 */
 const float PIVOT = 0.30;
@@ -70,7 +95,11 @@ vec2 warp(vec2 uv, float d) {
 }
 
 void main() {
-  vec2 base = (vUv - 0.5) * uCover + 0.5;
+  // 照片只铺屏幕下面 (1 - uStrip) 那块；上面那条带子里 v < 0，
+  // 把它镜像回画面里并压扁 —— 接缝那一行天空于是竖着抹满整条带子
+  float v = (vUv.y - uStrip) / (1.0 - uStrip);
+  v = v < 0.0 ? -v * ${SKY_SQUEEZE} : v;
+  vec2 base = (vec2(vUv.x, v) - 0.5) * uCover + 0.5;
 
   // 采两次：先按原位深度位移，再用位移后的深度修一次，边界过渡更服帖
   float d = texture2D(uDepth, base).r;
@@ -78,7 +107,24 @@ void main() {
   d = texture2D(uDepth, clamp(uv, 0.002, 0.998)).r;
   uv = clamp(warp(base, d), 0.002, 0.998);
 
+  // 夜空带里，采样点不许越过接缝那一行往下走：
+  // 接缝下面 3px 就是塔尖，视差一晃就会把它抹成一道从屏幕顶垂到钟上的竖痕。
+  // 天空在这一带上下几乎同色，钉住这一行看不出任何代价。
+  float cap = mix(1.0, 0.5 - 0.5 * uCover.y, step(vUv.y, uStrip));
+  uv.y = min(uv.y, cap);
+
   vec3 c = texture2D(uTex, uv).rgb;
+
+  // 夜空带里越往上越交给「照片最顶那一行」——那一行永远是纯天空。
+  // 不这么做的话，宽扁窗口（比如 16:9）会 cover 掉照片上下，接缝那行正好落在
+  // 东方明珠的天线上，一抹就把天线顺着拉到屏幕顶上，又变成一根竖线。
+  // 这里是同一列的颜色，所以左右的明暗仍然对得上。
+  float above = (uStrip - vUv.y) / max(uStrip, 0.0001);
+  if (above > 0.0) {
+    vec3 sky = texture2D(uTex, vec2(uv.x, 0.006)).rgb;
+    c = mix(c, sky, smoothstep(0.0, 0.35, above));
+  }
+
   float luma = dot(c, vec3(0.2126, 0.7152, 0.0722));
   vec3 gray = vec3(clamp((luma - 0.5) * 1.12 + 0.5, 0.0, 1.0));
 
@@ -121,7 +167,6 @@ function loadTexture(gl: WebGLRenderingContext, src: string) {
   });
 }
 
-const easeOut = (p: number) => 1 - (1 - p) * (1 - p);
 const easeInOut = (p: number) =>
   p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
 
@@ -186,6 +231,7 @@ export function CityDepth({
     const uParallax = gl.getUniformLocation(program, "uParallax");
     const uDolly = gl.getUniformLocation(program, "uDolly");
     const uColor = gl.getUniformLocation(program, "uColor");
+    gl.uniform1f(gl.getUniformLocation(program, "uStrip"), SKY_STRIP);
     gl.uniform1i(gl.getUniformLocation(program, "uTex"), 0);
     gl.uniform1i(gl.getUniformLocation(program, "uDepth"), 1);
 
@@ -233,8 +279,9 @@ export function CityDepth({
       raf = requestAnimationFrame(frame);
       if (disposed || !ready || document.hidden) return;
 
-      // cover 适配：画布比图宽就按宽度铺、反之按高度铺，再整体缩一点留过扫边距
-      const aspect = canvas.width / canvas.height;
+      // cover 适配：照片铺的是「屏幕下面 (1-SKY_STRIP) 那块」，所以按那块的宽高比算，
+      // 比图宽就按宽度铺、反之按高度铺，再整体缩一点留过扫边距
+      const aspect = canvas.width / (canvas.height * (1 - SKY_STRIP));
       const cx = aspect > IMG_ASPECT ? 1 : aspect / IMG_ASPECT;
       const cy = aspect > IMG_ASPECT ? IMG_ASPECT / aspect : 1;
       gl.uniform2f(uCover, cx / OVERSCAN, cy / OVERSCAN);
@@ -256,7 +303,8 @@ export function CityDepth({
         gl.uniform1f(uColor, 0);
       } else {
         const e = performance.now() - start;
-        gl.uniform1f(uColor, easeOut(Math.min(1, e / TL.colorMs)));
+        // 上色用 easeInOut：起手慢、中段推、收尾稳，比 easeOut 那种前重后轻更像「亮起来」
+        gl.uniform1f(uColor, easeInOut(Math.min(1, e / TL.colorMs)));
         gl.uniform1f(
           uDolly,
           easeInOut(Math.min(1, Math.max(0, (e - TL.dollyDelay) / TL.dollyMs))),
@@ -286,24 +334,76 @@ export function CityDepth({
       ro.disconnect();
       canvas.removeEventListener("webglcontextlost", onLost);
       window.removeEventListener("pointermove", onPointerMove);
-      gl.getExtension("WEBGL_lose_context")?.loseContext();
+      /**
+       * ⚠️ 这里**不能**调 `WEBGL_lose_context.loseContext()`。
+       * `canvas.getContext("webgl")` 对同一张 canvas 永远返回同一个上下文，
+       * 所以一旦在清理里把它弄丢，下一次挂载拿到的就是个已经废掉的上下文，
+       * 编译/链接全部静默失败，canvas 再也不会亮起来 ——
+       * 开发模式下 React StrictMode 正好会「挂载→清理→再挂载」，
+       * 于是 `npm run dev` 里永远只看得到那张静态降级图（生产构建没这问题，
+       * 所以这个坑很容易被当成"WebGL 不支持"错判）。
+       * 上下文跟着 canvas 一起被回收，不主动丢也不会泄漏。
+       */
     };
   }, [reduced]);
 
   return (
     /* 这一层不 aria-hidden：照片是开场页的主体画面，那句 alt 对读屏用户是有意义的 */
     <div ref={hostRef} className="absolute inset-0 overflow-hidden">
-      {/* 首帧 / 降级态：静态黑白图。canvas 就绪后被它盖住，但不卸载，避免任何闪烁 */}
-      <Image
-        src={PHOTO}
-        alt={alt}
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover"
-        /* scale 要和 shader 里的 OVERSCAN 一致，否则 canvas 淡入时画面会"跳"一下 */
-        style={{ filter: "grayscale(1) contrast(1.06)", transform: `scale(${OVERSCAN})` }}
-      />
+      {/* 顶上那条夜空带：把下面那张照片沿接缝镜像+压扁翻上来（同一个 src，不多下一次）。
+          scaleY 的倍率必须是 shader 里 SKY_SQUEEZE 的倒数，两条路才对得上 */}
+      <div
+        className="absolute inset-x-0 top-0 overflow-hidden"
+        style={{ height: `${SKY_STRIP * 100}%` }}
+        aria-hidden
+      >
+        <div
+          className="absolute inset-x-0"
+          style={{
+            top: "100%",
+            height: `${((1 - SKY_STRIP) / SKY_STRIP) * 100}%`,
+            transformOrigin: "top",
+            transform: `scaleY(${-1 / SKY_SQUEEZE})`,
+          }}
+        >
+          <Image
+            src={PHOTO}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+            style={{ filter: "grayscale(1) contrast(1.06)", transform: `scale(${OVERSCAN})` }}
+          />
+        </div>
+        {/* 和 shader 里那段 mix 对应：越往上越盖成照片顶行的那个灰，
+            宽扁窗口下才不会把天线顺着抹到屏幕顶上。静态图这条路做不了逐列取色，
+            用顶行的平均灰即可 —— 那几行本来就几乎是纯色 */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(0deg, rgba(50,50,50,0) 0%, rgb(50,50,50) 35%)",
+          }}
+        />
+      </div>
+      {/* 首帧 / 降级态：静态黑白图。canvas 就绪后被它盖住，但不卸载，避免任何闪烁。
+          这个盒子的位置/尺寸必须和 shader 里 uStrip + uCover 算出来的那块严丝合缝 */}
+      <div
+        className="absolute inset-x-0 bottom-0 overflow-hidden"
+        style={{ top: `${SKY_STRIP * 100}%` }}
+      >
+        <Image
+          src={PHOTO}
+          alt={alt}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+          /* scale 要和 shader 里的 OVERSCAN 一致，否则 canvas 淡入时画面会"跳"一下 */
+          style={{ filter: "grayscale(1) contrast(1.06)", transform: `scale(${OVERSCAN})` }}
+        />
+      </div>
       {!reduced && (
         <canvas
           ref={canvasRef}
