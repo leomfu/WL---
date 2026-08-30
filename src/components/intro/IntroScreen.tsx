@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion, useReducedMotion } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
-import { Starfield } from "./Starfield";
+import { CityDepth } from "./CityDepth";
 import { Grain } from "./Grain";
 import { TimeDial } from "./TimeDial";
 import { useStoredState } from "@/lib/useStoredState";
@@ -22,11 +22,15 @@ function isReplay() {
   return /[?&]replay=1(?:&|$)/.test(window.location.search);
 }
 
-/** 进站过场：指针倒转 + 星点拉丝 → 淡出 → 跳转，整段 820ms */
+/**
+ * 进站过场：指针倒转 + 颜色从画面深处涌回（CityDepth 的 uColor）
+ * → 镜头沿深度轴推进穿入（uDolly）→ 淡出 → 跳转，整段 1600ms。
+ * 时间轴的另一半在 CityDepth 的 TL 里，两边要一起改。
+ */
 const EXIT = {
-  fadeDelay: 0.3,
-  fadeDuration: 0.45,
-  navigate: 820,
+  fadeDelay: 0.95,
+  fadeDuration: 0.5,
+  navigate: 1600,
 } as const;
 
 /** 视觉稿里的入场节奏（ms），改这里就能整体调快慢 */
@@ -136,7 +140,7 @@ export function IntroScreen() {
       onClick={enter}
       animate={
         warping
-          ? { opacity: 0, scale: 1.08, filter: "blur(7px)" }
+          ? { opacity: 0, scale: 1.04, filter: "blur(6px)" }
           : { opacity: leaving ? 0 : 1, scale: 1, filter: "blur(0px)" }
       }
       transition={
@@ -145,34 +149,37 @@ export function IntroScreen() {
           : { duration: leaving ? 0.2 : 0.3, ease: EASE }
       }
       className="relative h-dvh w-full cursor-pointer overflow-hidden bg-void text-shell-ink select-none"
+      /* 所有叠在照片上的字统一带一层柔影：比把整张照片压暗划算得多 */
+      style={{ textShadow: "0 1px 16px rgba(0,0,0,0.8), 0 0 3px rgba(0,0,0,0.55)" }}
     >
-      {/* --- 质感层：底部辉光 / 星点 / 噪点 / 暗角 --- */}
+      {/* --- 背景：外滩夜景 + 深度视差（默认黑白，进站那两秒才上色） --- */}
+      <CityDepth warping={warping} reduced={reduced} alt={t("backdropAlt")} />
+
+      {/* 叠字垫底：顶上压一点、底下压重一点，白字压在晚霞和灯火上才读得出来 */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(78% 52% at 50% 104%, #3A3A3A 0%, #1A1A1A 34%, #0A0A0A 62%, #060606 100%)",
-          animation: loop("dcGlow", 9000),
+            "linear-gradient(180deg, rgba(6,6,6,0.52) 0%, rgba(6,6,6,0.16) 24%, rgba(6,6,6,0.10) 46%, rgba(6,6,6,0.34) 74%, rgba(6,6,6,0.78) 100%)",
         }}
         aria-hidden
       />
       {/* 穿梭时间那一下，中心的辉光短暂涨起来 */}
       <div
-        className="absolute inset-0 transition-opacity duration-500 ease-out"
+        className="absolute inset-0 transition-opacity duration-700 ease-out"
         style={{
           background:
-            "radial-gradient(46% 34% at 50% 46%, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.05) 42%, rgba(255,255,255,0) 72%)",
+            "radial-gradient(46% 34% at 50% 36%, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.06) 42%, rgba(255,255,255,0) 72%)",
           opacity: warping ? 1 : 0,
         }}
         aria-hidden
       />
-      <Starfield animate={!reduced} warp={warping} />
-      <Grain id="intro-grain" opacity={0.07} baseFrequency={0.8} />
+      <Grain id="intro-grain" opacity={0.05} baseFrequency={0.8} />
       <div
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(96% 74% at 50% 46%, rgba(0,0,0,0) 42%, rgba(0,0,0,0.72) 100%)",
+            "radial-gradient(102% 78% at 50% 44%, rgba(0,0,0,0) 46%, rgba(0,0,0,0.62) 100%)",
         }}
         aria-hidden
       />
@@ -195,10 +202,17 @@ export function IntroScreen() {
         </Link>
       </motion.div>
 
-      {/* --- 主体 --- */}
-      <div className="relative flex h-full flex-col items-center justify-center px-6 sm:px-16 lg:px-40">
-        {/* 上分割线 + 小标题 */}
-        <div className="flex w-full items-center gap-4 sm:gap-6">
+      {/*
+        --- 主体 ---
+        只占屏幕上面这一段（天空 + 楼群），把下面的江面、堤岸和那个坐着的背影让出来：
+        文字压在人身上会两败俱伤。整块内容在这个框里垂直居中，
+        于是时间之钟正好落在陆家嘴上空、东方明珠塔尖之下。
+      */}
+      <div className="relative flex h-full flex-col items-center justify-start px-6 pb-[30vh] sm:px-16 lg:px-40">
+        {/* 上分割线 + 小标题。
+            首尾两块的 mt-auto / mb-auto 是「安全居中」：空间够时等同 justify-center，
+            空间不够时 auto 边距收成 0，内容只会往下溢出——绝不会把顶上这行裁掉。 */}
+        <div className="mt-auto flex w-full items-center gap-4 sm:gap-6">
           <motion.div {...widen(BEAT.rules, "right")} className="h-px flex-1 bg-rule" />
           <motion.span
             {...rise(BEAT.eyebrow)}
@@ -209,13 +223,28 @@ export function IntroScreen() {
           <motion.div {...widen(BEAT.rules, "left")} className="h-px flex-1 bg-rule" />
         </div>
 
-        {/* 时间之钟：走真实时间，进站时指针倒转 */}
-        <motion.div {...rise(BEAT.logo)} className="my-6 sm:my-8">
+        {/* 时间之钟：走真实时间，进站时指针倒转。
+            身后垫一块圆形玻璃（暗一点 + 极轻的背景模糊），
+            让白色表盘在晚霞里读得出来，又不至于把塔挡死。 */}
+        <motion.div {...rise(BEAT.logo)} className="relative my-5 sm:my-7">
+          <div
+            className="pointer-events-none absolute inset-[-7%] rounded-full backdrop-blur-[2px]"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(6,6,6,0.46) 0%, rgba(6,6,6,0.30) 54%, rgba(6,6,6,0) 78%)",
+              maskImage:
+                "radial-gradient(circle, #000 0%, #000 62%, transparent 80%)",
+              WebkitMaskImage:
+                "radial-gradient(circle, #000 0%, #000 62%, transparent 80%)",
+            }}
+            aria-hidden
+          />
           <TimeDial
             warping={warping}
             reduced={reduced}
             logoAlt={t("logoAlt")}
-            className="h-[200px] w-[200px] sm:h-[280px] sm:w-[280px] lg:h-[352px] lg:w-[352px]"
+            /* 尺寸同时受 vh 约束：矮屏上表盘自己缩小，整块内容才不会压到江边那个人 */
+            className="h-[min(172px,25vh)] w-[min(172px,25vh)] sm:h-[min(228px,29vh)] sm:w-[min(228px,29vh)] lg:h-[min(272px,32vh)] lg:w-[min(272px,32vh)]"
             style={{ animation: loop("dcFloat", 11000) }}
           />
         </motion.div>
@@ -252,7 +281,7 @@ export function IntroScreen() {
                 </span>
               )}
             </span>
-            <span className="text-[11px] tracking-[0.16em] text-[#6E6E6E] sm:text-[11.5px]">
+            <span className="text-[11px] tracking-[0.16em] text-[#A0A0A0] sm:text-[11.5px]">
               {t("taglineSub")}
             </span>
           </div>
@@ -273,7 +302,7 @@ export function IntroScreen() {
         {/* 进入按钮 */}
         <motion.div
           {...rise(BEAT.button)}
-          className="mt-8 flex flex-col items-center gap-4 sm:mt-11"
+          className="mt-8 mb-auto flex flex-col items-center gap-4 sm:mt-10"
         >
           <Link
             href={homeHref}
@@ -286,11 +315,11 @@ export function IntroScreen() {
             style={{ animation: loop("dcBob", 3400) }}
           >
             <span
-              className="block border border-shell-line-3 px-8 py-4 text-[11.5px] tracking-[0.24em] text-shell-ink transition-colors group-hover:border-shell-dim sm:px-10 sm:text-[12.5px]"
+              className="block border border-shell-line-3 px-8 py-4 text-[11.5px] tracking-[0.24em] text-shell-ink backdrop-blur-[3px] transition-colors group-hover:border-shell-dim sm:px-10 sm:text-[12.5px]"
               style={{
                 backgroundImage:
                   "repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, rgba(255,255,255,0) 1px, rgba(255,255,255,0) 6px)",
-                backgroundColor: "rgba(255,255,255,0.03)",
+                backgroundColor: "rgba(6,6,6,0.34)",
               }}
             >
               {t("enter")}
@@ -301,7 +330,7 @@ export function IntroScreen() {
             <Corner className="-bottom-[5px] -right-[5px] border-b border-r" />
           </Link>
 
-          <div className="flex items-center gap-2.5 text-[11.5px] text-shell-faint">
+          <div className="flex items-center gap-2.5 text-[11.5px] text-[#9A9A9A]">
             <span>{t("enterHintPrefix")}</span>
             <kbd className="rounded border border-b-2 border-shell-line-2 px-2 py-0.5 font-sans text-shell-dim">
               {t("enterKey")}
@@ -313,7 +342,7 @@ export function IntroScreen() {
       {/* --- 页脚 --- */}
       <motion.div
         {...rise(BEAT.footer)}
-        className="absolute inset-x-0 bottom-6 text-center text-[9px] tracking-[0.24em] text-shell-mute sm:bottom-8 sm:text-[10px] sm:tracking-[0.3em]"
+        className="absolute inset-x-0 bottom-6 text-center text-[9px] tracking-[0.24em] text-[#8A8A8A] sm:bottom-8 sm:text-[10px] sm:tracking-[0.3em]"
       >
         {t("footer")}
       </motion.div>
@@ -332,7 +361,7 @@ function MetaBlock({
 }) {
   return (
     <div className={`flex flex-col gap-1.5 ${className}`}>
-      <span className="text-[9.5px] tracking-[0.26em] text-shell-faint">
+      <span className="text-[9.5px] tracking-[0.26em] text-[#9A9A9A]">
         {label}
       </span>
       <span className="text-sm tracking-[0.04em] text-[#C4C4C4]">{value}</span>

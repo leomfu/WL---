@@ -9,7 +9,7 @@ import { siteConfig } from "~/site.config";
  *
  * 平时：指针走真实的当前时间，秒针逐帧平滑转动。
  * 进站时（warping=true）：指针在 WARP_MS 内加速倒转数圈，秒针同时淡出——
- * 配合 Starfield 的星点拉丝，凑成「穿梭时间」的过场。
+ * 配合背景 CityDepth 的「颜色涌回 + 镜头推进」，凑成「穿梭时间」的过场。
  *
  * ── SSR / hydration ──
  * 服务端不知道用户此刻几点，所以首帧一律渲染 IDLE（10:09:36 的经典表盘角度），
@@ -25,7 +25,7 @@ const C = BOX / 2;
 /** 首帧固定角度：10:09:36，钟表广告里那个对称的经典姿势 */
 const IDLE = { hour: 304.8, minute: 57.6, second: 216 } as const;
 
-/** 倒转过场时长（ms）——与 Starfield 里星点拉丝的时长保持一致（那边也是 700） */
+/** 倒转过场时长（ms）——比 CityDepth 的上色略快，指针先动、颜色随后涌回 */
 const WARP_MS = 700;
 
 /** 倒转圈数：时针半圈、分针 6 圈、秒针 14 圈，越细的针转得越疯 */
