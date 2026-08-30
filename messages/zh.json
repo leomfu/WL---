@@ -16,6 +16,10 @@
       "title": "视频",
       "description": "在哔哩哔哩和 YouTube 上发过的视频。"
     },
+    "photos": {
+      "title": "摄影",
+      "description": "按专题和年份排的照片 —— 走过的地方、留下的光。"
+    },
     "blog": {
       "title": "写字的地方",
       "description": "长文、博客和一些没头没尾的想法。"
@@ -39,6 +43,10 @@
     "library": {
       "title": "书影音",
       "description": "最近在看的书、电影和专辑。"
+    },
+    "records": {
+      "title": "唱片",
+      "description": "一台真能转、真出声的黑胶唱机，和我听的那些专辑。"
     },
     "guestbook": {
       "title": "留言板",
@@ -67,6 +75,7 @@
   "nav": {
     "home": "首页",
     "projects": "项目",
+    "photos": "摄影",
     "videos": "视频",
     "blog": "博客",
     "about": "关于",
@@ -82,7 +91,14 @@
     "close": "关闭菜单",
     "replayIntro": "回到开场页",
     "toHome": "回到首页",
-    "news": "新闻"
+    "news": "新闻",
+    "records": "唱片",
+    "groups": {
+      "works": "作品",
+      "writing": "写作",
+      "hobbies": "嗜好",
+      "about": "关于"
+    }
   },
   "common": {
     "language": "语言",
@@ -122,6 +138,30 @@
     "onYoutube": "在 YouTube 打开",
     "load": "点击加载播放器",
     "empty": "还没有视频 —— 清单在 content/videos.json 里，加进去就会出现在这一页。"
+  },
+  "photos": {
+    "title": "摄影",
+    "lead": "按下快门时我在看的东西。上面是成组的专题，下面是按年份排的档案。",
+    "feature": "专题 / SERIES",
+    "featureNote": "成组的作品",
+    "archive": "档案 / ARCHIVE",
+    "archiveNote": "按年份",
+    "kindFeature": "专题",
+    "kindArchive": "档案",
+    "frames": "{count} 帧",
+    "albumCount": "{count} 辑",
+    "empty": "这里还没有照片。",
+    "albumEmpty": "这一辑还没有照片。",
+    "photoAlt": "{title} 第 {index} 张",
+    "newer": "下一辑",
+    "older": "上一辑",
+    "backToList": "回到摄影",
+    "lightbox": {
+      "close": "关闭",
+      "prev": "上一张",
+      "next": "下一张",
+      "hint": "← → 翻页 · ESC 关闭"
+    }
   },
   "tools": {
     "title": "工具",
@@ -170,6 +210,38 @@
       "album": "音"
     },
     "empty": "还没有条目。清单在 content/library/library.json 里。"
+  },
+  "records": {
+    "title": "唱片",
+    "lead": "一台真能转、真出声的唱机。碟片是站上那两组曲库，唱针走到哪儿就是放到哪儿。",
+    "footnote": "唱机和放松区的音乐层共用同一套曲库和播放内核，只是长得不一样。",
+    "player": {
+      "regionLabel": "黑胶唱机",
+      "nowPlaying": "正在播放",
+      "stopped": "唱针已抬起",
+      "play": "放",
+      "pause": "暂停",
+      "prev": "上一首",
+      "next": "下一首",
+      "volume": "音量",
+      "seek": "唱片：点一圈跳到那个位置，外圈是开头",
+      "shelf": "碟片",
+      "groupNetease": "我在听",
+      "groupResident": "常驻",
+      "showList": "这张碟上的曲目",
+      "hideList": "收起曲目",
+      "unplayable": "· 放不出来",
+      "hint": "点唱片上的任意一圈跳到那儿；选中唱片后可以用空格播放暂停、左右键 ±5 秒。",
+      "residentCredit": "常驻这张碟：{credit}，自己托管，断不了。",
+      "neteaseNote": "「我在听」来自我的网易云歌单，只收了外链能真放出声的那些。",
+      "fullPlaylist": "听完整歌单 →"
+    },
+    "wall": {
+      "title": "我听的",
+      "note": "点封面去平台",
+      "kindAlbum": "专辑",
+      "kindArtist": "歌手"
+    }
   },
   "guestbook": {
     "title": "留言板",

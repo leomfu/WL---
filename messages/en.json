@@ -16,6 +16,10 @@
       "title": "Videos",
       "description": "Videos I've posted on Bilibili and YouTube."
     },
+    "photos": {
+      "title": "Photos",
+      "description": "Photographs, grouped into series and a year-by-year archive."
+    },
     "blog": {
       "title": "Writing",
       "description": "Essays, posts, and a few loose thoughts."
@@ -39,6 +43,10 @@
     "library": {
       "title": "Library",
       "description": "Books, films and albums I've been through lately."
+    },
+    "records": {
+      "title": "Records",
+      "description": "A turntable that actually spins and plays, plus the records I listen to."
     },
     "guestbook": {
       "title": "Guestbook",
@@ -67,6 +75,7 @@
   "nav": {
     "home": "Home",
     "projects": "Projects",
+    "photos": "Photos",
     "videos": "Videos",
     "blog": "Writing",
     "about": "About",
@@ -82,7 +91,14 @@
     "close": "Close menu",
     "replayIntro": "Back to the intro",
     "toHome": "Back to the home page",
-    "news": "News"
+    "news": "News",
+    "records": "Records",
+    "groups": {
+      "works": "Work",
+      "writing": "Words",
+      "hobbies": "Interests",
+      "about": "About"
+    }
   },
   "common": {
     "language": "Language",
@@ -122,6 +138,30 @@
     "onYoutube": "Open on YouTube",
     "load": "Click to load the player",
     "empty": "No videos yet — the list lives in content/videos.json."
+  },
+  "photos": {
+    "title": "Photos",
+    "lead": "What I was looking at when the shutter went. Series up top, a year-by-year archive below.",
+    "feature": "SERIES",
+    "featureNote": "Grouped work",
+    "archive": "ARCHIVE",
+    "archiveNote": "By year",
+    "kindFeature": "Series",
+    "kindArchive": "Archive",
+    "frames": "{count, plural, =1 {# frame} other {# frames}}",
+    "albumCount": "{count, plural, =1 {# album} other {# albums}}",
+    "empty": "No photos here yet.",
+    "albumEmpty": "This album has no photos yet.",
+    "photoAlt": "{title} — photo {index}",
+    "newer": "Next",
+    "older": "Previous",
+    "backToList": "Back to Photos",
+    "lightbox": {
+      "close": "Close",
+      "prev": "Previous",
+      "next": "Next",
+      "hint": "← → to browse · ESC to close"
+    }
   },
   "tools": {
     "title": "Tools",
@@ -170,6 +210,38 @@
       "album": "Albums"
     },
     "empty": "Nothing here yet. The list lives in content/library/library.json."
+  },
+  "records": {
+    "title": "Records",
+    "lead": "A turntable that really spins and really plays. The discs are this site's two libraries — wherever the needle sits is where the music is.",
+    "footnote": "The turntable and the lounge's music layer share one library and one playback core; only the face is different.",
+    "player": {
+      "regionLabel": "Turntable",
+      "nowPlaying": "Now playing",
+      "stopped": "Needle lifted",
+      "play": "Play",
+      "pause": "Pause",
+      "prev": "Previous track",
+      "next": "Next track",
+      "volume": "Volume",
+      "seek": "Record: click a groove to jump there — the outer edge is the start",
+      "shelf": "Disc",
+      "groupNetease": "On repeat",
+      "groupResident": "Resident",
+      "showList": "Tracks on this disc",
+      "hideList": "Hide tracks",
+      "unplayable": "· unavailable",
+      "hint": "Click any groove to jump there. With the record focused: space plays or pauses, arrow keys skip 5 seconds.",
+      "residentCredit": "The resident disc: {credit} — self-hosted, it never goes dead.",
+      "neteaseNote": "“On repeat” comes from my NetEase playlist; only the tracks that genuinely stream are here.",
+      "fullPlaylist": "Full playlist →"
+    },
+    "wall": {
+      "title": "What I listen to",
+      "note": "covers link out",
+      "kindAlbum": "Album",
+      "kindArtist": "Artist"
+    }
   },
   "guestbook": {
     "title": "Guestbook",

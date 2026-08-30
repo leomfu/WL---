@@ -42,3 +42,7 @@ next-env.d.ts
 
 # 视觉稿画布的中间产物（画板源文件 *.dc.html 和 canvas.json 要提交）
 docs/design/__pycache__/
+
+# 摄影原图：只在本机放着，`npm run photos` 压出来的 webp 才进仓库
+# （原图动辄几 MB 一张，进了 git 就再也拿不出来了）
+/photos-src/

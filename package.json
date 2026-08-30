@@ -9,7 +9,9 @@
     "lint": "eslint .",
     "og": "node scripts/generate-og.mjs",
     "music": "node scripts/fetch-netease.mjs",
-    "news": "node scripts/fetch-news.mjs"
+    "records": "node scripts/fetch-record-covers.mjs",
+    "news": "node scripts/fetch-news.mjs",
+    "photos": "node scripts/build-photos.mjs"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

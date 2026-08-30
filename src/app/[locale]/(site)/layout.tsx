@@ -5,7 +5,7 @@ import { SiteShell } from "@/components/shell/SiteShell";
 import { PageFade } from "@/components/ui/PageFade";
 import { getPosts } from "@/lib/content";
 import { localized } from "@/lib/format";
-import { EXTRA_PAGES, NAV_ITEMS } from "@/lib/nav";
+import { NAV_ITEMS } from "@/lib/nav";
 
 /**
  * 主站骨架层 —— 开场页（/[locale]/page.tsx）和放松区不在这一组里，
@@ -27,7 +27,7 @@ export default async function SiteLayout({
     title: localized(locale, post.title, post.title_en),
     summary: localized(locale, post.summary, post.summary_en),
   }));
-  const pages = [...NAV_ITEMS, ...EXTRA_PAGES].map(({ key, path }) => ({ key, path }));
+  const pages = NAV_ITEMS.map(({ key, path }) => ({ key, path }));
 
   return (
     <SiteShell>

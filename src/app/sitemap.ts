@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getPosts } from "@/lib/content";
-import { EXTRA_PAGES, NAV_ITEMS, localePath } from "@/lib/nav";
+import { NAV_ITEMS, localePath } from "@/lib/nav";
+import { getAlbums } from "@/lib/photos";
 import { routing } from "@/i18n/routing";
 import { siteConfig } from "~/site.config";
 
@@ -13,8 +14,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const paths = [
     "/",
     ...NAV_ITEMS.map((item) => item.path),
-    ...EXTRA_PAGES.map((item) => item.path),
     ...getPosts().map((post) => `/blog/${post.slug}`),
+    ...getAlbums().map((album) => `/photos/${album.slug}`),
   ];
 
   return paths.flatMap((path) =>

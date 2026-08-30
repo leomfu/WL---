@@ -8,7 +8,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
 import { NavIcon } from "@/components/icons/NavIcon";
 import { SocialIcon } from "@/components/icons/SocialIcon";
-import { NAV_ITEMS, localePath, type NavKey } from "@/lib/nav";
+import { NAV_GROUPS, NAV_HOME, localePath, type NavKey } from "@/lib/nav";
 import { useStoredState } from "@/lib/useStoredState";
 import { siteConfig } from "~/site.config";
 
@@ -62,8 +62,36 @@ export function Sidebar() {
   /** 这一行只有一行高、还要 truncate，所以用短版一句话（整句在开场页和 meta 里） */
   const tagline = locale === "en" ? siteConfig.taglineShortEn : siteConfig.taglineShort;
 
+  /** 一条导航项。写成函数而不是内嵌组件，免得每次渲染都换掉一层组件类型 */
+  const renderLink = (item: { key: NavKey; path: string }) => {
+    const active = isActive(item.path);
+    return (
+      <Link
+        key={item.key}
+        href={localePath(locale, item.path)}
+        aria-current={active ? "page" : undefined}
+        title={collapsed ? t(`nav.${item.key}`) : undefined}
+        className={[
+          "flex h-9 items-center gap-3 rounded-lg text-sm tracking-[0.01em] transition-colors",
+          collapsed ? "justify-center px-0" : "px-[13px]",
+          active
+            ? "bg-shell-ink text-shell"
+            : "text-shell-muted hover:bg-white/[0.04] hover:text-shell-ink",
+        ].join(" ")}
+      >
+        <NavIcon name={item.key} />
+        {!collapsed && <span>{t(`nav.${item.key}`)}</span>}
+      </Link>
+    );
+  };
+
   const panel = (
-    <div className="flex h-full flex-col gap-7 overflow-y-auto px-[18px] pt-[26px] pb-[30px]">
+    /**
+     * 分组之后这一列比原来长（13 项 + 4 个组标题），窗口矮一点就装不下。
+     * 所以只让「导航 + 连接」那一段滚动，顶部 Logo 和底部的 中/EN · ⌘K 钉住不动 ——
+     * 语言切换是每页都可能要点的东西，不该藏在滚动条下面。
+     */
+    <div className="flex h-full flex-col px-[18px] pt-[26px] pb-[22px]">
       {/* 折叠按钮（桌面端才有意义） */}
       <button
         type="button"
@@ -76,7 +104,7 @@ export function Sidebar() {
 
       {/* Logo 圆徽 → 重看开场页；名字 + 一句话定位 → 首页 */}
       <div
-        className={`flex items-center gap-[13px] ${collapsed ? "justify-center px-0" : "px-[5px]"}`}
+        className={`mt-7 flex shrink-0 items-center gap-[13px] ${collapsed ? "justify-center px-0" : "px-[5px]"}`}
       >
         <a
           href={introHref}
@@ -109,70 +137,66 @@ export function Sidebar() {
         )}
       </div>
 
-      {/* 导航 */}
-      <nav className="flex flex-col gap-0.5">
-        {NAV_ITEMS.map((item) => {
-          const active = isActive(item.path);
-          return (
-            <Link
-              key={item.key}
-              href={localePath(locale, item.path)}
-              aria-current={active ? "page" : undefined}
-              title={collapsed ? t(`nav.${item.key}`) : undefined}
-              className={[
-                "flex h-10 items-center gap-3 rounded-lg text-sm tracking-[0.01em] transition-colors",
-                collapsed ? "justify-center px-0" : "px-[13px]",
-                active
-                  ? "bg-shell-ink text-shell"
-                  : "text-shell-muted hover:bg-white/[0.04] hover:text-shell-ink",
-              ].join(" ")}
-            >
-              <NavIcon name={item.key as NavKey} />
-              {!collapsed && <span>{t(`nav.${item.key}`)}</span>}
-            </Link>
-          );
-        })}
-      </nav>
+      {/* 中间这一段（导航 + 连接）是唯一会滚动的部分 */}
+      <div className="mt-7 flex min-h-0 flex-1 flex-col gap-7 overflow-y-auto">
+        {/* 导航：首页单列在最上面，其余按四组排（组标题用极淡的小字 + 大字距） */}
+        <nav className="flex flex-col gap-4">
+          <div className="flex flex-col gap-0.5">{renderLink(NAV_HOME)}</div>
 
-      {/* 连接 / CONNECT */}
-      <div className="flex flex-col gap-3">
-        {!collapsed && (
-          <div className="px-[13px] text-[10.5px] tracking-(--tracking-label) text-shell-faint">
-            {t("nav.connect")}
+          {NAV_GROUPS.map((group) => (
+            <div key={group.key} className="flex flex-col gap-1.5">
+              {collapsed ? (
+                <span className="mx-auto h-px w-5 bg-shell-line-2" aria-hidden />
+              ) : (
+                <div className="px-[13px] text-[10px] tracking-(--tracking-label) text-shell-faint">
+                  {t(`nav.groups.${group.key}`)}
+                </div>
+              )}
+              <div className="flex flex-col gap-0.5">{group.items.map(renderLink)}</div>
+            </div>
+          ))}
+        </nav>
+
+        {/* 连接 / CONNECT */}
+        <div className="flex flex-col gap-3">
+          {!collapsed && (
+            <div className="px-[13px] text-[10.5px] tracking-(--tracking-label) text-shell-faint">
+              {t("nav.connect")}
+            </div>
+          )}
+          <div className="flex flex-col gap-px">
+            {siteConfig.socials.map((social) => {
+              const label = locale === "en" ? social.labelEn : social.label;
+              const href = social.href || undefined;
+              const external = Boolean(href) && !social.href.startsWith("/");
+
+              return (
+                <a
+                  key={social.key}
+                  href={href}
+                  title={collapsed ? label : undefined}
+                  {...(external ? { target: "_blank", rel: "noreferrer noopener" } : {})}
+                  className={[
+                    "flex h-8 items-center gap-3 text-[13.5px] transition-colors",
+                    collapsed ? "justify-center px-0" : "px-[13px]",
+                    href
+                      ? "text-shell-dim hover:text-shell-ink"
+                      : "cursor-default text-shell-mute",
+                  ].join(" ")}
+                >
+                  <SocialIcon name={social.key} />
+                  {!collapsed && <span>{label}</span>}
+                </a>
+              );
+            })}
           </div>
-        )}
-        <div className="flex flex-col gap-px">
-          {siteConfig.socials.map((social) => {
-            const label = locale === "en" ? social.labelEn : social.label;
-            const href = social.href || undefined;
-            const external = Boolean(href) && !social.href.startsWith("/");
-
-            return (
-              <a
-                key={social.key}
-                href={href}
-                title={collapsed ? label : undefined}
-                {...(external ? { target: "_blank", rel: "noreferrer noopener" } : {})}
-                className={[
-                  "flex h-8 items-center gap-3 text-[13.5px] transition-colors",
-                  collapsed ? "justify-center px-0" : "px-[13px]",
-                  href
-                    ? "text-shell-dim hover:text-shell-ink"
-                    : "cursor-default text-shell-mute",
-                ].join(" ")}
-              >
-                <SocialIcon name={social.key} />
-                {!collapsed && <span>{label}</span>}
-              </a>
-            );
-          })}
         </div>
       </div>
 
-      {/* 底部：中/EN + ⌘K */}
+      {/* 底部：中/EN + ⌘K（钉在最下面，不跟着滚） */}
       <div
         className={[
-          "mt-auto flex items-center border-t border-shell-line pt-3.5 text-[11.5px] tracking-[0.06em]",
+          "mt-4 shrink-0 flex items-center border-t border-shell-line pt-3.5 text-[11.5px] tracking-[0.06em]",
           collapsed ? "flex-col gap-3" : "justify-between px-[13px]",
         ].join(" ")}
       >
