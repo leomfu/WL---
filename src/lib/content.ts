@@ -128,64 +128,93 @@ export function getLibrary(): LibraryItem[] {
   );
 }
 
-/** 站内曲库：常驻（自托管公共领域）+ 我在听（网易云外链，构建前验过能放） */
+/**
+ * 站内曲库，两块：
+ * ① 常驻 —— 自托管的公共领域录音，版权干净，完整播放。
+ * ② 场景榜单 —— content/music/chart.json，Apple 官方 30 秒预览，按心情场景分成几组。
+ *
+ * ⚠️ 网易云那组（content/music/netease.json）2026-08-30 从界面上退休了：
+ * 歌基本被 Apple 榜单覆盖，两组并存只让访客困惑。数据文件和 `npm run music` 脚本
+ * 都还在（要回退的话把这儿读回来即可），但页面不再渲染它。
+ */
 type ResidentFile = {
   credit: string;
   tracks: Array<Omit<Track, "kind">>;
 };
-type NeteaseFile = {
-  playlistUrl: string;
-  tracks: Array<{
-    id: string;
-    title: string;
-    artist: string;
-    duration: number;
-    /** 手填的试听起点（秒），可选。见 content/music/netease.json 里的 previewNote */
-    previewStart?: number;
+
+type ChartFile = {
+  scenes: Array<{
+    key: string;
+    label: string;
+    labelEn: string;
+    tracks: Array<{
+      title: string;
+      artist: string;
+      album?: string;
+      /** Apple 官方 30 秒预览直链。没有就是这首放不出来 */
+      previewUrl?: string;
+      cover?: string;
+      platformUrl?: string;
+      durationMs?: number;
+      /** 代选标记 —— 给站主看的元数据，**不显示给访客** */
+      placeholder?: boolean;
+      /** 一句歌曲描述（唱机右侧信息栏），没有就不显示，见 Track.desc 的注释 */
+      desc?: string;
+      descEn?: string;
+      /** AI 代拟描述的标记 —— 给站主看的元数据，**不显示给访客**，也不进 Track 类型 */
+      descDraft?: boolean;
+    }>;
   }>;
 };
 
-/** 网易云那组每首放多少秒 */
-const PREVIEW_LENGTH = 30;
-
-/**
- * 试听从哪儿开始 —— **不从 0 秒起**：多数歌前 30 秒是前奏，从头放等于放了个空。
- * 默认取「时长的 30%」，但最多不超过 60 秒（长曲子也别等太久才进正题）。
- * 站主想给某首手动挑一段，在 netease.json 那首上写 previewStart 覆盖即可。
- */
-function previewStartOf(duration: number, manual?: number) {
-  if (typeof manual === "number" && manual >= 0) return Math.round(manual);
-  return Math.round(Math.min(duration * 0.3, 60));
+/** Apple 单曲页里的 `i=数字` 就是这首歌的 id，拿它当稳定 key */
+function appleIdOf(platformUrl: string | undefined, fallback: string) {
+  const hit = platformUrl?.match(/[?&]i=(\d+)/);
+  return hit ? `apple-${hit[1]}` : fallback;
 }
 
 export function getMusic(): MusicLibrary {
   const resident = readJson<ResidentFile>("music/resident.json", { credit: "", tracks: [] });
-  const netease = readJson<NeteaseFile>("music/netease.json", { playlistUrl: "", tracks: [] });
+  const chart = readJson<ChartFile>("music/chart.json", { scenes: [] });
 
   return {
     resident: resident.tracks.map((t) => ({ ...t, kind: "local" as const })),
-    netease: netease.tracks.map((t) => ({
-      id: t.id,
-      kind: "netease" as const,
-      // 外链走 https，让浏览器自己跟 302；http 直链会被当成混合内容拦掉
-      src: `https://music.163.com/song/media/outer/url?id=${t.id}.mp3`,
-      title: t.title,
-      titleEn: t.title,
-      artist: t.artist,
-      artistEn: t.artist,
-      duration: t.duration,
-      preview: {
-        start: previewStartOf(t.duration, t.previewStart),
-        length: PREVIEW_LENGTH,
-      },
-      platformUrl: `https://music.163.com/#/song?id=${t.id}`,
+    scenes: chart.scenes.map((scene) => ({
+      key: scene.key,
+      label: scene.label,
+      labelEn: scene.labelEn,
+      tracks: scene.tracks
+        // 没有 previewUrl 就放不出来。整行都是「点了就播」，放不出来的行没法交代，
+        // 所以在这儿就滤掉（当前 16 首全都有；这是防御性的）。
+        .filter((t) => Boolean(t.previewUrl))
+        .map((t, i) => ({
+          id: appleIdOf(t.platformUrl, `${scene.key}-${i}`),
+          kind: "apple" as const,
+          src: t.previewUrl as string,
+          title: t.title,
+          // Apple 给的元数据只有一份标题/艺人，中英文用同一个（歌名本来就不翻译）
+          titleEn: t.title,
+          artist: t.artist,
+          artistEn: t.artist,
+          album: t.album,
+          cover: t.cover,
+          desc: t.desc,
+          descEn: t.descEn,
+          // 整首歌的长度，榜单里显示的是它；播放器的分母另算（见 useAudioPlayer）
+          duration: Math.round((t.durationMs ?? 0) / 1000),
+          clip: true,
+          platformUrl: t.platformUrl,
+        })),
     })),
-    playlistUrl: netease.playlistUrl,
     residentCredit: resident.credit,
   };
 }
 
-/** 唱片页「我听的」：一叠专辑/歌手，纯内容，封面已经下载到本地（见 content/music/records.json 的说明） */
+/**
+ * 唱片页「我听的」那面墙。
+ * ⚠️ 2026-08-30 起页面不再渲染这块（新的场景榜单覆盖了它），
+ * 数据和脚本保留不删，这个函数也留着方便回退。
+ */
 export function getRecords(): RecordItem[] {
   return readJson<{ items: RecordItem[] }>("music/records.json", { items: [] }).items;
 }

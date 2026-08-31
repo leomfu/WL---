@@ -213,8 +213,8 @@
   },
   "records": {
     "title": "唱片",
-    "lead": "一台真能转、真出声的唱机。碟片是站上那两组曲库，唱针走到哪儿就是放到哪儿。",
-    "footnote": "离开这一页音乐不会停，右下角会出现一张小卡片接着控制它。「我在听」那一组每首只放 30 秒试听，常驻那组是公共领域录音，完整播放。",
+    "lead": "享受音乐的放松时刻，让自己慢下来感受自己寻找自己的内心深处。",
+    "footnote": "离开这一页音乐不会停，右下角会出现一张小卡片接着控制它。「按心情听」那一组每首只放 30 秒试听，常驻那组是公共领域录音，完整播放。",
     "player": {
       "regionLabel": "黑胶唱机",
       "nowPlaying": "正在播放",
@@ -226,28 +226,26 @@
       "volume": "音量",
       "seek": "唱片：点一圈跳到那个位置，外圈是开头",
       "shelf": "碟片",
-      "groupNetease": "我在听",
       "groupResident": "常驻",
       "showList": "这张碟上的曲目",
       "hideList": "收起曲目",
       "unplayable": "· 放不出来",
       "hint": "点唱片上的任意一圈跳到那儿；选中唱片后可以用空格播放暂停、左右键 ±5 秒。",
       "residentCredit": "常驻这张碟：{credit}，自己托管，断不了。",
-      "neteaseNote": "「我在听」来自我的网易云歌单，站内每首只放 30 秒试听 —— 歌不是我的，想听完整版去平台。",
-      "fullPlaylist": "听完整歌单 →",
+      "chartNote": "曲目来自按心情整理的歌单，音源是 Apple Music 官方试听。",
       "sideA": "SIDE A",
       "labelPreview": "试听 30 秒",
       "labelFull": "完整播放",
       "labelFoot": "共 {n} 首 · {mode}",
       "previewTag": "试听 30 秒",
-      "fullVersion": "去网易云听完整版 ↗",
+      "fullVersion": "去 Apple Music 听完整版 ↗",
       "previewNote": "这一组是别人的歌，站内只放 30 秒，最后一秒半会自己淡出 —— 不是播放器坏了。听着对味就去平台听完整版。"
     },
-    "wall": {
-      "title": "我听的",
-      "note": "点封面去平台",
-      "kindAlbum": "专辑",
-      "kindArtist": "歌手"
+    "chart": {
+      "title": "按心情听",
+      "note": "点一行，装到唱机上试听",
+      "playRow": "播放",
+      "openPlatform": "在 Apple Music 打开 ↗"
     }
   },
   "guestbook": {

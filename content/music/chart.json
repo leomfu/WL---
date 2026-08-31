@@ -3,6 +3,7 @@
   "scenesNote": "⚠️ 场景名（key/label/labelEn）是代拟的，请站主改成自己的说法——改 scripts/music-chart.txt 里 `## key | 中文 / English` 那一行，重跑脚本。",
   "placeholderNote": "placeholder: true 的条目是代选（不是站主明确点名的歌），标了这个字段方便站主一眼看出哪些该删该换。",
   "unverifiedNote": "previewUrl 指向 audio-ssl.itunes.apple.com。本机（挂着代理）实测直链可用（HTTP 200，约 1MB 的 audio/x-m4p），但没有条件验证大陆裸连能否直连这个域名——上线前建议站主自己在真实网络环境下测一次。某条没有 previewUrl 时页面应退化成只显示封面 + platformUrl 外链，不要假设「一定能播」。",
+  "descNote": "⚠️ desc/descEn 是 AI 代拟的初稿（每条都标了 descDraft: true），只依据编曲/乐器/节奏/公认情绪基调写的一句话，不涉及站主的私人感受——这是个人站，别人代写的感受不该冒充成站主自己的。站主应该把它们换成自己的话，写法和保留机制见 docs/如何加歌.md。",
   "skipped": [],
   "scenes": [
     {
@@ -19,7 +20,10 @@
           "cover": "/images/records/chart-536115195.webp",
           "platformUrl": "https://music.apple.com/cn/album/%E4%B8%83%E9%87%8C%E9%A6%99/536114662?i=536115195&uo=4",
           "durationMs": 297200,
-          "placeholder": true
+          "placeholder": true,
+          "desc": "R&B 底子的抒情流行曲，木吉他分解和弦托着慵懒的哼唱，副歌层层叠出清爽的夏日感。",
+          "descEn": "An R&B-tinged pop ballad — arpeggiated acoustic guitar under a laid-back vocal, building into a breezy, summery chorus.",
+          "descDraft": true
         },
         {
           "query": "Hold On - Zaini",
@@ -30,7 +34,10 @@
           "cover": "/images/records/chart-1498329168.webp",
           "platformUrl": "https://music.apple.com/us/album/hold-on-feat-dyslm-dnakm/1498329167?i=1498329168&uo=4",
           "durationMs": 180000,
-          "placeholder": false
+          "placeholder": false,
+          "desc": "低保真基调的都市流行曲，绵软的合成音色配松弛的节拍，适合放着不太用管它。",
+          "descEn": "Lo-fi-leaning urban pop with soft synth textures and a loose, unhurried beat — built for drifting in the background.",
+          "descDraft": true
         },
         {
           "query": "Not For Me - Sarah Proctor",
@@ -41,7 +48,10 @@
           "cover": "/images/records/chart-1589567390.webp",
           "platformUrl": "https://music.apple.com/cn/album/not-for-me/1589567376?i=1589567390&uo=4",
           "durationMs": 226405,
-          "placeholder": false
+          "placeholder": false,
+          "desc": "钢琴与木吉他撑起的清唱式民谣，编曲克制，人声几乎不加修饰地贴着旋律走。",
+          "descEn": "A stripped-back folk ballad carried by piano and acoustic guitar, the vocal left almost unadorned against the melody.",
+          "descDraft": true
         },
         {
           "query": "晴天 - 周杰伦",
@@ -52,7 +62,10 @@
           "cover": "/images/records/chart-535824738.webp",
           "platformUrl": "https://music.apple.com/cn/album/%E6%99%B4%E5%A4%A9/535824731?i=535824738&uo=4",
           "durationMs": 269747,
-          "placeholder": true
+          "placeholder": true,
+          "desc": "木吉他分解和弦为主的抒情流行曲，节奏平稳，旋律带着温热的怀旧感。",
+          "descEn": "A pop ballad built on steady arpeggiated guitar, its even tempo carrying a warm, nostalgic melody.",
+          "descDraft": true
         }
       ]
     },
@@ -70,7 +83,10 @@
           "cover": "/images/records/chart-1889827218.webp",
           "platformUrl": "https://music.apple.com/cn/album/%E6%88%91%E6%98%AF%E4%B8%80%E5%8F%AA%E5%B0%8F%E5%B0%8F%E9%B8%9F/1889826834?i=1889827218&uo=4",
           "durationMs": 305650,
-          "placeholder": false
+          "placeholder": false,
+          "desc": "摇滚编制的抒情曲，主歌克制、副歌用力嘶吼推上去，是典型的九十年代华语摇滚起伏结构。",
+          "descEn": "A rock ballad that holds back in the verses and lets the chorus erupt into full-throated belting — a classic 90s Mandopop rock arc.",
+          "descDraft": true
         },
         {
           "query": "稻香 - 周杰伦",
@@ -81,7 +97,10 @@
           "cover": "/images/records/chart-1624001324.webp",
           "platformUrl": "https://music.apple.com/cn/album/%E7%A8%BB%E9%A6%99/1624000713?i=1624001324&uo=4",
           "durationMs": 223453,
-          "placeholder": true
+          "placeholder": true,
+          "desc": "明亮的民谣流行曲，木吉他扫弦配口哨旋律，中速节奏，情绪始终是轻快的。",
+          "descEn": "A bright folk-pop tune with strummed acoustic guitar and a whistled motif — mid-tempo and unwaveringly cheerful.",
+          "descDraft": true
         },
         {
           "query": "All For You - Cian Ducrot",
@@ -92,7 +111,10 @@
           "cover": "/images/records/chart-1618417650.webp",
           "platformUrl": "https://music.apple.com/cn/album/all-for-you/1618417646?i=1618417650&uo=4",
           "durationMs": 219376,
-          "placeholder": false
+          "placeholder": false,
+          "desc": "钢琴起句、逐渐加进整个乐队的抒情曲，假声在副歌处拔高，动态从安静铺到饱满。",
+          "descEn": "Opens on solo piano and swells into a full band, the falsetto lifting in the chorus as the arrangement builds from quiet to anthemic.",
+          "descDraft": true
         },
         {
           "query": "我相信 - 杨培安",
@@ -103,7 +125,10 @@
           "cover": "/images/records/chart-1077738044.webp",
           "platformUrl": "https://music.apple.com/cn/album/%E6%88%91%E7%9B%B8%E4%BF%A1/1077737886?i=1077738044&uo=4",
           "durationMs": 247467,
-          "placeholder": false
+          "placeholder": false,
+          "desc": "励志向的摇滚抒情曲，弦乐铺底、乐队渐次加入，人声音域宽，副歌是明显的情绪高点。",
+          "descEn": "A motivational rock ballad with strings underneath and the band building in, the wide vocal range peaking hard at the chorus.",
+          "descDraft": true
         }
       ]
     },
@@ -121,7 +146,10 @@
           "cover": "/images/records/chart-1118757877.webp",
           "platformUrl": "https://music.apple.com/cn/album/%E5%91%8A%E7%99%BD%E6%B0%94%E7%90%83/1118757859?i=1118757877&uo=4",
           "durationMs": 215590,
-          "placeholder": true
+          "placeholder": true,
+          "desc": "轻快的流行曲，拨弦弦乐与探戈式的节奏重音，编曲俏皮，情绪是甜的。",
+          "descEn": "A buoyant pop song with pizzicato strings and tango-flavored rhythmic accents — a playful arrangement with a sweet mood throughout.",
+          "descDraft": true
         },
         {
           "query": "爱的初体验 - 张震岳",
@@ -132,7 +160,10 @@
           "cover": "/images/records/chart-153051320.webp",
           "platformUrl": "https://music.apple.com/cn/album/%E7%88%B1%E7%9A%84%E5%88%9D%E4%BD%93%E9%AA%8C/153050820?i=153051320&uo=4",
           "durationMs": 242093,
-          "placeholder": true
+          "placeholder": true,
+          "desc": "中速的民谣摇滚，木吉他弹唱式的编曲，人声像说话一样随性，节奏松弛不赶。",
+          "descEn": "A mid-tempo folk-rock number, its strummed-guitar arrangement and conversational vocal keeping the groove unhurried.",
+          "descDraft": true
         }
       ]
     },
@@ -150,7 +181,10 @@
           "cover": "/images/records/chart-656556814.webp",
           "platformUrl": "https://music.apple.com/cn/album/%E8%B5%B0%E6%85%A2%E4%B8%80%E7%82%B9%E7%82%B9/656556065?i=656556814&uo=4",
           "durationMs": 237800,
-          "placeholder": false
+          "placeholder": false,
+          "desc": "慢速的民谣曲，木吉他指弹为主，人声压得很低，整体节奏刻意放慢、不着急。",
+          "descEn": "A slow folk tune led by fingerpicked acoustic guitar, the vocal kept low and the tempo deliberately unhurried.",
+          "descDraft": true
         },
         {
           "query": "等我有一天 - 张震岳",
@@ -161,7 +195,10 @@
           "cover": "/images/records/chart-153221119.webp",
           "platformUrl": "https://music.apple.com/cn/album/%E7%AD%89%E6%88%91%E6%9C%89%E4%B8%80%E5%A4%A9/153219623?i=153221119&uo=4",
           "durationMs": 294400,
-          "placeholder": false
+          "placeholder": false,
+          "desc": "编曲从简单逐渐加入弦乐的慢板抒情曲，情绪克制而绵长，节奏走得很有耐心。",
+          "descEn": "A slow ballad that grows from a spare arrangement into strings, its restrained mood unfolding at a patient pace.",
+          "descDraft": true
         },
         {
           "query": "爱要怎么说出口 - 赵传",
@@ -172,7 +209,10 @@
           "cover": "/images/records/chart-1889826839.webp",
           "platformUrl": "https://music.apple.com/cn/album/%E7%88%B1%E8%A6%81%E6%80%8E%E4%B9%88%E8%AF%B4%E5%87%BA%E5%8F%A3/1889826834?i=1889826839&uo=4",
           "durationMs": 296609,
-          "placeholder": false
+          "placeholder": false,
+          "desc": "经典的九十年代摇滚抒情曲，从钢琴独奏起句，一路加厚到乐队齐鸣的高潮，动态起伏很大。",
+          "descEn": "A classic 90s rock ballad that opens on solo piano and thickens all the way to a full-band climax, with a wide dynamic arc.",
+          "descDraft": true
         },
         {
           "query": "Shallow - Lady Gaga & Bradley Cooper",
@@ -183,7 +223,10 @@
           "cover": "/images/records/chart-1434367891.webp",
           "platformUrl": "https://music.apple.com/cn/album/shallow/1434367877?i=1434367891&uo=4",
           "durationMs": 215737,
-          "placeholder": false
+          "placeholder": false,
+          "desc": "对唱曲，从木吉他与清唱起句，逐步加进整个乐队，副歌处的高音是全曲情绪的顶点。",
+          "descEn": "A duet that starts on bare guitar and vocal, builds in the full band, and peaks with a belted high note at the chorus.",
+          "descDraft": true
         },
         {
           "query": "Red Right Hand - Nick Cave & the Bad Seeds",
@@ -194,7 +237,10 @@
           "cover": "/images/records/chart-1435808593.webp",
           "platformUrl": "https://music.apple.com/cn/album/red-right-hand-2011-remaster/1435808110?i=1435808593&uo=4",
           "durationMs": 372573,
-          "placeholder": false
+          "placeholder": false,
+          "desc": "阴郁的另类摇滚，钟声与风琴式的音色循环回旋，男中音近似念白的唱法，节奏刻意放得很慢。",
+          "descEn": "A brooding alt-rock track built on a looping bell-and-organ motif, the baritone half-spoken vocal set against a deliberately slow tempo.",
+          "descDraft": true
         },
         {
           "query": "分手吧 - 张震岳",
@@ -205,7 +251,10 @@
           "cover": "/images/records/chart-164053745.webp",
           "platformUrl": "https://music.apple.com/cn/album/%E5%88%86%E6%89%8B%E5%90%A7/164050980?i=164053745&uo=4",
           "durationMs": 301947,
-          "placeholder": true
+          "placeholder": true,
+          "desc": "中速的民谣摇滚，编曲从吉他弹唱逐渐加厚成乐队，人声平实克制，情绪是压抑的。",
+          "descEn": "A mid-tempo folk-rock song that thickens from a solo guitar-and-vocal opening into a full band, its plainspoken delivery holding the mood in check.",
+          "descDraft": true
         }
       ]
     }

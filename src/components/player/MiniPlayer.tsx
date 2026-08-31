@@ -35,7 +35,7 @@ export function MiniPlayer() {
   const knobRef = useRef<HTMLDivElement | null>(null);
   const timeRef = useRef<HTMLSpanElement | null>(null);
 
-  const { track, touched, shouldPlay, live, elapsed, total, isPreview } = player;
+  const { track, touched, shouldPlay, live, elapsed, total, isClip } = player;
 
   /** 进度条逐帧画，不走重渲染 */
   const paint = useCallback((fraction: number, done: number) => {
@@ -44,12 +44,7 @@ export function MiniPlayer() {
     if (knobRef.current) knobRef.current.style.left = percent;
     if (timeRef.current) timeRef.current.textContent = clock(done);
   }, []);
-  useProgressPainter(
-    player.audioRef,
-    { start: player.windowStart, length: total },
-    reduced,
-    paint,
-  );
+  useProgressPainter(player.audioRef, total, reduced, paint);
 
   const hidden = HIDE_ON.some((re) => re.test(pathname));
   const show = Boolean(track) && touched && !hidden;
@@ -93,7 +88,7 @@ export function MiniPlayer() {
               </p>
               <p className="mt-0.5 truncate text-[11px] text-[#8A8A8A]">
                 {en ? track.artistEn : track.artist}
-                {isPreview && (
+                {isClip && (
                   <span className="ml-1.5 text-[#5A5A5A]">· {t("preview")}</span>
                 )}
               </p>
@@ -184,7 +179,7 @@ export function MiniPlayer() {
           </div>
 
           {/* 试听片段：随时能去平台听完整版 */}
-          {isPreview && track.platformUrl && (
+          {isClip && track.platformUrl && (
             <a
               href={track.platformUrl}
               target="_blank"

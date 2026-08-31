@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useStoredState } from "./useStoredState";
 import type { Track } from "./types";
 
@@ -12,28 +12,32 @@ import type { Track } from "./types";
  * 音频元素挂在这一层的原因很实际 —— 客户端跳页会卸载页面组件，
  * <audio> 跟着页面走的话，一离开唱片页音乐就断了。
  *
- * ── 2026-08-30 的两处改动 ──
+ * ── 2026-08-30 的改动 ──
  * ① 专注区（原放松区）的音乐层撤了，所以原来为它准备的 `active`（切走就停）、
  *    `autoStart`（挂载即接着放）和「同文档互斥」那套注册表全部删掉：
  *    一个文档里现在只可能有一个播放器，没有谁需要把谁按停。
- * ② 网易云那组只放 30 秒（见下面的「试听窗口」）。
+ * ② **试听窗口那一整套退休了**。它是给网易云「整首直链」设计的：seek 到 30% 起播、
+ *    到点淡出、再自己换下一首。音源换成 Apple 官方预览之后，`src` **本身就是一个
+ *    独立的 30 秒文件** —— 再叠一层窗口就成了「在 30 秒文件里再截 30 秒」的荒唐事。
+ *    现在留下的只有听感上的润色：起播淡入 + 片段收尾那一下淡出。
+ *    进度条的分母也随之改成 <audio> 的真实 duration，不再是清单上「整首歌」的长度。
  *
  * 几个刻意的设计（别改回去）：
  * - 存的是**播放意图**而不是「在不在响」：auto 表示还没碰过，play/pause 是手动按过。
  *   真正在不在响由 <audio> 的事件回填到 live —— 这样就不用在 effect 里 setState，
  *   React 19 的 react-hooks/set-state-in-effect 不允许那么写。
- * - 没接 AnalyserNode：一旦把 <audio> 接进 WebAudio 图，跨域且没有 CORS 的音源
- *   （网易云直链）会被静音。所以淡入淡出是直接改 el.volume，不走增益节点。
+ * - 没接 AnalyserNode / GainNode：一旦把 <audio> 接进 WebAudio 图，跨域且没有 CORS
+ *   的音源（Apple 的预览直链就是）会被静音。所以淡入淡出是直接改 el.volume。
  */
 
-/* ------------------------------------------------------------ 试听窗口 */
+/* ------------------------------------------------------------ 音量包络 */
 
-/** 淡入多久（秒）。从歌中间切进去，硬起会「啪」一声 */
-const FADE_IN = 0.45;
-/** 试听结束前多久开始淡出（秒）。用户要的「丝滑」就是这一条 */
-const FADE_OUT = 1.5;
-/** 换歌 / 起播时额外的一小段淡入（秒），盖掉切换瞬间的爆音 */
-const START_FADE = 0.3;
+/** 起播 / 换歌时的淡入（秒），盖掉切换瞬间的爆音 */
+const START_FADE = 0.35;
+/** 30 秒片段收尾前多久开始淡出（秒）。只对片段生效，完整曲目不动它的结尾 */
+const TAIL_FADE = 0.9;
+/** 元数据还没到时，片段的名义时长（秒）—— Apple 的预览都是 30 秒 */
+const CLIP_SECONDS = 30;
 
 export type AudioPlayerOptions = {
   /** 当前这一组曲目 */
@@ -61,8 +65,9 @@ export function useAudioPlayer({
   const [index, setIndex] = useState(0);
   const [intent, setIntent] = useState<"auto" | "play" | "pause">("auto");
   const [live, setLive] = useState(false);
-  /** 整首歌里的位置（秒），不是窗口里的位置 */
+  /** 播放头在**当前这个音频文件**里的位置（秒） */
   const [position, setPosition] = useState(0);
+  /** <audio> 报回来的真实时长。片段就是 30 左右，常驻曲目才是整首 */
   const [duration, setDuration] = useState(0);
   /** 运行时真的放不出来的曲目（外链失效 / 网络不通），标灰并跳过 */
   const [broken, setBroken] = useState<Record<string, true>>({});
@@ -77,32 +82,16 @@ export function useAudioPlayer({
   /** 用户碰过播放器（在放，或者放过之后按了暂停）—— 迷你卡片看这个决定露不露面 */
   const touched = intent !== "auto";
   const track: Track | undefined = tracks[Math.min(index, tracks.length - 1)];
-
-  /** 元数据还没到时先用清单里的时长，唱针不至于卡在起点 */
-  const fullDuration = duration || track?.duration || 0;
+  const isClip = Boolean(track?.clip);
 
   /**
-   * 这首歌能听的那一段 —— 试听曲目是 [start, start+30]，其余是整首。
-   * start 会被夹进真实时长里：清单上的时长和实际流对不上时（网易云给的是元数据），
-   * 起点别掉到歌尾之外。
+   * 进度条的分母 = **这个音频文件**有多长。
+   * 元数据还没到的时候：片段先按 30 秒画，完整曲目先用清单上的时长 ——
+   * 唱针不至于卡在起点。**片段绝不能拿 track.duration 当分母**，
+   * 那是整首歌的长度（三四分钟），30 秒的文件配上它进度条一动不动。
    */
-  const window_ = useMemo(() => {
-    const preview = track?.preview;
-    if (!preview) return { start: 0, length: fullDuration, preview: false };
-    const length = fullDuration
-      ? Math.min(preview.length, fullDuration)
-      : preview.length;
-    const start = fullDuration
-      ? Math.max(0, Math.min(preview.start, fullDuration - length))
-      : preview.start;
-    return { start, length, preview: true };
-  }, [track, fullDuration]);
-
-  /** 对外的进度都是**窗口里的**：进度条表达的是这 30 秒，不是整首歌 */
-  const total = window_.length;
-  const elapsed = window_.preview
-    ? Math.max(0, Math.min(position - window_.start, total))
-    : position;
+  const total = duration || (isClip ? CLIP_SECONDS : track?.duration || 0);
+  const elapsed = Math.max(0, Math.min(position, total || position));
 
   const goto = useCallback(
     (next: number) => {
@@ -113,6 +102,17 @@ export function useAudioPlayer({
     },
     [tracks.length],
   );
+
+  /**
+   * 直接跳到第 n 首（不取模）—— 榜单点行用这个。
+   * `goto` 会拿**当前这一组**的长度取模，而点榜单往往同时在换组，
+   * 那一瞬间两边长度不一样，取模会跳错位。
+   */
+  const jump = useCallback((next: number) => {
+    setIndex(Math.max(0, next));
+    setPosition(0);
+    setDuration(0);
+  }, []);
 
   /** 换一组曲目时从头开始 */
   const reset = useCallback(() => {
@@ -136,32 +136,29 @@ export function useAudioPlayer({
     setDuration(0);
   }, []);
 
-  /** 跳到窗口里 0–1 的某个位置 */
+  /** 跳到 0–1 的某个位置 */
   const seek = useCallback(
     (fraction: number) => {
       const el = audioRef.current;
       if (!el || !total) return;
-      const next = window_.start + clamp01(fraction) * total;
+      const next = clamp01(fraction) * total;
       el.currentTime = next;
       setPosition(next);
     },
-    [total, window_.start],
+    [total],
   );
 
-  /** 相对当前位置快进/快退若干秒（不会走出窗口） */
+  /** 相对当前位置快进/快退若干秒 */
   const nudge = useCallback(
     (seconds: number) => {
       const el = audioRef.current;
       if (!el) return;
-      const max = window_.start + (total || el.duration || 0);
-      const next = Math.max(
-        window_.start,
-        Math.min(el.currentTime + seconds, max),
-      );
+      const max = total || el.duration || 0;
+      const next = Math.max(0, Math.min(el.currentTime + seconds, max));
       el.currentTime = next;
       setPosition(next);
     },
-    [total, window_.start],
+    [total],
   );
 
   const setVolume = useCallback(
@@ -195,57 +192,30 @@ export function useAudioPlayer({
   }, [volume, shouldPlay]);
 
   /**
-   * 音量包络 + 试听到点 —— 播放期间逐帧跑的一个小循环。
+   * 音量包络 —— 播放期间逐帧跑的一个小循环，只管听感：
+   *   ① 起播 / 换歌淡入，盖掉切换瞬间的爆音；
+   *   ② 片段快放完时淡出最后 0.9 秒，收尾不那么硬。
    *
-   * 干两件事：
-   *   ① 淡入淡出。试听是从歌中间切进去的，硬起硬停都会「啪」一声；
-   *      最后 1.5 秒把音量拉到 0，听感上是「这段放完了」而不是「网页坏了」。
-   *   ② 到 30 秒就换下一首（自然衔接，像在翻歌单试听）。
-   * 用 rAF 而不是 timeupdate：timeupdate 大约每 250ms 才来一次，拿它做淡出会一格一格地掉。
+   * **没有「到点换下一首」了** —— 片段本身就是一个 30 秒的文件，放完 <audio> 自己
+   * 触发 ended，走 onEnded 换下一首。用 rAF 而不是 timeupdate：后者约 250ms 才来
+   * 一次，拿它做淡出会一格一格地掉。
    */
-  const advance = useRef<() => void>(() => {});
-  useEffect(() => {
-    advance.current = () => goto(index + 1);
-  }, [goto, index]);
-
+  const trackId = track?.id;
   useEffect(() => {
     const el = audioRef.current;
     if (!el || !shouldPlay) return;
 
-    const { start, length, preview } = window_;
     const startedAt = performance.now();
     let raf = 0;
-    let done = false;
-    /**
-     * 试听窗口的实际起点。正常情况就是 start；
-     * 万一那一跳没跳成（音源不支持 Range 请求），三秒后就地改成「从现在算 30 秒」，
-     * 免得播放头永远够不着窗口、既不出声也不往下走。
-     */
-    let anchor = start;
 
     const loop = () => {
       const since = (performance.now() - startedAt) / 1000;
       let gain = Math.min(1, since / START_FADE);
 
-      if (preview) {
-        let pos = el.currentTime - anchor;
-        if (pos < 0) {
-          if (since < 3) {
-            // 跳还在路上：这几百毫秒先静音，别把前奏漏出来
-            el.volume = 0;
-            raf = requestAnimationFrame(loop);
-            return;
-          }
-          anchor = el.currentTime;
-          pos = 0;
-        }
-        if (pos >= length) {
-          done = true;
-          el.volume = 0;
-          advance.current();
-          return;
-        }
-        gain = Math.min(gain, pos / FADE_IN, (length - pos) / FADE_OUT);
+      // 片段收尾淡出。完整曲目不动它的结尾 —— 那是作品本来的样子
+      const span = el.duration;
+      if (isClip && Number.isFinite(span) && span > 0) {
+        gain = Math.min(gain, (span - el.currentTime) / TAIL_FADE);
       }
 
       el.volume = volume * clamp01(gain);
@@ -256,9 +226,9 @@ export function useAudioPlayer({
     return () => {
       cancelAnimationFrame(raf);
       // 暂停/换歌时把音量还原，下次起播不会从淡出剩下的那一点点接着放
-      if (!done) el.volume = volume;
+      el.volume = volume;
     };
-  }, [shouldPlay, volume, window_]);
+  }, [shouldPlay, volume, isClip, trackId]);
 
   /** 放不出来：标记这首，跳下一首；整组都挂了就交给调用方兜底 */
   const handleError = useCallback(() => {
@@ -274,27 +244,15 @@ export function useAudioPlayer({
   }, [broken, goto, index, onExhausted, track, tracks]);
 
   /**
-   * 元数据到了：记下真实时长，并把播放头挪到试听窗口的起点。
-   * 网易云的直链支持 Range 请求，所以这一跳是真跳，不用先下完前面那段。
+   * 元数据到了：记下真实时长，进度条的分母从名义值换成真值。
+   * **不再 seek** —— 片段就是一整个文件，从 0 秒放到底就对了。
    */
   const handleLoadedMetadata = useCallback(
     (e: React.SyntheticEvent<HTMLAudioElement>) => {
-      const el = e.currentTarget;
-      const real = el.duration || 0;
-      setDuration(real);
-
-      const preview = track?.preview;
-      if (!preview) return;
-      const length = real ? Math.min(preview.length, real) : preview.length;
-      const start = real
-        ? Math.max(0, Math.min(preview.start, real - length))
-        : preview.start;
-      if (el.currentTime < start - 0.05) {
-        el.currentTime = start;
-        setPosition(start);
-      }
+      const real = e.currentTarget.duration || 0;
+      if (Number.isFinite(real)) setDuration(real);
     },
-    [track],
+    [],
   );
 
   /** 直接摊到 <audio> 上 */
@@ -321,18 +279,17 @@ export function useAudioPlayer({
     touched,
     /** <audio> 真的在响 */
     live,
-    /** 窗口里已经放了多少秒 */
+    /** 这个音频文件已经放了多少秒 */
     elapsed,
-    /** 窗口有多长（试听是 30，完整播放就是整首） */
+    /** 这个音频文件有多长（片段约 30，常驻曲目是整首） */
     total,
-    /** 这首是不是只放一段 */
-    isPreview: window_.preview,
-    /** 窗口在整首歌里的起点（秒） */
-    windowStart: window_.start,
+    /** 这首放的是不是 30 秒官方片段 */
+    isClip,
     broken,
     volume,
     setVolume,
     goto,
+    jump,
     reset,
     toggle,
     play,
@@ -349,11 +306,12 @@ export type AudioPlayer = ReturnType<typeof useAudioPlayer>;
  * 逐帧把播放进度画出去（唱针位置、迷你卡片的进度条这类）——
  * 不走 setState，省掉每帧重渲染。reduced-motion 下退成每秒一次。
  *
- * 画的是**窗口里的**进度：试听那 30 秒走完就是满格。
+ * `total` 是这个音频文件的长度（片段约 30 秒，常驻曲目是整首）；
+ * 传 0 就退回读 <audio> 自己的 duration。
  */
 export function useProgressPainter(
   audioRef: React.RefObject<HTMLAudioElement | null>,
-  window_: { start: number; length: number },
+  total: number,
   reduced: boolean,
   paint: (fraction: number, elapsed: number) => void,
 ) {
@@ -364,15 +322,13 @@ export function useProgressPainter(
     paintRef.current = paint;
   }, [paint]);
 
-  const { start, length } = window_;
-
   useEffect(() => {
     const el = audioRef.current;
     if (!el) return;
 
     const tick = () => {
-      const span = length || el.duration || 0;
-      const done = Math.max(0, el.currentTime - start);
+      const span = total || el.duration || 0;
+      const done = Math.max(0, el.currentTime);
       paintRef.current(span > 0 ? Math.min(1, done / span) : 0, done);
     };
 
@@ -389,5 +345,5 @@ export function useProgressPainter(
     };
     raf = requestAnimationFrame(loop);
     return () => cancelAnimationFrame(raf);
-  }, [audioRef, start, length, reduced]);
+  }, [audioRef, total, reduced]);
 }

@@ -400,17 +400,28 @@
 }
 
 /* ==========================================================================
-   唱片页（/records）—— 一张斜放的黑胶
+   唱片页（/records）—— 一张斜放的黑胶，直接落在页面浅色背景上
 
-   2026-08-30 重做：原来是一张正对着看的平面 SVG，现在改成**真的斜放在透视里**。
+   2026-08-30 重做：原来是一张正对着看的平面 SVG，改成**真的斜放在透视里**。
+   2026-08-31 再改：撤掉了包着它的深色矩形容器（用户原话「我要的是与背景融入的，
+   不是你给我制作出来的分割」），唱片和唱臂现在直接坐在 <main> 的 bg-content
+   浅灰渐变上（见 components/shell/SiteShell.tsx）。黑胶本身还是黑的——那是材质，
+   不是「深色容器」，别混为一谈。
+
    结构（对应 components/records/Turntable.tsx）：
 
-     .vinyl-frame            容器查询的锚点（盘小到一定程度，标签上的曲目表让位）
+     .vinyl-frame            容器查询的锚点（盘小到一定程度，标签上的曲目表让位）；
+                             也是 .vinyl-floor-shadow 这层平面投影的定位参照
+       .vinyl-floor-shadow   **不在透视平面里**的一层扁平投影，垫在唱片正下方——
+                             这是让唱片「落在页面上」的关键，浅底上必须是真实的
+                             柔和灰影，不能沿用深底时代那层白色的光
        .vinyl-scene          透视容器。perspective-origin 默认在正中 = 盘心，
                              点击反投影（Turntable 里的 planeFromScreen）就是靠这个前提，
                              改 perspective 的值要同步改那边的 PERSPECTIVE 常数
          .vinyl-plane        rotateX(25deg) 的那个平面，preserve-3d
-           .vinyl-pool       盘背后的一小片光，让黑盘的轮廓有东西可挡（= 影子）
+           .vinyl-shadow     盘背后贴着盘身的一圈近影（原来叫 .vinyl-pool，是给深色
+                             背景设计的白色轮廓光；浅色背景下改成更深的接触阴影，
+                             和 .vinyl-floor-shadow 一起把盘「压」在页面上）
            .vinyl-edge-*     盘的厚度：同一张盘沿自己的法线压下去两层，
                              斜放之后落在盘的正下方，露出来的那一弯就是盘边
            .vinyl-disc       盘身
@@ -418,7 +429,9 @@
              .vinyl-lands    导入槽和收尾槽那两圈没有纹路的平面
              .vinyl-light    固定的单侧光（不跟着转 —— 灯是不动的，转的是碟）
              .vinyl-sheen    一道慢慢扫过盘面的柔光
-           svg.vinyl-arm     唱臂，translateZ 浮在盘面上方，和盘在同一个透视平面里
+           svg.vinyl-arm     唱臂，translateZ 浮在盘面上方，和盘在同一个透视平面里。
+                             支点座、配重这些落在盘外的部件原来是给深色台面配的深灰，
+                             浅底上太重，已经调亮一档（材质本身还是深色金属/塑料）
 
    转速取真实的 33⅓ 转/分（1.8 秒一圈）。暂停时只把 animation-play-state 切成
    paused，唱片停在原地；上面 prefers-reduced-motion 那条全局兜底会把它掐停，
@@ -440,7 +453,28 @@
 }
 
 .vinyl-frame {
+  position: relative;
   container-type: inline-size;
+}
+
+/* 扁平的地面投影，刻意**不**放进 .vinyl-plane（不跟着 25° 倾斜走）——
+   现实里桌面投影不会跟着物体一起转角度，这层只管把唱片「钉」在页面上。
+   宽而扁、模糊得很开，是柔光源（不是聚光灯）打下来的样子。 */
+.vinyl-floor-shadow {
+  position: absolute;
+  left: 50%;
+  top: 54%;
+  width: 82%;
+  aspect-ratio: 2.6 / 1;
+  translate: -50% -50%;
+  background: radial-gradient(
+    closest-side,
+    rgba(17, 17, 17, 0.22),
+    rgba(17, 17, 17, 0.11) 52%,
+    rgba(17, 17, 17, 0) 76%
+  );
+  filter: blur(20px);
+  pointer-events: none;
 }
 
 .vinyl-scene {
@@ -468,15 +502,18 @@
   translate: -50% -50%;
 }
 
-.vinyl-pool {
-  width: 104%;
+/* 贴着盘身的一圈近影（原叫 .vinyl-pool，深底时代是白色轮廓光，见上面结构图的说明）。
+   偏心在 44%/62%（不是正中心）：光是从左上来的（Turntable.tsx 里那道单侧光渐变同一个
+   方向），影子自然要往右下偏。 */
+.vinyl-shadow {
+  width: 108%;
   background: radial-gradient(
     circle closest-side at 44% 62%,
-    rgba(255, 255, 255, 0.085),
-    rgba(255, 255, 255, 0.02) 58%,
-    rgba(255, 255, 255, 0) 78%
+    rgba(17, 17, 17, 0.3),
+    rgba(17, 17, 17, 0.14) 55%,
+    rgba(17, 17, 17, 0) 78%
   );
-  filter: blur(14px);
+  filter: blur(16px);
   transform: translateZ(-46px);
 }
 

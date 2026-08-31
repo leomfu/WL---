@@ -3,7 +3,7 @@
 import { memo, useCallback, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
-import { usePlayer, type Group } from "@/components/player/PlayerProvider";
+import { RESIDENT, usePlayer, type Group } from "@/components/player/PlayerProvider";
 import { clock } from "@/lib/clock";
 import { useProgressPainter } from "@/lib/useAudioPlayer";
 import type { Track } from "@/lib/types";
@@ -13,7 +13,21 @@ import { siteConfig } from "~/site.config";
  * 唱片页的主角 —— 一台真能转、真出声的黑胶唱机。
  *
  * 2026-08-30 重做（对照用户给的实拍参考图）：原来是一张**正对着看**的平面 SVG，
- * 现在改成**斜放在透视里**，像人站在唱机前低头看。
+ * 改成**斜放在透视里**，像人站在唱机前低头看。
+ *
+ * 2026-08-31 再改（用户看了截图，画红箭头标了三处）：
+ * ① **撤掉了包着它的深色矩形容器**——原来外面套了一层 `bg-shell` 的深色卡片，
+ *    和页面浅灰背景割裂成两块。现在唱片、唱臂直接坐在 `<main>` 的 `bg-content`
+ *    浅色渐变上（见 globals.css 顶部那段唱片页结构图的说明），靠新增的
+ *    `.vinyl-floor-shadow`（扁平地面投影）+ 重新上色的 `.vinyl-shadow`
+ *    （原 `.vinyl-pool`，深底时代是白色轮廓光，现在改成真的灰色接触阴影）
+ *    把它"落"在页面上。黑胶本身还是黑的——那是材质，不是被撤掉的容器。
+ * ② **盘心从纸标签换成专辑封面**：`track.cover` 有值时，标签位置显示圆形裁切的
+ *    封面图（内容图片，彩色，豁免全站黑白规则），只留一个唱片轴孔；常驻那组没有
+ *    封面字段，回退到原来的奶白纸标签（印曲目表那版），不开天窗。
+ * ③ **右侧信息栏重排**：分类小标（当前碟名）→ 大字歌名 → 艺人 → 专辑 → 一句描述 →
+ *    播放控件 + 去平台链接，对照用户给的参考图的信息层级（视觉是本站自己的黑白系统，
+ *    没有照抄参考图的配色和字体）。
  *
  * ── 透视是怎么搭的 ──
  * 外层 `.vinyl-scene` 给 `perspective: 1500px`，里层 `.vinyl-plane` 整个
@@ -31,9 +45,13 @@ import { siteConfig } from "~/site.config";
  * 这依赖 perspective 的值和「perspective-origin 落在盘心」这两个前提，
  * 改 globals.css 里 .vinyl-scene 的 perspective 要同步改这里的 PERSPECTIVE。
  *
- * 材质、厚度、单侧光都在 globals.css 的 `.vinyl-*` 里，那边有结构图。
+ * 材质、厚度、单侧光、地面投影都在 globals.css 的 `.vinyl-*` 里，那边有结构图。
  * 播放状态不在这个组件里 —— 在 components/player/PlayerProvider，
  * 那样离开这一页音乐才不会断。
+ *
+ * 按场景分组的完整榜单（封面 + 歌名 + 艺人 + 时长 + 去平台外链）在 components/records/Chart，
+ * 这个组件里只保留**常驻**那组（4 首肖邦，没有封面、没有平台外链）的可展开曲目清单——
+ * 场景榜单已经被 Chart 更完整地覆盖了，两处重复没有意义。
  */
 
 /* ---------------------------------------------------------------- 几何 */
@@ -135,12 +153,14 @@ type DeckProps = {
   ariaLabel: string;
   valueText: string;
   valueNow: number;
-  /** 标签上印的东西 */
+  /** 标签上印的东西（没有 cover 时的纸标签回退样式才用得到） */
   discTitle: string;
   side: string;
   foot: string;
   lines: Array<{ no: number; text: string; on: boolean }>;
   tight: string;
+  /** 当前这首的专辑封面。有就替掉纸标签，圆形裁切嵌在盘心，只留轴孔 */
+  cover?: string;
 };
 
 /**
@@ -161,6 +181,7 @@ const Deck = memo(function Deck({
   foot,
   lines,
   tight,
+  cover,
 }: DeckProps) {
   /**
    * 点唱片上的某一圈 = 跳到那个进度 —— 外圈是开头，内圈是结尾，和唱针走的方向一致。
@@ -184,8 +205,11 @@ const Deck = memo(function Deck({
 
   return (
     <div className="vinyl-frame">
+      {/* 扁平的地面投影——不跟着盘一起转、也不跟着 25° 倾斜走，
+          这是让唱片「落在页面上」的关键，浅底上必须有它 */}
+      <div className="vinyl-floor-shadow" aria-hidden />
       <div
-        className="vinyl-scene cursor-pointer rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-shell-ink"
+        className="vinyl-scene cursor-pointer rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
         onClick={handleClick}
         onKeyDown={onKeyDown}
         role="slider"
@@ -197,8 +221,8 @@ const Deck = memo(function Deck({
         tabIndex={0}
       >
         <div className="vinyl-plane">
-          {/* 盘背后那一小片光：黑盘挡住它的中间，挡出来的就是影子 */}
-          <div className="vinyl-layer vinyl-pool" aria-hidden />
+          {/* 贴着盘身的一圈近影：黑盘挡住它的中间，挡出来的就是影子 */}
+          <div className="vinyl-layer vinyl-shadow" aria-hidden />
           {/* 盘的厚度 */}
           <div className="vinyl-layer vinyl-edge-deep" aria-hidden />
           <div className="vinyl-layer vinyl-edge" aria-hidden />
@@ -222,160 +246,188 @@ const Deck = memo(function Deck({
                     <stop offset="72%" stopColor="#EDE7DB" />
                     <stop offset="100%" stopColor="#DED7C8" />
                   </radialGradient>
+                  <clipPath id="rec-cover-clip">
+                    <circle r={R_LABEL} />
+                  </clipPath>
                 </defs>
 
-                <circle r={R_LABEL} fill="url(#rec-paper)" />
-                <circle
-                  r={R_LABEL - 7}
-                  fill="none"
-                  stroke="#1A1712"
-                  strokeOpacity={0.18}
-                  strokeWidth={0.8}
-                />
-
-                {/* 盘大的时候：印全套 —— 名号、SIDE A、曲目表 */}
-                <g className="vinyl-label-full">
-                  <text
-                    y={-80}
-                    textAnchor="middle"
-                    fill="#1A1712"
-                    fontSize={25}
-                    fontWeight={300}
-                    letterSpacing="5"
-                    style={{ fontFamily: "var(--font-serif)" }}
-                  >
-                    {siteConfig.nameEn.toUpperCase()}
-                  </text>
-                  <text
-                    y={-59}
-                    textAnchor="middle"
-                    fill="#6B6152"
-                    fontSize={11.5}
-                    letterSpacing="2.4"
-                  >
-                    {discTitle}
-                  </text>
-                  <line
-                    x1={-54}
-                    y1={-48}
-                    x2={54}
-                    y2={-48}
-                    stroke="#1A1712"
-                    strokeOpacity={0.22}
-                    strokeWidth={0.7}
-                  />
-
-                  {/* 参考图里 SIDE A / 33⅓ / STEREO 就在中心孔右边 */}
-                  <g fill="#1A1712" fontSize={10.5} letterSpacing="1.1">
-                    <text x={128} y={-15} textAnchor="end">
-                      {side}
-                    </text>
-                    <text x={128} y={-1} textAnchor="end" fill="#4A4238">
-                      33⅓ RPM
-                    </text>
-                    <text x={128} y={13} textAnchor="end" fill="#4A4238">
-                      STEREO
-                    </text>
-                  </g>
-
-                  {/* 左边那枚厂牌小徽记 */}
-                  <g transform="translate(-116,-9)">
-                    <rect
-                      width={20}
-                      height={20}
+                {cover ? (
+                  /* 有专辑封面：圆形裁切嵌进盘心，换歌就换图。参考图就是这个做法——
+                     纸标签那套排版（曲目表、SIDE A…）在照片上没有意义，整个让位 */
+                  <>
+                    <image
+                      href={cover}
+                      x={-R_LABEL}
+                      y={-R_LABEL}
+                      width={R_LABEL * 2}
+                      height={R_LABEL * 2}
+                      preserveAspectRatio="xMidYMid slice"
+                      clipPath="url(#rec-cover-clip)"
+                    />
+                    {/* 照片边缘一道细描边，免得像贴纸一样悬在沟槽上 */}
+                    <circle
+                      r={R_LABEL - 1}
+                      fill="none"
+                      stroke="rgba(0,0,0,0.35)"
+                      strokeWidth={1.4}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <circle r={R_LABEL} fill="url(#rec-paper)" />
+                    <circle
+                      r={R_LABEL - 7}
                       fill="none"
                       stroke="#1A1712"
-                      strokeOpacity={0.55}
-                      strokeWidth={0.9}
+                      strokeOpacity={0.18}
+                      strokeWidth={0.8}
                     />
-                    <text
-                      x={10}
-                      y={14.5}
-                      textAnchor="middle"
-                      fill="#1A1712"
-                      fontSize={11}
-                      fontWeight={300}
-                      style={{ fontFamily: "var(--font-serif)" }}
-                    >
-                      WL
-                    </text>
-                  </g>
 
-                  {/* 曲目表 */}
-                  <g fontSize={13}>
-                    {lines.map((line, i) => (
+                    {/* 盘大的时候：印全套 —— 名号、SIDE A、曲目表 */}
+                    <g className="vinyl-label-full">
                       <text
-                        key={line.no}
-                        y={44 + i * 17}
+                        y={-80}
                         textAnchor="middle"
-                        fill={line.on ? "#1A1712" : "#3E372D"}
-                        fontWeight={line.on ? 500 : 400}
+                        fill="#1A1712"
+                        fontSize={25}
+                        fontWeight={300}
+                        letterSpacing="5"
+                        style={{ fontFamily: "var(--font-serif)" }}
                       >
-                        {line.no}. {line.text}
+                        {siteConfig.nameEn.toUpperCase()}
                       </text>
-                    ))}
-                  </g>
+                      <text
+                        y={-59}
+                        textAnchor="middle"
+                        fill="#6B6152"
+                        fontSize={11.5}
+                        letterSpacing="2.4"
+                      >
+                        {discTitle}
+                      </text>
+                      <line
+                        x1={-54}
+                        y1={-48}
+                        x2={54}
+                        y2={-48}
+                        stroke="#1A1712"
+                        strokeOpacity={0.22}
+                        strokeWidth={0.7}
+                      />
 
-                  <text
-                    y={138}
-                    textAnchor="middle"
-                    fill="#7A7264"
-                    fontSize={9}
-                    letterSpacing="1.6"
-                  >
-                    {foot}
-                  </text>
-                </g>
+                      {/* 参考图里 SIDE A / 33⅓ / STEREO 就在中心孔右边 */}
+                      <g fill="#1A1712" fontSize={10.5} letterSpacing="1.1">
+                        <text x={128} y={-15} textAnchor="end">
+                          {side}
+                        </text>
+                        <text x={128} y={-1} textAnchor="end" fill="#4A4238">
+                          33⅓ RPM
+                        </text>
+                        <text x={128} y={13} textAnchor="end" fill="#4A4238">
+                          STEREO
+                        </text>
+                      </g>
 
-                {/* 盘小的时候：曲目表在这个尺寸下只是一片灰点，换成只印大字 */}
-                <g className="vinyl-label-tight">
-                  <text
-                    y={-34}
-                    textAnchor="middle"
-                    fill="#1A1712"
-                    fontSize={30}
-                    fontWeight={300}
-                    letterSpacing="6"
-                    style={{ fontFamily: "var(--font-serif)" }}
-                  >
-                    {siteConfig.nameEn.toUpperCase()}
-                  </text>
-                  <text
-                    y={-9}
-                    textAnchor="middle"
-                    fill="#6B6152"
-                    fontSize={15}
-                    letterSpacing="3"
-                  >
-                    {tight}
-                  </text>
-                  <text
-                    y={62}
-                    textAnchor="middle"
-                    fill="#1A1712"
-                    fontSize={15}
-                    letterSpacing="2"
-                  >
-                    {side} · 33⅓ RPM
-                  </text>
-                  <text
-                    y={86}
-                    textAnchor="middle"
-                    fill="#7A7264"
-                    fontSize={12.5}
-                    letterSpacing="2"
-                  >
-                    STEREO
-                  </text>
-                </g>
+                      {/* 左边那枚厂牌小徽记 */}
+                      <g transform="translate(-116,-9)">
+                        <rect
+                          width={20}
+                          height={20}
+                          fill="none"
+                          stroke="#1A1712"
+                          strokeOpacity={0.55}
+                          strokeWidth={0.9}
+                        />
+                        <text
+                          x={10}
+                          y={14.5}
+                          textAnchor="middle"
+                          fill="#1A1712"
+                          fontSize={11}
+                          fontWeight={300}
+                          style={{ fontFamily: "var(--font-serif)" }}
+                        >
+                          WL
+                        </text>
+                      </g>
 
-                {/* 中心孔 */}
+                      {/* 曲目表 */}
+                      <g fontSize={13}>
+                        {lines.map((line, i) => (
+                          <text
+                            key={line.no}
+                            y={44 + i * 17}
+                            textAnchor="middle"
+                            fill={line.on ? "#1A1712" : "#3E372D"}
+                            fontWeight={line.on ? 500 : 400}
+                          >
+                            {line.no}. {line.text}
+                          </text>
+                        ))}
+                      </g>
+
+                      <text
+                        y={138}
+                        textAnchor="middle"
+                        fill="#7A7264"
+                        fontSize={9}
+                        letterSpacing="1.6"
+                      >
+                        {foot}
+                      </text>
+                    </g>
+
+                    {/* 盘小的时候：曲目表在这个尺寸下只是一片灰点，换成只印大字 */}
+                    <g className="vinyl-label-tight">
+                      <text
+                        y={-34}
+                        textAnchor="middle"
+                        fill="#1A1712"
+                        fontSize={30}
+                        fontWeight={300}
+                        letterSpacing="6"
+                        style={{ fontFamily: "var(--font-serif)" }}
+                      >
+                        {siteConfig.nameEn.toUpperCase()}
+                      </text>
+                      <text
+                        y={-9}
+                        textAnchor="middle"
+                        fill="#6B6152"
+                        fontSize={15}
+                        letterSpacing="3"
+                      >
+                        {tight}
+                      </text>
+                      <text
+                        y={62}
+                        textAnchor="middle"
+                        fill="#1A1712"
+                        fontSize={15}
+                        letterSpacing="2"
+                      >
+                        {side} · 33⅓ RPM
+                      </text>
+                      <text
+                        y={86}
+                        textAnchor="middle"
+                        fill="#7A7264"
+                        fontSize={12.5}
+                        letterSpacing="2"
+                      >
+                        STEREO
+                      </text>
+                    </g>
+                  </>
+                )}
+
+                {/* 中心孔（轴孔），封面模式也要留 */}
                 <circle r={8} fill="#0A0A0A" />
                 <circle
                   r={8}
                   fill="none"
-                  stroke="#1A1712"
-                  strokeOpacity={0.5}
+                  stroke={cover ? "rgba(255,255,255,0.4)" : "#1A1712"}
+                  strokeOpacity={cover ? 1 : 0.5}
                   strokeWidth={0.8}
                 />
               </svg>
@@ -392,24 +444,25 @@ const Deck = memo(function Deck({
             viewBox={`${-BOX_W / 2} ${-BOX_H / 2} ${BOX_W} ${BOX_H}`}
             aria-hidden
           >
-            {/* 唱臂托架 */}
+            {/* 唱臂托架。这几处落在盘外、直接坐在浅色页面背景上——
+                深底时代的近黑色在浅底上太重，调亮一档（还是深色金属，不是变浅色） */}
             <line
               x1={pt(ARM_L - 8, 30).x}
               y1={pt(ARM_L - 8, 30).y}
               x2={pt(ARM_L + 14, 30).x}
               y2={pt(ARM_L + 14, 30).y}
-              stroke="#3A3A3A"
+              stroke="#4A4A4A"
               strokeWidth={7}
               strokeLinecap="round"
             />
             {/* 支点座（不跟着转） */}
-            <circle cx={PIVOT.x} cy={PIVOT.y} r={30} fill="#161616" />
+            <circle cx={PIVOT.x} cy={PIVOT.y} r={30} fill="#2A2A2A" />
             <circle
               cx={PIVOT.x}
               cy={PIVOT.y}
               r={30}
               fill="none"
-              stroke="#3F3F3F"
+              stroke="#4C4C4C"
               strokeWidth={1.2}
             />
             <circle
@@ -417,7 +470,7 @@ const Deck = memo(function Deck({
               cy={PIVOT.y - 1}
               r={24}
               fill="none"
-              stroke="#2A2A2A"
+              stroke="#3A3A3A"
               strokeWidth={1}
             />
 
@@ -439,21 +492,21 @@ const Deck = memo(function Deck({
                   : "transform 1.05s cubic-bezier(0.22,0.61,0.36,1)",
               }}
             >
-              {/* 配重 */}
+              {/* 配重——也在盘外，同样调亮一档 */}
               <polygon
                 points={`${at(-92, -28)} ${at(-44, -31)} ${at(-44, 31)} ${at(-92, 28)}`}
-                fill="#1E1E1E"
+                fill="#333333"
               />
               <polygon
                 points={`${at(-92, -28)} ${at(-44, -31)} ${at(-44, -18)} ${at(-92, -16)}`}
-                fill="#3C3C3C"
+                fill="#4E4E4E"
               />
               <line
                 x1={pt(-70, -30).x}
                 y1={pt(-70, -30).y}
                 x2={pt(-70, 30).x}
                 y2={pt(-70, 30).y}
-                stroke="#0A0A0A"
+                stroke="#242424"
                 strokeWidth={1.6}
               />
 
@@ -507,7 +560,7 @@ const Deck = memo(function Deck({
               />
 
               {/* 支点上的轴帽 */}
-              <circle cx={PIVOT.x} cy={PIVOT.y} r={13} fill="#2E2E2E" />
+              <circle cx={PIVOT.x} cy={PIVOT.y} r={13} fill="#3A3A3A" />
               <circle cx={PIVOT.x} cy={PIVOT.y} r={4} fill="#8A8A8A" />
             </g>
           </svg>
@@ -539,8 +592,7 @@ export function Turntable() {
     live,
     group,
     library,
-    hasNetease,
-    isPreview,
+    isClip,
   } = player;
 
   /** 唱针位置就是进度条：外圈开头、内圈结尾。停下时唱臂抬回托架 */
@@ -557,12 +609,7 @@ export function Turntable() {
     },
     [shouldPlay],
   );
-  useProgressPainter(
-    player.audioRef,
-    { start: player.windowStart, length: total },
-    reduced,
-    paint,
-  );
+  useProgressPainter(player.audioRef, total, reduced, paint);
 
   /** 键盘只在唱片本身拿到焦点时生效 —— 这是一张会滚动的内容页，不能全局劫持空格 */
   const onDiscKeyDown = (e: React.KeyboardEvent) => {
@@ -597,39 +644,35 @@ export function Turntable() {
     on: from + i === player.index,
   }));
 
+  /** 换碟：几个场景组 + 常驻那张 */
   const groups: Array<{ key: Group; label: string; count: number }> = [
-    ...(hasNetease
-      ? [
-          {
-            key: "netease" as const,
-            label: t("groupNetease"),
-            count: library.netease.length,
-          },
-        ]
-      : []),
+    ...library.scenes.map((scene) => ({
+      key: scene.key,
+      label: en ? scene.labelEn : scene.label,
+      count: scene.tracks.length,
+    })),
     {
-      key: "resident" as const,
+      key: RESIDENT,
       label: t("groupResident"),
       count: library.resident.length,
     },
   ];
 
-  return (
-    <section
-      className="relative overflow-hidden border border-shell-line bg-shell text-shell-ink"
-      aria-label={t("regionLabel")}
-    >
-      {/* 单侧光：整台唱机的光是从左上来的 */}
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(120% 86% at 26% 8%, rgba(255,255,255,0.075), rgba(255,255,255,0) 62%)",
-        }}
-        aria-hidden
-      />
+  /** 碟名 —— 标签中央印的就是它，也是右侧信息栏的分类小标 */
+  const discName =
+    groups.find((item) => item.key === group)?.label ?? t("groupResident");
 
-      <div className="relative px-4 pt-6 pb-2 sm:px-9 sm:pt-9">
+  const album = track.album;
+  const desc = en ? track.descEn : track.desc;
+
+  return (
+    // 2026-08-31：这里原来是一层 bg-shell 的深色卡片，把唱机和页面浅灰背景割裂成
+    // 两块。撤掉了——唱片和唱臂现在直接坐在 <main> 的浅色背景上，没有任何容器边界，
+    // 靠 Deck 里新增的地面投影落在页面上（见 globals.css 的 .vinyl-floor-shadow）。
+    <section aria-label={t("regionLabel")}>
+      {/* 唱片（左）+ 信息栏（右）：对照参考图的分类→歌名→艺人→专辑→描述→播放 那套
+          信息层级，但视觉是本站自己的黑白系统。窄屏堆叠，sm 起并排 */}
+      <div className="grid gap-8 sm:grid-cols-[1.35fr_1fr] sm:items-center sm:gap-9 lg:gap-14">
         <Deck
           armRef={armRef}
           spinning={shouldPlay || live}
@@ -639,159 +682,173 @@ export function Turntable() {
           ariaLabel={t("seek")}
           valueNow={Math.round(fraction * 100)}
           valueText={`${clock(elapsed)} / ${clock(total)}`}
-          discTitle={
-            group === "netease" ? t("groupNetease") : t("groupResident")
-          }
-          tight={group === "netease" ? t("groupNetease") : t("groupResident")}
+          discTitle={discName}
+          tight={discName}
           side={t("sideA")}
           foot={t("labelFoot", {
             n: tracks.length,
-            mode: isPreview ? t("labelPreview") : t("labelFull"),
+            mode: isClip ? t("labelPreview") : t("labelFull"),
           })}
           lines={lines}
+          cover={track.cover}
         />
-      </div>
 
-      {/* 曲目信息 + 控件 */}
-      <div className="relative flex flex-col gap-6 px-5 pt-4 pb-7 sm:px-9 sm:pb-8">
-        <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-5">
-          <div className="min-w-0">
-            <p className="text-[10px] tracking-(--tracking-label) text-shell-faint uppercase">
-              {shouldPlay ? t("nowPlaying") : t("stopped")}
-            </p>
-            <AnimatePresence mode="wait">
-              <motion.h3
-                key={track.id}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: reduced ? 0.01 : 0.4 }}
-                className="mt-2.5 font-serif text-[24px] leading-[1.35] font-light text-shell-ink"
-              >
-                {title}
-              </motion.h3>
-            </AnimatePresence>
-            <p className="mt-1.5 text-[13.5px] text-shell-dim">{artist}</p>
+        {/* 信息栏 */}
+        <div className="flex flex-col gap-4">
+          {/* 分类小标：当前碟名，淡灰小字 */}
+          <p className="text-[10px] tracking-(--tracking-label) text-faint uppercase">
+            {discName}
+          </p>
+
+          <AnimatePresence mode="wait">
+            <motion.h3
+              key={track.id}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: reduced ? 0.01 : 0.4 }}
+              className="font-serif text-[26px] leading-[1.28] font-light text-ink sm:text-[30px]"
+            >
+              {title}
+            </motion.h3>
+          </AnimatePresence>
+
+          <div className="-mt-1 flex flex-col gap-0.5">
+            <p className="text-[13.5px] text-muted">{artist}</p>
+            {album && <p className="text-[12px] text-faint">{album}</p>}
           </div>
 
-          {/* 上一首 / 播放 / 下一首 */}
-          <div className="flex items-center gap-7">
-            <button
-              type="button"
-              onClick={() => player.goto(player.index - 1)}
-              aria-label={t("prev")}
-              className="text-shell-dim transition-colors hover:text-shell-ink"
-            >
-              <svg
-                width="17"
-                height="14"
-                viewBox="0 0 17 14"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.2"
-                aria-hidden
-              >
-                <path d="M15.5 1 5.5 7l10 6z" />
-                <line x1="1.5" y1="1" x2="1.5" y2="13" />
-              </svg>
-            </button>
+          {desc && (
+            <p className="max-w-[36em] text-[13px] leading-[1.8] text-muted">
+              {desc}
+            </p>
+          )}
 
-            <button
-              type="button"
-              onClick={player.toggle}
-              aria-label={shouldPlay ? t("pause") : t("play")}
-              aria-pressed={shouldPlay}
-              className="flex size-[54px] items-center justify-center rounded-full border border-shell-line-3 text-shell-ink transition-colors hover:border-shell-ink"
-            >
-              {shouldPlay ? (
+          {/* 播放控件 + 去平台链接 */}
+          <div className="mt-1 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <div className="flex items-center gap-6">
+              <button
+                type="button"
+                onClick={() => player.goto(player.index - 1)}
+                aria-label={t("prev")}
+                className="text-muted transition-colors hover:text-ink"
+              >
                 <svg
-                  width="13"
-                  height="15"
-                  viewBox="0 0 13 15"
+                  width="17"
+                  height="14"
+                  viewBox="0 0 17 14"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth="1.4"
+                  strokeWidth="1.2"
                   aria-hidden
                 >
-                  <line x1="4" y1="1" x2="4" y2="14" />
-                  <line x1="9" y1="1" x2="9" y2="14" />
+                  <path d="M15.5 1 5.5 7l10 6z" />
+                  <line x1="1.5" y1="1" x2="1.5" y2="13" />
                 </svg>
-              ) : (
-                <svg
-                  width="13"
-                  height="15"
-                  viewBox="0 0 13 15"
-                  fill="currentColor"
-                  aria-hidden
-                >
-                  <path d="M12 7.5 0 15V0z" />
-                </svg>
-              )}
-            </button>
+              </button>
 
-            <button
-              type="button"
-              onClick={() => player.goto(player.index + 1)}
-              aria-label={t("next")}
-              className="text-shell-dim transition-colors hover:text-shell-ink"
-            >
-              <svg
-                width="17"
-                height="14"
-                viewBox="0 0 17 14"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.2"
-                aria-hidden
+              <button
+                type="button"
+                onClick={player.toggle}
+                aria-label={shouldPlay ? t("pause") : t("play")}
+                aria-pressed={shouldPlay}
+                className="flex size-[50px] items-center justify-center rounded-full border border-line-strong text-ink transition-colors hover:border-ink"
               >
-                <path d="M1.5 1 11.5 7l-10 6z" />
-                <line x1="15.5" y1="1" x2="15.5" y2="13" />
-              </svg>
-            </button>
-          </div>
-        </div>
+                {shouldPlay ? (
+                  <svg
+                    width="13"
+                    height="15"
+                    viewBox="0 0 13 15"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.4"
+                    aria-hidden
+                  >
+                    <line x1="4" y1="1" x2="4" y2="14" />
+                    <line x1="9" y1="1" x2="9" y2="14" />
+                  </svg>
+                ) : (
+                  <svg
+                    width="13"
+                    height="15"
+                    viewBox="0 0 13 15"
+                    fill="currentColor"
+                    aria-hidden
+                  >
+                    <path d="M12 7.5 0 15V0z" />
+                  </svg>
+                )}
+              </button>
 
-        {/* 时间。进度本身由唱针表达，这里只给个准确读数 */}
-        <div className="flex flex-wrap items-center gap-x-3.5 gap-y-2">
-          <div className="flex items-center gap-2.5 font-mono text-[12px] text-shell-faint tabular-nums">
-            <span className="text-shell-ink">{clock(elapsed)}</span>
-            <span className="h-px w-4 bg-shell-line-3" />
-            <span>{clock(total)}</span>
+              <button
+                type="button"
+                onClick={() => player.goto(player.index + 1)}
+                aria-label={t("next")}
+                className="text-muted transition-colors hover:text-ink"
+              >
+                <svg
+                  width="17"
+                  height="14"
+                  viewBox="0 0 17 14"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.2"
+                  aria-hidden
+                >
+                  <path d="M1.5 1 11.5 7l-10 6z" />
+                  <line x1="15.5" y1="1" x2="15.5" y2="13" />
+                </svg>
+              </button>
+            </div>
+
+            {isClip && track.platformUrl && (
+              <a
+                href={track.platformUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="text-[12px] text-muted underline decoration-line-strong underline-offset-4 transition-colors hover:text-ink"
+              >
+                {t("fullVersion")}
+              </a>
+            )}
           </div>
-          {isPreview && (
-            <>
-              <span className="border border-shell-line-3 px-2 py-0.5 text-[10px] tracking-(--tracking-label) text-shell-dim uppercase">
+
+          {/* 时间 + 状态。进度本身由唱针表达，这里给个准确读数 */}
+          <div className="flex flex-wrap items-center gap-x-3.5 gap-y-2">
+            <span className="text-[11px] text-faint">
+              {shouldPlay ? t("nowPlaying") : t("stopped")}
+            </span>
+            <div className="flex items-center gap-2.5 font-mono text-[12px] text-faint tabular-nums">
+              <span className="text-ink">{clock(elapsed)}</span>
+              <span className="h-px w-4 bg-line-strong" />
+              <span>{clock(total)}</span>
+            </div>
+            {isClip && (
+              <span className="border border-line-strong px-2 py-0.5 text-[10px] tracking-(--tracking-label) text-muted uppercase">
                 {t("previewTag")}
               </span>
-              {track.platformUrl && (
-                <a
-                  href={track.platformUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-[12px] text-shell-dim underline decoration-shell-line-3 underline-offset-4 transition-colors hover:text-shell-ink"
-                >
-                  {t("fullVersion")}
-                </a>
-              )}
-            </>
+            )}
+          </div>
+
+          {/* 试听是怎么回事 —— 免得「怎么才放一小段」被当成网页坏了 */}
+          {isClip && (
+            <p className="max-w-[36em] text-[11.5px] leading-[1.85] text-faint">
+              {t("previewNote")}
+            </p>
           )}
         </div>
+      </div>
 
-        {/* 试听是怎么回事 —— 免得淡出被当成「网页坏了」 */}
-        {isPreview && (
-          <p className="max-w-[46em] text-[11.5px] leading-[1.85] text-shell-faint">
-            {t("previewNote")}
-          </p>
-        )}
-
+      {/* 音量 + 换碟 + 使用提示：全宽的次要控件区 */}
+      <div className="mt-9 flex flex-col gap-6 border-t border-line pt-7 sm:mt-10">
         {/* 音量 */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 text-muted">
           <svg
             width="17"
             height="17"
             viewBox="0 0 18 18"
             fill="none"
-            stroke="#5A5A5A"
+            stroke="currentColor"
             strokeWidth="1.2"
             strokeLinejoin="round"
             aria-hidden
@@ -800,13 +857,13 @@ export function Turntable() {
             <path d="M11.2 6.4a3.6 3.6 0 0 1 0 5.2" />
           </svg>
           <div className="relative h-4 w-[132px]">
-            <div className="absolute top-1/2 left-0 h-px w-full -translate-y-1/2 bg-shell-line-2" />
+            <div className="absolute top-1/2 left-0 h-px w-full -translate-y-1/2 bg-line" />
             <div
-              className="absolute top-1/2 left-0 h-px -translate-y-1/2 bg-shell-ink"
+              className="absolute top-1/2 left-0 h-px -translate-y-1/2 bg-ink"
               style={{ width: `${player.volume * 100}%` }}
             />
             <div
-              className="absolute top-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-shell-ink"
+              className="absolute top-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-ink"
               style={{ left: `${player.volume * 100}%` }}
             />
             <input
@@ -823,11 +880,12 @@ export function Turntable() {
 
         {/* 换碟 */}
         <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
-          <span className="text-[9.5px] tracking-(--tracking-label) text-shell-faint uppercase">
+          <span className="text-[9.5px] tracking-(--tracking-label) text-faint uppercase">
             {t("shelf")}
           </span>
-          <div className="flex items-stretch border border-shell-line-2">
-            {groups.map((item, i) => {
+          {/* 场景组多了之后这排会换行，所以每个自己带边框，不再是一条连体的分段控件 */}
+          <div className="flex flex-wrap items-stretch gap-2">
+            {groups.map((item) => {
               const on = item.key === group;
               return (
                 <button
@@ -836,18 +894,17 @@ export function Turntable() {
                   onClick={() => player.switchGroup(item.key)}
                   aria-pressed={on}
                   className={[
-                    "px-3.5 py-2 text-[12.5px] tracking-[0.04em] transition-colors",
-                    i > 0 ? "border-l border-shell-line-2" : "",
+                    "border px-3 py-1.5 text-[12.5px] tracking-[0.04em] transition-colors",
                     on
-                      ? "bg-shell-ink text-shell"
-                      : "text-shell-dim hover:bg-[#141414] hover:text-shell-ink",
+                      ? "border-ink bg-ink text-card"
+                      : "border-line-strong text-muted hover:border-ink hover:bg-paper hover:text-ink",
                   ].join(" ")}
                 >
                   {item.label}
                   <span
                     className={[
                       "ml-2 text-[11px] tabular-nums",
-                      on ? "text-black/50" : "text-shell-faint",
+                      on ? "text-white/55" : "text-faint",
                     ].join(" ")}
                   >
                     {item.count}
@@ -858,114 +915,100 @@ export function Turntable() {
           </div>
         </div>
 
-        <p className="text-[11.5px] leading-[1.85] text-shell-faint">
-          {t("hint")}
-        </p>
+        <p className="text-[11.5px] leading-[1.85] text-faint">{t("hint")}</p>
       </div>
 
-      {/* 曲目清单 */}
-      <div className="relative border-t border-shell-line">
-        <button
-          type="button"
-          onClick={() => setListOpen((open) => !open)}
-          aria-expanded={listOpen}
-          className="flex w-full items-center justify-between px-5 py-3.5 text-[12.5px] text-shell-dim transition-colors hover:text-shell-ink sm:px-9"
-        >
-          <span>
-            {listOpen ? t("hideList") : t("showList")}
-            <span className="ml-2 text-shell-faint tabular-nums">
-              {tracks.length}
-            </span>
-          </span>
-          <span
-            className={[
-              "text-[10px] transition-transform",
-              listOpen ? "rotate-180" : "",
-            ].join(" ")}
-            aria-hidden
+      {/* 常驻那组（4 首肖邦）的可展开曲目清单——场景榜单已经被下面的 Chart 覆盖，
+          这里只留常驻这组，避免和 Chart 重复列同一批歌 */}
+      {group === RESIDENT && (
+        <div className="border-t border-line">
+          <button
+            type="button"
+            onClick={() => setListOpen((open) => !open)}
+            aria-expanded={listOpen}
+            className="flex w-full items-center justify-between py-3.5 text-[12.5px] text-muted transition-colors hover:text-ink"
           >
-            ▾
-          </span>
-        </button>
-
-        <AnimatePresence initial={false}>
-          {listOpen && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{
-                duration: reduced ? 0.01 : 0.34,
-                ease: [0.22, 0.61, 0.36, 1],
-              }}
-              className="overflow-hidden"
+            <span>
+              {listOpen ? t("hideList") : t("showList")}
+              <span className="ml-2 text-faint tabular-nums">
+                {tracks.length}
+              </span>
+            </span>
+            <span
+              className={[
+                "text-[10px] transition-transform",
+                listOpen ? "rotate-180" : "",
+              ].join(" ")}
+              aria-hidden
             >
-              <ul className="border-t border-shell-line">
-                {tracks.map((item, i) => {
-                  const on = i === player.index;
-                  const dead = Boolean(broken[item.id]);
-                  return (
-                    <li key={item.id}>
-                      <button
-                        type="button"
-                        onClick={() => player.goto(i)}
-                        disabled={dead}
-                        className={[
-                          "flex w-full items-baseline gap-3.5 border-b border-shell-line px-5 py-2.5 text-left transition-colors last:border-b-0 sm:px-9",
-                          dead
-                            ? "cursor-not-allowed text-shell-faint"
-                            : on
-                              ? "bg-[#151515] text-shell-ink"
-                              : "text-shell-muted hover:bg-[#111111] hover:text-shell-ink",
-                        ].join(" ")}
-                      >
-                        <span className="w-5 shrink-0 font-mono text-[11px] text-shell-faint tabular-nums">
-                          {on ? "▸" : String(i + 1).padStart(2, "0")}
-                        </span>
-                        <span className="grow truncate text-[13px]">
-                          {nameOf(item)}
-                          {dead && (
-                            <span className="ml-2 text-[10.5px] text-shell-faint">
-                              {t("unplayable")}
-                            </span>
-                          )}
-                        </span>
-                        <span className="hidden shrink-0 truncate text-[11.5px] text-shell-faint sm:block">
-                          {en ? item.artistEn : item.artist}
-                        </span>
-                        <span className="w-9 shrink-0 text-right font-mono text-[11px] text-shell-faint tabular-nums">
-                          {/* 这里给的是**整首歌**的长度（站内只放其中 30 秒，
-                              上面播放器那儿说得很清楚了）—— 清单说的是歌，不是片段 */}
-                          {clock(item.duration)}
-                        </span>
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+              ▾
+            </span>
+          </button>
+
+          <AnimatePresence initial={false}>
+            {listOpen && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{
+                  duration: reduced ? 0.01 : 0.34,
+                  ease: [0.22, 0.61, 0.36, 1],
+                }}
+                className="overflow-hidden"
+              >
+                <ul className="border-t border-line">
+                  {tracks.map((item, i) => {
+                    const on = i === player.index;
+                    const dead = Boolean(broken[item.id]);
+                    return (
+                      <li key={item.id}>
+                        <button
+                          type="button"
+                          onClick={() => player.goto(i)}
+                          disabled={dead}
+                          className={[
+                            "flex w-full items-baseline gap-3.5 border-b border-line py-2.5 text-left transition-colors last:border-b-0",
+                            dead
+                              ? "cursor-not-allowed text-faint"
+                              : on
+                                ? "bg-paper text-ink"
+                                : "text-muted hover:bg-paper hover:text-ink",
+                          ].join(" ")}
+                        >
+                          <span className="w-5 shrink-0 font-mono text-[11px] text-faint tabular-nums">
+                            {on ? "▸" : String(i + 1).padStart(2, "0")}
+                          </span>
+                          <span className="grow truncate text-[13px]">
+                            {nameOf(item)}
+                            {dead && (
+                              <span className="ml-2 text-[10.5px] text-faint">
+                                {t("unplayable")}
+                              </span>
+                            )}
+                          </span>
+                          <span className="hidden shrink-0 truncate text-[11.5px] text-faint sm:block">
+                            {en ? item.artistEn : item.artist}
+                          </span>
+                          <span className="w-9 shrink-0 text-right font-mono text-[11px] text-faint tabular-nums">
+                            {clock(item.duration)}
+                          </span>
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      )}
 
       {/* 出处 */}
-      <p className="relative border-t border-shell-line px-5 py-3.5 text-[11.5px] leading-[1.8] text-shell-faint sm:px-9">
-        {group === "resident"
+      <p className="border-t border-line pt-3.5 text-[11.5px] leading-[1.8] text-faint">
+        {group === RESIDENT
           ? t("residentCredit", { credit: library.residentCredit })
-          : t("neteaseNote")}
-        {group === "netease" && library.playlistUrl && (
-          <>
-            {" "}
-            <a
-              href={library.playlistUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="text-shell-dim underline decoration-shell-line-3 underline-offset-4 transition-colors hover:text-shell-ink"
-            >
-              {t("fullPlaylist")}
-            </a>
-          </>
-        )}
+          : t("chartNote")}
       </p>
     </section>
   );

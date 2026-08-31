@@ -213,8 +213,8 @@
   },
   "records": {
     "title": "Records",
-    "lead": "A turntable that really spins and really plays. The discs are this site's two libraries — wherever the needle sits is where the music is.",
-    "footnote": "The music keeps playing when you leave this page — a small card appears bottom-right to keep hold of it. “On repeat” plays 30 seconds per track; the resident set is public-domain and plays in full.",
+    "lead": "A quiet moment for music — slow down, and listen your way back to yourself.",
+    "footnote": "The music keeps playing when you leave this page — a small card appears bottom-right to keep hold of it. The mood playlist plays 30 seconds per track; the resident set is public-domain and plays in full.",
     "player": {
       "regionLabel": "Turntable",
       "nowPlaying": "Now playing",
@@ -226,28 +226,26 @@
       "volume": "Volume",
       "seek": "Record: click a groove to jump there — the outer edge is the start",
       "shelf": "Disc",
-      "groupNetease": "On repeat",
       "groupResident": "Resident",
       "showList": "Tracks on this disc",
       "hideList": "Hide tracks",
       "unplayable": "· unavailable",
       "hint": "Click any groove to jump there. With the record focused: space plays or pauses, arrow keys skip 5 seconds.",
       "residentCredit": "The resident disc: {credit} — self-hosted, it never goes dead.",
-      "neteaseNote": "“On repeat” comes from my NetEase playlist. Each track plays for 30 seconds here — the songs aren’t mine; hear them in full on the platform.",
-      "fullPlaylist": "Full playlist →",
+      "chartNote": "Tracks are drawn from a mood-based playlist, sourced from Apple Music's official previews.",
       "sideA": "SIDE A",
       "labelPreview": "PREVIEW 30s",
       "labelFull": "FULL LENGTH",
       "labelFoot": "{n, plural, one {# TRACK} other {# TRACKS}} · {mode}",
       "previewTag": "30-second preview",
-      "fullVersion": "Hear it in full on NetEase ↗",
+      "fullVersion": "Hear it in full on Apple Music ↗",
       "previewNote": "These are someone else’s songs, so this site plays 30 seconds of each and fades the last second and a half out on purpose — nothing is broken. Like what you hear? Go hear the rest on the platform."
     },
-    "wall": {
-      "title": "What I listen to",
-      "note": "covers link out",
-      "kindAlbum": "Album",
-      "kindArtist": "Artist"
+    "chart": {
+      "title": "Listen by Mood",
+      "note": "Click a row to load it onto the turntable",
+      "playRow": "Play",
+      "openPlatform": "Open in Apple Music ↗"
     }
   },
   "guestbook": {

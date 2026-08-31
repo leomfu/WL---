@@ -168,6 +168,34 @@ try {
   );
 }
 
+/**
+ * `desc`/`descEn`/`descDraft` 是站主（或代笔）手填的一句歌曲描述，不是从 iTunes 查来的，
+ * 重跑这个脚本会整份重写 chart.json，不额外处理的话手改的描述会被冲掉。
+ * 做法跟 fetch-netease.mjs 保留 previewStart 一样：先把旧文件读出来，按
+ * `场景 key + query`（query 就是 music-chart.txt 那一行原文，同一首歌重跑基本不变）
+ * 记一份，写新文件时按同样的 key 找回来贴上去。
+ */
+const keepDesc = new Map();
+if (fs.existsSync(OUT)) {
+  try {
+    const old = JSON.parse(await readFile(OUT, "utf8"));
+    for (const scene of old.scenes ?? []) {
+      for (const t of scene.tracks ?? []) {
+        if (t.desc || t.descEn) {
+          keepDesc.set(`${scene.key}::${t.query}`, {
+            desc: t.desc,
+            descEn: t.descEn,
+            descDraft: t.descDraft,
+          });
+        }
+      }
+    }
+  } catch {
+    // 旧文件读不出来就当没有，不阻塞这次生成
+  }
+}
+if (keepDesc.size) console.log(`保留 ${keepDesc.size} 条手填的歌曲描述\n`);
+
 const skipped = [];
 const outScenes = [];
 
@@ -207,6 +235,8 @@ for (const scene of scenes) {
       }
     }
 
+    const kept = keepDesc.get(`${scene.key}::${item.query}`);
+
     outTracks.push({
       query: item.query,
       title: best.trackName,
@@ -217,6 +247,7 @@ for (const scene of scenes) {
       platformUrl: best.trackViewUrl ?? null,
       durationMs: best.trackTimeMillis ?? null,
       placeholder: item.placeholder,
+      ...(kept ?? {}),
     });
 
     console.log(
@@ -241,6 +272,8 @@ await writeFile(
         "placeholder: true 的条目是代选（不是站主明确点名的歌），标了这个字段方便站主一眼看出哪些该删该换。",
       unverifiedNote:
         "previewUrl 指向 audio-ssl.itunes.apple.com。本机（挂着代理）实测直链可用（HTTP 200，约 1MB 的 audio/x-m4p），但没有条件验证大陆裸连能否直连这个域名——上线前建议站主自己在真实网络环境下测一次。某条没有 previewUrl 时页面应退化成只显示封面 + platformUrl 外链，不要假设「一定能播」。",
+      descNote:
+        "⚠️ desc/descEn 是 AI 代拟的初稿（每条都标了 descDraft: true），只依据编曲/乐器/节奏/公认情绪基调写的一句话，不涉及站主的私人感受——这是个人站，别人代写的感受不该冒充成站主自己的。站主应该把它们换成自己的话，写法和保留机制见 docs/如何加歌.md。",
       skipped,
       scenes: outScenes,
     },
