@@ -73,7 +73,7 @@ export function Notes({
             type="button"
             onClick={() => setListOpen((open) => !open)}
             aria-expanded={listOpen}
-            className="text-[12.5px] tracking-[0.08em] text-shell-dim transition-colors hover:text-shell-ink"
+            className="text-[12.5px] tracking-[0.08em] text-desk-dim transition-colors hover:text-desk-ink"
           >
             {t("stack", { n: notes.length })}
           </button>
@@ -83,7 +83,7 @@ export function Notes({
               create("memo");
               setListOpen(false);
             }}
-            className="text-[12.5px] tracking-[0.08em] text-shell-faint transition-colors hover:text-shell-ink"
+            className="text-[12.5px] tracking-[0.08em] text-desk-mute transition-colors hover:text-desk-ink"
           >
             {t("new")}
           </button>
@@ -102,11 +102,11 @@ export function Notes({
             transition={{ duration: reduced ? 0.01 : 0.3 }}
             className="overflow-hidden"
           >
-            <ul className="max-h-[168px] overflow-y-auto border-y border-shell-line-2">
+            <ul className="max-h-[168px] overflow-y-auto border-y border-desk-line-2">
               {notes.map((note, i) => (
                 <li key={note.id} className="group flex items-center">
                   <span
-                    className="w-6 shrink-0 text-center text-[10px] text-shell-faint select-none"
+                    className="w-6 shrink-0 text-center text-[10px] text-desk-mute select-none"
                     aria-hidden
                   >
                     {i % 5 === 0 ? "|" : "·"}
@@ -119,21 +119,21 @@ export function Notes({
                     }}
                     className="flex grow items-baseline gap-4 py-2.5 text-left"
                   >
-                    <span className="w-[4.6rem] shrink-0 text-[11px] text-shell-faint tabular-nums">
+                    <span className="w-[4.6rem] shrink-0 text-[11px] text-desk-mute tabular-nums">
                       {stampOf(note)}
                     </span>
                     <span
                       className={[
                         "grow truncate text-[13px] transition-colors",
                         note.id === current?.id
-                          ? "text-shell-ink"
-                          : "text-shell-dim group-hover:text-shell-ink",
+                          ? "text-desk-ink"
+                          : "text-desk-dim group-hover:text-desk-ink",
                       ].join(" ")}
                     >
                       {preview(note) || t("blank")}
                     </span>
                     {note.kind === "draft" && (
-                      <span className="shrink-0 text-[10px] tracking-[0.16em] text-shell-faint">
+                      <span className="shrink-0 text-[10px] tracking-[0.16em] text-desk-mute">
                         {t("kindDraft")}
                       </span>
                     )}
@@ -142,7 +142,7 @@ export function Notes({
                     type="button"
                     onClick={() => remove(note.id)}
                     aria-label={t("remove")}
-                    className="shrink-0 px-3 text-[13px] text-transparent transition-colors group-hover:text-shell-faint hover:!text-shell-ink"
+                    className="shrink-0 px-3 text-[13px] text-transparent transition-colors group-hover:text-desk-mute hover:!text-desk-ink"
                   >
                     ×
                   </button>
@@ -166,13 +166,13 @@ export function Notes({
         />
       ) : (
         <div className="flex flex-col items-center gap-5 py-16">
-          <p className="text-[13px] leading-[1.9] text-shell-dim">
+          <p className="text-[13px] leading-[1.9] text-desk-dim">
             {t("emptyLead")}
           </p>
           <button
             type="button"
             onClick={() => create("memo")}
-            className="border border-white/15 px-5 py-2.5 text-[12.5px] tracking-[0.08em] text-shell-dim transition-colors hover:border-white/35 hover:text-shell-ink"
+            className="border border-black/12 px-5 py-2.5 text-[12.5px] tracking-[0.08em] text-desk-dim transition-colors hover:border-black/25 hover:text-desk-ink"
           >
             {t("newFirst")}
           </button>
@@ -180,8 +180,8 @@ export function Notes({
       )}
 
       {/* 存在哪儿说清楚 + 导出全部。这两样是这个方案的必需品，不是装饰 */}
-      <div className="flex flex-col items-center gap-2.5 border-t border-shell-line-2 pt-5 sm:flex-row sm:justify-between">
-        <p className="max-w-[400px] text-[10.5px] leading-[1.8] text-shell-faint">
+      <div className="flex flex-col items-center gap-2.5 border-t border-desk-line-2 pt-5 sm:flex-row sm:justify-between">
+        <p className="max-w-[400px] text-[10.5px] leading-[1.8] text-desk-mute">
           {t("localOnly")}
         </p>
         {notes.length > 0 && (
@@ -189,7 +189,7 @@ export function Notes({
             <button
               type="button"
               onClick={() => copy(toBackup(notes), "all")}
-              className="text-[11.5px] tracking-[0.08em] text-shell-faint transition-colors hover:text-shell-ink"
+              className="text-[11.5px] tracking-[0.08em] text-desk-mute transition-colors hover:text-desk-ink"
             >
               {copied === "all" ? t("copied") : t("copyAll")}
             </button>
@@ -201,7 +201,7 @@ export function Notes({
                   `手记备份-${new Date().toLocaleDateString("sv-SE")}.md`,
                 )
               }
-              className="text-[11.5px] tracking-[0.08em] text-shell-faint transition-colors hover:text-shell-ink"
+              className="text-[11.5px] tracking-[0.08em] text-desk-mute transition-colors hover:text-desk-ink"
             >
               {t("exportAll")}
             </button>
@@ -241,9 +241,9 @@ function PomodoroTicker({
   if (!running) return null;
 
   return (
-    <span className="flex shrink-0 items-baseline gap-2 text-[10.5px] tracking-[0.16em] text-shell-faint">
+    <span className="flex shrink-0 items-baseline gap-2 text-[10.5px] tracking-[0.16em] text-desk-mute">
       {label}
-      <span ref={ref} className="font-mono tabular-nums text-shell-dim">
+      <span ref={ref} className="font-mono tabular-nums text-desk-dim">
         --:--
       </span>
     </span>
@@ -307,7 +307,7 @@ function Editor({
           onChange={(e) => setTitle(e.target.value)}
           placeholder={t("titlePlaceholder")}
           aria-label={t("titleLabel")}
-          className="w-full border-b border-shell-line-2 bg-transparent pb-3 font-serif text-[21px] font-light tracking-[0.02em] text-shell-ink outline-none placeholder:text-[#3E3E3E] focus:border-white/25 sm:text-[24px]"
+          className="w-full border-b border-desk-line-2 bg-transparent pb-3 font-serif text-[21px] font-light tracking-[0.02em] text-desk-ink outline-none placeholder:text-desk-placeholder focus:border-black/25 sm:text-[24px]"
         />
       )}
 
@@ -317,20 +317,20 @@ function Editor({
         placeholder={t("bodyPlaceholder")}
         aria-label={t("bodyLabel")}
         spellCheck={false}
-        className="min-h-[34vh] w-full resize-none bg-transparent font-serif text-[15px] leading-[1.95] text-shell-ink outline-none placeholder:text-[#3E3E3E]"
+        className="min-h-[34vh] w-full resize-none bg-transparent font-serif text-[15px] leading-[1.95] text-desk-ink outline-none placeholder:text-desk-placeholder"
       />
 
-      <div className="flex flex-col gap-4 border-t border-shell-line-2 pt-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-4 border-t border-desk-line-2 pt-4 sm:flex-row sm:items-center sm:justify-between">
         {/* 字数 · 读完要多久 —— 用时间衡量文字 */}
         <div className="flex items-center gap-5">
-          <span className="text-[11px] tracking-[0.08em] text-shell-faint tabular-nums">
+          <span className="text-[11px] tracking-[0.08em] text-desk-mute tabular-nums">
             {words > 0
               ? t("stats", { n: words, min: readingMinutes(body) })
               : t("statsEmpty")}
           </span>
 
           {/* 备忘 / 草稿 */}
-          <div className="flex items-stretch border border-white/12">
+          <div className="flex items-stretch border border-black/10">
             {(["memo", "draft"] as const).map((kind, i) => (
               <button
                 key={kind}
@@ -339,10 +339,10 @@ function Editor({
                 aria-pressed={note.kind === kind}
                 className={[
                   "px-3 py-1.5 text-[11.5px] tracking-[0.06em] transition-colors",
-                  i > 0 ? "border-l border-white/12" : "",
+                  i > 0 ? "border-l border-black/10" : "",
                   note.kind === kind
-                    ? "bg-white/[0.07] text-shell-ink"
-                    : "text-shell-dim hover:bg-white/[0.03] hover:text-shell-ink",
+                    ? "bg-black/[0.055] text-desk-ink"
+                    : "text-desk-dim hover:bg-black/[0.03] hover:text-desk-ink",
                 ].join(" ")}
               >
                 {t(kind === "memo" ? "kindMemo" : "kindDraft")}
@@ -354,21 +354,21 @@ function Editor({
         {/* 出口 —— 只有草稿才有。备忘就是备忘，不该有「发布」这种东西 */}
         {isDraft && (
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <label className="flex items-center gap-2 text-[10.5px] tracking-[0.1em] text-shell-faint">
+            <label className="flex items-center gap-2 text-[10.5px] tracking-[0.1em] text-desk-mute">
               {t("fileLabel")}
               <input
                 value={slug}
                 onChange={(e) => setSlug(e.target.value)}
                 aria-label={t("fileLabel")}
-                className="w-[8.5rem] border-b border-white/12 bg-transparent pb-0.5 text-center font-mono text-[11.5px] text-shell-dim outline-none focus:border-white/30 focus:text-shell-ink"
+                className="w-[8.5rem] border-b border-black/10 bg-transparent pb-0.5 text-center font-mono text-[11.5px] text-desk-dim outline-none focus:border-black/30 focus:text-desk-ink"
               />
-              <span className="text-shell-faint">.md</span>
+              <span className="text-desk-mute">.md</span>
             </label>
 
             <button
               type="button"
               onClick={() => onCopy(toMarkdown(edited), "md")}
-              className="text-[12px] tracking-[0.08em] text-shell-dim transition-colors hover:text-shell-ink"
+              className="text-[12px] tracking-[0.08em] text-desk-dim transition-colors hover:text-desk-ink"
             >
               {copied === "md" ? t("copied") : t("copyMd")}
             </button>
@@ -378,7 +378,7 @@ function Editor({
               onClick={() =>
                 onDownload(toMarkdown(edited), `${slug || "post"}.md`)
               }
-              className="text-[12px] tracking-[0.08em] text-shell-faint transition-colors hover:text-shell-ink"
+              className="text-[12px] tracking-[0.08em] text-desk-mute transition-colors hover:text-desk-ink"
             >
               {t("downloadMd")}
             </button>
@@ -392,7 +392,7 @@ function Editor({
                   window.open(githubBlankUrl(), "_blank", "noreferrer");
                 }}
                 title={t("tooLongHint")}
-                className="border border-white/15 px-4 py-2 text-[12px] tracking-[0.06em] text-shell-dim transition-colors hover:border-white/35 hover:text-shell-ink"
+                className="border border-black/12 px-4 py-2 text-[12px] tracking-[0.06em] text-desk-dim transition-colors hover:border-black/25 hover:text-desk-ink"
               >
                 {t("copyThenGithub")}
               </button>
@@ -401,7 +401,7 @@ function Editor({
                 href={link.url}
                 target="_blank"
                 rel="noreferrer"
-                className="border border-white/15 px-4 py-2 text-[12px] tracking-[0.06em] text-shell-dim transition-colors hover:border-white/35 hover:text-shell-ink"
+                className="border border-black/12 px-4 py-2 text-[12px] tracking-[0.06em] text-desk-dim transition-colors hover:border-black/25 hover:text-desk-ink"
               >
                 {t("toGithub")}
               </a>

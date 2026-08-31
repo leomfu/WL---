@@ -258,24 +258,6 @@
     "title": "Focus",
     "navCollapsed": "NAVIGATION COLLAPSED · MOVE LEFT OR PRESS ESC",
     "exit": "EXIT",
-    "scenes": {
-      "rain": {
-        "name": "Rainy Night",
-        "en": "RAINY NIGHT"
-      },
-      "waves": {
-        "name": "Waves",
-        "en": "WAVES"
-      },
-      "fire": {
-        "name": "Campfire",
-        "en": "CAMPFIRE"
-      },
-      "space": {
-        "name": "Deep Space",
-        "en": "DEEP SPACE"
-      }
-    },
     "tabPomodoro": "Pomodoro",
     "tabDepartures": "Departures",
     "departures": {
@@ -285,6 +267,7 @@
       "appNote": "If the web page won't open, use App at the end of the row — it hands off to the desktop app instead of the browser."
     },
     "pomodoro": {
+      "eyebrow": "FOCUS",
       "phase": {
         "focus": "Focus",
         "short": "Short break",
@@ -296,9 +279,9 @@
       "chimeOn": "Chime on",
       "chimeOff": "Chime off",
       "doneCount": "{n} done",
-      "note": "One full revolution is one session. The timer keeps running in the background — switch layers or tabs, it doesn't care.",
+      "note": "Click a number to change its length",
       "clearRound": "Click to clear",
-      "settings": "Lengths",
+      "settings": "More settings",
       "hideSettings": "Hide",
       "minutes": "min",
       "cycleLabel": "Long break every",
@@ -306,7 +289,6 @@
       "restoreDefault": "Restore defaults",
       "settingsNote": "Takes effect right away. A running session is never cut short — the new length starts with the next one."
     },
-    "sceneLabel": "Backdrop",
     "tabNotes": "Notes",
     "notes": {
       "stack": "Notes {n}",

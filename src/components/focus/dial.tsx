@@ -21,8 +21,18 @@ export type TickMark = {
   color: string;
 };
 
-/** 生成 60 道刻度。outer/inner 决定刻度从哪画到哪 */
-export function makeTicks(outer = RING_R, majorInset = 10, minorInset = 4) {
+/**
+ * 生成 60 道刻度。outer/inner 决定刻度从哪画到哪；majorColor/minorColor 留给
+ * 浅色纸面上的钟（专注区时刻表，见 Departures.tsx）覆盖成深色描边用，
+ * 不传就还是原来暗底钟面的浅色描边，其余调用点行为不变。
+ */
+export function makeTicks(
+  outer = RING_R,
+  majorInset = 10,
+  minorInset = 4,
+  majorColor = "rgba(237,237,237,0.5)",
+  minorColor = "rgba(237,237,237,0.16)",
+) {
   return Array.from({ length: 60 }, (_, i): TickMark => {
     const major = i % 5 === 0;
     const rad = (i * 6 * Math.PI) / 180;
@@ -34,7 +44,7 @@ export function makeTicks(outer = RING_R, majorInset = 10, minorInset = 4) {
       x2: C + Math.sin(rad) * inner,
       y2: C - Math.cos(rad) * inner,
       width: major ? 1.1 : 0.7,
-      color: major ? "rgba(237,237,237,0.5)" : "rgba(237,237,237,0.16)",
+      color: major ? majorColor : minorColor,
     };
   });
 }
@@ -60,19 +70,25 @@ export function TickMarks({ ticks = TICKS }: { ticks?: TickMark[] }) {
   );
 }
 
-/** 盘心那颗轴：深色圆 + 细描边 + 一点白 */
-export function Hub({ r = 4.6 }: { r?: number }) {
+/**
+ * 盘心那颗轴：深色圆 + 细描边 + 一点白（暗底钟面默认值）。
+ * 浅色纸面上的钟把三个颜色整体反过来传（见 Departures.tsx），其余调用点不传就不变。
+ */
+export function Hub({
+  r = 4.6,
+  ringFill = "#060606",
+  ringStroke = "rgba(237,237,237,0.28)",
+  centerFill = "#EDEDED",
+}: {
+  r?: number;
+  ringFill?: string;
+  ringStroke?: string;
+  centerFill?: string;
+}) {
   return (
     <>
-      <circle
-        cx={C}
-        cy={C}
-        r={r}
-        fill="#060606"
-        stroke="rgba(237,237,237,0.28)"
-        strokeWidth={0.7}
-      />
-      <circle cx={C} cy={C} r={r * 0.48} fill="#EDEDED" />
+      <circle cx={C} cy={C} r={r} fill={ringFill} stroke={ringStroke} strokeWidth={0.7} />
+      <circle cx={C} cy={C} r={r * 0.48} fill={centerFill} />
     </>
   );
 }

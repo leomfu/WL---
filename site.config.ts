@@ -143,17 +143,10 @@ export const siteConfig = {
     /** 番茄钟。分钟数，cycle = 做满几个专注换一次长休 */
     pomodoro: { focus: 25, short: 5, long: 15, cycle: 4 },
 
-    /**
-     * 背景场景 —— 放松区的底，四套纯 CSS 生成的画面（渐变 + 噪点 + 动画，不加载图片）。
-     * 原来这是「氛围」层，配了四段合成的环境音；声音在 2026-08-29 撤掉了，
-     * 画面留下来当全局背景，底部一排小字切换。场景名走 messages 的 focus.scenes（双语）。
-     */
-    scenes: [
-      { key: "rain" },
-      { key: "waves" },
-      { key: "fire" },
-      { key: "space" },
-    ],
+    /* 原来这里还有一个 `scenes` 数组（雨夜/海浪/篝火/深空四套纯 CSS 背景，
+       配 SceneBackdrop 组件当全屏背景、底部一排小字切换）。桌面隐喻定稿之后
+       （design-v2/Focus.dc.html）背景变成固定的中灰书桌渐变，不再需要可切换的
+       场景，2026-08-3x 连同 SceneBackdrop.tsx 一起删了，别再加回来。 */
   },
 
   /* --- 评论 / 留言板（阶段 3 用，需要 public 仓库 + 开 Discussions）--- */

@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { C, Hub, TickMarks, handPoints } from "./dial";
+import { C, Hub, makeTicks, RING_R, TickMarks, handPoints } from "./dial";
 import { siteConfig } from "~/site.config";
 
 /**
@@ -71,6 +71,12 @@ export function Departures({ reduced }: { reduced: boolean }) {
 
   const departures = siteConfig.focus.departures;
 
+  /* 现在钟坐在浅纸上，刻度和指针从「浅色描在暗底」整体反成「深色描在纸上」 */
+  const paperTicks = useMemo(
+    () => makeTicks(RING_R, 10, 4, "rgba(20,20,20,0.55)", "rgba(20,20,20,0.18)"),
+    [],
+  );
+
   return (
     <div className="flex w-full flex-col items-center gap-9">
       {/* 站台钟 */}
@@ -86,17 +92,17 @@ export function Departures({ reduced }: { reduced: boolean }) {
               cy={C}
               r={95}
               fill="none"
-              stroke="rgba(237,237,237,0.2)"
+              stroke="rgba(20,20,20,0.22)"
               strokeWidth={1}
               vectorEffect="non-scaling-stroke"
             />
-            <TickMarks />
+            <TickMarks ticks={paperTicks} />
 
             <g ref={hourRef} transform={`rotate(${IDLE.hour} ${C} ${C})`}>
-              <polygon points={handPoints(48, 1.6, 13)} fill="#EDEDED" opacity={0.9} />
+              <polygon points={handPoints(48, 1.6, 13)} fill="#141414" opacity={0.9} />
             </g>
             <g ref={minuteRef} transform={`rotate(${IDLE.minute} ${C} ${C})`}>
-              <polygon points={handPoints(72, 1.15, 15)} fill="#EDEDED" opacity={0.92} />
+              <polygon points={handPoints(72, 1.15, 15)} fill="#141414" opacity={0.92} />
             </g>
             {/* 减少动态效果时不显示秒针 —— 每 20 秒跳一下比不动更烦人 */}
             {!reduced && (
@@ -106,33 +112,33 @@ export function Departures({ reduced }: { reduced: boolean }) {
                   y1={C + 18}
                   x2={C}
                   y2={C - 80}
-                  stroke="rgba(237,237,237,0.45)"
+                  stroke="rgba(20,20,20,0.5)"
                   strokeWidth={0.7}
                   vectorEffect="non-scaling-stroke"
                 />
               </g>
             )}
-            <Hub r={3.6} />
+            <Hub r={3.6} ringFill="#eaeaea" ringStroke="rgba(20,20,20,0.32)" centerFill="#141414" />
           </svg>
         </div>
 
         <span
           ref={textRef}
-          className="font-mono text-[19px] tracking-[0.14em] text-shell-ink tabular-nums sm:text-[21px]"
+          className="font-mono text-[19px] tracking-[0.14em] text-desk-ink tabular-nums sm:text-[21px]"
         >
           --:--:--
         </span>
-        <span className="text-[10px] tracking-[0.26em] text-shell-faint uppercase">
+        <span className="text-[10px] tracking-[0.26em] text-desk-faint uppercase">
           {t("nowLabel")}
         </span>
       </div>
 
       {/* 时刻表本体 —— 一行一个去处，加去处就在 site.config 的 departures 里加一行 */}
-      <ul className="w-full max-w-[440px] border-t border-shell-line-2">
+      <ul className="w-full max-w-[440px] border-t border-desk-line-2">
         {departures.map((item) => (
           <li
             key={item.url}
-            className="group flex items-baseline border-b border-shell-line-2"
+            className="group flex items-baseline border-b border-desk-line-2"
           >
             <a
               href={item.url}
@@ -140,14 +146,14 @@ export function Departures({ reduced }: { reduced: boolean }) {
               rel="noreferrer"
               className="flex grow items-baseline gap-5 py-4 sm:gap-7"
             >
-              <span className="w-[4.6rem] shrink-0 text-[9.5px] tracking-[0.24em] text-shell-faint uppercase transition-colors group-hover:text-shell-dim sm:w-[5.4rem]">
+              <span className="w-[4.6rem] shrink-0 text-[9.5px] tracking-[0.24em] text-desk-mute uppercase transition-colors group-hover:text-desk-dim sm:w-[5.4rem]">
                 {en ? item.platformEn : item.platform}
               </span>
-              <span className="grow text-[15px] tracking-[0.04em] text-shell-dim transition-colors group-hover:text-shell-ink">
+              <span className="grow text-[15px] tracking-[0.04em] text-desk-dim transition-colors group-hover:text-desk-ink">
                 {en ? item.labelEn : item.label}
               </span>
               <span
-                className="shrink-0 text-[12px] text-shell-faint transition-all duration-300 group-hover:translate-x-[3px] group-hover:text-shell-ink"
+                className="shrink-0 text-[12px] text-desk-mute transition-all duration-300 group-hover:translate-x-[3px] group-hover:text-desk-ink"
                 aria-hidden
               >
                 ↗
@@ -158,7 +164,7 @@ export function Departures({ reduced }: { reduced: boolean }) {
             {"appUrl" in item && item.appUrl && (
               <a
                 href={item.appUrl}
-                className="shrink-0 py-4 pl-5 text-[10px] tracking-[0.16em] text-[#3E3E3E] uppercase transition-colors hover:text-shell-ink"
+                className="shrink-0 py-4 pl-5 text-[10px] tracking-[0.16em] text-desk-placeholder uppercase transition-colors hover:text-desk-ink"
               >
                 {t("openApp")}
               </a>
@@ -168,10 +174,10 @@ export function Departures({ reduced }: { reduced: boolean }) {
       </ul>
 
       <div className="flex flex-col items-center gap-1.5">
-        <p className="text-[11px] leading-[1.9] tracking-[0.06em] text-shell-faint">
+        <p className="text-[11px] leading-[1.9] tracking-[0.06em] text-desk-mute">
           {t("note")}
         </p>
-        <p className="max-w-[420px] text-center text-[10.5px] leading-[1.8] text-[#3E3E3E]">
+        <p className="max-w-[420px] text-center text-[10.5px] leading-[1.8] text-desk-placeholder">
           {t("appNote")}
         </p>
       </div>

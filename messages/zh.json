@@ -258,24 +258,6 @@
     "title": "专注",
     "navCollapsed": "导航已收起 · 鼠标移到左侧或按 ESC 退出",
     "exit": "退出沉浸",
-    "scenes": {
-      "rain": {
-        "name": "雨夜",
-        "en": "RAINY NIGHT"
-      },
-      "waves": {
-        "name": "海浪",
-        "en": "WAVES"
-      },
-      "fire": {
-        "name": "篝火",
-        "en": "CAMPFIRE"
-      },
-      "space": {
-        "name": "深空",
-        "en": "DEEP SPACE"
-      }
-    },
     "tabPomodoro": "番茄钟",
     "tabDepartures": "时刻表",
     "departures": {
@@ -285,6 +267,7 @@
       "appNote": "网页版打不开就点行尾的 App —— 代理的分流规则常常只放过网页而漏掉 Spotify，App 自己的连接是另一条路。"
     },
     "pomodoro": {
+      "eyebrow": "专注 · FOCUS",
       "phase": {
         "focus": "专注",
         "short": "短休",
@@ -296,9 +279,9 @@
       "chimeOn": "响铃 开",
       "chimeOff": "响铃 关",
       "doneCount": "已完成 {n}",
-      "note": "指针转满一圈就是这一段走完。计时在后台照走 —— 切去别的层、别的标签页都不影响。",
+      "note": "点数字可以自己改时长",
       "clearRound": "点一下清零",
-      "settings": "设置时长",
+      "settings": "更多设置",
       "hideSettings": "收起",
       "minutes": "分钟",
       "cycleLabel": "长休间隔",
@@ -306,7 +289,6 @@
       "restoreDefault": "恢复默认",
       "settingsNote": "改完立刻生效。正在跑的这一段不打断 —— 新时长从下一段开始算。"
     },
-    "sceneLabel": "背景",
     "tabNotes": "手记",
     "notes": {
       "stack": "便签 {n}",

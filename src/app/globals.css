@@ -27,6 +27,21 @@
   --color-shell-line-2: #262626;
   --color-shell-line-3: #333333;
 
+  /* --- 专注区：书桌上那张纸（浅色），design-v2/Focus.dc.html 定稿值 ---
+     和「暗侧」的 5 级灰阶（ink > muted > dim > faint > mute，离底色越远层级越高）
+     镜像过来，只是底色从近黑的 #0A0A0A 换成近白的纸 #EAEAEA，所以层级顺序反过来。
+     line/line-2/line-3 同理镜像 shell 那三级（离纸色越远、越显眼）。 */
+  --color-desk-paper: #eaeaea;
+  --color-desk-ink: #141414;
+  --color-desk-muted: #333333;
+  --color-desk-dim: #555555;
+  --color-desk-faint: #8a8a8a;
+  --color-desk-mute: #999999;
+  --color-desk-placeholder: #b8b8b8;
+  --color-desk-line: #dcdcdc;
+  --color-desk-line-2: #d3d3d3;
+  --color-desk-line-3: #cfcfcf;
+
   /* --- 彩色的唯一例外：工具页图标 hover --- */
   --color-brand-claude: #c15f3c;
 

@@ -4,21 +4,28 @@ import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useTranslations } from "next-intl";
 import { Departures } from "./Departures";
+import { DeskBackdrop } from "./DeskBackdrop";
+import { FocusPaper } from "./FocusPaper";
 import { FocusRail } from "./FocusRail";
 import { Notes } from "./Notes";
 import { PomodoroDial } from "./PomodoroDial";
-import { SceneBackdrop } from "./SceneBackdrop";
 import { usePomodoro } from "./usePomodoro";
-import { useStoredState } from "@/lib/useStoredState";
 import { siteConfig } from "~/site.config";
 
 /**
- * 专注区沉浸模式 —— 对照 docs/design/Lounge.dc.html（画板名还叫 Lounge，没改）。
+ * 专注区沉浸模式 —— 对照 design-v2/Focus.dc.html。
  *
  * 三层：
- *   番茄钟 一张钟面，指针走这一段专注/休息的时间，时长可以自己设
+ *   番茄钟 一行大字 + 一道进度线，走这一段专注/休息的时间，时长可以自己设
  *   手记   备忘和博客草稿共用一个写字面，存在 localStorage，导出走剪贴板 / GitHub 预填
  *   时刻表 不播放任何东西，只是「从这里去哪儿听」的外链
+ *
+ * ── 重做成「书桌」（2026-08-3x，站主看过画板拍板）──
+ * 不再以时间为主题：番茄钟的大表盘整个拿掉，页面变成一张写字台——中灰渐变桌面，
+ * 三层是摊在上面的纸，用纸夹标签切换（挪到纸的上沿，不再是页面最底部离操作区
+ * 四百多像素那种够不着的位置）。原来页面底部还有一排「换背景」的场景切换
+ * （雨夜/海浪/篝火/深空四套纯 CSS 背景），桌面定稿之后桌子只有一张，
+ * 不再需要可切换的场景，这排连同 SceneBackdrop 一起撤了，别再加回来。
  *
  * ── 音乐层去哪了（2026-08-30 撤掉，别再加回来）──
  * 原来第一层是站内直接播放的时间盘（MusicDial）。板块从「放松区」改名成「专注」之后，
@@ -27,10 +34,8 @@ import { siteConfig } from "~/site.config";
  * 时刻表因此更有用了：站内只剩 30 秒试听，「去哪儿听完整版」正是它的活儿。
  *
  * ── 氛围音去哪了（2026-08-29 撤掉，别再加回来）──
- * 更早还有一层「氛围」：四段自己用 ffmpeg 合成的环境音（雨/海浪/火/宇宙），
- * 外加一圈跟着实时音量呼吸的同心圆。声音整个撤了，
- * 但那四套**全屏背景画面**留了下来，下放成整个专注区的底 ——
- * 不管你在哪一层，背后都是那片雨或那片星空，底部一排小字随时换。
+ * 更早还有一层「氛围」：四段自己用 ffmpeg 合成的环境音（雨/海浪/火/宇宙）。
+ * 声音撤了之后画面留下来当过全局背景，现在连画面也随桌面隐喻一起退场了。
  */
 
 const TABS = ["pomodoro", "notes", "departures"] as const;
@@ -40,20 +45,10 @@ export function FocusStage() {
   const t = useTranslations("focus");
   const reduced = useReducedMotion() ?? false;
 
-  const scenes = siteConfig.focus.scenes;
-  /** 背景场景。localStorage 的 key 沿用原来氛围层那个，老用户上次选的场景不会丢 */
-  const [storedScene, setScene] = useStoredState(
-    "lounge-scene",
-    scenes[0]?.key ?? "",
-  );
-  const sceneKey = scenes.some((s) => s.key === storedScene)
-    ? storedScene
-    : (scenes[0]?.key ?? "");
-
   const [chosenTab, setTab] = useState<Tab>("pomodoro");
   const [railExpanded, setRailExpanded] = useState(false);
 
-  /** 番茄钟的状态放在这一层：切去音乐层、时刻表层，计时照走 */
+  /** 番茄钟的状态放在这一层：切去手记、时刻表层，计时照走 */
   const pomodoro = usePomodoro();
 
   const departures = siteConfig.focus.departures;
@@ -82,131 +77,85 @@ export function FocusStage() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
+  const labelFor = (key: Tab) =>
+    t(
+      key === "pomodoro"
+        ? "tabPomodoro"
+        : key === "notes"
+          ? "tabNotes"
+          : "tabDepartures",
+    );
+
   return (
-    <div className="relative flex h-dvh w-full overflow-hidden bg-shell text-shell-ink">
+    <div className="relative flex h-dvh w-full overflow-hidden text-desk-ink">
+      {/* 桌面背景铺满整个视口，包括图标条底下——图标条是压在桌面材质上的半透明黑，
+          不是自己一块底色，铺在内容列里会漏出 body 的浅灰，图标条就变成一条错误的浅灰带。 */}
+      <DeskBackdrop />
+
       {/* 鼠标移到最左边就展开导航。只留 12px：再宽会盖住图标条上的图标，点不动 */}
       <div
         className="absolute top-0 bottom-0 left-0 z-30 w-3"
         onMouseEnter={() => setRailExpanded(true)}
       />
-      <div className="flex h-full" onMouseLeave={() => setRailExpanded(false)}>
+      <div className="relative flex h-full" onMouseLeave={() => setRailExpanded(false)}>
         <FocusRail expanded={railExpanded} />
       </div>
 
       <div className="relative flex h-full grow flex-col overflow-hidden">
-        <SceneBackdrop sceneKey={sceneKey} reduced={reduced} />
-
         {/* 顶部弱提示 */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: reduced ? 0.01 : 1.2, delay: 0.4 }}
-          className="relative z-10 shrink-0 pt-11 text-center text-[10.5px] tracking-(--tracking-label) text-[#4A4A4A]"
+          className="relative z-10 shrink-0 pt-11 text-center text-[10.5px] tracking-(--tracking-label) text-[rgba(237,237,237,0.28)]"
         >
           {t("navCollapsed")}
         </motion.div>
 
-        {/* 画面中心。番茄钟展开设置后会变高，所以这一格自己能滚 */}
-        <div className="relative z-10 flex grow items-center justify-center overflow-y-auto px-6 py-6">
-          <AnimatePresence mode="wait">
-            {tab === "pomodoro" && (
-              <motion.div
-                key="pomodoro"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: reduced ? 0.01 : 0.5 }}
-                className="w-full max-w-[560px]"
-              >
-                <PomodoroDial pomodoro={pomodoro} reduced={reduced} />
-              </motion.div>
-            )}
-
-            {tab === "notes" && (
-              <motion.div
-                key="notes"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: reduced ? 0.01 : 0.5 }}
-                className="w-full max-w-[760px]"
-              >
-                <Notes pomodoro={pomodoro} reduced={reduced} />
-              </motion.div>
-            )}
-
-            {tab === "departures" && (
-              <motion.div
-                key="departures"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: reduced ? 0.01 : 0.5 }}
-                className="w-full max-w-[560px]"
-              >
-                <Departures reduced={reduced} />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-
-        {/* 底部控制区 */}
-        <div className="relative z-10 flex shrink-0 flex-col items-center gap-5 px-6 pb-9 sm:pb-12">
-          {/* 三个标签 */}
-          <div className="flex items-center gap-8 text-[13px] tracking-[0.1em] sm:gap-[34px]">
-            {tabs.map((key) => {
-              const active = tab === key;
-              return (
-                <button
-                  key={key}
-                  type="button"
-                  onClick={() => setTab(key)}
-                  aria-pressed={active}
-                  className={
-                    active
-                      ? "border-b border-shell-ink pb-1.5 text-shell-ink"
-                      : "border-b border-transparent pb-1.5 text-shell-faint transition-colors hover:text-shell-dim"
-                  }
+        {/* 桌上那份纸。番茄钟展开设置后会变高，所以这一格自己能滚 */}
+        <div className="relative z-10 flex grow items-center justify-center overflow-y-auto px-4 py-8 sm:px-6">
+          <FocusPaper tabs={tabs} active={tab} onSelect={setTab} labelFor={labelFor}>
+            <AnimatePresence mode="wait">
+              {tab === "pomodoro" && (
+                <motion.div
+                  key="pomodoro"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: reduced ? 0.01 : 0.5 }}
                 >
-                  {t(
-                    key === "pomodoro"
-                      ? "tabPomodoro"
-                      : key === "notes"
-                        ? "tabNotes"
-                        : "tabDepartures",
-                  )}
-                </button>
-              );
-            })}
-          </div>
+                  <PomodoroDial pomodoro={pomodoro} reduced={reduced} />
+                </motion.div>
+              )}
 
-          {/* 换背景 —— 不属于任何一层，三层通用，所以做得比标签更轻 */}
-          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:gap-x-5">
-            <span className="text-[9.5px] tracking-[0.24em] text-[#3E3E3E] uppercase">
-              {t("sceneLabel")}
-            </span>
-            {scenes.map((item) => {
-              const active = item.key === sceneKey;
-              return (
-                <button
-                  key={item.key}
-                  type="button"
-                  onClick={() => setScene(item.key)}
-                  aria-pressed={active}
-                  className={[
-                    "text-[11.5px] tracking-[0.08em] transition-colors",
-                    active
-                      ? "text-shell-dim"
-                      : "text-[#3E3E3E] hover:text-shell-dim",
-                  ].join(" ")}
+              {tab === "notes" && (
+                <motion.div
+                  key="notes"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: reduced ? 0.01 : 0.5 }}
                 >
-                  {t(`scenes.${item.key}.name`)}
-                </button>
-              );
-            })}
-          </div>
+                  <Notes pomodoro={pomodoro} reduced={reduced} />
+                </motion.div>
+              )}
+
+              {tab === "departures" && (
+                <motion.div
+                  key="departures"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: reduced ? 0.01 : 0.5 }}
+                >
+                  <Departures reduced={reduced} />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </FocusPaper>
         </div>
       </div>
     </div>
   );
 }
+
