@@ -1,5 +1,6 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { NewsTabs } from "@/components/news/NewsTabs";
+import { ListRow, ListRowGroup } from "@/components/ui/ListRow";
 import {
   ContentFooter,
   FootNote,
@@ -122,35 +123,25 @@ export default async function NewsPage({
                   {t("empty")}
                 </p>
               ) : (
-                <div className="mt-6 flex flex-col gap-7">
+                <div className="mt-6 flex flex-col gap-8">
                   {groupByDate(news.world.items).map(([date, items]) => (
                     <section key={date}>
-                      <h3 className="flex items-baseline gap-3 text-[12px] tracking-[0.14em] text-faint">
+                      <h3 className="flex items-baseline gap-3 pb-3 text-[12px] tracking-[0.14em] text-faint">
                         {dateLabel(date)}
                         <span className="h-px grow bg-line" aria-hidden />
                       </h3>
-                      <ul className="mt-2">
-                        {items.map((item) => (
-                          <li
+                      <ListRowGroup>
+                        {items.map((item, i) => (
+                          <ListRow
                             key={item.url}
-                            className="border-b border-line last:border-b-0"
-                          >
-                            <a
-                              href={item.url}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="group flex flex-col gap-1 py-3 sm:flex-row sm:items-baseline sm:gap-4"
-                            >
-                              <span className="w-[5.5rem] shrink-0 text-[12px] text-faint">
-                                {en ? item.sourceEn : item.source}
-                              </span>
-                              <span className="grow text-[14.5px] leading-[1.7] text-ink transition-colors group-hover:text-muted">
-                                {item.title}
-                              </span>
-                            </a>
-                          </li>
+                            href={item.url}
+                            external
+                            last={i === items.length - 1}
+                            left={en ? item.sourceEn : item.source}
+                            title={item.title}
+                          />
                         ))}
-                      </ul>
+                      </ListRowGroup>
                     </section>
                   ))}
                 </div>
@@ -213,31 +204,27 @@ export default async function NewsPage({
                   <p className="text-[12.5px] tracking-[0.02em] text-faint">
                     {t("restLead")}
                   </p>
-                  <ul className="mt-3">
-                    {restOfAi.map((item) => (
-                      <li
+                  <div className="card-face mt-3 flex flex-col">
+                    {restOfAi.map((item, i) => (
+                      <a
                         key={item.url}
-                        className="border-b border-line last:border-b-0"
+                        href={item.url}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        className={`group flex flex-col gap-1 px-5 py-3 transition-colors hover:bg-paper sm:flex-row sm:items-baseline sm:gap-4 sm:px-6 ${
+                          i === restOfAi.length - 1 ? "" : "border-b border-line-soft"
+                        }`}
                       >
-                        <a
-                          href={item.url}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="group flex flex-col gap-1 py-2.5 sm:flex-row sm:items-baseline sm:gap-4"
-                        >
-                          <span className="w-[7rem] shrink-0 text-[12px] text-faint">
-                            {en ? item.sourceEn : item.source}
-                          </span>
-                          <span className="grow text-[13.5px] leading-[1.7] text-muted transition-colors group-hover:text-ink">
-                            {item.title}
-                          </span>
-                          <span className="shrink-0 text-[11.5px] text-faint">
-                            {item.date}
-                          </span>
-                        </a>
-                      </li>
+                        <span className="w-[7rem] shrink-0 text-[12px] text-faint">
+                          {en ? item.sourceEn : item.source}
+                        </span>
+                        <span className="grow text-[13.5px] leading-[1.7] text-muted transition-colors group-hover:text-ink">
+                          {item.title}
+                        </span>
+                        <span className="shrink-0 text-[11.5px] text-faint">{item.date}</span>
+                      </a>
                     ))}
-                  </ul>
+                  </div>
                 </div>
               )}
 

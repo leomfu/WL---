@@ -106,11 +106,11 @@
     "backToHome": "回首页"
   },
   "home": {
+    "eyebrow": "首页 / HOME",
+    "aboutLabel": "关于 / ABOUT",
     "nowTitle": "现在是",
-    "buildingTitle": "我在做的",
-    "projectSeparator": " —— ",
-    "stackSuffix": "。",
-    "writingTitle": "我写的",
+    "buildingTitle": "在做的",
+    "writingTitle": "最近写的",
     "moreProjects": "更早的东西都在 <link>项目页</link> 里。",
     "morePosts": "更多文章在 <link>写字的地方</link>。",
     "noPosts": "还没有文章 —— 第一篇很快就写。",

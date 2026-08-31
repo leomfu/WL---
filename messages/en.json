@@ -106,11 +106,11 @@
     "backToHome": "Back home"
   },
   "home": {
+    "eyebrow": "HOME",
+    "aboutLabel": "ABOUT",
     "nowTitle": "Right now",
-    "buildingTitle": "What I'm building",
-    "projectSeparator": " · ",
-    "stackSuffix": ".",
-    "writingTitle": "What I've written",
+    "buildingTitle": "Building",
+    "writingTitle": "Recently written",
     "moreProjects": "Older things live on the <link>projects page</link>.",
     "morePosts": "More of it under <link>writing</link>.",
     "noPosts": "No posts yet — the first one is coming.",

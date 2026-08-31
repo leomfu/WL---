@@ -5,6 +5,8 @@
  * 默认单层（screen 混合）。开场页画板要求叠两层不同频率的颗粒才不像电子噪点
  * （见 design-v2/Main.dc.html）——`numOctaves`/`blend` 就是留给那层用的可调参数，
  * 其余调用点（放松区背景等）不传就还是原来的单层 screen 效果，行为不变。
+ * `blend="multiply"` 是亮色内容区的纸张颗粒用的（design-v2/Home.dc.html §纹层）——
+ * screen/overlay 会把底色提亮，在浅灰渐变上会发灰变脏，multiply 只压暗不提亮。
  */
 export function Grain({
   id,
@@ -17,7 +19,7 @@ export function Grain({
   opacity?: number;
   baseFrequency?: number;
   numOctaves?: number;
-  blend?: "screen" | "overlay";
+  blend?: "screen" | "overlay" | "multiply";
 }) {
   return (
     <svg
@@ -33,6 +35,9 @@ export function Grain({
           numOctaves={numOctaves}
           stitchTiles="stitch"
         />
+        {/* feTurbulence 默认输出彩色噪点（RGB 各自随机），去饱和成灰阶噪点，
+            不然叠上去会在黑白页面上留极淡的彩色麻点，违反「全站只用黑白灰」 */}
+        <feColorMatrix type="saturate" values="0" />
       </filter>
       <rect width="100%" height="100%" filter={`url(#${id})`} />
     </svg>

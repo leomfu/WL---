@@ -9,7 +9,9 @@
     "link": "",
     "repo": "",
     "featured": true,
-    "year": "2026"
+    "year": "2026",
+    "status": "进行中",
+    "status_en": "In progress"
   },
   {
     "slug": "claude-anki",
@@ -21,7 +23,9 @@
     "link": "",
     "repo": "https://github.com/leomfu/claude-Anki",
     "featured": true,
-    "year": "2026"
+    "year": "2026",
+    "status": "在用",
+    "status_en": "In use"
   },
   {
     "slug": "personal-site",
@@ -33,6 +37,8 @@
     "link": "",
     "repo": "https://github.com/leomfu/WL---",
     "featured": true,
-    "year": "2026"
+    "year": "2026",
+    "status": "在线",
+    "status_en": "Live"
   }
 ]

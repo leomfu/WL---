@@ -5,10 +5,13 @@ import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import type { Video } from "@/lib/types";
 import { localized, shortDate } from "@/lib/format";
+import { MediaCard } from "@/components/ui/MediaCard";
 
 /**
  * 视频卡片：默认只画封面（没有 cover 就是黑白占位画面），点了才真的插入 iframe。
  * 这样一页放十条视频也不会一次性拉十个播放器（PLAN.md §4「懒加载」）。
+ * 外壳换成通用的 MediaCard（对照 design-v2/ContentTemplate.dc.html §③「图片卡」），
+ * 播放按钮、懒加载 iframe 这些交互原样搬进 `media` 插槽，逻辑没有变。
  */
 export function VideoCard({ video }: { video: Video }) {
   const t = useTranslations("videos");
@@ -28,21 +31,20 @@ export function VideoCard({ video }: { video: Video }) {
       ? `https://www.bilibili.com/video/${video.id}`
       : `https://www.youtube.com/watch?v=${video.id}`;
 
-  return (
-    <article className="flex flex-col gap-4 border border-line bg-card p-4 sm:p-5">
-      <div className="relative aspect-video w-full overflow-hidden bg-shell">
-        {loaded ? (
-          <iframe
-            src={embed}
-            title={title}
-            loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture; fullscreen"
-            allowFullScreen
-            referrerPolicy="strict-origin-when-cross-origin"
-            className="absolute inset-0 h-full w-full border-0"
-          />
-        ) : (
-          <button
+  const media = (
+    <div className="absolute inset-0 bg-shell">
+      {loaded ? (
+        <iframe
+          src={embed}
+          title={title}
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture; fullscreen"
+          allowFullScreen
+          referrerPolicy="strict-origin-when-cross-origin"
+          className="absolute inset-0 h-full w-full border-0"
+        />
+      ) : (
+        <button
             type="button"
             onClick={() => setLoaded(true)}
             aria-label={`${t("load")} — ${title}`}
@@ -101,25 +103,28 @@ export function VideoCard({ video }: { video: Video }) {
             </span>
           </button>
         )}
-      </div>
+    </div>
+  );
 
-      <div className="flex flex-col gap-2">
-        <div className="flex items-baseline justify-between gap-4">
-          <h2 className="text-[16.5px] text-ink">{title}</h2>
-          <span className="shrink-0 text-[12.5px] whitespace-nowrap text-faint">
-            {shortDate(video.date, locale)}
-          </span>
-        </div>
-        <p className="text-sm leading-[1.75] text-muted">{desc}</p>
-        <a
-          href={pageUrl}
-          target="_blank"
-          rel="noreferrer noopener"
-          className="self-start text-[12.5px] text-faint transition-colors hover:text-ink"
-        >
-          {video.platform === "bilibili" ? t("onBilibili") : t("onYoutube")} ↗
-        </a>
-      </div>
+  return (
+    <article>
+      <MediaCard
+        aspect="16 / 9"
+        media={media}
+        title={title}
+        meta={shortDate(video.date, locale)}
+        desc={desc}
+        footer={
+          <a
+            href={pageUrl}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="self-start text-[12.5px] text-faint transition-colors hover:text-ink"
+          >
+            {video.platform === "bilibili" ? t("onBilibili") : t("onYoutube")} ↗
+          </a>
+        }
+      />
     </article>
   );
 }

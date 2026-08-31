@@ -1,6 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { MediaCard } from "@/components/ui/MediaCard";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Reveal } from "@/components/ui/Reveal";
 import { localized } from "@/lib/format";
@@ -57,24 +57,22 @@ export default async function PhotosPage({
         </Reveal>
       )}
 
-      {/* ---------------- 专题 ---------------- */}
+      {/* ---------------- 专题：图片卡（对照 design-v2/ContentTemplate.dc.html §③）---------------- */}
       {features.length > 0 && (
         <Reveal delay={120} className="mt-12">
           <SectionLabel label={t("feature")} note={t("featureNote")} />
-          <div className="mt-6 flex flex-col gap-11">
+          <div className="mt-6 flex flex-col gap-6">
             {features.map((album) => {
               const cover = album.photos[0];
               const title = localized(locale, album.title, album.titleEn);
               const summary = localized(locale, album.summary ?? "", album.summaryEn);
 
               return (
-                <Link
+                <MediaCard
                   key={album.slug}
                   href={localePath(locale, `/photos/${album.slug}`)}
-                  className="group flex flex-col gap-4"
-                >
-                  {cover && (
-                    <div className="relative aspect-[3/2] w-full overflow-hidden bg-line">
+                  media={
+                    cover && (
                       <Image
                         src={cover.src}
                         alt={title}
@@ -82,20 +80,14 @@ export default async function PhotosPage({
                         height={cover.height}
                         loading="lazy"
                         sizes="(max-width: 768px) 100vw, 700px"
-                        className="size-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.02]"
+                        className="absolute inset-0 size-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.02]"
                       />
-                    </div>
-                  )}
-                  <div className="flex flex-col gap-2">
-                    <span className="text-[17px] text-ink decoration-line-strong underline-offset-[6px] group-hover:underline">
-                      {title}
-                    </span>
-                    <span className="text-[12.5px] text-faint">{metaLine(album)}</span>
-                    {summary && (
-                      <span className="mt-0.5 text-sm leading-[1.75] text-muted">{summary}</span>
-                    )}
-                  </div>
-                </Link>
+                    )
+                  }
+                  title={title}
+                  meta={metaLine(album)}
+                  desc={summary || undefined}
+                />
               );
             })}
           </div>
@@ -118,19 +110,40 @@ export default async function PhotosPage({
                   </span>
                 </div>
 
-                <div className="flex flex-col">
-                  {list.map((album) => (
-                    <Link
-                      key={album.slug}
-                      href={localePath(locale, `/photos/${album.slug}`)}
-                      className="group flex flex-col gap-1.5 border-b border-line py-[18px] sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
-                    >
-                      <span className="text-[15.5px] text-ink transition-colors group-hover:text-muted">
-                        {localized(locale, album.title, album.titleEn)}
-                      </span>
-                      <span className="shrink-0 text-[12.5px] text-faint">{metaLine(album)}</span>
-                    </Link>
-                  ))}
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                  {list.map((album) => {
+                    const cover = album.photos[0];
+                    const title = localized(locale, album.title, album.titleEn);
+                    return (
+                      <MediaCard
+                        key={album.slug}
+                        href={localePath(locale, `/photos/${album.slug}`)}
+                        media={
+                          cover && (
+                            <Image
+                              src={cover.thumb}
+                              alt={title}
+                              width={cover.width}
+                              height={cover.height}
+                              loading="lazy"
+                              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                              className="absolute inset-0 size-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.02]"
+                            />
+                          )
+                        }
+                        title={title}
+                        meta={t("frames", { count: album.photos.length })}
+                        desc={
+                          [
+                            localized(locale, album.location ?? "", album.locationEn),
+                            albumDates(album.date, album.dateEnd),
+                          ]
+                            .filter(Boolean)
+                            .join(" · ") || undefined
+                        }
+                      />
+                    );
+                  })}
                 </div>
               </div>
             ))}

@@ -11,6 +11,7 @@
   --color-muted: #666666;      /* 次要文字 */
   --color-faint: #999999;      /* 日期、标签、占位 */
   --color-line: #e5e5e5;       /* 分割线、描边 */
+  --color-line-soft: #f0f0f0;  /* 白卡面内部的行间分隔线，比 --color-line 更轻一档 */
   --color-line-strong: #c9c9c9;/* 正文链接下划线 */
   --color-card: #ffffff;
   --color-paper: #fafafa;
@@ -108,6 +109,24 @@
     rgba(237, 237, 237, 0.55) 78%,
     rgba(237, 237, 237, 0) 100%
   );
+}
+
+/* 内容页「面」层：白卡面容器（对照 design-v2/ContentTemplate.dc.html ①）——
+   列表行、图片卡这些组件的白底，1px 灰边 + 极轻投影，把内容从渐变底上托起来。 */
+@utility card-face {
+  background: var(--color-card);
+  border: 1px solid var(--color-line);
+  box-shadow: 0 1px 2px rgba(17, 17, 17, 0.03);
+}
+
+/* 内容页「零件」：小标签 + 1px 灰边 + padding（对照 ContentTemplate ④「带框标签」） */
+@utility tag-framed {
+  border: 1px solid var(--color-line);
+  padding: 4px 9px;
+  font-size: 10.5px;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-faint);
 }
 
 /* 正文内联链接：细灰底线，hover 变深 */
@@ -232,6 +251,17 @@
 /* 首页「现在是」这类短板块，段间距收紧一点（画板是 16px） */
 .prose-tight > * + * {
   margin-top: 16px;
+}
+
+/* 首页块 B「关于」：比默认 .prose-bw（16px/1.9）再收紧一档，
+   密度要明显低于块 A 的大字引言（design-v2/Home.dc.html 定稿值） */
+.prose-about {
+  font-size: 15.5px;
+  line-height: 1.85;
+}
+
+.prose-about > * + * {
+  margin-top: 15px;
 }
 
 .prose-bw h2 {

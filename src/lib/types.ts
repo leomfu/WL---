@@ -16,6 +16,9 @@ export type Project = {
   repo?: string;
   featured?: boolean;
   year?: string;
+  /** 首页「在做的」清单右侧的状态小标签（"在用"/"在线"/"进行中"），design-v2/Home.dc.html 新增字段 */
+  status?: string;
+  status_en?: string;
 };
 
 export type Video = {

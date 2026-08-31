@@ -1,16 +1,18 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
+import { ListRow, ListRowGroup } from "@/components/ui/ListRow";
 import { localized, shortDate, yearOf } from "@/lib/format";
 import { localePath } from "@/lib/nav";
 import type { PostType } from "@/lib/types";
 
 /**
- * 文章列表 —— 对照 docs/design/BlogContact.dc.html 上半「写字的地方」。
+ * 文章列表 —— 对照 design-v2/ContentTemplate.dc.html §②「列表行」。
  * 全部/博客/长文/想法 四个筛选是纯前端的（文章总量不大，构建时全给到客户端）。
- * 年份变化时插一条分隔行，长列表才不会失去时间感。
+ * 同一年份的连续几条揉进一张白卡（ListRowGroup），年份变化时在卡外插一条分隔行——
+ * 年份标签本来就不是一条内容，不该挤进卡里。第一组前面不出现年份标签
+ * （紧跟在筛选栏下面，时间线足够清楚），这是原实现就有的行为，这次没改。
  */
 
 export type PostCard = {
@@ -38,16 +40,17 @@ export function BlogList({ posts }: { posts: PostCard[] }) {
     [filter, posts],
   );
 
-  /** 年份分隔行：跟上一条比一下就知道该不该插，别在渲染里改外部变量 */
-  const rows = useMemo(
-    () =>
-      visible.map((post, i) => ({
-        post,
-        year: yearOf(post.date),
-        showYear: i > 0 && yearOf(post.date) !== yearOf(visible[i - 1].date),
-      })),
-    [visible],
-  );
+  /** 按年份把连续的条目揉成一组，好各自塞进一张白卡 */
+  const groups = useMemo(() => {
+    const list: { year: string; items: PostCard[] }[] = [];
+    for (const post of visible) {
+      const year = yearOf(post.date);
+      const current = list[list.length - 1];
+      if (current && current.year === year) current.items.push(post);
+      else list.push({ year, items: [post] });
+    }
+    return list;
+  }, [visible]);
 
   return (
     <>
@@ -77,53 +80,47 @@ export function BlogList({ posts }: { posts: PostCard[] }) {
       </div>
 
       {/* 条目 */}
-      <div className="mt-2 flex flex-col">
+      <div className="mt-6 flex flex-col gap-8">
         {visible.length === 0 && (
           <p className="py-10 text-base leading-[1.9] text-muted">{t("empty")}</p>
         )}
 
-        {rows.map(({ post, year, showYear }, i) => {
-          return (
-            <div key={post.slug}>
-              {showYear && (
-                <div className="flex items-center gap-[30px] pt-8 pb-2">
-                  <span className="w-[86px] shrink-0 text-[11px] tracking-(--tracking-label) text-faint">
-                    {year}
-                  </span>
-                  <span className="h-px grow border-t border-dashed border-[#D8D8D8]" />
-                </div>
-              )}
+        {groups.map(({ year, items }, gi) => (
+          <div key={year + gi}>
+            {gi > 0 && (
+              <div className="flex items-center gap-[30px] pb-3">
+                <span className="w-[86px] shrink-0 text-[11px] tracking-(--tracking-label) text-faint">
+                  {year}
+                </span>
+                <span className="h-px grow border-t border-dashed border-[#D8D8D8]" />
+              </div>
+            )}
 
-              <Link
-                href={localePath(locale, `/blog/${post.slug}`)}
-                className={`group flex flex-col gap-2.5 py-[25px] sm:flex-row sm:gap-[30px] ${
-                  i === rows.length - 1 ? "" : "border-b border-line"
-                }`}
-              >
-                <span className="w-[86px] shrink-0 pt-1 text-[12.5px] whitespace-nowrap text-faint">
-                  {shortDate(post.date, locale)}
-                </span>
-                <span className="flex flex-col gap-[9px]">
-                  <span className="self-start border-b border-transparent pb-0.5 text-[17px] text-ink transition-colors group-hover:border-ink">
-                    {localized(locale, post.title, post.title_en)}
-                  </span>
-                  <span className="text-sm leading-[1.75] text-muted">
-                    {localized(locale, post.summary, post.summary_en)}
-                  </span>
-                  <span className="flex flex-wrap items-center gap-2.5 text-[10.5px] tracking-[0.1em] text-faint">
-                    <span className="border border-line px-1.5 py-0.5">{tType(post.type)}</span>
-                    {post.tags.map((tag) => (
-                      <span key={tag} className="border border-line px-1.5 py-0.5">
-                        {tag}
-                      </span>
-                    ))}
-                    <span>{t("minutes", { minutes: post.minutes })}</span>
-                  </span>
-                </span>
-              </Link>
-            </div>
-          );
-        })}
+            <ListRowGroup>
+              {items.map((post, i) => (
+                <ListRow
+                  key={post.slug}
+                  href={localePath(locale, `/blog/${post.slug}`)}
+                  last={i === items.length - 1}
+                  left={shortDate(post.date, locale)}
+                  title={localized(locale, post.title, post.title_en)}
+                  desc={localized(locale, post.summary, post.summary_en)}
+                  footer={
+                    <span className="flex flex-wrap items-center gap-2.5 text-[10.5px] tracking-[0.1em] text-faint">
+                      <span className="tag-framed">{tType(post.type)}</span>
+                      {post.tags.map((tag) => (
+                        <span key={tag} className="tag-framed">
+                          {tag}
+                        </span>
+                      ))}
+                      <span>{t("minutes", { minutes: post.minutes })}</span>
+                    </span>
+                  }
+                />
+              ))}
+            </ListRowGroup>
+          </div>
+        ))}
       </div>
     </>
   );

@@ -30,7 +30,13 @@ export async function generateMetadata({
   return pageMetadata(locale, "home", "/home");
 }
 
-/** 首页 —— 对照 docs/design/Main.dc.html 右侧内容区 */
+/**
+ * 首页 —— 对照 design-v2/Home.dc.html。四块层层收紧的密度，节奏全靠排版：
+ * A 引言（整页最重，一句站主自己写的话）→ B 关于（收紧）→ C 在做的（编号清单）
+ * → D 最近写的（最紧凑，日期领读）。原来单独的"现在是"板块已并入 C 的日期注记
+ * （复用 content/now/*.md 的 updated 字段），不再单列一段——它的文字内容和
+ * "在做的"高度重叠，见 docs/进度.md 这一轮的说明。
+ */
 export default async function HomePage({
   params,
 }: {
@@ -39,133 +45,139 @@ export default async function HomePage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("home");
-  const tType = await getTranslations("blog.types");
 
   const name = locale === "en" ? siteConfig.nameEn : siteConfig.name;
   const intro = await renderMarkdown(getHomeIntro(locale).body, locale);
   const now = getNow(locale);
-  const nowHtml = await renderMarkdown(now.body, locale);
   const featured = getProjects().filter((p) => p.featured).slice(0, 3);
   const posts = getPosts().slice(0, 4);
 
+  /** 块 A 的引言：站主自己在自我介绍里写的那句话，中英各取原文对应的一句 */
+  const quote =
+    locale === "en"
+      ? "Knowing how to use AI isn't the hard part. Knowing whether what it gives you is actually right is."
+      : "我不觉得会用 AI 是什么本事，真正难的是判断它给的东西对不对。";
+
   return (
     <>
-      {/* 名字：细衬线大字 */}
+      {/* 块 A · 引言：整页最重的一块 */}
       <Reveal>
-        <h1 className="font-serif text-[34px] leading-[1.3] font-light tracking-[-0.01em] text-ink sm:text-[46px]">
-          {name}
+        <span className="block text-[10.5px] tracking-(--tracking-eyebrow) text-faint uppercase">
+          {t("eyebrow")}
+        </span>
+        <h1 className="mt-[22px] font-serif text-[26px] leading-[1.55] font-light tracking-[-0.01em] text-ink [text-wrap:pretty] sm:text-[34px]">
+          {quote}
         </h1>
       </Reveal>
 
-      {/* 自我介绍两段（content/home/intro.*.md） */}
-      <Reveal delay={120} className="mt-[30px]">
-        <div className="prose-bw" dangerouslySetInnerHTML={{ __html: intro }} />
+      {/* 块 B · 关于：密度陡然收紧 */}
+      <Reveal
+        delay={120}
+        className="mt-[52px] grid grid-cols-1 gap-3 sm:grid-cols-[104px_1fr] sm:items-start sm:gap-8"
+      >
+        <span className="text-[10.5px] tracking-(--tracking-label) text-faint uppercase sm:pt-1.5">
+          {t("aboutLabel")}
+        </span>
+        <div className="prose-bw prose-about" dangerouslySetInnerHTML={{ __html: intro }} />
       </Reveal>
 
-      {/* 现在是 */}
+      {/* 块 C · 在做的：编号 + 细线清单 */}
       <Reveal delay={240} className="mt-[68px] sm:mt-[88px]">
         <SectionTitle
-          title={t("nowTitle")}
+          title={t("buildingTitle")}
           note={now.updated ? monthLabel(now.updated, locale) : undefined}
         />
-        <div
-          className="prose-bw prose-tight mt-5"
-          dangerouslySetInnerHTML={{ __html: nowHtml }}
-        />
-      </Reveal>
-
-      {/* 我在做的 */}
-      <Reveal delay={360} className="mt-[68px] sm:mt-[88px]">
-        <SectionTitle title={t("buildingTitle")} />
-        <div className="mt-5 flex flex-col gap-5">
-          {featured.map((project) => {
+        <div className="mt-2 flex flex-col">
+          {featured.map((project, i) => {
             const label = localized(locale, project.name, project.name_en);
             const desc = localized(locale, project.desc, project.desc_en);
-            return (
-              <p key={project.slug} className="text-base leading-[1.9] text-body">
-                {project.link ? (
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    className="link-underline"
-                  >
-                    {label}
-                  </a>
-                ) : (
-                  <Link href={localePath(locale, "/projects")} className="link-underline">
-                    {label}
-                  </Link>
-                )}
-                {/* 分隔符和句末符号跟着语言走（中文 —— / 。，英文 · / .） */}
-                {t("projectSeparator")}
-                {desc}
-                {project.stack && project.stack.length > 0 && (
-                  <span className="text-muted">
-                    {" "}
-                    {project.stack.join(" / ")}
-                    {t("stackSuffix")}
+            const status = project.status
+              ? localized(locale, project.status, project.status_en)
+              : undefined;
+            const no = String(i + 1).padStart(2, "0");
+
+            const row = (
+              <div className="flex flex-col gap-3 border-t border-line py-[22px] sm:grid sm:grid-cols-[52px_1fr_auto] sm:items-baseline sm:gap-6">
+                <span className="font-serif text-2xl font-light text-line-strong sm:text-[26px]">
+                  {no}
+                </span>
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-[16.5px] text-ink">{label}</span>
+                  <span className="text-sm leading-[1.75] text-muted">{desc}</span>
+                </div>
+                {status && (
+                  <span className="text-[11px] tracking-(--tracking-label) text-faint uppercase sm:justify-self-end">
+                    {status}
                   </span>
                 )}
-              </p>
+              </div>
+            );
+
+            return project.link ? (
+              <a
+                key={project.slug}
+                href={project.link}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="group"
+              >
+                {row}
+              </a>
+            ) : (
+              <Link key={project.slug} href={localePath(locale, "/projects")} className="group">
+                {row}
+              </Link>
             );
           })}
-          <p className="text-base leading-[1.9] text-muted">
-            {t.rich("moreProjects", {
-              link: (chunks) => (
-                <Link href={localePath(locale, "/projects")} className="link-underline">
-                  {chunks}
-                </Link>
-              ),
-            })}
-          </p>
         </div>
+        <p className="mt-6 text-[13px] text-muted">
+          {t.rich("moreProjects", {
+            link: (chunks) => (
+              <Link href={localePath(locale, "/projects")} className="link-underline">
+                {chunks}
+              </Link>
+            ),
+          })}
+        </p>
       </Reveal>
 
-      {/* 我写的 */}
-      <Reveal delay={480} className="mt-[68px] sm:mt-[88px]">
+      {/* 块 D · 最近写的：最紧凑的一块，日期领读 */}
+      <Reveal delay={360} className="mt-[68px] sm:mt-[88px]">
         <SectionTitle title={t("writingTitle")} />
-        <div className="mt-5 flex flex-col">
+        <div className="mt-4 flex flex-col">
           {posts.length === 0 && (
-            <p className="text-base leading-[1.9] text-muted">{t("noPosts")}</p>
+            <p className="py-6 text-base leading-[1.9] text-muted">{t("noPosts")}</p>
           )}
           {posts.map((post, i) => (
             <Link
               key={post.slug}
               href={localePath(locale, `/blog/${post.slug}`)}
-              className={`group flex items-baseline justify-between gap-6 py-[17px] ${
+              className={`group flex flex-col gap-1.5 py-[15px] sm:grid sm:grid-cols-[92px_1fr] sm:items-baseline sm:gap-6 ${
                 i < posts.length - 1 ? "border-b border-line" : ""
               }`}
             >
-              <span className="flex flex-wrap items-baseline gap-3">
-                <span className="border-b border-transparent text-base text-ink transition-colors group-hover:border-ink">
-                  {localized(locale, post.title, post.title_en)}
-                </span>
-                <span className="border border-line px-1.5 py-0.5 text-[10.5px] tracking-[0.1em] text-faint">
-                  {tType(post.type)}
-                </span>
-              </span>
-              <span className="shrink-0 text-[13px] whitespace-nowrap text-faint">
-                {shortDate(post.date, locale)}
+              <span className="text-[12.5px] text-faint">{shortDate(post.date, locale)}</span>
+              <span className="self-start border-b border-line-strong pb-px text-[15px] text-ink transition-colors group-hover:border-ink">
+                {localized(locale, post.title, post.title_en)}
               </span>
             </Link>
           ))}
-          {posts.length > 0 && (
-            <p className="mt-6 text-[13px] text-muted">
-              {t.rich("morePosts", {
-                link: (chunks) => (
-                  <Link href={localePath(locale, "/blog")} className="link-underline">
-                    {chunks}
-                  </Link>
-                ),
-              })}
-            </p>
-          )}
         </div>
+        {posts.length > 0 && (
+          <p className="mt-6 text-[13px] text-muted">
+            {t.rich("morePosts", {
+              link: (chunks) => (
+                <Link href={localePath(locale, "/blog")} className="link-underline">
+                  {chunks}
+                </Link>
+              ),
+            })}
+          </p>
+        )}
       </Reveal>
 
       {/* 页脚 */}
-      <Reveal delay={600}>
+      <Reveal delay={480}>
         <ContentFooter
           note={t.rich("footerNote", {
             link: (chunks) => (
