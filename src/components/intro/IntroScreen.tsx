@@ -6,10 +6,17 @@ import { useRouter } from "next/navigation";
 import { motion, useReducedMotion } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
 import { Grain } from "./Grain";
+import { Starfield } from "./Starfield";
 import { TimeDial } from "./TimeDial";
 import { useStoredState } from "@/lib/useStoredState";
 
 const INTRO_SEEN_KEY = "intro-seen";
+/**
+ * 语言切换点在开场页时设的短时效标记：切换会导航到 `/{otherLocale}/`（还是开场页，
+ * 只是换了语言），新页面读到这个标记就跳过入场编排、直接呈现最终态，读完立刻清掉。
+ * 不用它的话，每次切语言都会把 stagger 淡入的入场动画从头重放一遍。
+ */
+const LOCALE_SWITCH_KEY = "intro-locale-switch";
 
 /**
  * 侧栏 Logo 点回开场页时带的标记：`/{locale}/?replay=1`。
@@ -46,6 +53,28 @@ export function IntroScreen() {
   const locale = useLocale();
   const router = useRouter();
   const reduced = useReducedMotion() ?? false;
+
+  /**
+   * 从「切语言」跳过来的这一次，跳过入场编排、直接呈现最终态。
+   * 用 useState 的惰性初始化只读一次（挂载时），读完在下面的 effect 里立刻清掉标记，
+   * 不会影响下一次真正的开场页访问。
+   */
+  const [skipEntrance] = useState(() => {
+    if (typeof window === "undefined") return false;
+    try {
+      return sessionStorage.getItem(LOCALE_SWITCH_KEY) === "1";
+    } catch {
+      return false;
+    }
+  });
+  useEffect(() => {
+    if (!skipEntrance) return;
+    try {
+      sessionStorage.removeItem(LOCALE_SWITCH_KEY);
+    } catch {
+      // 隐私模式下可能直接抛错，读都读到了，清不掉也无所谓
+    }
+  }, [skipEntrance]);
 
   /** 本次会话已经进过站就不再看开场页，直接放行；带 ?replay=1 是主动重看，照常放行 */
   const [seen, setSeen] = useStoredState(INTRO_SEEN_KEY, "0", "session");
@@ -101,22 +130,26 @@ export function IntroScreen() {
     };
   }, [enter, leaving, ready]);
 
-  /** 减少动态效果时：不做位移，只留最基本的淡入 */
-  const rise = (delay: number) =>
-    reduced
-      ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.2 } }
-      : {
-          initial: { opacity: 0, y: 16 },
-          animate: { opacity: 1, y: 0 },
-          transition: { duration: 0.9, ease: EASE, delay: delay / 1000 },
-        };
+  /**
+   * 减少动态效果时：不做位移，只留最基本的淡入。
+   * 从切语言跳过来时：`initial={false}` 让 Framer Motion 直接从 animate 目标值起render，
+   * 不经过 initial→animate 这段过渡，新页面第一帧就是最终态。
+   */
+  const rise = (delay: number) => {
+    if (reduced) return { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.2 } };
+    if (skipEntrance) return { initial: false as const, animate: { opacity: 1, y: 0 }, transition: { duration: 0 } };
+    return {
+      initial: { opacity: 0, y: 16 },
+      animate: { opacity: 1, y: 0 },
+      transition: { duration: 0.9, ease: EASE, delay: delay / 1000 },
+    };
+  };
 
   /** 倒转穿梭的过场；prefers-reduced-motion 下直接跳过，只留淡出 */
   const warping = leaving && !reduced;
 
   return (
     <motion.main
-      onClick={enter}
       animate={
         warping
           ? { opacity: 0, filter: "blur(4px)" }
@@ -161,16 +194,17 @@ export function IntroScreen() {
         aria-hidden
       />
 
-      {/* --- 精密仪器：多层同心环 + 细密刻度 + 副盘，被右边缘裁掉 ---
-          全屏 SVG，viewBox + preserveAspectRatio="xMaxYMid slice" 自己做响应式缩放，
-          裁切一直贴着容器右边，窄屏上构图不会塌。 */}
+      {/* --- 星点：极淡、和仪器有疏密关系，见 Starfield.tsx 顶部注释 --- */}
+      <Starfield />
+
+      {/* --- 精密仪器：自己独立定位/独立尺寸，见 TimeDial.tsx 顶部注释 --- */}
       <TimeDial warping={warping} reduced={reduced} />
 
-      {/* --- 键盘可达的进入按钮 ---
-          视觉上不可见（没有引导框了），但可以被 Tab 聚焦、Enter/Space 触发，
-          聚焦时有清晰的焦点环，键盘用户不会因为去掉了「或按 Enter」的提示框而无路可走。
-          放在最前面（DOM 顺序最先），后面的语言切换/文字层会自然盖在它上面，
-          不会抢真实链接的点击。 */}
+      {/* --- 键盘可达的进入按钮，兼「点哪都能进站」的唯一入口 ---
+          显式钉在最低的 z 层（z-0）：语言切换是它的兄弟节点、更高的 z 层，
+          不是嵌套在它里面——这样点语言切换的点击事件根本落不到这个按钮上，
+          不需要靠事件冒泡的先后顺序去赌。stopPropagation 只是兜底。
+          视觉上不可见，但可以被 Tab 聚焦、Enter/Space 触发，聚焦时有清晰的焦点环。 */}
       <button
         type="button"
         onClick={(e) => {
@@ -178,19 +212,28 @@ export function IntroScreen() {
           enter();
         }}
         aria-label={t("enter")}
-        className="absolute inset-0 h-full w-full cursor-pointer appearance-none border-0 bg-transparent p-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-6px] focus-visible:outline-shell-ink"
+        className="absolute inset-0 z-0 h-full w-full cursor-pointer appearance-none border-0 bg-transparent p-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-6px] focus-visible:outline-shell-ink"
       />
 
-      {/* --- 右上角：语言切换 --- */}
+      {/* --- 语言切换：挪到左下，和页脚同一条左侧基线（left: 92px），放在页脚上方 ---
+          z-20，明确高于进站按钮的 z-0；点击只切语言、不进站——
+          导航前先记一个短时效标记，新页面读到就跳过入场编排（见 IntroScreen 顶部）。 */}
       <motion.div
         {...rise(BEAT.controls)}
-        className="absolute right-5 top-5 z-10 sm:right-9 sm:top-8 lg:right-[92px] lg:top-14"
+        className="absolute bottom-12 left-5 z-20 sm:bottom-16 sm:left-9 lg:bottom-[92px] lg:left-[92px]"
       >
         <Link
           href={`/${otherLocale}/`}
-          onClick={(e) => e.stopPropagation()}
+          onClick={(e) => {
+            e.stopPropagation();
+            try {
+              sessionStorage.setItem(LOCALE_SWITCH_KEY, "1");
+            } catch {
+              // 隐私模式下可能直接抛错，顶多是新页面重放一次入场动画，不影响切语言本身
+            }
+          }}
           aria-label={t("switchLocale")}
-          className="flex h-9 items-center gap-2 rounded-full border border-shell-line-2 bg-white/[0.02] px-3 text-shell-dim transition-colors hover:border-shell-line-3 hover:text-shell-ink"
+          className="flex h-9 items-center gap-2 rounded-full border border-shell-line-2 bg-white/[0.02] px-3 text-shell-dim transition-colors hover:border-shell-line-3 hover:text-shell-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-shell-ink"
         >
           <GlobeIcon />
           <span className="text-[11px] tracking-[0.14em]">{otherLocale.toUpperCase()}</span>

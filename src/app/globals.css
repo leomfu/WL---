@@ -221,6 +221,17 @@
   }
 }
 
+/* 开场页星点：只给亮星/中等星用，振幅由每颗星自己的 --o0/--o1 决定（Starfield.tsx 喂） */
+@keyframes dcStarBreathe {
+  0%,
+  100% {
+    opacity: var(--o0);
+  }
+  50% {
+    opacity: var(--o1);
+  }
+}
+
 /* 系统设置里开了「减少动态效果」就全部停掉（PLAN.md §5 硬性要求） */
 @media (prefers-reduced-motion: reduce) {
   *,
