@@ -1,0 +1,56 @@
+{
+  "slug": "shanghai-2025",
+  "kind": "archive",
+  "title": "上海",
+  "titleEn": "Shanghai",
+  "location": "上海",
+  "locationEn": "Shanghai",
+  "date": "2025",
+  "dateEnd": "",
+  "summary": "江对岸的陆家嘴，武康大楼的转角，宋庆龄故居的院子，还有夜里的东方明珠。",
+  "summaryEn": "Lujiazui from across the river, the corner of the Wukang Mansion, the garden at Soong Ching-ling’s former residence, and the Oriental Pearl after dark.",
+  "photos": [
+    {
+      "file": "01-lujiazui-skyline.webp",
+      "width": 1706,
+      "height": 1280,
+      "caption": "黄浦江对岸的陆家嘴",
+      "captionEn": "Lujiazui, from across the Huangpu"
+    },
+    {
+      "file": "02-wukang-mansion.webp",
+      "width": 1280,
+      "height": 1706,
+      "caption": "武康大楼的那个转角",
+      "captionEn": "The prow of the Wukang Mansion"
+    },
+    {
+      "file": "03-soong-ching-ling-residence.webp",
+      "width": 1280,
+      "height": 1706,
+      "caption": "宋庆龄故居门前",
+      "captionEn": "Outside Soong Ching-ling’s former residence"
+    },
+    {
+      "file": "04-evening-traffic.webp",
+      "width": 1280,
+      "height": 1706,
+      "caption": "傍晚的车流",
+      "captionEn": "Evening traffic"
+    },
+    {
+      "file": "05-ufc-shanghai.webp",
+      "width": 1707,
+      "height": 1280,
+      "caption": "UFC 上海",
+      "captionEn": "UFC Shanghai"
+    },
+    {
+      "file": "06-oriental-pearl-night.webp",
+      "width": 1280,
+      "height": 1706,
+      "caption": "东方明珠",
+      "captionEn": "The Oriental Pearl"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "slug": "beijing-2023",
+  "kind": "archive",
+  "title": "北京",
+  "titleEn": "Beijing",
+  "location": "北京",
+  "locationEn": "Beijing",
+  "date": "2023-05-01",
+  "dateEnd": "2023-05-03",
+  "summary": "五一那三天。天安门的夜、故宫里的宝座和畅音阁，还有一碗豆汁。",
+  "summaryEn": "Three days over the May Day holiday — Tiananmen after dark, the throne halls and the opera stage inside the Forbidden City, and a bowl of douzhi.",
+  "photos": [
+    {
+      "file": "01-tiananmen-night.webp",
+      "width": 1438,
+      "height": 1080,
+      "caption": "夜里的天安门，探照灯扫过人群",
+      "captionEn": "Tiananmen at night, searchlights sweeping the crowd"
+    },
+    {
+      "file": "02-morning-formation.webp",
+      "width": 1438,
+      "height": 1080,
+      "caption": "清晨走过的队列",
+      "captionEn": "A column passing in the morning"
+    },
+    {
+      "file": "03-hall-of-preserving-harmony.webp",
+      "width": 1080,
+      "height": 1438,
+      "caption": "保和殿前",
+      "captionEn": "Outside the Hall of Preserving Harmony"
+    },
+    {
+      "file": "04-throne-hall.webp",
+      "width": 1438,
+      "height": 1080,
+      "caption": "殿里的宝座，两侧是象驮宝瓶",
+      "captionEn": "The throne, flanked by elephants bearing vases"
+    },
+    {
+      "file": "05-opera-pavilion.webp",
+      "width": 1438,
+      "height": 1080,
+      "caption": "畅音阁，三层的大戏楼",
+      "captionEn": "Changyin Pavilion, the three-tiered opera stage"
+    },
+    {
+      "file": "06-douzhi-jiaoquan.webp",
+      "width": 1080,
+      "height": 1438,
+      "caption": "豆汁、焦圈和一碟咸菜丝",
+      "captionEn": "Douzhi, jiaoquan and a dish of shredded pickles"
+    },
+    {
+      "file": "07-beef-noodles.webp",
+      "width": 1080,
+      "height": 1438,
+      "caption": "一碗牛肉面",
+      "captionEn": "A bowl of beef noodles"
+    }
+  ]
+}

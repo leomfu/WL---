@@ -1,0 +1,42 @@
+{
+  "slug": "qingdao-2024",
+  "kind": "archive",
+  "title": "青岛",
+  "titleEn": "Qingdao",
+  "location": "山东 青岛",
+  "locationEn": "Qingdao, Shandong",
+  "date": "2024",
+  "dateEnd": "",
+  "summary": "五月的风、海边的礁石、蓝调时刻的高楼。",
+  "summaryEn": "“May Wind”, the rocks along the shore, and towers at blue hour.",
+  "photos": [
+    {
+      "file": "01-may-wind.webp",
+      "width": 2000,
+      "height": 1125,
+      "caption": "五四广场的《五月的风》",
+      "captionEn": "“May Wind”, on May Fourth Square"
+    },
+    {
+      "file": "02-flag-plaza.webp",
+      "width": 1125,
+      "height": 2000,
+      "caption": "候船区，两排万国旗",
+      "captionEn": "Flags in two rows along the pier"
+    },
+    {
+      "file": "03-shore-rocks.webp",
+      "width": 2000,
+      "height": 1125,
+      "caption": "礁石，和对面的山",
+      "captionEn": "Rocks, and the hills across the water"
+    },
+    {
+      "file": "04-blue-hour.webp",
+      "width": 1125,
+      "height": 2000,
+      "caption": "蓝调时刻的写字楼",
+      "captionEn": "Office towers at blue hour"
+    }
+  ]
+}
