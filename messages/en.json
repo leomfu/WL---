@@ -59,17 +59,11 @@
   },
   "intro": {
     "eyebrow": "个人网站 · PERSONAL SITE",
-    "nameLabel": "NAME",
-    "sinceLabel": "SINCE",
     "tagline": "The life I want — I'm going after it.",
     "taglineTail": "",
-    "enter": "TIME TRAVEL · STEP INSIDE",
-    "enterHintPrefix": "or press",
-    "enterKey": "Enter ↵",
+    "enter": "Enter site",
     "footer": "WRITING, MAKING, DOING NOTHING · 写字、做东西、发呆",
     "switchLocale": "Switch to Chinese",
-    "logoAlt": "Weiliang's logo",
-    "backdropAlt": "The Bund at night: a boy sits by the river, facing the Lujiazui skyline",
     "taglineSub": "活出自己想要的人生，加油"
   },
   "nav": {

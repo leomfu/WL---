@@ -23,7 +23,9 @@ const inter = Inter({
  */
 const notoSerif = Noto_Serif_SC({
   subsets: ["latin"],
-  weight: ["300", "400"],
+  // 200 是开场页新版大标题专用（design-v2/Main.dc.html 定稿的 font-weight），
+  // 300/400 是站内其余细衬线大标题用的
+  weight: ["200", "300", "400"],
   variable: "--font-noto-serif",
   display: "swap",
 });

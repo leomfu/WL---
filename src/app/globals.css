@@ -17,7 +17,7 @@
 
   /* --- 暗侧：侧边栏 / 开场页 / 放松区 --- */
   --color-shell: #0a0a0a;
-  --color-void: #060606;       /* 开场页底色，比侧栏再深一档 */
+  --color-void: #070707;       /* 开场页底色，比侧栏再深一档（design-v2/Main.dc.html 定稿值） */
   --color-shell-ink: #ededed;
   --color-shell-muted: #a3a3a3;
   --color-shell-dim: #8a8a8a;
