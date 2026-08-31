@@ -3,7 +3,7 @@
 所有用户可见的内容都放这里，git 提交即发布。组件里不写死文案。
 读取在构建时完成（gray-matter 解析 front-matter），不引数据库、不做后端。
 
-## posts/ —— 博客 / 长文 / 想法
+## posts/ —— 随笔 / 长文 / 想法
 
 一篇一个 `.md`，文件名即 slug。front-matter：
 
@@ -12,7 +12,7 @@
 title: 中文标题
 title_en: English title
 date: 2026-08-24
-type: blog          # blog | essay | thought  →  博客 | 长文 | 想法
+type: blog          # blog | essay | thought  →  随笔 | 长文 | 想法
 tags: [设计, 前端]
 lang: zh            # 这篇原文的语言
 summary: 一句话摘要

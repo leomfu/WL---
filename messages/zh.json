@@ -22,7 +22,7 @@
     },
     "blog": {
       "title": "写字的地方",
-      "description": "长文、博客和一些没头没尾的想法。"
+      "description": "长文、随笔和一些没头没尾的想法。"
     },
     "about": {
       "title": "关于",
@@ -77,7 +77,7 @@
     "projects": "项目",
     "photos": "摄影",
     "videos": "视频",
-    "blog": "博客",
+    "blog": "文章",
     "about": "关于",
     "tools": "工具",
     "focus": "专注",
@@ -181,7 +181,7 @@
   },
   "blog": {
     "title": "写字的地方",
-    "lead": "长文、博客和一些没头没尾的想法，都放在这里。共 <em>{count}</em> 篇。",
+    "lead": "长文、随笔和一些没头没尾的想法，都放在这里。共 <em>{count}</em> 篇。",
     "filterAll": "全部",
     "order": "按时间倒序",
     "minutes": "{minutes} 分钟",
@@ -195,7 +195,7 @@
     "langEn": "英文",
     "comments": "评论",
     "types": {
-      "blog": "博客",
+      "blog": "随笔",
       "essay": "长文",
       "thought": "想法"
     }
