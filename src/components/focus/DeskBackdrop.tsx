@@ -1,6 +1,6 @@
 "use client";
 
-import { Grain } from "@/components/intro/Grain";
+import { Grain } from "@/components/ui/Grain";
 
 /**
  * 专注区的背景 —— 一张写字台。中灰渐变 + 左上一点来光 + 哑光颗粒，

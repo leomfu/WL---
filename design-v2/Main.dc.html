@@ -1,0 +1,197 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300&display=swap">
+  <style>
+    body { margin: 0; font-family: Inter, "PingFang SC", system-ui, sans-serif; }
+    a { color: #ededed; } a:hover { color: #ffffff; }
+  </style>
+</helmet>
+
+<!-- 开场页 A · 天体（排版沿用上一版，你说这个格式可以）
+     这一版改两处：底色仍是深黑，但质感做细了；钟改成精密仪器。 -->
+<div style="position: relative; width: 1440px; height: 900px; background: #070707; overflow: hidden;">
+
+  <!-- 质感层 1 · 主光：右上一片极缓的辉光，托住仪器 -->
+  <div style="position: absolute; inset: 0; background-image: radial-gradient(66% 58% at 78% 30%, #1c1c1c 0%, #121212 38%, #0a0a0a 70%, #070707 100%);"></div>
+
+  <!-- 质感层 2 · 反光：左下一点冷调回光，避免整块死沉 -->
+  <div style="position: absolute; inset: 0; background-image: radial-gradient(48% 44% at 12% 88%, rgba(237,237,237,0.045) 0%, rgba(237,237,237,0) 62%);"></div>
+
+  <svg viewBox="0 0 1440 900" width="1440" height="900" style="position: absolute; inset: 0;">
+    <defs>
+      <!-- 两层不同频率的颗粒叠起来，比单层的电子噪点更像胶片 -->
+      <filter id="grainFine"><feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" /><feColorMatrix type="saturate" values="0" /></filter>
+      <filter id="grainSoft"><feTurbulence type="fractalNoise" baseFrequency="0.28" numOctaves="4" /><feColorMatrix type="saturate" values="0" /></filter>
+      <radialGradient id="vig" cx="0.62" cy="0.4" r="0.82">
+        <stop offset="50%" stop-color="#000000" stop-opacity="0" />
+        <stop offset="100%" stop-color="#000000" stop-opacity="0.6" />
+      </radialGradient>
+    </defs>
+    <rect width="1440" height="900" filter="url(#grainSoft)" opacity="0.05" style="mix-blend-mode: overlay;" />
+    <rect width="1440" height="900" filter="url(#grainFine)" opacity="0.035" style="mix-blend-mode: screen;" />
+    <rect width="1440" height="900" fill="url(#vig)" />
+  </svg>
+
+  <!-- ── 精密仪器：多层同心环 + 细密刻度 + 副盘，被右边缘裁掉 ── -->
+  <svg viewBox="0 0 1440 900" width="1440" height="900" style="position: absolute; inset: 0;">
+    <defs>
+      <radialGradient id="plate" cx="0.4" cy="0.32" r="0.76">
+        <stop offset="0%" stop-color="#ededed" stop-opacity="0.055" />
+        <stop offset="62%" stop-color="#ededed" stop-opacity="0.018" />
+        <stop offset="100%" stop-color="#ededed" stop-opacity="0" />
+      </radialGradient>
+    </defs>
+
+    <!-- 盘面底 -->
+    <circle cx="1196" cy="392" r="302" fill="url(#plate)" />
+
+    <g fill="none" stroke="#ededed" stroke-linecap="butt">
+      <!-- 多层同心环，粗细和明度各不相同 -->
+      <circle cx="1196" cy="392" r="302" stroke-opacity="0.20" stroke-width="1" />
+      <circle cx="1196" cy="392" r="286" stroke-opacity="0.10" stroke-width="0.7" />
+      <circle cx="1196" cy="392" r="252" stroke-opacity="0.16" stroke-width="1" />
+      <circle cx="1196" cy="392" r="246" stroke-opacity="0.06" stroke-width="0.6" />
+      <circle cx="1196" cy="392" r="176" stroke-opacity="0.09" stroke-width="0.7" />
+      <circle cx="1196" cy="392" r="96" stroke-opacity="0.13" stroke-width="0.8" />
+
+      <!-- 外圈细密刻度：120 道，每 10 道加长加亮 -->
+      <sc-for list="{{fine}}" as="t" hint-placeholder-count="120">
+        <line x1="{{t.x1}}" y1="{{t.y1}}" x2="{{t.x2}}" y2="{{t.y2}}" stroke-opacity="{{t.o}}" stroke-width="{{t.w}}" />
+      </sc-for>
+
+      <!-- 内圈刻度：60 道，短，朝内 -->
+      <sc-for list="{{inner}}" as="t" hint-placeholder-count="60">
+        <line x1="{{t.x1}}" y1="{{t.y1}}" x2="{{t.x2}}" y2="{{t.y2}}" stroke-opacity="{{t.o}}" stroke-width="0.7" />
+      </sc-for>
+
+      <!-- 十字准线：只在盘心一小段，像仪器的对准标记 -->
+      <line x1="1196" y1="352" x2="1196" y2="376" stroke-opacity="0.32" stroke-width="0.8" />
+      <line x1="1196" y1="408" x2="1196" y2="432" stroke-opacity="0.32" stroke-width="0.8" />
+      <line x1="1156" y1="392" x2="1180" y2="392" stroke-opacity="0.32" stroke-width="0.8" />
+      <line x1="1212" y1="392" x2="1236" y2="392" stroke-opacity="0.32" stroke-width="0.8" />
+    </g>
+
+    <!-- 刻度数字：小、字距拉开，像仪表盘上蚀刻的 -->
+    <g fill="#ededed" font-family="Inter, system-ui, sans-serif" font-size="10.5" letter-spacing="1.6" text-anchor="middle">
+      <sc-for list="{{numerals}}" as="n" hint-placeholder-count="12">
+        <text x="{{n.x}}" y="{{n.y}}" fill-opacity="{{n.o}}">{{n.label}}</text>
+      </sc-for>
+    </g>
+
+    <!-- 副盘：右下的小计时盘，计时器风格 -->
+    <g fill="none" stroke="#ededed">
+      <circle cx="1196" cy="558" r="52" stroke-opacity="0.16" stroke-width="0.8" />
+      <sc-for list="{{sub}}" as="s" hint-placeholder-count="12">
+        <line x1="{{s.x1}}" y1="{{s.y1}}" x2="{{s.x2}}" y2="{{s.y2}}" stroke-opacity="0.22" stroke-width="0.7" />
+      </sc-for>
+      <line x1="1196" y1="558" x2="1226" y2="536" stroke-opacity="0.5" stroke-width="0.9" stroke-linecap="round" />
+    </g>
+    <circle cx="1196" cy="558" r="1.6" fill="#ededed" fill-opacity="0.6" />
+
+    <!-- 主指针：一根细长的指示臂，朝左上指向文字那一侧 -->
+    <g stroke="#ededed" fill="none" stroke-linecap="round">
+      <line x1="1196" y1="392" x2="1196" y2="118" stroke-opacity="0.72" stroke-width="1.4" />
+      <line x1="1196" y1="392" x2="1196" y2="440" stroke-opacity="0.28" stroke-width="1.4" />
+      <line x1="1196" y1="392" x2="982" y2="498" stroke-opacity="0.46" stroke-width="1" />
+    </g>
+
+    <!-- 中心轴：三层，像真表的轴心 -->
+    <circle cx="1196" cy="392" r="9" fill="none" stroke="#ededed" stroke-opacity="0.22" stroke-width="0.8" />
+    <circle cx="1196" cy="392" r="4" fill="#0a0a0a" stroke="#ededed" stroke-opacity="0.55" stroke-width="0.9" />
+    <circle cx="1196" cy="392" r="1.5" fill="#ededed" fill-opacity="0.9" />
+  </svg>
+
+  <!-- 左上小标签 -->
+  <div style="position: absolute; top: 56px; left: 92px;">
+    <span style="font-size: 10.5px; letter-spacing: 0.36em; text-transform: uppercase; color: #5a5a5a;">个人网站 · Personal Site</span>
+  </div>
+
+  <!-- 左下文字块 -->
+  <div style="position: absolute; left: 92px; bottom: 148px; display: flex; flex-direction: column; gap: 20px; max-width: 620px;">
+    <div style="display: flex; align-items: baseline; gap: 22px; flex-wrap: wrap;">
+      <span style="font-family: 'Noto Serif SC', Songti SC, Georgia, serif; font-weight: 200; font-size: 62px; line-height: 1.24; letter-spacing: -0.015em; color: #ededed;">活出自己想要的人生</span>
+      <span style="font-size: 16px; letter-spacing: 0.16em; color: #8a8a8a;">加油</span>
+    </div>
+    <span style="font-size: 13px; letter-spacing: 0.05em; color: #5a5a5a;">The life I want — I'm going after it.</span>
+  </div>
+
+  <!-- 页脚 -->
+  <div style="position: absolute; left: 92px; bottom: 56px;">
+    <span style="font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; color: #333333;">写字、做东西、发呆 · Writing, Making, Doing Nothing</span>
+  </div>
+
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const CX = 1196, CY = 392;
+    const pt = (a, r) => [CX + Math.cos(a) * r, CY + Math.sin(a) * r];
+
+    // 外圈 120 道细密刻度，每 10 道一根长的
+    const fine = [];
+    for (let i = 0; i < 120; i++) {
+      const a = (i / 120) * Math.PI * 2 - Math.PI / 2;
+      const major = i % 10 === 0;
+      const mid = i % 5 === 0;
+      const inner = major ? 272 : mid ? 280 : 284;
+      const [x1, y1] = pt(a, inner);
+      const [x2, y2] = pt(a, 300);
+      fine.push({
+        x1: x1.toFixed(2), y1: y1.toFixed(2), x2: x2.toFixed(2), y2: y2.toFixed(2),
+        o: major ? 0.52 : mid ? 0.3 : 0.16,
+        w: major ? 1.1 : 0.6,
+      });
+    }
+
+    // 内圈 60 道，朝盘心方向
+    const inner = [];
+    for (let i = 0; i < 60; i++) {
+      const a = (i / 60) * Math.PI * 2 - Math.PI / 2;
+      const [x1, y1] = pt(a, 176);
+      const [x2, y2] = pt(a, i % 5 === 0 ? 162 : 168);
+      inner.push({
+        x1: x1.toFixed(2), y1: y1.toFixed(2), x2: x2.toFixed(2), y2: y2.toFixed(2),
+        o: i % 5 === 0 ? 0.26 : 0.12,
+      });
+    }
+
+    // 刻度数字：12 个方位，蚀刻在两圈环之间
+    const numerals = [];
+    for (let i = 0; i < 12; i++) {
+      const a = (i / 12) * Math.PI * 2 - Math.PI / 2;
+      const [x, y] = pt(a, 224);
+      numerals.push({
+        x: x.toFixed(2),
+        y: (y + 3.6).toFixed(2),
+        label: (i === 0 ? 12 : i).toString().padStart(2, '0'),
+        o: i % 3 === 0 ? 0.44 : 0.2,
+      });
+    }
+
+    // 副盘刻度
+    const sub = [];
+    for (let i = 0; i < 12; i++) {
+      const a = (i / 12) * Math.PI * 2 - Math.PI / 2;
+      sub.push({
+        x1: (1196 + Math.cos(a) * 44).toFixed(2),
+        y1: (558 + Math.sin(a) * 44).toFixed(2),
+        x2: (1196 + Math.cos(a) * 50).toFixed(2),
+        y2: (558 + Math.sin(a) * 50).toFixed(2),
+      });
+    }
+
+    return { fine: fine, inner: inner, numerals: numerals, sub: sub };
+  }
+}
+</script>
+</body>
+</html>

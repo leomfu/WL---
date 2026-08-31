@@ -1,0 +1,231 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "claude-Anki 制卡链路",
+    "locale": "zh-CN",
+    "output": "claude-anki-pipeline.html",
+    "viewBox": [
+      1080,
+      560
+    ],
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "claude-does",
+        "label": "Claude 做了什么",
+        "focus": [
+          "vault",
+          "claude",
+          "ankiconnect"
+        ],
+        "note": "生词和句子发过来，Claude 写成卡片字段，再由 AnkiConnect 批量建卡。"
+      },
+      {
+        "id": "main-path",
+        "label": "主链路",
+        "focus": [
+          "vault",
+          "claude",
+          "ankiconnect",
+          "anki"
+        ],
+        "note": "笔记到卡片的一条主路：记录、制卡、导入、入库。"
+      },
+      {
+        "id": "review-loop",
+        "label": "复习闭环",
+        "focus": [
+          "anki",
+          "ankiweb",
+          "ankidroid",
+          "claude"
+        ],
+        "note": "三端同步复习，学到的新生词再发回给 Claude 建卡。"
+      }
+    ]
+  },
+  "stages": [
+    {
+      "label": "课堂学习"
+    },
+    {
+      "label": "记成笔记"
+    },
+    {
+      "label": "Claude 制卡"
+    },
+    {
+      "label": "导入 Anki"
+    },
+    {
+      "label": "每天复习"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "sources",
+      "type": "external",
+      "label": "课堂学习",
+      "sublabel": "新概念1 · 音标 · 咖啡店",
+      "stage": 0,
+      "row": 1,
+      "tag": "三条线"
+    },
+    {
+      "id": "vault",
+      "type": "database",
+      "label": "Obsidian Vault",
+      "sublabel": "笔记 · 生词本",
+      "stage": 1,
+      "row": 1,
+      "tag": "本仓库"
+    },
+    {
+      "id": "claude",
+      "type": "backend",
+      "label": "Claude Code",
+      "sublabel": "写成卡片字段",
+      "stage": 2,
+      "row": 1,
+      "tag": "5 种笔记类型",
+      "brand": "claude"
+    },
+    {
+      "id": "ankiconnect",
+      "type": "messagebus",
+      "label": "AnkiConnect",
+      "sublabel": "批量建卡接口",
+      "stage": 3,
+      "row": 1
+    },
+    {
+      "id": "anki",
+      "type": "database",
+      "label": "Anki 桌面版",
+      "sublabel": "5 个牌组 · 260 张",
+      "stage": 4,
+      "row": 0,
+      "tag": "英式发音"
+    },
+    {
+      "id": "ankiweb",
+      "type": "cloud",
+      "label": "AnkiWeb",
+      "sublabel": "同步中转",
+      "stage": 4,
+      "row": 1
+    },
+    {
+      "id": "ankidroid",
+      "type": "frontend",
+      "label": "AnkiDroid",
+      "sublabel": "安卓 · 随时刷",
+      "stage": 4,
+      "row": 2,
+      "tag": "21 张/天"
+    }
+  ],
+  "flows": [
+    {
+      "id": "take-notes",
+      "from": "sources",
+      "to": "vault",
+      "label": "整理成笔记",
+      "classification": "Markdown",
+      "variant": "default"
+    },
+    {
+      "id": "send-words",
+      "from": "vault",
+      "to": "claude",
+      "label": "发生词和句子",
+      "classification": "人工发起",
+      "variant": "emphasis"
+    },
+    {
+      "id": "card-fields",
+      "from": "claude",
+      "to": "ankiconnect",
+      "label": "卡片字段",
+      "classification": "正面 / 背面 / 发音",
+      "variant": "emphasis",
+      "route": "straight",
+      "labelAt": [
+        662,
+        222
+      ]
+    },
+    {
+      "id": "bulk-create",
+      "from": "ankiconnect",
+      "to": "anki",
+      "label": "批量建卡",
+      "classification": "本地 API",
+      "variant": "emphasis"
+    },
+    {
+      "id": "sync-web",
+      "from": "anki",
+      "to": "ankiweb",
+      "label": "同步",
+      "classification": "双向",
+      "variant": "default",
+      "labelAt": [
+        960,
+        200
+      ]
+    },
+    {
+      "id": "sync-droid",
+      "from": "ankiweb",
+      "to": "ankidroid",
+      "label": "同步",
+      "classification": "双向",
+      "variant": "default",
+      "labelAt": [
+        960,
+        314
+      ]
+    },
+    {
+      "id": "new-words-back",
+      "from": "ankidroid",
+      "to": "claude",
+      "label": "新生词回流",
+      "classification": "下一轮建卡",
+      "variant": "dashed",
+      "route": "bottom-channel"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "violet",
+      "title": "Claude 在这里做什么",
+      "items": [
+        "接收学完的生词和句子，不用手动填卡",
+        "按 5 种笔记类型写字段：Basic（中文字段）、音标卡、音标句子、咖啡店句子、数字卡",
+        "调 AnkiConnect 批量建卡，卡片统一带英式发音"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "现在有多少张",
+      "items": [
+        "三条学习线：新概念英语 1、48 音标体系、咖啡店实用英语",
+        "音标 96 · 音标::Diana例句 20 · coffee 73 · 数字 20 · English 51，合计 260 张",
+        "另有「麦克米伦7000」6268 张，冻结中，每天新卡 0",
+        "各牌组独立预设，每天新卡合计封顶 21 张"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "每天的节奏",
+      "items": [
+        "先过到期卡，再学新内容 —— 顺序不能反",
+        "学完把生词发回给 Claude，进入下一轮建卡",
+        "排队、坐车、等电梯刷两张，不专门空出整块时间"
+      ]
+    }
+  ]
+}

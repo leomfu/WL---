@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400&display=swap">
+  <style>
+    body { margin: 0; font-family: Inter, "PingFang SC", system-ui, sans-serif; }
+    a { color: #111111; } a:hover { color: #000000; }
+  </style>
+</helmet>
+
+<div style="position: relative; width: 1440px; height: 1720px; background-image: radial-gradient(70% 55% at 76% 6%, #ffffff 0%, rgba(255,255,255,0) 62%), linear-gradient(158deg, #f1f1f1 0%, #fafafa 34%, #f7f7f7 66%, #ececec 100%); overflow: hidden;">
+
+  <svg viewBox="0 0 1440 1720" width="1440" height="1720" style="position: absolute; inset: 0; opacity: 0.035; mix-blend-mode: multiply;">
+    <filter id="paper2"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" /><feColorMatrix type="saturate" values="0" /></filter>
+    <rect width="1440" height="1720" filter="url(#paper2)" />
+  </svg>
+
+  <div style="position: relative; padding: 72px 92px;">
+
+    <div style="display: flex; flex-direction: column; gap: 10px; padding-bottom: 44px; border-bottom: 1px solid #e5e5e5;">
+      <span style="font-size: 10.5px; letter-spacing: 0.36em; text-transform: uppercase; color: #999999;">内容页模板 · Content Template</span>
+      <h1 style="margin: 0; font-family: 'Noto Serif SC', Songti SC, Georgia, serif; font-weight: 300; font-size: 46px; line-height: 1.3; letter-spacing: -0.01em; color: #111111;">一套排版规律，所有内容页照它长</h1>
+      <p style="margin: 0; font-size: 15.5px; line-height: 1.8; color: #666666;">文章、摄影、唱片、新闻、书影音、工具——都用下面这几种模式拼出来，不再各长各的。</p>
+    </div>
+
+    <!-- ① 背景三层：解「太单调」 -->
+    <div style="margin-top: 52px;">
+      <div style="display: flex; align-items: baseline; gap: 14px; padding-bottom: 20px;">
+        <h2 style="margin: 0; font-size: 18px; font-weight: 500; color: #111111;">① 背景分三层</h2>
+        <span style="font-size: 13px; color: #999999;">平底是单调的根源，叠起来就有空气</span>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px;">
+        <div style="border: 1px solid #e5e5e5;">
+          <div style="height: 128px; background-image: linear-gradient(158deg, #f1f1f1 0%, #fafafa 34%, #f7f7f7 66%, #ececec 100%);"></div>
+          <div style="padding: 14px 16px; border-top: 1px solid #e5e5e5; background: #ffffff;">
+            <div style="font-size: 13.5px; color: #111111;">底 · 渐变</div>
+            <div style="font-size: 12.5px; line-height: 1.7; color: #666666; margin-top: 4px;">158° 浅灰渐变 + 右上柔光。已有的 <code style="font-size: 11.5px; color: #333333;">bg-content</code>，不改。</div>
+          </div>
+        </div>
+        <div style="border: 1px solid #e5e5e5;">
+          <div style="height: 128px; background: #f7f7f7; display: flex; align-items: center; justify-content: center;">
+            <div style="width: 72%; height: 62%; background: #ffffff; border: 1px solid #e5e5e5; box-shadow: 0 1px 2px rgba(17,17,17,0.03);"></div>
+          </div>
+          <div style="padding: 14px 16px; border-top: 1px solid #e5e5e5; background: #ffffff;">
+            <div style="font-size: 13.5px; color: #111111;">面 · 白纸块</div>
+            <div style="font-size: 12.5px; line-height: 1.7; color: #666666; margin-top: 4px;">内容浮在 <code style="font-size: 11.5px; color: #333333;">#ffffff</code> 卡面上，一道 1px 灰边 + 极轻投影。这是层次的主力。</div>
+          </div>
+        </div>
+        <div style="border: 1px solid #e5e5e5;">
+          <div style="height: 128px; background: #f7f7f7; position: relative; overflow: hidden;">
+            <svg viewBox="0 0 300 128" width="100%" height="128" style="position: absolute; inset: 0; opacity: 0.12; mix-blend-mode: multiply;">
+              <filter id="paper3"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" /><feColorMatrix type="saturate" values="0" /></filter>
+              <rect width="300" height="128" filter="url(#paper3)" />
+            </svg>
+          </div>
+          <div style="padding: 14px 16px; border-top: 1px solid #e5e5e5; background: #ffffff;">
+            <div style="font-size: 13.5px; color: #111111;">纹 · 纸张颗粒</div>
+            <div style="font-size: 12.5px; line-height: 1.7; color: #666666; margin-top: 4px;">SVG feTurbulence，opacity 0.03–0.04，<code style="font-size: 11.5px; color: #333333;">multiply</code>。全页一层，几乎看不见但摸得着。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ② 列表：文章 / 新闻 -->
+    <div style="margin-top: 68px;">
+      <div style="display: flex; align-items: baseline; gap: 14px; padding-bottom: 20px;">
+        <h2 style="margin: 0; font-size: 18px; font-weight: 500; color: #111111;">② 列表行</h2>
+        <span style="font-size: 13px; color: #999999;">文章、新闻、书影音用这个</span>
+      </div>
+      <div style="background: #ffffff; border: 1px solid #e5e5e5;">
+        <sc-for list="{{rows}}" as="r" hint-placeholder-count="3">
+          <div style="display: grid; grid-template-columns: 104px 1fr auto; gap: 26px; align-items: baseline; padding: 20px 24px; border-bottom: 1px solid #f0f0f0;">
+            <span style="font-size: 12.5px; color: #999999;">{{r.date}}</span>
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <span style="font-size: 15.5px; color: #111111;">{{r.title}}</span>
+              <span style="font-size: 13.5px; line-height: 1.7; color: #666666;">{{r.desc}}</span>
+            </div>
+            <span style="font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; color: #999999; border: 1px solid #e5e5e5; padding: 4px 9px;">{{r.tag}}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <!-- ③ 图片卡：摄影 / 唱片 / 视频 -->
+    <div style="margin-top: 68px;">
+      <div style="display: flex; align-items: baseline; gap: 14px; padding-bottom: 20px;">
+        <h2 style="margin: 0; font-size: 18px; font-weight: 500; color: #111111;">③ 图片卡</h2>
+        <span style="font-size: 13px; color: #999999;">图是彩的，框是黑白的——分界线就在图片那块矩形的边上</span>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px;">
+        <sc-for list="{{cards}}" as="c" hint-placeholder-count="3">
+          <div style="background: #ffffff; border: 1px solid #e5e5e5;">
+            <div style="height: 168px; background-image: {{c.swatch}}; display: flex; align-items: flex-end; padding: 10px;">
+              <span style="font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.86); text-shadow: 0 1px 4px rgba(0,0,0,0.5);">内容图片 · 原色</span>
+            </div>
+            <div style="padding: 16px 18px; display: flex; flex-direction: column; gap: 7px;">
+              <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px;">
+                <span style="font-size: 15.5px; color: #111111;">{{c.title}}</span>
+                <span style="font-size: 12px; color: #999999;">{{c.meta}}</span>
+              </div>
+              <span style="font-size: 13.5px; line-height: 1.7; color: #666666;">{{c.desc}}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <!-- ④ 零件 -->
+    <div style="margin-top: 68px;">
+      <div style="display: flex; align-items: baseline; gap: 14px; padding-bottom: 20px;">
+        <h2 style="margin: 0; font-size: 18px; font-weight: 500; color: #111111;">④ 零件</h2>
+        <span style="font-size: 13px; color: #999999;">小标签、分割线、注记的固定用法</span>
+      </div>
+      <div style="background: #ffffff; border: 1px solid #e5e5e5; padding: 26px 24px; display: flex; flex-direction: column; gap: 22px;">
+        <div style="display: flex; align-items: center; gap: 26px;">
+          <span style="font-size: 10.5px; letter-spacing: 0.36em; text-transform: uppercase; color: #999999;">Eyebrow 0.36em</span>
+          <span style="font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; color: #999999;">Label 0.2em</span>
+          <span style="font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; color: #999999; border: 1px solid #e5e5e5; padding: 4px 9px;">带框标签</span>
+          <span style="font-size: 15px; color: #111111; border-bottom: 1px solid #c9c9c9; padding-bottom: 1px;">正文链接</span>
+        </div>
+        <div style="height: 1px; background: #e5e5e5;"></div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="width: 22px; height: 1px; background: #e5e5e5;"></span>
+          <span style="font-size: 12.5px; color: #999999;">注记行：短横线 + 灰字，用来放「这一页的说明」这类不抢戏的话</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{"$preview":{"width":1440,"height":1720}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      rows: [
+        { date: '2026.08.28', title: '把问题查到根上，是一种可以练的习惯', desc: '一次排障从现象到根因的完整过程，包括中间走错的两步。', tag: '文章' },
+        { date: '2026.08.20', title: 'Claude Managed Agents × Vercel Chat SDK', desc: '托管 agent 加统一聊天层，按 API 用量计费，和订阅是两回事。', tag: '解读' },
+        { date: '2026.08.11', title: '《漫长的季节》', desc: '看完很久没缓过来。时间在这部剧里不是背景，是主角。', tag: '剧集' },
+      ],
+      cards: [
+        { title: '外滩夜色', meta: '32 帧', desc: '八月的一个傍晚，江对岸的灯一盏盏亮起来。', swatch: 'linear-gradient(150deg, #2b3a55 0%, #6b5b7b 48%, #c98a6b 100%)' },
+        { title: '走慢一点点', meta: '张震岳', desc: '木吉他起手，副歌几乎不使劲，像在劝人别急。', swatch: 'linear-gradient(150deg, #7a5c3e 0%, #b08b5e 52%, #e0c9a6 100%)' },
+        { title: 'Claude-Anki 使用介绍', meta: '哔哩哔哩', desc: '一条视频讲清笔记怎么变成记忆卡片。', swatch: 'linear-gradient(150deg, #3c4a52 0%, #6d8391 55%, #b9c9cf 100%)' },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

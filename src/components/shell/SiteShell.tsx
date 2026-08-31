@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Grain } from "@/components/intro/Grain";
+import { Grain } from "@/components/ui/Grain";
 import { Sidebar } from "./Sidebar";
 
 /**

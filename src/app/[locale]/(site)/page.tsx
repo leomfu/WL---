@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { MeadowHero } from "@/components/home/MeadowHero";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Reveal } from "@/components/ui/Reveal";
 import { ContentFooter, SectionTitle } from "@/components/ui/PageHeader";
@@ -27,11 +28,15 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return pageMetadata(locale, "home", "/home");
+  return pageMetadata(locale, "home", "");
 }
 
 /**
- * 首页 —— 对照 design-v2/Home.dc.html。四块层层收紧的密度，节奏全靠排版：
+ * 首页 —— 对照 design-v2/Home.dc.html。
+ *
+ * 2026-09-01：开场页（那只时钟 + 点一下进站）整个下线，`/zh/` 直接就是这一页，
+ * 顶上换成 MeadowHero（躺在草坪上的剪影，天色跟真实时间走）。
+ * 原来的 /zh/home/ 已经不存在，全站链接都指向语言根路径。四块层层收紧的密度，节奏全靠排版：
  * A 引言（整页最重，一句站主自己写的话）→ B 关于（收紧）→ C 在做的（编号清单）
  * → D 最近写的（最紧凑，日期领读）。原来单独的"现在是"板块已并入 C 的日期注记
  * （复用 content/now/*.md 的 updated 字段），不再单列一段——它的文字内容和
@@ -60,6 +65,13 @@ export default async function HomePage({
 
   return (
     <>
+      {/* 草坪那一屏：往上顶掉 main 的上内边距、往两侧顶掉左右内边距，
+          让它贴着内容区的边缘铺开（内容列本身只有 700px，不做负边距就会缩成一条）。
+          真要做到整块 main 的全出血得改 SiteShell 的结构，暂时不值得。 */}
+      <div className="-mx-6 -mt-[88px] mb-14 sm:-mx-10 sm:mb-16 lg:-mt-[104px]">
+        <MeadowHero />
+      </div>
+
       {/* 块 A · 引言：整页最重的一块 */}
       <Reveal>
         <span className="block text-[10.5px] tracking-(--tracking-eyebrow) text-faint uppercase">

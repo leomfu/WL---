@@ -8,7 +8,8 @@
  *
  * 书影音和留言板原先不进侧边栏（PLAN.md §4），分组之后位置够了，收进「嗜好 / 关于」两组。
  */
-export const NAV_HOME = { key: "home", path: "/home" } as const;
+/** 首页就是语言根路径 —— 2026-09-01 起开场页下线，/zh/ 直接是首页，不再有 /zh/home/ */
+export const NAV_HOME = { key: "home", path: "" } as const;
 
 export const NAV_GROUPS = [
   {

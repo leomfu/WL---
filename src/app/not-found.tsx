@@ -35,10 +35,10 @@ export default function NotFound() {
           这里什么都没有 · Nothing here
         </span>
         <span style={{ display: "flex", gap: 18, fontSize: 13 }}>
-          <Link href="/zh/home/" style={{ color: "#EDEDED", textDecoration: "none", borderBottom: "1px solid #333" }}>
+          <Link href="/zh/" style={{ color: "#EDEDED", textDecoration: "none", borderBottom: "1px solid #333" }}>
             回首页
           </Link>
-          <Link href="/en/home/" style={{ color: "#EDEDED", textDecoration: "none", borderBottom: "1px solid #333" }}>
+          <Link href="/en/" style={{ color: "#EDEDED", textDecoration: "none", borderBottom: "1px solid #333" }}>
             Home
           </Link>
         </span>

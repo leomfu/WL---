@@ -122,7 +122,7 @@ export function Sidebar() {
         </a>
         {!collapsed && (
           <Link
-            href={localePath(locale, "/home")}
+            href={localePath(locale, NAV_HOME.path)}
             aria-label={t("nav.toHome")}
             title={t("nav.toHome")}
             className="group flex min-w-0 cursor-pointer flex-col gap-[3px]"
@@ -257,7 +257,7 @@ export function Sidebar() {
             />
           </a>
           <Link
-            href={localePath(locale, "/home")}
+            href={localePath(locale, NAV_HOME.path)}
             aria-label={t("nav.toHome")}
             className="cursor-pointer text-sm font-medium transition-colors hover:text-shell-muted"
           >

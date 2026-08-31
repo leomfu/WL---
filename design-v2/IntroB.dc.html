@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300&display=swap">
+  <style>
+    body { margin: 0; font-family: Inter, "PingFang SC", system-ui, sans-serif; }
+    a { color: #ededed; } a:hover { color: #ffffff; }
+  </style>
+</helmet>
+
+<!-- 方向 B · 页边注
+     钟缩到 88px，挂在文字的左页边，像手稿旁边的一枚标记——
+     它是排版的一部分，不是浮在页面上的挂件。
+     底色是一片有光源的石墨灰，中间亮、四周沉。 -->
+<div style="position: relative; width: 1440px; height: 900px; background-image: radial-gradient(64% 78% at 50% 46%, #1c1c1c 0%, #131313 40%, #0a0a0a 76%, #060606 100%); overflow: hidden;">
+
+  <svg viewBox="0 0 1440 900" width="1440" height="900" style="position: absolute; inset: 0;">
+    <defs>
+      <filter id="grainB"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" /><feColorMatrix type="saturate" values="0" /></filter>
+      <linearGradient id="ruleFade" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#ededed" stop-opacity="0" />
+        <stop offset="30%" stop-color="#ededed" stop-opacity="0.14" />
+        <stop offset="70%" stop-color="#ededed" stop-opacity="0.14" />
+        <stop offset="100%" stop-color="#ededed" stop-opacity="0" />
+      </linearGradient>
+    </defs>
+    <rect width="1440" height="900" filter="url(#grainB)" opacity="0.05" style="mix-blend-mode: screen;" />
+  </svg>
+
+  <!-- 排版栏：一条贯穿全幅的极淡基线，文字坐在它上面 -->
+  <div style="position: absolute; left: 0; right: 0; top: 556px; height: 1px; background-image: linear-gradient(90deg, rgba(237,237,237,0) 0%, rgba(237,237,237,0.10) 26%, rgba(237,237,237,0.10) 74%, rgba(237,237,237,0) 100%);"></div>
+
+  <!-- 顶部小标签 -->
+  <div style="position: absolute; top: 56px; left: 0; right: 0; display: flex; justify-content: center;">
+    <span style="font-size: 10.5px; letter-spacing: 0.36em; text-transform: uppercase; color: #5a5a5a;">个人网站 · Personal Site</span>
+  </div>
+
+  <!-- 主块：钟在左页边，文字在右 -->
+  <div style="position: absolute; left: 50%; top: 322px; transform: translateX(-50%); display: grid; grid-template-columns: 88px 1fr; gap: 46px; align-items: start; width: 880px;">
+
+    <!-- 页边的钟：小、素、只有 4 道刻度和两根针 -->
+    <svg viewBox="0 0 88 88" width="88" height="88" style="margin-top: 10px;">
+      <g fill="none" stroke="#ededed">
+        <circle cx="44" cy="44" r="40" stroke-opacity="0.28" stroke-width="0.9" />
+        <sc-for list="{{marks}}" as="m" hint-placeholder-count="4">
+          <line x1="{{m.x1}}" y1="{{m.y1}}" x2="{{m.x2}}" y2="{{m.y2}}" stroke-opacity="0.5" stroke-width="1" stroke-linecap="round" />
+        </sc-for>
+        <line x1="44" y1="44" x2="44" y2="20" stroke-opacity="0.9" stroke-width="1.2" stroke-linecap="round" />
+        <line x1="44" y1="44" x2="61" y2="53" stroke-opacity="0.66" stroke-width="1" stroke-linecap="round" />
+      </g>
+      <circle cx="44" cy="44" r="1.8" fill="#ededed" fill-opacity="0.9" />
+    </svg>
+
+    <div style="display: flex; flex-direction: column; gap: 22px;">
+      <div style="display: flex; align-items: baseline; gap: 20px; flex-wrap: wrap;">
+        <span style="font-family: 'Noto Serif SC', Songti SC, Georgia, serif; font-weight: 200; font-size: 56px; line-height: 1.26; letter-spacing: -0.015em; color: #ededed;">活出自己想要的人生</span>
+        <span style="font-size: 15px; letter-spacing: 0.16em; color: #8a8a8a;">加油</span>
+      </div>
+      <span style="font-size: 13px; letter-spacing: 0.05em; color: #5a5a5a;">The life I want — I'm going after it.</span>
+    </div>
+  </div>
+
+  <!-- 页脚 -->
+  <div style="position: absolute; bottom: 56px; left: 0; right: 0; display: flex; justify-content: center;">
+    <span style="font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; color: #333333;">写字、做东西、发呆 · Writing, Making, Doing Nothing</span>
+  </div>
+
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const marks = [];
+    for (let i = 0; i < 4; i++) {
+      const a = (i / 4) * Math.PI * 2 - Math.PI / 2;
+      marks.push({
+        x1: (44 + Math.cos(a) * 33).toFixed(2),
+        y1: (44 + Math.sin(a) * 33).toFixed(2),
+        x2: (44 + Math.cos(a) * 39).toFixed(2),
+        y2: (44 + Math.sin(a) * 39).toFixed(2),
+      });
+    }
+    return { marks: marks };
+  }
+}
+</script>
+</body>
+</html>

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { motion } from "motion/react";
 import { NavIcon } from "@/components/icons/NavIcon";
-import { NAV_ITEMS, localePath, type NavKey } from "@/lib/nav";
+import { NAV_HOME, NAV_ITEMS, localePath, type NavKey } from "@/lib/nav";
 import { siteConfig } from "~/site.config";
 
 /**
@@ -28,7 +28,7 @@ export function FocusRail({ expanded }: { expanded: boolean }) {
       className="relative z-20 flex shrink-0 flex-col items-center gap-6 overflow-hidden border-r border-[rgba(0,0,0,0.24)] bg-[rgba(0,0,0,0.18)] py-6"
     >
       <Link
-        href={localePath(locale, "/home")}
+        href={localePath(locale, NAV_HOME.path)}
         className={`flex w-full items-center gap-3 ${expanded ? "px-6" : "justify-center"}`}
       >
         <Image
