@@ -215,40 +215,36 @@ export function IntroScreen() {
         className="absolute inset-0 z-0 h-full w-full cursor-pointer appearance-none border-0 bg-transparent p-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-6px] focus-visible:outline-shell-ink"
       />
 
-      {/* --- 语言切换：挪到左下，和页脚同一条左侧基线（left: 92px），放在页脚上方 ---
-          z-20，明确高于进站按钮的 z-0；点击只切语言、不进站——
-          导航前先记一个短时效标记，新页面读到就跳过入场编排（见 IntroScreen 顶部）。 */}
-      <motion.div
-        {...rise(BEAT.controls)}
-        className="absolute bottom-12 left-5 z-20 sm:bottom-16 sm:left-9 lg:bottom-[92px] lg:left-[92px]"
-      >
-        <Link
-          href={`/${otherLocale}/`}
-          onClick={(e) => {
-            e.stopPropagation();
-            try {
-              sessionStorage.setItem(LOCALE_SWITCH_KEY, "1");
-            } catch {
-              // 隐私模式下可能直接抛错，顶多是新页面重放一次入场动画，不影响切语言本身
-            }
-          }}
-          aria-label={t("switchLocale")}
-          className="flex h-9 items-center gap-2 rounded-full border border-shell-line-2 bg-white/[0.02] px-3 text-shell-dim transition-colors hover:border-shell-line-3 hover:text-shell-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-shell-ink"
-        >
-          <GlobeIcon />
-          <span className="text-[11px] tracking-[0.14em]">{otherLocale.toUpperCase()}</span>
-        </Link>
-      </motion.div>
+      {/* --- 左上角：语言切换 + 小标签，同一行、同一条左基线（和页脚/文案块都是 left-[92px]）---
+          语言切换 z-20，明确高于铺满整页的进站按钮（z-0）：点它只切语言、不进站。
+          小标签是 pointer-events-none，不会挡住切换按钮的点击。 */}
+      <div className="absolute left-5 top-5 z-20 flex items-center gap-4 sm:left-9 sm:top-8 sm:gap-5 lg:left-[92px] lg:top-14">
+        <motion.div {...rise(BEAT.controls)}>
+          <Link
+            href={`/${otherLocale}/`}
+            onClick={(e) => {
+              e.stopPropagation();
+              try {
+                sessionStorage.setItem(LOCALE_SWITCH_KEY, "1");
+              } catch {
+                // 隐私模式下可能直接抛错，顶多是新页面重放一次入场动画，不影响切语言本身
+              }
+            }}
+            aria-label={t("switchLocale")}
+            className="flex h-8 items-center gap-2 rounded-full border border-shell-line-2 bg-white/[0.02] px-3 text-shell-dim transition-colors hover:border-shell-line-3 hover:text-shell-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-shell-ink"
+          >
+            <GlobeIcon />
+            <span className="text-[11px] tracking-[0.14em]">{otherLocale.toUpperCase()}</span>
+          </Link>
+        </motion.div>
 
-      {/* --- 左上角小标签 --- */}
-      <motion.div
-        {...rise(BEAT.eyebrow)}
-        className="pointer-events-none absolute left-5 top-5 z-10 sm:left-9 sm:top-8 lg:left-[92px] lg:top-14"
-      >
-        <span className="whitespace-nowrap text-[9.5px] uppercase tracking-[0.3em] text-shell-faint sm:text-[10.5px] sm:tracking-[0.36em]">
+        <motion.span
+          {...rise(BEAT.eyebrow)}
+          className="pointer-events-none whitespace-nowrap text-[9.5px] uppercase tracking-[0.3em] text-shell-faint sm:text-[10.5px] sm:tracking-[0.36em]"
+        >
           {t("eyebrow")}
-        </span>
-      </motion.div>
+        </motion.span>
+      </div>
 
       {/* --- 左下文字块 --- */}
       <motion.div
