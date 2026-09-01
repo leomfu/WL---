@@ -32,6 +32,7 @@
 - `npm run dev` — 本地开发（http://localhost:3000）
 - `npm run build` — 生产构建（每次完工必须跑）
 - `npm run photos` — 摄影：扫 `photos-src/`（原图，不进仓库）压出缩略图/展示图，并写 `content/photos/*.json`（站主用法见 `docs/如何添加照片.md`）
+- `npm run hero` — 首页那张双色调照片：扫 `hero-src/road.png`（原图，不进仓库）印成双色调输出 `public/images/hero/road.webp`（换照片就换源文件重跑，组件不用动）
 
 <!-- BEGIN:nextjs-agent-rules -->
 

@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint .",
     "og": "node scripts/generate-og.mjs",
+    "hero": "node scripts/build-hero.mjs",
     "music": "node scripts/fetch-netease.mjs",
     "records": "node scripts/fetch-record-covers.mjs",
     "chart": "node scripts/fetch-music-chart.mjs",
