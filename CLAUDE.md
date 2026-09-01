@@ -27,6 +27,13 @@
 2. 更新 `docs/进度.md`：勾掉完成项，写清做了什么、遗留什么、下一阶段注意什么。
 3. git commit（信息用中文，说明本阶段成果），如已配置远程则 push。
 
+## 项目自带的 skill
+
+- `.claude/skills/mono-color/` —— 单色/双色印刷版式设计系统（上游 MIT，见该目录 NOTICE.md）。
+  首页那张海报就是按它做的。要再做同类的图，**先读它的 `design-system/*.json`**，
+  SKILL.md 里写明目录是唯一事实来源、和散文冲突时以目录为准。
+  ⚠️ 上游 `examples/` 里的示例图不在 MIT 范围内，没有拷进来，也不要拷。
+
 ## 常用命令
 
 - `npm run dev` — 本地开发（http://localhost:3000）
