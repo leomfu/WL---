@@ -71,7 +71,8 @@ export function getProjects(): Project[] {
   return [...list].sort((a, b) => (b.year ?? "").localeCompare(a.year ?? ""));
 }
 
-/** 项目页第二块：这个站用到的开源仓库。顺序就是 json 里的顺序，不排序 —— 那个顺序是按重要性人工排的 */
+/** 项目页第二个筛选：这个站用到的开源仓库。
+ *  顺序就是 json 里的顺序，**不要排序** —— 站主自己找来的（mine）排在最前面，是人工排的 */
 export function getUsedRepos(): UsedRepo[] {
   return readJson<UsedRepo[]>("projects/repos.json", []);
 }

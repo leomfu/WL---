@@ -1,5 +1,14 @@
 [
   {
+    "name": "mono-color-skill",
+    "repo": "https://github.com/yanliudesign/mono-color-skill",
+    "role": "设计系统",
+    "role_en": "Design system",
+    "desc": "单色/双色印刷的版式设计系统。首页顶上那张海报按它做的：一张纸、两版油墨，橙色只留给路面那条中线。",
+    "desc_en": "The two-ink print design system behind the poster up top: one paper, two plates, orange reserved for the road line alone.",
+    "mine": true
+  },
+  {
     "name": "next.js",
     "repo": "https://github.com/vercel/next.js",
     "role": "框架",
@@ -86,13 +95,5 @@
     "role_en": "Icons",
     "desc": "工具页那些品牌图标的来源（CC0）。平时是灰的，鼠标移上去才亮起各自的品牌色。",
     "desc_en": "Source of the brand marks on the tools page (CC0). Grey until you hover."
-  },
-  {
-    "name": "mono-color-skill",
-    "repo": "https://github.com/yanliudesign/mono-color-skill",
-    "role": "版式",
-    "role_en": "Design",
-    "desc": "单色/双色印刷的版式设计系统。首页顶上那张海报按它做的：一张纸、两版油墨，橙色只留给路面那条中线。",
-    "desc_en": "The two-ink print design system behind the poster up top: one paper, two plates, orange reserved for the road line alone."
   }
 ]

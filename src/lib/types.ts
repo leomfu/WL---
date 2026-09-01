@@ -33,6 +33,8 @@ export type UsedRepo = {
   role_en?: string;
   desc: string;
   desc_en?: string;
+  /** true = 站主自己找来的（不是这个站的构建依赖），排在最前面并带一个标记 */
+  mine?: boolean;
 };
 
 export type Video = {

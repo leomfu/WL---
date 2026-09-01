@@ -119,13 +119,15 @@
   },
   "projects": {
     "title": "Projects",
-    "lead": "Things I've built, listed one by one. Titles link out where there's something live.",
     "visit": "Live",
     "repo": "Source",
     "noLink": "No public link yet",
     "footerNote": "Curious about any of them? <link>Send an email</link>.",
-    "usesTitle": "Built on",
-    "usesNote": "This site stands on {n} open-source projects"
+    "usesNote": "This site stands on {n} open-source projects. The ones marked “found it myself” I went looking for; the rest are build dependencies.",
+    "tabMine": "Mine",
+    "tabUses": "Built on",
+    "mineNote": "Things I've made. Where there's a live address, the title takes you there.",
+    "foundByMe": "found it myself"
   },
   "videos": {
     "title": "Videos",
