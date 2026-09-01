@@ -123,7 +123,9 @@
     "visit": "Live",
     "repo": "Source",
     "noLink": "No public link yet",
-    "footerNote": "Curious about any of them? <link>Send an email</link>."
+    "footerNote": "Curious about any of them? <link>Send an email</link>.",
+    "usesTitle": "Built on",
+    "usesNote": "This site stands on {n} open-source projects"
   },
   "videos": {
     "title": "Videos",

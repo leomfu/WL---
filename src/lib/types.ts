@@ -21,6 +21,20 @@ export type Project = {
   status_en?: string;
 };
 
+/**
+ * 项目页第二块「这个站用到的仓库」。和 Project 分开：
+ * Project 是站主自己的作品，这些是别人的开源仓库，混在一起会让人以为都是他写的。
+ */
+export type UsedRepo = {
+  name: string;
+  repo: string;
+  /** 左列那个窄标签：框架 / 样式 / 文章 …… */
+  role: string;
+  role_en?: string;
+  desc: string;
+  desc_en?: string;
+};
+
 export type Video = {
   platform: "bilibili" | "youtube";
   id: string;

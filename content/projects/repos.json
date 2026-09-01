@@ -1,0 +1,98 @@
+[
+  {
+    "name": "next.js",
+    "repo": "https://github.com/vercel/next.js",
+    "role": "框架",
+    "role_en": "Framework",
+    "desc": "整站的骨架。用 App Router，并且开了静态导出——所以这个站没有后端，构建出来就是一堆 HTML。",
+    "desc_en": "The whole thing runs on it, App Router with static export — which is why this site has no backend, just files."
+  },
+  {
+    "name": "react",
+    "repo": "https://github.com/facebook/react",
+    "role": "框架",
+    "role_en": "Framework",
+    "desc": "19 版。它那几条新的 hooks 规则（不许在 effect 里 setState、不许渲染时写 ref、不许渲染里造组件）在这个项目里各踩过一次。",
+    "desc_en": "v19. Its new hooks rules each caught me out once while building this."
+  },
+  {
+    "name": "tailwindcss",
+    "repo": "https://github.com/tailwindlabs/tailwindcss",
+    "role": "样式",
+    "role_en": "Styling",
+    "desc": "v4，配置写在 CSS 里而不是 js 里。整套黑白灰的色阶就是一组 @theme 变量。",
+    "desc_en": "v4, configured in CSS rather than JS. The whole grey scale is one @theme block."
+  },
+  {
+    "name": "motion",
+    "repo": "https://github.com/motiondivision/motion",
+    "role": "动效",
+    "role_en": "Motion",
+    "desc": "页面切换、列表浮现、放松区那几层的淡入。动效克制，尊重系统的「减少动态效果」。",
+    "desc_en": "Page transitions and reveals. Restrained, and it respects prefers-reduced-motion."
+  },
+  {
+    "name": "next-intl",
+    "repo": "https://github.com/amannn/next-intl",
+    "role": "双语",
+    "role_en": "i18n",
+    "desc": "中英双语。所有界面文案都在 messages/ 的字典里，两个文件的键必须一一对应，缺一个构建就失败。",
+    "desc_en": "Bilingual routing and dictionaries. Both files must have identical keys or the build fails."
+  },
+  {
+    "name": "shiki",
+    "repo": "https://github.com/shikijs/shiki",
+    "role": "文章",
+    "role_en": "Writing",
+    "desc": "文章里代码块的高亮。在构建时就染好色，浏览器不用再下载一个高亮器。",
+    "desc_en": "Syntax highlighting for code in posts — done at build time, so no highlighter ships to the browser."
+  },
+  {
+    "name": "marked",
+    "repo": "https://github.com/markedjs/marked",
+    "role": "文章",
+    "role_en": "Writing",
+    "desc": "把 markdown 渲染成 HTML。文章、关于页、首页那两段引言都走它。",
+    "desc_en": "Renders the markdown behind every post and page."
+  },
+  {
+    "name": "gray-matter",
+    "repo": "https://github.com/jonschlinkert/gray-matter",
+    "role": "文章",
+    "role_en": "Writing",
+    "desc": "读每篇 markdown 顶部那段 front-matter：标题、日期、标签、摘要。",
+    "desc_en": "Reads the front-matter at the top of each markdown file."
+  },
+  {
+    "name": "sharp",
+    "repo": "https://github.com/lovell/sharp",
+    "role": "图片",
+    "role_en": "Images",
+    "desc": "摄影页的缩略图和展示图、首页那张双色调海报，都是它在本地压出来的。原图不进仓库。",
+    "desc_en": "Compresses the photo sets and prints the duotone hero, locally. Originals never enter the repo."
+  },
+  {
+    "name": "giscus",
+    "repo": "https://github.com/giscus/giscus",
+    "role": "留言",
+    "role_en": "Comments",
+    "desc": "文章评论和留言板。数据存在这个仓库的 GitHub Discussions 里——静态站没有数据库，这是唯一不用后端的办法。",
+    "desc_en": "Comments live in this repo's GitHub Discussions — the only way to have them without a backend."
+  },
+  {
+    "name": "simple-icons",
+    "repo": "https://github.com/simple-icons/simple-icons",
+    "role": "图标",
+    "role_en": "Icons",
+    "desc": "工具页那些品牌图标的来源（CC0）。平时是灰的，鼠标移上去才亮起各自的品牌色。",
+    "desc_en": "Source of the brand marks on the tools page (CC0). Grey until you hover."
+  },
+  {
+    "name": "mono-color-skill",
+    "repo": "https://github.com/yanliudesign/mono-color-skill",
+    "role": "版式",
+    "role_en": "Design",
+    "desc": "单色/双色印刷的版式设计系统。首页顶上那张海报按它做的：一张纸、两版油墨，橙色只留给路面那条中线。",
+    "desc_en": "The two-ink print design system behind the poster up top: one paper, two plates, orange reserved for the road line alone."
+  }
+]

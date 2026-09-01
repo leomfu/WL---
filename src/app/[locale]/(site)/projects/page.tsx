@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ListRow, ListRowGroup } from "@/components/ui/ListRow";
-import { ContentFooter, PageHeader } from "@/components/ui/PageHeader";
+import { ContentFooter, PageHeader, SectionTitle } from "@/components/ui/PageHeader";
 import { Reveal } from "@/components/ui/Reveal";
-import { getProjects, localized } from "@/lib/content";
+import { getProjects, getUsedRepos, localized } from "@/lib/content";
 import { pageMetadata } from "@/lib/metadata";
 import { localePath } from "@/lib/nav";
 import { routing } from "@/i18n/routing";
@@ -25,6 +25,12 @@ export async function generateMetadata({
 /**
  * 项目列表 —— 视觉稿没有单独画这一页，沿用 BlogContact 画板列表页的骨架：
  * 左列年份 + 右列标题/一句话/技术栈，条目之间细线分隔。
+ *
+ * 两块，**故意分开**：
+ *   上面「我做的」  content/projects/projects.json —— 站主自己的作品
+ *   下面「用到的仓库」content/projects/repos.json  —— 别人的开源仓库
+ * 混在一张清单里会让人以为这些都是他写的，所以分成两组、左列标签也不一样
+ * （上面是年份，下面是这个仓库在这个站里干什么）。
  */
 export default async function ProjectsPage({
   params,
@@ -37,6 +43,7 @@ export default async function ProjectsPage({
   const tHome = await getTranslations("home");
 
   const projects = getProjects();
+  const repos = getUsedRepos();
   const name = locale === "en" ? siteConfig.nameEn : siteConfig.name;
 
   return (
@@ -94,6 +101,32 @@ export default async function ProjectsPage({
           })}
         </ListRowGroup>
       </Reveal>
+
+      {repos.length > 0 && (
+        <Reveal delay={200} className="mt-[68px] sm:mt-[88px]">
+          <SectionTitle title={t("usesTitle")} note={t("usesNote", { n: repos.length })} />
+          <ListRowGroup className="mt-6">
+            {repos.map((item, i) => (
+              <ListRow
+                key={item.repo}
+                last={i === repos.length - 1}
+                left={localized(locale, item.role, item.role_en)}
+                title={
+                  <a
+                    href={item.repo}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="border-b border-ink pb-0.5 font-mono text-[14.5px] text-ink"
+                  >
+                    {item.name} ↗
+                  </a>
+                }
+                desc={localized(locale, item.desc, item.desc_en)}
+              />
+            ))}
+          </ListRowGroup>
+        </Reveal>
+      )}
 
       <Reveal delay={240}>
         <ContentFooter

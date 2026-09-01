@@ -123,7 +123,9 @@
     "visit": "线上",
     "repo": "源码",
     "noLink": "暂无公开链接",
-    "footerNote": "想聊聊其中任何一个，<link>写封邮件</link> 就好。"
+    "footerNote": "想聊聊其中任何一个，<link>写封邮件</link> 就好。",
+    "usesTitle": "用到的仓库",
+    "usesNote": "这个站站在 {n} 个开源项目上"
   },
   "videos": {
     "title": "视频",

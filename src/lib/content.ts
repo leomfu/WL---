@@ -3,8 +3,8 @@ import path from "node:path";
 import matter from "gray-matter";
 import { excerpt, readingMinutes } from "./format";
 import type {
-  LibraryItem,
   Digest,
+  LibraryItem,
   MusicLibrary,
   NewsBoard,
   NewsData,
@@ -14,6 +14,7 @@ import type {
   RecordItem,
   Tool,
   Track,
+  UsedRepo,
   Video,
 } from "./types";
 
@@ -68,6 +69,11 @@ function toISODate(value: unknown) {
 export function getProjects(): Project[] {
   const list = readJson<Project[]>("projects/projects.json", []);
   return [...list].sort((a, b) => (b.year ?? "").localeCompare(a.year ?? ""));
+}
+
+/** 项目页第二块：这个站用到的开源仓库。顺序就是 json 里的顺序，不排序 —— 那个顺序是按重要性人工排的 */
+export function getUsedRepos(): UsedRepo[] {
+  return readJson<UsedRepo[]>("projects/repos.json", []);
 }
 
 /* ------------------------------------------------------------------ 视频 */
