@@ -1,6 +1,6 @@
 {
   "note": "由 scripts/fetch-news.mjs 生成，别手改。源清单在 sources.json。",
-  "generatedAt": "2026-09-01T23:44:33.542Z",
+  "generatedAt": "2026-09-02T23:47:52.454Z",
   "boards": [
     {
       "key": "world",
@@ -53,244 +53,244 @@
       ],
       "items": [
         {
-          "title": "China or the U.S.? Two Meetings Offer Competing Showcases of Global Power.",
-          "url": "https://www.nytimes.com/2026/09/01/world/asia/g20-meeting-china-trump-bishkek.html",
-          "source": "纽约时报",
-          "sourceEn": "NYT World",
-          "at": "2026-09-01T23:38:50.000Z",
-          "date": "2026-09-02"
-        },
-        {
-          "title": "Weeks After Failed Drone Attack, Germany Points Finger at Russia",
-          "url": "https://www.nytimes.com/2026/09/01/world/europe/germany-russia-drone-airport.html",
-          "source": "纽约时报",
-          "sourceEn": "NYT World",
-          "at": "2026-09-01T23:38:03.000Z",
-          "date": "2026-09-02"
-        },
-        {
-          "title": "Fernandez transfers to Man City from Chelsea in joint British record fee",
-          "url": "https://www.aljazeera.com/sports/2026/9/1/fernandez-transfers-to-man-city-from-chelsea-in-joint-british-record-fee?traffic_source=rss",
+          "title": "Thousands protest in Spain as Ceuta’s migration crisis festers a month on",
+          "url": "https://www.aljazeera.com/news/2026/9/2/thousands-protest-in-spain-as-ceutas-migrant-crisis-festers-a-month-on?traffic_source=rss",
           "source": "半岛电视台",
           "sourceEn": "Al Jazeera",
-          "at": "2026-09-01T23:00:30.000Z",
-          "date": "2026-09-02"
+          "at": "2026-09-02T23:28:18.000Z",
+          "date": "2026-09-03"
         },
         {
-          "title": "Germany says Russia behind attempted drone attack at Leipzig airport",
-          "url": "https://www.dw.com/en/germany-says-russia-behind-attempted-drone-attack-at-leipzig-airport/a-78584589?maca=en-rss-en-world-4025-rdf",
-          "source": "德国之声",
-          "sourceEn": "DW",
-          "at": "2026-09-01T22:55:00.000Z",
-          "date": "2026-09-02"
-        },
-        {
-          "title": "Cisco accused of fostering a hostile workplace for Muslim and Arab employees",
-          "url": "https://www.aljazeera.com/economy/2026/9/1/cisco-accused-of-fostering-a-hostile-workplace-for-muslim-and-arab-employees?traffic_source=rss",
+          "title": "Did DOGE ruin America’s food safety system?",
+          "url": "https://www.aljazeera.com/video/newsfeed/2026/9/2/aje-onl-nf_did-doge-ruin-americas-food-safety-system-020926?traffic_source=rss",
           "source": "半岛电视台",
           "sourceEn": "Al Jazeera",
-          "at": "2026-09-01T22:54:04.000Z",
-          "date": "2026-09-02"
+          "at": "2026-09-02T23:25:49.000Z",
+          "date": "2026-09-03"
         },
         {
-          "title": "US House passes funding bill to avert government shutdown ahead of midterms",
-          "url": "https://www.aljazeera.com/news/2026/9/1/us-house-passes-funding-bill-to-avert-government-shutdown-ahead-of-midterms?traffic_source=rss",
+          "title": "OpenAI faces new lawsuits over Tumbler Ridge mass shooting tragedy",
+          "url": "https://www.aljazeera.com/economy/2026/9/2/openai-faces-new-lawsuits-over-tumbler-ridge-mass-shooting-tragedy?traffic_source=rss",
           "source": "半岛电视台",
           "sourceEn": "Al Jazeera",
-          "at": "2026-09-01T22:44:28.000Z",
-          "date": "2026-09-02"
+          "at": "2026-09-02T22:15:32.000Z",
+          "date": "2026-09-03"
         },
         {
-          "title": "US urges G20 to cut trade imbalances, focus on China",
-          "url": "https://www.aljazeera.com/economy/2026/9/1/us-urges-g20-to-cut-trade-imbalances-focus-on-china?traffic_source=rss",
+          "title": "Republican senator calls on Trump to fire Secretary of Defence Hegseth",
+          "url": "https://www.aljazeera.com/news/2026/9/2/republican-senator-calls-on-trump-to-fire-secretary-of-defence-hegseth?traffic_source=rss",
           "source": "半岛电视台",
           "sourceEn": "Al Jazeera",
-          "at": "2026-09-01T22:21:51.000Z",
-          "date": "2026-09-02"
+          "at": "2026-09-02T21:37:41.000Z",
+          "date": "2026-09-03"
         },
         {
-          "title": "US energy secretary will travel to Venezuela to unveil oil arrangement",
-          "url": "https://www.aljazeera.com/news/2026/9/1/us-energy-secretary-will-travel-to-venezuela-to-unveil-oil-arrangement?traffic_source=rss",
-          "source": "半岛电视台",
-          "sourceEn": "Al Jazeera",
-          "at": "2026-09-01T21:54:14.000Z",
-          "date": "2026-09-02"
-        },
-        {
-          "title": "US strikes Iran as state media reports four killed at wedding party",
-          "url": "https://www.bbc.co.uk/news/articles/cj06q4ynpmjo?at_medium=RSS&at_campaign=rss",
+          "title": "Protests in Spain over government's handling of Ceuta migrant crisis",
+          "url": "https://www.bbc.co.uk/news/articles/c1mvn2yp9n2o?at_medium=RSS&at_campaign=rss",
           "source": "BBC World",
           "sourceEn": "BBC World",
-          "at": "2026-09-01T21:48:28.000Z",
-          "date": "2026-09-02"
+          "at": "2026-09-02T21:34:27.000Z",
+          "date": "2026-09-03"
         },
         {
-          "title": "The Ritual of Coffin Making in a City Hit by Ebola",
-          "url": "https://www.nytimes.com/2026/09/01/world/africa/congo-ebola-coffins.html",
-          "source": "纽约时报",
-          "sourceEn": "NYT World",
-          "at": "2026-09-01T21:26:23.000Z",
-          "date": "2026-09-02"
+          "title": "Israeli PM says Israel is working to overthrow Iran’s government",
+          "url": "https://www.aljazeera.com/video/newsfeed/2026/9/2/israeli-pm-says-israel-is-working-to-overthrow-irans-government?traffic_source=rss",
+          "source": "半岛电视台",
+          "sourceEn": "Al Jazeera",
+          "at": "2026-09-02T21:23:55.000Z",
+          "date": "2026-09-03"
         },
         {
-          "title": "China Censors and Punishes to Shape Narrative on Floods in Tibet, a Contrast to Nepal",
-          "url": "https://www.nytimes.com/2026/09/01/world/asia/china-tibet-floods-nepal-censorship.html",
-          "source": "纽约时报",
-          "sourceEn": "NYT World",
-          "at": "2026-09-01T21:10:03.000Z",
-          "date": "2026-09-02"
-        },
-        {
-          "title": "Germany says Russia behind Leipzig airport drone attack",
-          "url": "https://www.bbc.co.uk/news/articles/c5ylm3m67n2o?at_medium=RSS&at_campaign=rss",
-          "source": "BBC World",
-          "sourceEn": "BBC World",
-          "at": "2026-09-01T21:05:22.000Z",
-          "date": "2026-09-02"
-        },
-        {
-          "title": "Congo's Ebola caseload tops 6,000 as concerns grow",
-          "url": "https://www.dw.com/en/congo-s-ebola-caseload-tops-6-000-as-concerns-grow/a-78638447?maca=en-rss-en-world-4025-rdf",
-          "source": "德国之声",
-          "sourceEn": "DW",
-          "at": "2026-09-01T18:02:00.000Z",
-          "date": "2026-09-02"
-        },
-        {
-          "title": "River water smashed into tunnel and chased me for 20 minutes, Nepal worker tells BBC",
-          "url": "https://www.bbc.co.uk/news/articles/cg49590v6k1o?at_medium=RSS&at_campaign=rss",
-          "source": "BBC World",
-          "sourceEn": "BBC World",
-          "at": "2026-09-01T16:11:18.000Z",
-          "date": "2026-09-02"
-        },
-        {
-          "title": "Mark Carney tells US to ‘start being serious’ amid escalating trade war",
-          "url": "https://www.theguardian.com/us-news/2026/sep/01/trump-mark-carney-trade-war-canada",
+          "title": "Apple Maps renames Lake Ontario as ‘Lake America’ for US users after Trump order",
+          "url": "https://www.theguardian.com/technology/2026/sep/02/apple-maps-renames-lake-ontario-lake-america",
           "source": "卫报",
           "sourceEn": "The Guardian",
-          "at": "2026-09-01T15:48:27.000Z",
-          "date": "2026-09-01"
+          "at": "2026-09-02T21:15:12.000Z",
+          "date": "2026-09-03"
         },
         {
-          "title": "Sexual assaults happening almost every day in Ceuta, prosecutors say",
-          "url": "https://www.bbc.co.uk/news/articles/c3v4pgk7gweo?at_medium=RSS&at_campaign=rss",
+          "title": "Watch: Jury still unable to reach unanimous decision in Lindsay Clancy case",
+          "url": "https://www.bbc.co.uk/news/videos/cy8z32v7130o?at_medium=RSS&at_campaign=rss",
           "source": "BBC World",
           "sourceEn": "BBC World",
-          "at": "2026-09-01T15:33:14.000Z",
-          "date": "2026-09-01"
+          "at": "2026-09-02T20:12:32.000Z",
+          "date": "2026-09-03"
         },
         {
-          "title": "U.S. Sanctions on Iran Cut Off Students From Tests Needed for Study Abroad",
-          "url": "https://www.nytimes.com/2026/09/01/world/middleeast/iran-study-abroad-sanctions.html",
+          "title": "A jury in Malta acquits a businessman in the killing of reporter Daphne Caruana Galizia",
+          "url": "https://www.npr.org/2026/09/02/nx-s1-5954420/daphne-caruana-galizia-case-yorgen-fenech-acquitted-malta",
+          "source": "NPR",
+          "sourceEn": "NPR",
+          "at": "2026-09-02T19:48:18.000Z",
+          "date": "2026-09-03"
+        },
+        {
+          "title": "The ‘Miracle House’ That Survived Nepal’s Floods",
+          "url": "https://www.nytimes.com/2026/09/02/world/asia/nepal-flood-miracle-house-dhunge-bazaar.html",
           "source": "纽约时报",
           "sourceEn": "NYT World",
-          "at": "2026-09-01T15:04:17.000Z",
-          "date": "2026-09-01"
+          "at": "2026-09-02T17:55:12.000Z",
+          "date": "2026-09-03"
         },
         {
-          "title": "War and sanctions deepen Iran's fuel crisis",
-          "url": "https://www.dw.com/en/war-and-sanctions-deepen-iran-s-fuel-crisis/a-78636429?maca=en-rss-en-world-4025-rdf",
+          "title": "U.S. and Iran Survey the Damage After a Night of Intense Strikes",
+          "url": "https://www.nytimes.com/2026/09/02/world/middleeast/us-iran-strikes.html",
+          "source": "纽约时报",
+          "sourceEn": "NYT World",
+          "at": "2026-09-02T17:38:57.000Z",
+          "date": "2026-09-03"
+        },
+        {
+          "title": "Unity at last: Is Libya's damaging power struggle at an end?",
+          "url": "https://www.dw.com/en/unity-at-last-is-libya-s-damaging-power-struggle-at-an-end/a-78758325?maca=en-rss-en-world-4025-rdf",
           "source": "德国之声",
           "sourceEn": "DW",
-          "at": "2026-09-01T14:29:00.000Z",
-          "date": "2026-09-01"
+          "at": "2026-09-02T17:35:00.000Z",
+          "date": "2026-09-03"
         },
         {
-          "title": "上合組織25週年：中國舞台、伊朗考驗，還是「清談場所」？",
-          "url": "https://www.bbc.com/zhongwen/articles/c8d39n7m2g8o/trad?at_medium=RSS&at_campaign=rss",
-          "source": "BBC 中文",
-          "sourceEn": "BBC Chinese",
-          "at": "2026-09-01T14:11:23.000Z",
-          "date": "2026-09-01"
+          "title": "Iranian attack on Saudi tanker killed two Filipino sailors, Saudi Arabia says",
+          "url": "https://www.bbc.co.uk/news/articles/cx2zxgg4mx9o?at_medium=RSS&at_campaign=rss",
+          "source": "BBC World",
+          "sourceEn": "BBC World",
+          "at": "2026-09-02T17:33:45.000Z",
+          "date": "2026-09-03"
         },
         {
-          "title": "MapQuest app reaches No 1 on US Apple list after defying Trump’s Lake Ontario order",
-          "url": "https://www.theguardian.com/us-news/2026/sep/01/mapquest-lake-ontario-trump",
+          "title": "EU and Nato vow to step up pressure on Russia after 'new escalation' in Germany",
+          "url": "https://www.bbc.co.uk/news/articles/ce9e810pg7ko?at_medium=RSS&at_campaign=rss",
+          "source": "BBC World",
+          "sourceEn": "BBC World",
+          "at": "2026-09-02T16:49:00.000Z",
+          "date": "2026-09-03"
+        },
+        {
+          "title": "Macron visits Bayeux Tapestry with King Charles, PM Andy Burnham",
+          "url": "https://www.dw.com/en/macron-visits-bayeux-tapestry-with-king-charles-pm-andy-burnham/a-78772317?maca=en-rss-en-world-4025-rdf",
+          "source": "德国之声",
+          "sourceEn": "DW",
+          "at": "2026-09-02T16:00:00.000Z",
+          "date": "2026-09-03"
+        },
+        {
+          "title": "Iran fires on its Gulf neighbors, retaliating for U.S. strikes after a monthlong lull",
+          "url": "https://www.npr.org/2026/09/02/nx-s1-5954013/us-iran-war-latest-updates",
+          "source": "NPR",
+          "sourceEn": "NPR",
+          "at": "2026-09-02T15:18:09.000Z",
+          "date": "2026-09-02"
+        },
+        {
+          "title": "US sanctions halt TOEFL and GRE tests in Iran, disrupting study plans",
+          "url": "https://www.dw.com/en/us-sanctions-halt-toefl-and-gre-tests-in-iran-disrupting-study-plans/a-78764639?maca=en-rss-en-world-4025-rdf",
+          "source": "德国之声",
+          "sourceEn": "DW",
+          "at": "2026-09-02T14:56:00.000Z",
+          "date": "2026-09-02"
+        },
+        {
+          "title": "Trump ally defends Venezuela oil deal amid ‘gunpoint diplomacy’ criticism",
+          "url": "https://www.theguardian.com/world/2026/sep/02/venezuela-oil-deal-trump-chris-wright",
           "source": "卫报",
           "sourceEn": "The Guardian",
-          "at": "2026-09-01T13:49:33.000Z",
-          "date": "2026-09-01"
+          "at": "2026-09-02T14:44:39.000Z",
+          "date": "2026-09-02"
         },
         {
-          "title": "Mladic's death, Bosnia and Serbia's unfinished reckoning",
-          "url": "https://www.dw.com/en/mladic-s-death-bosnia-and-serbia-s-unfinished-reckoning/a-78602733?maca=en-rss-en-world-4025-rdf",
+          "title": "Pete Hegseth criticized for body-shaming Canadian cadets: ‘Literally they’re kids’",
+          "url": "https://www.theguardian.com/us-news/2026/sep/02/pete-hegseth-body-shaming-post",
+          "source": "卫报",
+          "sourceEn": "The Guardian",
+          "at": "2026-09-02T14:44:31.000Z",
+          "date": "2026-09-02"
+        },
+        {
+          "title": "Greetings from the Royal Pavilion, a stunning reminder of India in southern England",
+          "url": "https://www.npr.org/2026/09/02/nx-s1-5952243/royal-pavilion-brighton-england-architecture-india",
+          "source": "NPR",
+          "sourceEn": "NPR",
+          "at": "2026-09-02T14:30:36.000Z",
+          "date": "2026-09-02"
+        },
+        {
+          "title": "黃之鋒「勾結外國勢力危害國家安全」案認罪，最高可囚終身",
+          "url": "https://www.bbc.com/zhongwen/articles/cly7r8yrxe5o/trad?at_medium=RSS&at_campaign=rss",
+          "source": "BBC 中文",
+          "sourceEn": "BBC Chinese",
+          "at": "2026-09-02T14:11:29.000Z",
+          "date": "2026-09-02"
+        },
+        {
+          "title": "Chevron to expand in Venezuela, days after the U.S. and Venezuela strike oil deal",
+          "url": "https://www.npr.org/2026/09/02/nx-s1-5952190/chevron-venezuela-oil-deal",
+          "source": "NPR",
+          "sourceEn": "NPR",
+          "at": "2026-09-02T14:08:03.000Z",
+          "date": "2026-09-02"
+        },
+        {
+          "title": "Guinea-Bissau referendum tests democratic future",
+          "url": "https://www.dw.com/en/guinea-bissau-referendum-tests-democratic-future/a-78646043?maca=en-rss-en-world-4025-rdf",
           "source": "德国之声",
           "sourceEn": "DW",
-          "at": "2026-09-01T13:09:00.000Z",
-          "date": "2026-09-01"
+          "at": "2026-09-02T13:44:00.000Z",
+          "date": "2026-09-02"
         },
         {
-          "title": "Will Bangladesh join the Mecca defense alliance?",
-          "url": "https://www.dw.com/en/will-bangladesh-join-the-mecca-defense-alliance/a-78613944?maca=en-rss-en-world-4025-rdf",
+          "title": "India rejects Hague ruling on Indus waters: What's next?",
+          "url": "https://www.dw.com/en/india-rejects-hague-ruling-on-indus-waters-what-s-next/a-78753249?maca=en-rss-en-world-4025-rdf",
           "source": "德国之声",
           "sourceEn": "DW",
-          "at": "2026-09-01T12:40:00.000Z",
-          "date": "2026-09-01"
+          "at": "2026-09-02T13:40:00.000Z",
+          "date": "2026-09-02"
         },
         {
-          "title": "泥石流摧毀西藏吉隆口岸的關鍵幾分鐘",
-          "url": "https://www.bbc.com/zhongwen/articles/cp802gnj5kmo/trad?at_medium=RSS&at_campaign=rss",
+          "title": "Rosenberg: Putin's veiled threat to UK part of Russia's campaign against West",
+          "url": "https://www.bbc.co.uk/news/articles/c62j50n131mo?at_medium=RSS&at_campaign=rss",
+          "source": "BBC World",
+          "sourceEn": "BBC World",
+          "at": "2026-09-02T11:47:11.000Z",
+          "date": "2026-09-02"
+        },
+        {
+          "title": "India's prime minister is wooing the Gen Z while cracking down on them",
+          "url": "https://www.npr.org/2026/09/02/g-s1-141512/india-genz-protests",
+          "source": "NPR",
+          "sourceEn": "NPR",
+          "at": "2026-09-02T11:11:04.000Z",
+          "date": "2026-09-02"
+        },
+        {
+          "title": "U.S.S. Abraham Lincoln Docks in Thailand, Giving Weary Crew a Break",
+          "url": "https://www.nytimes.com/2026/09/02/world/asia/uss-lincoln-arrives-thailand.html",
+          "source": "纽约时报",
+          "sourceEn": "NYT World",
+          "at": "2026-09-02T09:32:29.000Z",
+          "date": "2026-09-02"
+        },
+        {
+          "title": "New constitution in Guinea-Bissau will undermine democracy, opponents say",
+          "url": "https://www.theguardian.com/world/2026/sep/02/guinea-bissau-voters-approve-constitution-elections",
+          "source": "卫报",
+          "sourceEn": "The Guardian",
+          "at": "2026-09-02T09:20:55.000Z",
+          "date": "2026-09-02"
+        },
+        {
+          "title": "「我從未去過的祖國」：600萬阿富汗人遭鄰國驅逐，在塔利班治下重新開始",
+          "url": "https://www.bbc.com/zhongwen/articles/c4g5djd75gpo/trad?at_medium=RSS&at_campaign=rss",
           "source": "BBC 中文",
           "sourceEn": "BBC Chinese",
-          "at": "2026-09-01T12:01:05.000Z",
-          "date": "2026-09-01"
+          "at": "2026-09-02T09:18:53.000Z",
+          "date": "2026-09-02"
         },
         {
-          "title": "SCOTUS allows Trump's ballroom project to continue. And, the Army secretary resigns",
-          "url": "https://www.npr.org/2026/09/01/g-s1-141357/up-first-newsletter-trump-white-house-ballroom-dan-driscoll-g20-iran-usps-mail-in-voting",
-          "source": "NPR",
-          "sourceEn": "NPR",
-          "at": "2026-09-01T11:23:46.000Z",
-          "date": "2026-09-01"
-        },
-        {
-          "title": "Global finance ministers gather in North Carolina for G20 summit",
-          "url": "https://www.npr.org/2026/09/01/nx-s1-5950481/global-finance-ministers-gather-in-north-carolina-for-g-20-summit",
-          "source": "NPR",
-          "sourceEn": "NPR",
-          "at": "2026-09-01T08:46:27.000Z",
-          "date": "2026-09-01"
-        },
-        {
-          "title": "The U.S. wants others to join its economic pressure campaign against Iran. Will they?",
-          "url": "https://www.npr.org/2026/09/01/nx-s1-5950402/the-u-s-wants-others-to-join-its-economic-pressure-campaign-against-iran-will-they",
-          "source": "NPR",
-          "sourceEn": "NPR",
-          "at": "2026-09-01T08:46:21.000Z",
-          "date": "2026-09-01"
-        },
-        {
-          "title": "Days after Trump announces Venezuela oil deal, White House fills in some of the details",
-          "url": "https://www.npr.org/2026/09/01/g-s1-141351/us-venezuelan-oil-deal",
-          "source": "NPR",
-          "sourceEn": "NPR",
-          "at": "2026-09-01T08:30:07.000Z",
-          "date": "2026-09-01"
-        },
-        {
-          "title": "Hindu pilgrims on an arduous trek are among Nepal's missing",
-          "url": "https://www.npr.org/2026/09/01/g-s1-141349/hindu-pilgrims-on-arduous-trek-among-nepals-missing",
-          "source": "NPR",
-          "sourceEn": "NPR",
-          "at": "2026-09-01T07:08:12.000Z",
-          "date": "2026-09-01"
-        },
-        {
-          "title": "Shein香港上市首日股價下跌 期待已久的股市首秀表現疲弱",
-          "url": "https://www.bbc.com/zhongwen/articles/cz7ze2lq0vjo/trad?at_medium=RSS&at_campaign=rss",
-          "source": "BBC 中文",
-          "sourceEn": "BBC Chinese",
-          "at": "2026-09-01T05:24:58.000Z",
-          "date": "2026-09-01"
-        },
-        {
-          "title": "尼泊爾—西藏泥石流：吉隆口岸為何是朝聖之路上的重要關口？",
-          "url": "https://www.bbc.com/zhongwen/articles/c3d752l9vxxo/trad?at_medium=RSS&at_campaign=rss",
-          "source": "BBC 中文",
-          "sourceEn": "BBC Chinese",
-          "at": "2026-09-01T05:14:23.000Z",
-          "date": "2026-09-01"
+          "title": "Attacks in Black Sea Threaten to Strangle Global Grain Supply",
+          "url": "https://www.nytimes.com/2026/09/02/world/europe/russia-ukraine-port-attacks-farmers-grain.html",
+          "source": "纽约时报",
+          "sourceEn": "NYT World",
+          "at": "2026-09-02T09:05:50.000Z",
+          "date": "2026-09-02"
         }
       ]
     },
@@ -335,11 +335,67 @@
       ],
       "items": [
         {
+          "title": "v2.1.259",
+          "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.259",
+          "source": "Claude Code 发版",
+          "sourceEn": "Claude Code releases",
+          "at": "2026-09-02T22:33:51.000Z",
+          "date": "2026-09-03"
+        },
+        {
+          "title": "Elevated errors for Claude Sonnet 5",
+          "url": "https://status.claude.com/incidents/ls6bn1x81m0w",
+          "source": "Claude 状态",
+          "sourceEn": "Claude status",
+          "at": "2026-09-02T21:44:28.000Z",
+          "date": "2026-09-03"
+        },
+        {
+          "title": "Proactive cyber defense for governments and enterprises",
+          "url": "https://deepmind.google/blog/proactive-cyber-defense-for-governments-and-enterprises/",
+          "source": "DeepMind",
+          "sourceEn": "DeepMind",
+          "at": "2026-09-02T16:24:24.000Z",
+          "date": "2026-09-03"
+        },
+        {
+          "title": "Introducing Gemini 3.8 Flash and 3.8 Flash Cyber",
+          "url": "https://deepmind.google/blog/introducing-gemini-3-8-flash-and-38-flash-cyber/",
+          "source": "DeepMind",
+          "sourceEn": "DeepMind",
+          "at": "2026-09-02T16:18:31.000Z",
+          "date": "2026-09-03"
+        },
+        {
+          "title": "Proactive cyber defense for governments and enterprises",
+          "url": "https://blog.google/innovation-and-ai/technology/safety-security/fairwind-program/",
+          "source": "Google AI",
+          "sourceEn": "Google AI",
+          "at": "2026-09-02T15:40:00.000Z",
+          "date": "2026-09-02"
+        },
+        {
+          "title": "Real-Time Intelligence with IBM Time Series Models on Confluent",
+          "url": "https://huggingface.co/blog/ibm-research/real-time-intelligence",
+          "source": "Hugging Face",
+          "sourceEn": "Hugging Face",
+          "at": "2026-09-02T13:49:14.000Z",
+          "date": "2026-09-02"
+        },
+        {
+          "title": "ATV Big Air Tour turned 3 days of work into 3 hours with ChatGPT",
+          "url": "https://openai.com/index/atv-big-air-tour",
+          "source": "OpenAI",
+          "sourceEn": "OpenAI",
+          "at": "2026-09-02T12:00:00.000Z",
+          "date": "2026-09-02"
+        },
+        {
           "title": "Delays in credit purchases",
           "url": "https://status.claude.com/incidents/620swtqyn24k",
           "source": "Claude 状态",
           "sourceEn": "Claude status",
-          "at": "2026-09-01T23:26:49.000Z",
+          "at": "2026-09-02T01:24:22.000Z",
           "date": "2026-09-02"
         },
         {
@@ -431,6 +487,14 @@
           "date": "2026-09-01"
         },
         {
+          "title": "How law firm Gilbert + Tobin governs and scales AI with OpenAI",
+          "url": "https://openai.com/index/gilbert-tobin",
+          "source": "OpenAI",
+          "sourceEn": "OpenAI",
+          "at": "2026-09-01T01:00:00.000Z",
+          "date": "2026-09-01"
+        },
+        {
           "title": "Introducing @huggingface/kernels: 200+ WebGPU Kernels for Local AI",
           "url": "https://huggingface.co/blog/webgpu-kernels",
           "source": "Hugging Face",
@@ -461,70 +525,6 @@
           "sourceEn": "Claude status",
           "at": "2026-08-31T17:52:26.000Z",
           "date": "2026-09-01"
-        },
-        {
-          "title": "OpenAI supports California’s bill to advance youth AI safety",
-          "url": "https://openai.com/index/supporting-california-bill-advance-ai-youth-safety",
-          "source": "OpenAI",
-          "sourceEn": "OpenAI",
-          "at": "2026-08-31T07:00:00.000Z",
-          "date": "2026-08-31"
-        },
-        {
-          "title": "Polimill builds Japan's next-generation public AI infrastructure",
-          "url": "https://openai.com/index/polimill",
-          "source": "OpenAI",
-          "sourceEn": "OpenAI",
-          "at": "2026-08-31T07:00:00.000Z",
-          "date": "2026-08-31"
-        },
-        {
-          "title": "A milestone in expanding access to AI",
-          "url": "https://openai.com/index/expanding-access-to-ai-with-chatgpt-ads",
-          "source": "OpenAI",
-          "sourceEn": "OpenAI",
-          "at": "2026-08-31T04:00:00.000Z",
-          "date": "2026-08-31"
-        },
-        {
-          "title": "Elevated errors on Claude Code and Claude Cowork",
-          "url": "https://status.claude.com/incidents/vr9tpk8w7zr8",
-          "source": "Claude 状态",
-          "sourceEn": "Claude status",
-          "at": "2026-08-28T20:21:18.000Z",
-          "date": "2026-08-29"
-        },
-        {
-          "title": "v2.1.251",
-          "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.251",
-          "source": "Claude Code 发版",
-          "sourceEn": "Claude Code releases",
-          "at": "2026-08-28T18:19:32.000Z",
-          "date": "2026-08-29"
-        },
-        {
-          "title": "Our decision on Cursor following its acquisition by SpaceX",
-          "url": "https://openai.com/index/our-decision-on-cursor-following-its-acquisition-by-spacex",
-          "source": "OpenAI",
-          "sourceEn": "OpenAI",
-          "at": "2026-08-28T06:00:00.000Z",
-          "date": "2026-08-28"
-        },
-        {
-          "title": "Supporting Thailand’s next generation of AI startups",
-          "url": "https://openai.com/index/supporting-next-generation-ai-startups-thailand",
-          "source": "OpenAI",
-          "sourceEn": "OpenAI",
-          "at": "2026-08-28T02:00:00.000Z",
-          "date": "2026-08-28"
-        },
-        {
-          "title": "v2.1.250",
-          "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.250",
-          "source": "Claude Code 发版",
-          "sourceEn": "Claude Code releases",
-          "at": "2026-08-28T00:49:16.000Z",
-          "date": "2026-08-28"
         }
       ]
     }
