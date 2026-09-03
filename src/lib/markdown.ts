@@ -86,6 +86,20 @@ export async function renderMarkdown(source: string, locale: string) {
         const id = slugifyHeading(inner.replace(/<[^>]*>/g, ""));
         return `<h${depth} id="${id}">${inner}</h${depth}>`;
       },
+      // 正文图片默认去色（见 globals.css 的 .prose-bw img）。
+      // 写成 ![alt](/path "原色") 的那张保持原色 —— 截图、摄影作品这类
+      // 「图本身就是内容」的图，去色等于改了内容。
+      image({ href, title, text }) {
+        const keepColor = title?.trim() === "原色";
+        const attrs = [
+          `src="${href}"`,
+          `alt="${text}"`,
+          keepColor ? 'class="img-color"' : title ? `title="${title}"` : "",
+        ]
+          .filter(Boolean)
+          .join(" ");
+        return `<img ${attrs} />`;
+      },
       link({ href, title, tokens }) {
         const text = this.parser.parseInline(tokens);
         const external = /^https?:\/\//.test(href);

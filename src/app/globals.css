@@ -360,6 +360,13 @@
   filter: grayscale(0.35);
 }
 
+/* ![alt](/path "原色")：图本身就是内容（截图、摄影作品），不去色。
+   包着它的界面仍然只有黑白灰 —— 彩色只出现在图片自己那块矩形里。 */
+.prose-bw img.img-color,
+.prose-bw img.img-color:hover {
+  filter: none;
+}
+
 .prose-bw :not(pre) > code {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 0.88em;

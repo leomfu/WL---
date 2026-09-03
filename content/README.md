@@ -20,6 +20,10 @@ summary_en: One-line summary
 ---
 ```
 
+正文插图放 `public/images/posts/`，引用 `/images/posts/xxx.png`。
+图片默认去色（hover 回一点色）；`![alt](/path "原色")` 的那张保持原色，
+用于截图、摄影作品这类图本身就是内容的图。
+
 ## projects/ —— 项目
 
 `projects.json`，或一个项目一个 `.md`。字段：
