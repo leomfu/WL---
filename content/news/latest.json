@@ -1,6 +1,6 @@
 {
   "note": "由 scripts/fetch-news.mjs 生成，别手改。源清单在 sources.json。",
-  "generatedAt": "2026-09-05T23:30:00.269Z",
+  "generatedAt": "2026-09-06T23:25:48.108Z",
   "boards": [
     {
       "key": "world",
@@ -53,244 +53,244 @@
       ],
       "items": [
         {
-          "title": "Fuel tanker blast in western Iran kills at least 10",
-          "url": "https://www.aljazeera.com/news/2026/9/5/fuel-tanker-blast-in-western-iran-kills-at-least-10?traffic_source=rss",
-          "source": "半岛电视台",
-          "sourceEn": "Al Jazeera",
-          "at": "2026-09-05T23:07:48.000Z",
-          "date": "2026-09-06"
-        },
-        {
-          "title": "Trump-backed group announces $10m ad spend for midterm Senate race in Texas",
-          "url": "https://www.aljazeera.com/news/2026/9/5/trump-backed-group-announces-10m-ad-spend-for-midterm-senate-race-in-texas?traffic_source=rss",
-          "source": "半岛电视台",
-          "sourceEn": "Al Jazeera",
-          "at": "2026-09-05T22:58:33.000Z",
-          "date": "2026-09-06"
-        },
-        {
-          "title": "US and Iran trade retaliatory attacks on ships as conflict flares",
-          "url": "https://www.bbc.co.uk/news/articles/cj64rrne643o?at_medium=RSS&at_campaign=rss",
-          "source": "BBC World",
-          "sourceEn": "BBC World",
-          "at": "2026-09-05T22:44:07.000Z",
-          "date": "2026-09-06"
-        },
-        {
-          "title": "Huckabee Condemns ‘Terrorist’ Attacks on Palestinians in West Bank Town Hall",
-          "url": "https://www.nytimes.com/2026/09/05/world/middleeast/huckabee-west-bank-settler-attacks.html",
+          "title": "Live Updates: Germany’s Far Right Tops Key State Race, but Falls Short of Power",
+          "url": "https://www.nytimes.com/live/2026/09/06/world/germany-election",
           "source": "纽约时报",
           "sourceEn": "NYT World",
-          "at": "2026-09-05T22:40:26.000Z",
-          "date": "2026-09-06"
+          "at": "2026-09-06T23:04:44.000Z",
+          "date": "2026-09-07"
         },
         {
-          "title": "Trump’s pique with UK could lead to favor to acolyte Milei over Falklands",
-          "url": "https://www.theguardian.com/us-news/2026/sep/04/trump-argentina-falklands-uk",
-          "source": "卫报",
-          "sourceEn": "The Guardian",
-          "at": "2026-09-05T22:19:40.000Z",
-          "date": "2026-09-06"
-        },
-        {
-          "title": "Drone attack blamed on guerrillas kills at least three soldiers in Colombia",
-          "url": "https://www.theguardian.com/world/2026/sep/05/drone-attack-guerrillas-kills-soldiers-colombia",
-          "source": "卫报",
-          "sourceEn": "The Guardian",
-          "at": "2026-09-05T22:16:55.000Z",
-          "date": "2026-09-06"
-        },
-        {
-          "title": "US envoys meet Putin in Moscow for Ukraine talks",
-          "url": "https://www.bbc.co.uk/news/articles/cx2zqp46g8eo?at_medium=RSS&at_campaign=rss",
+          "title": "Germany's far-right AfD set for big win in eastern state, just short of majority",
+          "url": "https://www.bbc.co.uk/news/articles/cy4zejgz3z9o?at_medium=RSS&at_campaign=rss",
           "source": "BBC World",
           "sourceEn": "BBC World",
-          "at": "2026-09-05T21:39:02.000Z",
-          "date": "2026-09-06"
+          "at": "2026-09-06T23:02:45.000Z",
+          "date": "2026-09-07"
         },
         {
-          "title": "US envoys Witkoff, Kushner meet Putin for talks on Ukraine war",
-          "url": "https://www.aljazeera.com/video/newsfeed/2026/9/5/us-envoys-witkoff-kushner-meet-putin-for-talks-on-ukraine-war?traffic_source=rss",
-          "source": "半岛电视台",
-          "sourceEn": "Al Jazeera",
-          "at": "2026-09-05T21:23:06.000Z",
-          "date": "2026-09-06"
-        },
-        {
-          "title": "Building collapses after heavy rain in northern India",
-          "url": "https://www.aljazeera.com/video/newsfeed/2026/9/5/09-05-sv-india-building-collapse-mp4?traffic_source=rss",
-          "source": "半岛电视台",
-          "sourceEn": "Al Jazeera",
-          "at": "2026-09-05T21:11:25.000Z",
-          "date": "2026-09-06"
-        },
-        {
-          "title": "U.S. Strikes Three Iranian ‘Shadow Network’ Oil Tankers, Military Says",
-          "url": "https://www.nytimes.com/2026/09/05/world/middleeast/iran-us-kharg-oil-tanker-attack.html",
-          "source": "纽约时报",
-          "sourceEn": "NYT World",
-          "at": "2026-09-05T21:09:39.000Z",
-          "date": "2026-09-06"
-        },
-        {
-          "title": "Putin Meets Witkoff and Kushner in Moscow to Discuss Ukraine War",
-          "url": "https://www.nytimes.com/2026/09/05/world/europe/russia-ukraine-witkoff-kushner-moscow.html",
-          "source": "纽约时报",
-          "sourceEn": "NYT World",
-          "at": "2026-09-05T21:08:44.000Z",
-          "date": "2026-09-06"
-        },
-        {
-          "title": "U.S. strikes three Iranian oil tankers in renewal of hostilities",
-          "url": "https://www.npr.org/2026/09/05/nx-s1-5959181/u-s-strikes-three-iranian-oil-tankers-in-renewal-of-hostilities",
-          "source": "NPR",
-          "sourceEn": "NPR",
-          "at": "2026-09-05T21:01:12.000Z",
-          "date": "2026-09-06"
-        },
-        {
-          "title": "This is the work of our lifetime: Ayana Elizabeth Johnson urges action after new UN climate report",
-          "url": "https://www.npr.org/2026/09/05/nx-s1-5954264/this-is-the-work-of-our-lifetime-ayana-elizabeth-johnson-urges-action-after-new-un-climate-report",
-          "source": "NPR",
-          "sourceEn": "NPR",
-          "at": "2026-09-05T21:01:08.000Z",
-          "date": "2026-09-06"
-        },
-        {
-          "title": "Prince William to attend King Harald's funeral in Norway",
-          "url": "https://www.bbc.co.uk/news/articles/cp301rw6kvro?at_medium=RSS&at_campaign=rss",
-          "source": "BBC World",
-          "sourceEn": "BBC World",
-          "at": "2026-09-05T21:00:02.000Z",
-          "date": "2026-09-06"
-        },
-        {
-          "title": "Why is Argentina reigniting the Falklands dispute?",
-          "url": "https://www.aljazeera.com/video/inside-story/2026/9/5/why-is-argentina-reigniting-the-falklands-dispute?traffic_source=rss",
-          "source": "半岛电视台",
-          "sourceEn": "Al Jazeera",
-          "at": "2026-09-05T20:14:55.000Z",
-          "date": "2026-09-06"
-        },
-        {
-          "title": "Why many Syrians feel Assad death sentence isn't enough",
-          "url": "https://www.dw.com/en/why-many-syrians-feel-assad-death-sentence-isn-t-enough/a-78985915?maca=en-rss-en-world-4025-rdf",
+          "title": "US envoys Witkoff and Kushner hold Ukraine talks after meeting Putin",
+          "url": "https://www.dw.com/en/us-envoys-witkoff-and-kushner-hold-ukraine-talks-after-meeting-putin/a-79054779?maca=en-rss-en-world-4025-rdf",
           "source": "德国之声",
           "sourceEn": "DW",
-          "at": "2026-09-05T18:56:00.000Z",
-          "date": "2026-09-06"
+          "at": "2026-09-06T22:22:00.000Z",
+          "date": "2026-09-07"
         },
         {
-          "title": "Nepal Floods Buried a House. The Woman Inside Was Still Alive.",
-          "url": "https://www.nytimes.com/2026/09/05/world/asia/nepal-floods-chinese-worker-rescue.html",
+          "title": "U.S. Envoys Witkoff and Kushner Arrive in Kyiv After Talks With Putin",
+          "url": "https://www.nytimes.com/2026/09/06/world/europe/ukraine-zelensky-witkoff-kushner-russia-putin.html",
           "source": "纽约时报",
           "sourceEn": "NYT World",
-          "at": "2026-09-05T18:15:56.000Z",
-          "date": "2026-09-06"
+          "at": "2026-09-06T22:18:56.000Z",
+          "date": "2026-09-07"
         },
         {
-          "title": "Egyptian TV presenter among 12 sentenced to death for drug crime",
-          "url": "https://www.theguardian.com/world/2026/sep/05/egyptian-tv-presenter-among-12-sentenced-to-death-for-drug",
-          "source": "卫报",
-          "sourceEn": "The Guardian",
-          "at": "2026-09-05T18:00:15.000Z",
-          "date": "2026-09-06"
+          "title": "Alcaraz breezes into last eight at US Open",
+          "url": "https://www.aljazeera.com/sports/2026/9/6/alcaraz-breezes-into-last-eight-at-us-open?traffic_source=rss",
+          "source": "半岛电视台",
+          "sourceEn": "Al Jazeera",
+          "at": "2026-09-06T21:46:08.000Z",
+          "date": "2026-09-07"
         },
         {
-          "title": "At least two dead in blast at Bolivia military barracks",
-          "url": "https://www.bbc.co.uk/news/articles/c3v45xy67g5o?at_medium=RSS&at_campaign=rss",
+          "title": "At least five killed after Amazon cargo plane crash in Miami airport",
+          "url": "https://www.aljazeera.com/news/2026/9/6/amazon-cargo-plane-crashes-in-us-while-landing-at-miami-airport?traffic_source=rss",
+          "source": "半岛电视台",
+          "sourceEn": "Al Jazeera",
+          "at": "2026-09-06T21:11:01.000Z",
+          "date": "2026-09-07"
+        },
+        {
+          "title": "At least 10 killed in central Mexico fireworks blast during festival",
+          "url": "https://www.aljazeera.com/news/2026/9/6/at-least-10-killed-in-central-mexico-fireworks-blast-during-festival?traffic_source=rss",
+          "source": "半岛电视台",
+          "sourceEn": "Al Jazeera",
+          "at": "2026-09-06T21:08:30.000Z",
+          "date": "2026-09-07"
+        },
+        {
+          "title": "Amazon Prime plane overruns runway at Miami Airport",
+          "url": "https://www.aljazeera.com/video/newsfeed/2026/9/6/amazon-prime-plane-overruns-runway-at-miami-airport?traffic_source=rss",
+          "source": "半岛电视台",
+          "sourceEn": "Al Jazeera",
+          "at": "2026-09-06T21:08:24.000Z",
+          "date": "2026-09-07"
+        },
+        {
+          "title": "U.S. envoys visit Kyiv for first time after meeting Putin in Moscow",
+          "url": "https://www.npr.org/2026/09/06/nx-s1-5959728/u-s-envoys-visit-kyiv-for-first-time-after-meeting-putin-in-moscow",
+          "source": "NPR",
+          "sourceEn": "NPR",
+          "at": "2026-09-06T21:06:49.000Z",
+          "date": "2026-09-07"
+        },
+        {
+          "title": "Shipping companies are putting sails back on cargo ships",
+          "url": "https://www.npr.org/2026/09/06/nx-s1-5955419/shipping-companies-are-putting-sails-back-on-cargo-ships",
+          "source": "NPR",
+          "sourceEn": "NPR",
+          "at": "2026-09-06T21:06:46.000Z",
+          "date": "2026-09-07"
+        },
+        {
+          "title": "What Russia and China learned from America after 9/11",
+          "url": "https://www.npr.org/2026/09/06/nx-s1-5938065/what-russia-and-china-learned-from-america-after-9-11",
+          "source": "NPR",
+          "sourceEn": "NPR",
+          "at": "2026-09-06T21:06:41.000Z",
+          "date": "2026-09-07"
+        },
+        {
+          "title": "Peace talks rich in symbolism but fundamental differences between Russia and Ukraine remain",
+          "url": "https://www.bbc.co.uk/news/articles/c980j5m8mpro?at_medium=RSS&at_campaign=rss",
           "source": "BBC World",
           "sourceEn": "BBC World",
-          "at": "2026-09-05T15:22:41.000Z",
-          "date": "2026-09-05"
+          "at": "2026-09-06T20:52:12.000Z",
+          "date": "2026-09-07"
         },
         {
-          "title": "US military hits 3 Iranian oil tankers after saying Navy warships were targeted",
-          "url": "https://www.npr.org/2026/09/05/nx-s1-5959159/us-iran-warships-targeted",
-          "source": "NPR",
-          "sourceEn": "NPR",
-          "at": "2026-09-05T15:05:08.000Z",
-          "date": "2026-09-05"
+          "title": "Can AfD form Germany’s first far-right state government since World War II?",
+          "url": "https://www.aljazeera.com/video/newsfeed/2026/9/6/06-09-sv-germany-afd-wins-saxony-de-fm?traffic_source=rss",
+          "source": "半岛电视台",
+          "sourceEn": "Al Jazeera",
+          "at": "2026-09-06T20:52:01.000Z",
+          "date": "2026-09-07"
         },
         {
-          "title": "How the U.S. focus on Iran is fueling a more aggressive Putin",
-          "url": "https://www.npr.org/2026/09/05/nx-s1-5955705/how-the-u-s-focus-on-iran-is-fueling-a-more-aggressive-putin",
-          "source": "NPR",
-          "sourceEn": "NPR",
-          "at": "2026-09-05T11:43:20.000Z",
-          "date": "2026-09-05"
+          "title": "Zelensky says he expects war to continue into winter after talks with US envoys",
+          "url": "https://www.bbc.co.uk/news/articles/c6248nvqy8po?at_medium=RSS&at_campaign=rss",
+          "source": "BBC World",
+          "sourceEn": "BBC World",
+          "at": "2026-09-06T20:41:58.000Z",
+          "date": "2026-09-07"
         },
         {
-          "title": "U.S.-Venezuela oil deal puts opposition in a political bind",
-          "url": "https://www.npr.org/2026/09/05/nx-s1-5954177/venezuelan-opposition-slams-new-u-s-oil-deal-warning-it-delays-democracy",
-          "source": "NPR",
-          "sourceEn": "NPR",
-          "at": "2026-09-05T11:43:14.000Z",
-          "date": "2026-09-05"
-        },
-        {
-          "title": "‘It cost me many friendships’: former Brazil military chief reveals inside struggle to stop Bolsonaro’s coup",
-          "url": "https://www.theguardian.com/world/2026/sep/05/jair-bolsonaro-coup-plan-2022-election-brazil-air-force-baptista-junior",
-          "source": "卫报",
-          "sourceEn": "The Guardian",
-          "at": "2026-09-05T10:00:34.000Z",
-          "date": "2026-09-05"
-        },
-        {
-          "title": "Secret Dossier Adds to Evidence of Chemical Weapons in Sudan",
-          "url": "https://www.nytimes.com/2026/09/05/world/africa/sudan-chemical-weapons-war.html",
+          "title": "Haitians Deported From U.S. Are Left Broke and Stranded",
+          "url": "https://www.nytimes.com/2026/09/06/world/americas/haiti-deportees.html",
           "source": "纽约时报",
           "sourceEn": "NYT World",
-          "at": "2026-09-05T09:02:51.000Z",
-          "date": "2026-09-05"
+          "at": "2026-09-06T19:07:02.000Z",
+          "date": "2026-09-07"
         },
         {
-          "title": "Mistrial declared in Lindsay Clancy murder case, after jury deadlocks",
-          "url": "https://www.bbc.co.uk/news/articles/cpwlrj2je1po?at_medium=RSS&at_campaign=rss",
-          "source": "BBC World",
-          "sourceEn": "BBC World",
-          "at": "2026-09-04T22:48:38.000Z",
-          "date": "2026-09-05"
-        },
-        {
-          "title": "Outrage as Maltese tycoon acquitted in journalist's murder",
-          "url": "https://www.dw.com/en/outrage-as-maltese-tycoon-acquitted-in-journalist-s-murder/a-79027008?maca=en-rss-en-world-4025-rdf",
-          "source": "德国之声",
-          "sourceEn": "DW",
-          "at": "2026-09-04T19:31:00.000Z",
-          "date": "2026-09-05"
-        },
-        {
-          "title": "Yemen: Fighting intensifies amid Houthi push in the west",
-          "url": "https://www.dw.com/en/yemen-fighting-intensifies-amid-houthi-push-in-the-west/a-79039588?maca=en-rss-en-world-4025-rdf",
-          "source": "德国之声",
-          "sourceEn": "DW",
-          "at": "2026-09-04T19:15:00.000Z",
-          "date": "2026-09-05"
-        },
-        {
-          "title": "UN votes to adopt new world map that shows Africa’s true scale",
-          "url": "https://www.theguardian.com/world/2026/sep/04/un-vote-world-map-mercator-equal-earth-africa",
+          "title": "Jamaican delegates arrive in UK to hand slavery reparations petition to King Charles",
+          "url": "https://www.theguardian.com/news/2026/sep/06/jamaica-slavery-reparations-petition-king-charles",
           "source": "卫报",
           "sourceEn": "The Guardian",
-          "at": "2026-09-04T16:49:29.000Z",
-          "date": "2026-09-05"
+          "at": "2026-09-06T17:05:11.000Z",
+          "date": "2026-09-07"
         },
         {
-          "title": "Nigeria: Suspected oil thieves dead after inhaling fumes",
-          "url": "https://www.dw.com/en/nigeria-suspected-oil-thieves-dead-after-inhaling-fumes/a-79001997?maca=en-rss-en-world-4025-rdf",
-          "source": "德国之声",
-          "sourceEn": "DW",
-          "at": "2026-09-04T15:35:00.000Z",
-          "date": "2026-09-04"
+          "title": "Dozens feared trapped in collapsed building in Delhi",
+          "url": "https://www.bbc.co.uk/news/articles/c8r6ezx1jmro?at_medium=RSS&at_campaign=rss",
+          "source": "BBC World",
+          "sourceEn": "BBC World",
+          "at": "2026-09-06T16:54:34.000Z",
+          "date": "2026-09-07"
         },
         {
-          "title": "「究竟是誰在批准什麼？」：光州雙年展台灣復名、中國退展，改名風波背後的角力",
-          "url": "https://www.bbc.com/zhongwen/articles/c2kwv977qlko/trad?at_medium=RSS&at_campaign=rss",
+          "title": "German exit polls suggest far-right party has big lead in regional election",
+          "url": "https://www.npr.org/2026/09/06/nx-s1-5955677/german-afd-far-right-exit",
+          "source": "NPR",
+          "sourceEn": "NPR",
+          "at": "2026-09-06T16:36:48.000Z",
+          "date": "2026-09-07"
+        },
+        {
+          "title": "Volcano eruption leaves 170,000 passengers stranded in Indonesia",
+          "url": "https://www.bbc.co.uk/news/articles/cvgy5k4n07ko?at_medium=RSS&at_campaign=rss",
+          "source": "BBC World",
+          "sourceEn": "BBC World",
+          "at": "2026-09-06T16:00:21.000Z",
+          "date": "2026-09-07"
+        },
+        {
+          "title": "印度洋蔥「政治敏感」得要坐上鐵路快車",
+          "url": "https://www.bbc.com/zhongwen/articles/cj4j2kp0818o/trad?at_medium=RSS&at_campaign=rss",
           "source": "BBC 中文",
           "sourceEn": "BBC Chinese",
-          "at": "2026-09-04T14:33:16.000Z",
-          "date": "2026-09-04"
+          "at": "2026-09-06T13:17:31.000Z",
+          "date": "2026-09-06"
+        },
+        {
+          "title": "Germany, Kosovo unite against ticks carrying deadly virus",
+          "url": "https://www.dw.com/en/germany-kosovo-unite-against-ticks-carrying-deadly-virus/a-78655223?maca=en-rss-en-world-4025-rdf",
+          "source": "德国之声",
+          "sourceEn": "DW",
+          "at": "2026-09-06T10:25:00.000Z",
+          "date": "2026-09-06"
+        },
+        {
+          "title": "Witkoff and Kushner call Kyiv talks 'substantive' after Moscow Putin meeting",
+          "url": "https://www.npr.org/2026/09/06/nx-s1-5959657/us-envoys-witkoff-kushner-talks-in-kyiv-putin-moscow",
+          "source": "NPR",
+          "sourceEn": "NPR",
+          "at": "2026-09-06T09:51:04.000Z",
+          "date": "2026-09-06"
+        },
+        {
+          "title": "In Ukraine, Fraud and Waste Are Rewarded With More Weapons Contracts",
+          "url": "https://www.nytimes.com/2026/09/06/world/europe/ukraine-war-weapons-fraud-corruption.html",
+          "source": "纽约时报",
+          "sourceEn": "NYT World",
+          "at": "2026-09-06T09:00:10.000Z",
+          "date": "2026-09-06"
+        },
+        {
+          "title": "How climate change and food insecurity could fuel future conflicts",
+          "url": "https://www.dw.com/en/how-climate-change-and-food-insecurity-could-fuel-future-conflicts/a-78871431?maca=en-rss-en-world-4025-rdf",
+          "source": "德国之声",
+          "sourceEn": "DW",
+          "at": "2026-09-06T07:47:00.000Z",
+          "date": "2026-09-06"
+        },
+        {
+          "title": "特朗普取態何以左右福克蘭群島爭議",
+          "url": "https://www.bbc.com/zhongwen/articles/cm2q6pyyzn0o/trad?at_medium=RSS&at_campaign=rss",
+          "source": "BBC 中文",
+          "sourceEn": "BBC Chinese",
+          "at": "2026-09-06T07:42:46.000Z",
+          "date": "2026-09-06"
+        },
+        {
+          "title": "Ebola: Why children are last to be treated in medical crises",
+          "url": "https://www.dw.com/en/ebola-why-children-are-last-to-be-treated-in-medical-crises/a-79050107?maca=en-rss-en-world-4025-rdf",
+          "source": "德国之声",
+          "sourceEn": "DW",
+          "at": "2026-09-06T06:13:00.000Z",
+          "date": "2026-09-06"
+        },
+        {
+          "title": "Falklands row shows urgent need to commit to 3% target, says Labour defence committee chair",
+          "url": "https://www.theguardian.com/politics/2026/sep/06/falklands-row-raise-defence-spending-tan-dhesi-labour",
+          "source": "卫报",
+          "sourceEn": "The Guardian",
+          "at": "2026-09-06T06:00:58.000Z",
+          "date": "2026-09-06"
+        },
+        {
+          "title": "Hungary begins hunt for corrupt regime's billions",
+          "url": "https://www.dw.com/en/hungary-begins-hunt-for-corrupt-regime-s-billions/a-79047176?maca=en-rss-en-world-4025-rdf",
+          "source": "德国之声",
+          "sourceEn": "DW",
+          "at": "2026-09-06T05:54:00.000Z",
+          "date": "2026-09-06"
+        },
+        {
+          "title": "尼泊爾給水力發電押下重注，泥石流把問題徹底暴露",
+          "url": "https://www.bbc.com/zhongwen/articles/c0re1x8wg24o/trad?at_medium=RSS&at_campaign=rss",
+          "source": "BBC 中文",
+          "sourceEn": "BBC Chinese",
+          "at": "2026-09-06T05:19:17.000Z",
+          "date": "2026-09-06"
+        },
+        {
+          "title": "不同版本的世界地圖有哪些正確及錯誤之處？",
+          "url": "https://www.bbc.com/zhongwen/articles/crm9k8pggjvo/trad?at_medium=RSS&at_campaign=rss",
+          "source": "BBC 中文",
+          "sourceEn": "BBC Chinese",
+          "at": "2026-09-06T04:35:53.000Z",
+          "date": "2026-09-06"
         }
       ]
     },
@@ -334,6 +334,30 @@
         }
       ],
       "items": [
+        {
+          "title": "An Alien Mind",
+          "url": "https://openai.com/index/an-alien-mind",
+          "source": "OpenAI",
+          "sourceEn": "OpenAI",
+          "at": "2026-09-06T09:00:00.000Z",
+          "date": "2026-09-06"
+        },
+        {
+          "title": "Research acceleration: The view inside OpenAI",
+          "url": "https://openai.com/index/research-acceleration-view-inside-openai",
+          "source": "OpenAI",
+          "sourceEn": "OpenAI",
+          "at": "2026-09-06T08:00:00.000Z",
+          "date": "2026-09-06"
+        },
+        {
+          "title": "v2.1.263",
+          "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.263",
+          "source": "Claude Code 发版",
+          "sourceEn": "Claude Code releases",
+          "at": "2026-09-06T02:54:20.000Z",
+          "date": "2026-09-06"
+        },
         {
           "title": "v2.1.261",
           "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.261",
@@ -391,16 +415,16 @@
           "date": "2026-09-03"
         },
         {
-          "title": "Playco cut manual fixes 50% prototyping games with GPT-6 Astra",
-          "url": "https://openai.com/index/playco-game-prototyping-with-astra",
+          "title": "Legora reviewed 41 documents in minutes with GPT-6 Astra",
+          "url": "https://openai.com/index/legora-financial-statement-review-with-astra",
           "source": "OpenAI",
           "sourceEn": "OpenAI",
           "at": "2026-09-03T12:00:00.000Z",
           "date": "2026-09-03"
         },
         {
-          "title": "Legora reviewed 41 documents in minutes with GPT-6 Astra",
-          "url": "https://openai.com/index/legora-financial-statement-review-with-astra",
+          "title": "Playco cut manual fixes 50% prototyping games with GPT-6 Astra",
+          "url": "https://openai.com/index/playco-game-prototyping-with-astra",
           "source": "OpenAI",
           "sourceEn": "OpenAI",
           "at": "2026-09-03T12:00:00.000Z",
@@ -500,30 +524,6 @@
           "source": "OpenAI",
           "sourceEn": "OpenAI",
           "at": "2026-09-02T12:00:00.000Z",
-          "date": "2026-09-02"
-        },
-        {
-          "title": "Delays in credit purchases",
-          "url": "https://status.claude.com/incidents/620swtqyn24k",
-          "source": "Claude 状态",
-          "sourceEn": "Claude status",
-          "at": "2026-09-02T01:24:22.000Z",
-          "date": "2026-09-02"
-        },
-        {
-          "title": "v2.1.258",
-          "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.258",
-          "source": "Claude Code 发版",
-          "sourceEn": "Claude Code releases",
-          "at": "2026-09-01T22:33:20.000Z",
-          "date": "2026-09-02"
-        },
-        {
-          "title": "BenchMIRT: What are LLM benchmarks actually measuring?",
-          "url": "https://huggingface.co/blog/allenai/benchmirt",
-          "source": "Hugging Face",
-          "sourceEn": "Hugging Face",
-          "at": "2026-09-01T21:39:07.000Z",
           "date": "2026-09-02"
         }
       ]
