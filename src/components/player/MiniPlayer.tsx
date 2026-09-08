@@ -21,7 +21,7 @@ import { localePath } from "@/lib/nav";
  */
 
 /** 唱片页和开场页不显示：一个已经有大唱机，一个是整屏的开场 */
-const HIDE_ON = [/\/records\/?$/, /^\/(zh|en)\/?$/];
+const HIDE_ON = [/\/hobbies\/?$/, /^\/(zh|en)\/?$/];
 
 export function MiniPlayer() {
   const t = useTranslations("player");
@@ -64,7 +64,7 @@ export function MiniPlayer() {
           <div className="flex items-center gap-3">
             {/* 小唱片：在放就在转 */}
             <Link
-              href={localePath(locale, "/records")}
+              href={localePath(locale, "/hobbies#records")}
               aria-label={t("toRecords")}
               className="group flex shrink-0 items-center"
             >
@@ -79,7 +79,7 @@ export function MiniPlayer() {
             </Link>
 
             <Link
-              href={localePath(locale, "/records")}
+              href={localePath(locale, "/hobbies#records")}
               className="min-w-0 grow"
               aria-label={t("toRecords")}
             >

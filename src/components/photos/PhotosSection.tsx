@@ -1,37 +1,23 @@
 import Image from "next/image";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { MediaCard } from "@/components/ui/MediaCard";
-import { PageHeader } from "@/components/ui/PageHeader";
 import { Reveal } from "@/components/ui/Reveal";
 import { localized } from "@/lib/format";
-import { pageMetadata } from "@/lib/metadata";
 import { localePath } from "@/lib/nav";
 import { archiveByYear, featureAlbums, getAlbums } from "@/lib/photos";
 import { albumDates, type Album } from "@/lib/photoTypes";
-import { routing } from "@/i18n/routing";
-
-export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
-}
-
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params;
-  return pageMetadata(locale, "photos", "/photos");
-}
+import { PosterHero } from "./PosterHero";
 
 /**
- * 摄影列表页 —— 两级组织：
- * 上半部「专题」（成组的作品，大图卡片），下半部「档案」（按年份分组的辑清单）。
- * 数据来自 content/photos/*.json，图片由 `npm run photos` 压出来。
+ * 爱好页「摄影」那一栏 —— 原来的 /photos 列表页整块搬过来的（2026-09-08 合并）。
+ * 两级组织没变：上半「专题」（成组的作品，大图卡片），下半「档案」（按年份分组）。
+ * 单辑详情页仍在 /photos/<slug>/，只是没有 /photos/ 这个索引页了。
+ *
+ * 开头那张双色调海报是从首页搬来的（站主要求首页不再放照片，
+ * 它更该当摄影的开场）——它本来就是站主自己那张背影照。
  */
-export default async function PhotosPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-  setRequestLocale(locale);
-  const t = await getTranslations("photos");
+export async function PhotosSection({ locale }: { locale: string }) {
+  const t = await getTranslations({ locale, namespace: "photos" });
 
   const albums = getAlbums();
   const features = featureAlbums(albums);
@@ -49,7 +35,12 @@ export default async function PhotosPage({
 
   return (
     <>
-      <PageHeader title={t("title")} lead={t("lead")} />
+      {/* 开场大图：负边距顶掉 main 的左右内边距，让海报出血到窗口两侧 */}
+      <div className="-mx-5 mt-8 mb-12 sm:-mx-10">
+        <PosterHero />
+      </div>
+
+      <p className="max-w-[640px] text-[15.5px] leading-[1.8] text-muted">{t("lead")}</p>
 
       {albums.length === 0 && (
         <Reveal delay={120}>
@@ -61,7 +52,8 @@ export default async function PhotosPage({
       {features.length > 0 && (
         <Reveal delay={120} className="mt-12">
           <SectionLabel label={t("feature")} note={t("featureNote")} />
-          <div className="mt-6 flex flex-col gap-6">
+          {/* 整幅版面下专题卡排两列；原来是 700px 窄列所以只能单列 */}
+          <div className="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-2">
             {features.map((album) => {
               const cover = album.photos[0];
               const title = localized(locale, album.title, album.titleEn);
@@ -79,7 +71,7 @@ export default async function PhotosPage({
                         width={cover.width}
                         height={cover.height}
                         loading="lazy"
-                        sizes="(max-width: 768px) 100vw, 700px"
+                        sizes="(max-width: 1280px) 100vw, 50vw"
                         className="absolute inset-0 size-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.02]"
                       />
                     )
@@ -110,7 +102,7 @@ export default async function PhotosPage({
                   </span>
                 </div>
 
-                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                   {list.map((album) => {
                     const cover = album.photos[0];
                     const title = localized(locale, album.title, album.titleEn);
@@ -126,7 +118,7 @@ export default async function PhotosPage({
                               width={cover.width}
                               height={cover.height}
                               loading="lazy"
-                              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                               className="absolute inset-0 size-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.02]"
                             />
                           )

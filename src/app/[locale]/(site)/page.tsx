@@ -1,5 +1,5 @@
+import Image from "next/image";
 import Link from "next/link";
-import { PosterHero } from "@/components/home/PosterHero";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Reveal } from "@/components/ui/Reveal";
 import { ContentFooter, SectionTitle } from "@/components/ui/PageHeader";
@@ -34,9 +34,11 @@ export async function generateMetadata({
 /**
  * 首页 —— 对照 design-v2/Home.dc.html。
  *
- * 2026-09-01：开场页（那只时钟 + 点一下进站）整个下线，`/zh/` 直接就是这一页，
- * 顶上换成 PosterHero（按 mono-color 设计系统做的单色海报，来自站主那张背影照）。
- * 原来的 /zh/home/ 已经不存在，全站链接都指向语言根路径。四块层层收紧的密度，节奏全靠排版：
+ * 2026-09-01：开场页（那只时钟 + 点一下进站）整个下线，`/zh/` 直接就是这一页。
+ * 2026-09-08：顶上那张单色海报（PosterHero）搬去了爱好页的摄影栏——站主要求首页不放照片，
+ * 那张背影照更该当摄影的开场。这里换成一块**报头**：Logo + 名字 + 一句话定位，
+ * 纯排版，没有图。原来的 /zh/home/ 已经不存在，全站链接都指向语言根路径。
+ * 四块层层收紧的密度，节奏全靠排版：
  * A 引言（整页最重，一句站主自己写的话）→ B 关于（收紧）→ C 在做的（编号清单）
  * → D 最近写的（最紧凑，日期领读）。原来单独的"现在是"板块已并入 C 的日期注记
  * （复用 content/now/*.md 的 updated 字段），不再单列一段——它的文字内容和
@@ -52,6 +54,7 @@ export default async function HomePage({
   const t = await getTranslations("home");
 
   const name = locale === "en" ? siteConfig.nameEn : siteConfig.name;
+  const tagline = locale === "en" ? siteConfig.taglineEn : siteConfig.tagline;
   const intro = await renderMarkdown(getHomeIntro(locale).body, locale);
   const now = getNow(locale);
   const featured = getProjects().filter((p) => p.featured).slice(0, 3);
@@ -65,21 +68,35 @@ export default async function HomePage({
 
   return (
     <>
-      {/* 单色海报那一屏：按 mono-color 设计系统把站主那张背影照重做成编辑式海报。
-          纸色 #FAFAF7 和内容区的 #fafafa 几乎同色，所以它像印在页面上而不是贴上去的一块图，
-          也就不需要旧版那种底部渐隐来接色。负边距顶掉 main 的内边距。 */}
-      <div className="-mx-6 -mt-[88px] mb-14 sm:-mx-10 sm:mb-16 lg:-mt-[104px]">
-        <PosterHero />
-      </div>
-
-      {/* 块 A · 引言：整页最重的一块 */}
-      <Reveal>
-        <span className="block text-[10.5px] tracking-(--tracking-eyebrow) text-faint uppercase">
+      {/* 报头：Logo + 名字 + 一句话定位。整幅版面下靠一道细线收住，不占满整屏 */}
+      <Reveal className="flex flex-col gap-7 border-b border-line pb-12 sm:flex-row sm:items-end sm:justify-between sm:gap-10">
+        <div className="flex items-center gap-5">
+          <span className="flex size-[64px] shrink-0 items-center justify-center rounded-full border border-line-strong bg-card sm:size-[76px]">
+            <Image
+              src={siteConfig.logo}
+              alt={name}
+              width={44}
+              height={44}
+              className="size-[38px] object-contain sm:size-[44px]"
+            />
+          </span>
+          <div className="flex flex-col gap-2">
+            <h1 className="font-serif text-[38px] leading-none font-light tracking-[0.02em] text-ink sm:text-[52px]">
+              {name}
+            </h1>
+            <p className="text-[14px] leading-[1.7] text-muted sm:text-[15px]">{tagline}</p>
+          </div>
+        </div>
+        <span className="shrink-0 text-[10.5px] tracking-(--tracking-eyebrow) text-faint uppercase">
           {t("eyebrow")}
         </span>
-        <h1 className="mt-[22px] font-serif text-[26px] leading-[1.55] font-light tracking-[-0.01em] text-ink [text-wrap:pretty] sm:text-[34px]">
+      </Reveal>
+
+      {/* 块 A · 引言：整页最重的一块 */}
+      <Reveal delay={80} className="mt-[52px]">
+        <h2 className="max-w-[900px] font-serif text-[26px] leading-[1.55] font-light tracking-[-0.01em] text-ink [text-wrap:pretty] sm:text-[34px]">
           {quote}
-        </h1>
+        </h2>
       </Reveal>
 
       {/* 块 B · 关于：密度陡然收紧 */}

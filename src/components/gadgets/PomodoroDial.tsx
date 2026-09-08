@@ -29,7 +29,7 @@ export function PomodoroDial({
   pomodoro: Pomodoro;
   reduced: boolean;
 }) {
-  const t = useTranslations("focus.pomodoro");
+  const t = useTranslations("gadgets.pomodoro");
   const [moreOpen, setMoreOpen] = useState(false);
 
   const textRef = useRef<HTMLSpanElement | null>(null);

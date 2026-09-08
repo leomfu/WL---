@@ -54,9 +54,8 @@
     "Songti SC", Georgia, serif;
 
   /* --- 布局尺寸（画板定稿）--- */
-  --spacing-sidebar: 264px;   /* 左侧暗色侧边栏 */
-  --spacing-column: 700px;    /* 内容列 */
-  --spacing-rail: 64px;       /* 放松区收窄后的图标条 */
+  --spacing-topnav: 64px;     /* 顶部暗色导航条（移动端 56px，见 TopNav） */
+  --spacing-column: 700px;    /* 正文阅读列 —— 整幅版面里唯一还限宽的东西 */
 
   /* --- 小标签字距 --- */
   --tracking-label: 0.2em;
@@ -248,7 +247,11 @@
    .prose-bw —— markdown 正文的排版（content/ 里的 md 渲染进来都套这个）
    彩色一律不进来：代码高亮走 src/lib/markdown.ts 里的灰阶主题。
    ========================================================================== */
+/* 2026-09-08 整幅版面之后，正文自己收成阅读列：一行拉满两千像素没人读得下去。
+   限宽放在 .prose-bw 上而不是外层容器上，是因为只有 markdown 正文需要它，
+   列表、网格、照片墙都该铺满。 */
 .prose-bw {
+  max-width: var(--spacing-column);
   color: var(--color-body);
   font-size: 16px;
   line-height: 1.9;

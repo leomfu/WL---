@@ -97,59 +97,17 @@ export const siteConfig = {
     { key: "douyin", label: "抖音", labelEn: "Douyin", href: "", handle: "[主页]" },
   ] satisfies Social[],
 
-  /* --- 放松区（阶段 4 用）--- */
-  focus: {
-    /* 音乐层的曲目不在这里 —— 常驻曲库在 content/music/resident.json，
-       网易云那组由 scripts/fetch-netease.mjs 生成到 content/music/netease.json */
-    /**
-     * 时刻表 —— 专注区第三层。这一层不播放任何东西，只是「从这里去哪儿」。
-     *
-     * 原来这里是 Spotify 的嵌入播放器，撤掉了：正版流媒体给不出能塞进 <audio> 的直链，
-     * 嵌入永远是别人的白色方框，大陆还连不上。与其把残废的播放器伪装成一层，
-     * 不如老实做成一张时刻表。加去处就在下面加一行，顺序就是页面上的顺序。
-     *
-     * appUrl 可选：Spotify 这类有桌面/手机 App 的，填上它的 URI（spotify:playlist:<id>），
-     * 行尾会多一个小小的「App」。**大陆网络下这个往往是唯一能通的出口** ——
-     * 很多代理的分流规则把 open.spotify.com 单独放一组走直连，网页版就打不开，
-     * 但 App 自己的连接是另一条路。
-     */
-    departures: [
-      {
-        platform: "Spotify",
-        platformEn: "Spotify",
-        label: "张震岳",
-        labelEn: "A-Yue",
-        url: "https://open.spotify.com/playlist/6kZrHBtYSgjtt4PB7i9yYo",
-        appUrl: "spotify:playlist:6kZrHBtYSgjtt4PB7i9yYo",
-      },
-      {
-        platform: "Spotify",
-        platformEn: "Spotify",
-        label: "周杰伦",
-        labelEn: "Jay Chou",
-        url: "https://open.spotify.com/playlist/4mPvpGE5wk2B3jO6wciAYW",
-        appUrl: "spotify:playlist:4mPvpGE5wk2B3jO6wciAYW",
-      },
-      {
-        platform: "播客",
-        platformEn: "Podcast",
-        label: "无人知晓",
-        labelEn: "Unknown",
-        url: "https://open.spotify.com/show/4TY2xLrxqaOEffz4B8eXpi",
-        appUrl: "spotify:show:4TY2xLrxqaOEffz4B8eXpi",
-      },
-    ],
-
+  /* --- 小工具（项目页「小工具」那一栏）--- */
+  gadgets: {
     /** 番茄钟。分钟数，cycle = 做满几个专注换一次长休 */
     pomodoro: { focus: 25, short: 5, long: 15, cycle: 4 },
 
-    /* 原来这里还有一个 `scenes` 数组（雨夜/海浪/篝火/深空四套纯 CSS 背景，
-       配 SceneBackdrop 组件当全屏背景、底部一排小字切换）。桌面隐喻定稿之后
-       （design-v2/Focus.dc.html）背景变成固定的中灰书桌渐变，不再需要可切换的
-       场景，2026-08-3x 连同 SceneBackdrop.tsx 一起删了，别再加回来。 */
+    /* 这里原来还有一个 `departures` 时刻表（「去哪儿听完整版」的一串外链），
+       和更早的 `scenes`（四套纯 CSS 背景）。2026-09-08 番茄钟和手记从整屏的
+       /focus 页搬进项目页时，时刻表按站主要求整个下线了，别再加回来。 */
   },
 
-  /* --- 评论 / 留言板（阶段 3 用，需要 public 仓库 + 开 Discussions）--- */
+  /* --- 文章评论（需要 public 仓库 + 开 Discussions；2026-09-08 留言板页下线后只用于文章底部）--- */
   giscus: {
     repo: "leomfu/WL---",
     /** 仓库的 GraphQL node id。取法：curl https://api.github.com/repos/<owner>/<repo> 里的 node_id */

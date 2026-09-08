@@ -85,7 +85,7 @@
     "repo": "https://github.com/giscus/giscus",
     "role": "留言",
     "role_en": "Comments",
-    "desc": "文章评论和留言板。数据存在这个仓库的 GitHub Discussions 里——静态站没有数据库，这是唯一不用后端的办法。",
+    "desc": "文章底部的评论。数据存在这个仓库的 GitHub Discussions 里——静态站没有数据库，这是唯一不用后端的办法。",
     "desc_en": "Comments live in this repo's GitHub Discussions — the only way to have them without a backend."
   },
   {

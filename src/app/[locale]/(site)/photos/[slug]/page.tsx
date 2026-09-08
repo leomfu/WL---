@@ -63,7 +63,7 @@ export default async function AlbumPage({ params }: { params: Promise<Params> })
     <>
       <Reveal>
         <Link
-          href={localePath(locale, "/photos")}
+          href={localePath(locale, "/hobbies#photos")}
           className="inline-block text-[12.5px] text-muted transition-colors hover:text-ink"
         >
           ← {t("title")}
@@ -128,7 +128,7 @@ export default async function AlbumPage({ params }: { params: Promise<Params> })
           )}
         </div>
         <Link
-          href={localePath(locale, "/photos")}
+          href={localePath(locale, "/hobbies#photos")}
           className="mt-8 inline-block text-[12.5px] text-muted transition-colors hover:text-ink"
         >
           ← {t("backToList")}

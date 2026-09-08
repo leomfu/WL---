@@ -38,7 +38,13 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   };
 }
 
-/** 文章详情页：正文 + 长文侧边目录 + 上一篇/下一篇 + giscus 评论 */
+/**
+ * 文章详情页：正文 + 长文侧边目录 + 上一篇/下一篇 + giscus 评论。
+ *
+ * 2026-09-08 全站改成整幅版面之后，**这一页仍然收成 700px 的阅读列**——
+ * 一行文字横穿两千像素没人读得下去。列表、网格、照片墙铺满，正文不铺。
+ * 侧边目录就摆在这一列右边的空处（`left-[calc(100%+56px)]` 是相对这一列算的）。
+ */
 export default async function PostPage({ params }: { params: Promise<Params> }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
@@ -62,7 +68,7 @@ export default async function PostPage({ params }: { params: Promise<Params> }) 
   const langMismatch = post.lang !== locale;
 
   return (
-    <div className="relative">
+    <div className="relative max-w-column">
       <Reveal>
         <div className="flex flex-wrap items-center gap-3 text-[12.5px] text-faint">
           <span>{longDate(post.date, locale)}</span>

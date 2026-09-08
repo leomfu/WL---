@@ -15,7 +15,7 @@ export function PageHeader({
         {title}
       </h1>
       {lead && (
-        <p className="mt-3.5 text-[15.5px] leading-[1.8] text-muted">{lead}</p>
+        <p className="mt-3.5 max-w-[720px] text-[15.5px] leading-[1.8] text-muted">{lead}</p>
       )}
     </Reveal>
   );

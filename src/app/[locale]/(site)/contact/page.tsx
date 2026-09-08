@@ -41,7 +41,7 @@ export default async function ContactPage({
       <PageHeader title={t("title")} lead={t("lead")} />
 
       {/* 邮箱 */}
-      <Reveal delay={120} className="mt-12">
+      <Reveal delay={120} className="mt-12 max-w-[860px]">
         <div className="text-[11px] tracking-[0.18em] text-faint">
           {t("emailLabel")}
         </div>
@@ -52,7 +52,7 @@ export default async function ContactPage({
       </Reveal>
 
       {/* 在别处 */}
-      <Reveal delay={260} className="mt-15">
+      <Reveal delay={260} className="mt-15 max-w-[860px]">
         <div className="text-[11px] tracking-[0.18em] text-faint">
           {t("elsewhere")}
         </div>
@@ -97,7 +97,7 @@ export default async function ContactPage({
         <ContentFooter
           note={t.rich("footerNote", {
             link: (chunks) => (
-              <Link href={localePath(locale, "/guestbook")} className="link-underline">
+              <Link href={localePath(locale, "/blog")} className="link-underline">
                 {chunks}
               </Link>
             ),

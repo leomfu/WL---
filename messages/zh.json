@@ -10,7 +10,7 @@
     },
     "projects": {
       "title": "项目",
-      "description": "做过的东西，一个个列在这里。"
+      "description": "做过的东西，两样能直接上手用的小工具，以及这个站用到的开源。"
     },
     "videos": {
       "title": "视频",
@@ -21,8 +21,8 @@
       "description": "按专题和年份排的照片 —— 走过的地方、留下的光。"
     },
     "blog": {
-      "title": "写字的地方",
-      "description": "长文、随笔和一些没头没尾的想法。"
+      "title": "博客",
+      "description": "自己写的长文、随笔和想法，加上每天抓一次的世界新闻与 AI 更新。"
     },
     "about": {
       "title": "关于",
@@ -32,29 +32,13 @@
       "title": "工具",
       "description": "我每天在用的软件、服务和硬件。"
     },
-    "focus": {
-      "title": "专注",
-      "description": "一张钟面、一个番茄钟、一叠手记，和一份「去哪儿听」的时刻表。"
-    },
     "contact": {
       "title": "说点什么",
-      "description": "邮箱、社交账号，以及一块留言板。"
+      "description": "邮箱和社交账号 —— 想说点什么，这里都能找到我。"
     },
-    "library": {
-      "title": "书影音",
-      "description": "最近在看的书、电影和专辑。"
-    },
-    "records": {
-      "title": "唱片",
-      "description": "一台真能转、真出声的黑胶唱机，和我听的那些专辑。"
-    },
-    "guestbook": {
-      "title": "留言板",
-      "description": "随便写一句，我都会看到。"
-    },
-    "news": {
-      "title": "新闻",
-      "description": "每天早上抓一次：可靠报社的世界新闻，以及 Claude 和 AI 行业更新的中文解读。"
+    "hobbies": {
+      "title": "爱好",
+      "description": "拍的照片、听的唱片、看的书影音 —— 三样都在这一页，点上面切。"
     }
   },
   "intro": {
@@ -71,28 +55,19 @@
     "projects": "项目",
     "photos": "摄影",
     "videos": "视频",
-    "blog": "文章",
+    "blog": "博客",
     "about": "关于",
     "tools": "工具",
-    "focus": "专注",
     "contact": "联系",
     "library": "书影音",
-    "guestbook": "留言板",
     "connect": "连接 / CONNECT",
-    "collapse": "收起侧栏",
-    "expand": "展开侧栏",
     "menu": "打开菜单",
     "close": "关闭菜单",
-    "replayIntro": "回到开场页",
     "toHome": "回到首页",
     "news": "新闻",
     "records": "唱片",
-    "groups": {
-      "works": "作品",
-      "writing": "写作",
-      "hobbies": "嗜好",
-      "about": "关于"
-    }
+    "hobbies": "爱好",
+    "gadgets": "小工具"
   },
   "common": {
     "language": "语言",
@@ -112,7 +87,7 @@
     "buildingTitle": "在做的",
     "writingTitle": "最近写的",
     "moreProjects": "更早的东西都在 <link>项目页</link> 里。",
-    "morePosts": "更多文章在 <link>写字的地方</link>。",
+    "morePosts": "更多文章在 <link>博客</link>。",
     "noPosts": "还没有文章 —— 第一篇很快就写。",
     "footerNote": "想说点什么就 <link>写封邮件</link>，我一般两三天内回。",
     "copyright": "© {year} {name}"
@@ -127,7 +102,8 @@
     "tabMine": "我做的",
     "tabUses": "用到的开源",
     "mineNote": "做过的东西，一个个列在这里。有线上地址的，点标题就能去。",
-    "foundByMe": "自己找的"
+    "foundByMe": "自己找的",
+    "tabGadgets": "小工具"
   },
   "videos": {
     "title": "视频",
@@ -175,11 +151,11 @@
     "emailLabel": "邮箱 / EMAIL",
     "write": "写邮件",
     "elsewhere": "在别处 / ELSEWHERE",
-    "footerNote": "不想发邮件？去 <link>留言板</link> 写一句也行。"
+    "footerNote": "更想随便翻翻？去 <link>博客</link> 看看。"
   },
   "blog": {
-    "title": "写字的地方",
-    "lead": "长文、随笔和一些没头没尾的想法，都放在这里。共 <em>{count}</em> 篇。",
+    "title": "博客",
+    "lead": "自己写的长文、随笔和想法，共 <em>{count}</em> 篇；另外两栏是每天早上抓一次的世界新闻和 AI 更新。",
     "filterAll": "全部",
     "order": "按时间倒序",
     "minutes": "{minutes} 分钟",
@@ -196,7 +172,11 @@
       "blog": "随笔",
       "essay": "长文",
       "thought": "想法"
-    }
+    },
+    "tabPosts": "文章",
+    "tabWorld": "世界新闻",
+    "tabAi": "AI 更新",
+    "footerNote": "想接着聊，<link>写封邮件</link> 就好。"
   },
   "library": {
     "title": "书影音",
@@ -246,30 +226,61 @@
       "openPlatform": "在 Apple Music 打开 ↗"
     }
   },
-  "guestbook": {
-    "title": "留言板",
-    "lead": "路过写一句就好。留言存在本站 GitHub 仓库的 Discussions 里，我都会看。",
-    "footerNote": "想聊得久一点？也可以 <link>写封邮件</link>。",
-    "noAccountTitle": "没有 GitHub 账号？",
-    "noAccountBody": "留言板走 GitHub 登录，是因为这个站没有后端也没有数据库，只有这样才能把留言长久留住。你要是没有账号、也不想为一句话去注册，直接写邮件给我就行——一样看得到，只是不会公开显示在这一页。"
-  },
   "giscus": {
     "notOpenYet": "留言区还没开放，过阵子再来。",
     "load": "打开留言区",
     "loadHint": "点开才会连到 GitHub —— 留言用 GitHub 账号登录，内容存在本站仓库的 Discussions 里。"
   },
-  "focus": {
-    "title": "专注",
-    "navCollapsed": "导航已收起 · 鼠标移到左侧或按 ESC 退出",
-    "exit": "退出沉浸",
+  "palette": {
+    "placeholder": "搜文章、跳页面…",
+    "pages": "页面",
+    "posts": "文章",
+    "actions": "操作",
+    "switchToEn": "切换到英文",
+    "switchToZh": "切换到中文",
+    "empty": "没有匹配的结果。",
+    "hint": "↑↓ 选择 · ↵ 打开 · esc 关闭",
+    "close": "关闭"
+  },
+  "news": {
+    "title": "新闻",
+    "lead": "两件事：世界上今天发生了什么，以及 AI 这边又更新了什么、怎么用。都是外链，点了就走，这一页不转载正文。",
+    "worldTitle": "世界新闻",
+    "worldNote": "{n} 条 · {outlets} 家报社",
+    "outletsLead": "这些报社我自己常去 —— 想读全的直接进去：",
+    "aiTitle": "AI 更新解读",
+    "aiNote": "官方发了什么，以及它到底有什么用",
+    "noDigest": "还没有写解读。",
+    "readOriginal": "看官方原文",
+    "restLead": "还没写解读的更新：",
+    "outletsLeadAi": "一手源，出了事先看这里：",
+    "today": "今天",
+    "yesterday": "昨天",
+    "empty": "今天还没抓到内容。",
+    "updated": "最后一次抓取：{time}",
+    "neverUpdated": "还没抓过。",
+    "footerNote": "源清单在仓库的 content/news/sources.json 里，公开可查。"
+  },
+  "player": {
+    "regionLabel": "迷你播放器",
+    "play": "放",
+    "pause": "暂停",
+    "close": "停止播放并收起",
+    "seek": "播放进度",
+    "preview": "试听",
+    "toRecords": "回唱片页",
+    "fullVersion": "去平台听完整版 ↗"
+  },
+  "hobbies": {
+    "title": "爱好",
+    "lead": "拍的、听的、看的 —— 三样都在这一页，点上面切一栏。",
+    "tabPhotos": "摄影",
+    "tabRecords": "唱片",
+    "tabLibrary": "书影音",
+    "footerNote": "想聊聊其中任何一样，<link>写封邮件</link>。"
+  },
+  "gadgets": {
     "tabPomodoro": "番茄钟",
-    "tabDepartures": "时刻表",
-    "departures": {
-      "nowLabel": "此刻 · 当地",
-      "note": "这些都在别处 · 点一下就离开这一页",
-      "openApp": "App",
-      "appNote": "网页版打不开就点行尾的 App —— 代理的分流规则常常只放过网页而漏掉 Spotify，App 自己的连接是另一条路。"
-    },
     "pomodoro": {
       "eyebrow": "专注 · FOCUS",
       "phase": {
@@ -321,50 +332,6 @@
       "exportAll": "导出全部",
       "localOnly": "只存在这台电脑的这个浏览器里 —— 不同步到手机，清浏览器数据就没了，也不加密。要紧的东西记得导出一份。"
     },
-    "moved": {
-      "label": "这里搬走了",
-      "title": "「放松区」现在叫「专注」",
-      "go": "去 /focus/ →"
-    }
-  },
-  "palette": {
-    "placeholder": "搜文章、跳页面…",
-    "pages": "页面",
-    "posts": "文章",
-    "actions": "操作",
-    "switchToEn": "切换到英文",
-    "switchToZh": "切换到中文",
-    "empty": "没有匹配的结果。",
-    "hint": "↑↓ 选择 · ↵ 打开 · esc 关闭",
-    "close": "关闭"
-  },
-  "news": {
-    "title": "新闻",
-    "lead": "两件事：世界上今天发生了什么，以及 AI 这边又更新了什么、怎么用。都是外链，点了就走，这一页不转载正文。",
-    "worldTitle": "世界新闻",
-    "worldNote": "{n} 条 · {outlets} 家报社",
-    "outletsLead": "这些报社我自己常去 —— 想读全的直接进去：",
-    "aiTitle": "AI 更新解读",
-    "aiNote": "官方发了什么，以及它到底有什么用",
-    "noDigest": "还没有写解读。",
-    "readOriginal": "看官方原文",
-    "restLead": "还没写解读的更新：",
-    "outletsLeadAi": "一手源，出了事先看这里：",
-    "today": "今天",
-    "yesterday": "昨天",
-    "empty": "今天还没抓到内容。",
-    "updated": "最后一次抓取：{time}",
-    "neverUpdated": "还没抓过。",
-    "footerNote": "源清单在仓库的 content/news/sources.json 里，公开可查。"
-  },
-  "player": {
-    "regionLabel": "迷你播放器",
-    "play": "放",
-    "pause": "暂停",
-    "close": "停止播放并收起",
-    "seek": "播放进度",
-    "preview": "试听",
-    "toRecords": "回唱片页",
-    "fullVersion": "去平台听完整版 ↗"
+    "note": "两样自己做的、就在这一页能直接用的小东西：一个番茄钟，一叠手记。手记只存在你这台电脑的浏览器里，换台机器就没有了。"
   }
 }

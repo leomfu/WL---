@@ -12,7 +12,9 @@ export const dynamic = "force-static";
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.url.replace(/\/$/, "");
   /* NAV_ITEMS 的第一项就是首页（path ""，即 /{locale}/），
-     所以这里不再单列一条 "/"，否则 sitemap 里会出现两条同样的 URL */
+     所以这里不再单列一条 "/"，否则 sitemap 里会出现两条同样的 URL。
+     NAV_ALIASES（合并掉的旧板块）**不进** sitemap —— 它们只是带 #hash 的
+     同一个页面，收进来会变成重复 URL。 */
   const paths = [
     ...NAV_ITEMS.map((item) => item.path),
     ...getPosts().map((post) => `/blog/${post.slug}`),

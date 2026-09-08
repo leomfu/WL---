@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Gadgets } from "@/components/gadgets/Gadgets";
 import { ListRow, ListRowGroup } from "@/components/ui/ListRow";
 import { ContentFooter, PageHeader } from "@/components/ui/PageHeader";
 import { Reveal } from "@/components/ui/Reveal";
@@ -27,9 +28,13 @@ export async function generateMetadata({
  * 项目页 —— 视觉稿没有单独画这一页，沿用 BlogContact 画板列表页的骨架：
  * 左列窄标签 + 右列标题/一句话，条目之间细线分隔。
  *
- * 顶部**两个筛选**（和新闻页同一个 ui/SegmentedTabs）：
+ * 顶部**三个筛选**（和博客页、爱好页同一个 ui/SegmentedTabs）：
  *   我做的      content/projects/projects.json —— 站主自己的作品，左列是年份
+ *   小工具      番茄钟 + 手记，就在页面里能用的两样（见 components/gadgets/Gadgets）
  *   用到的开源  content/projects/repos.json    —— 别人的仓库，左列是它在这个站里干什么
+ *
+ * 「小工具」是 2026-09-08 从下线的 /focus 页搬过来的：这两样也是站主自己做的东西，
+ * 摆在「我做的」旁边比单开一个整屏页面更对。
  *
  * ⚠️ **两块必须分开。** 混在一张清单里会让人以为这些开源项目都是他写的。
  * 类型也是分开的（Project / UsedRepo），别为了省事合并。
@@ -150,6 +155,7 @@ export default async function ProjectsPage({
           storageKey="projects-tab"
           tabs={[
             { key: "mine", label: t("tabMine"), content: mineBlock },
+            { key: "gadgets", label: t("tabGadgets"), content: <Gadgets /> },
             { key: "uses", label: t("tabUses"), content: usesBlock },
           ]}
         />

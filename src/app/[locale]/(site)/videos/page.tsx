@@ -34,7 +34,7 @@ export default async function VideosPage({
     <>
       <PageHeader title={t("title")} lead={t("lead")} />
 
-      <div className="mt-11 flex flex-col gap-7">
+      <div className="mt-11 grid grid-cols-1 gap-7 xl:grid-cols-2">
         {videos.length === 0 && (
           <Reveal delay={120}>
             <p className="text-base leading-[1.9] text-muted">{t("empty")}</p>

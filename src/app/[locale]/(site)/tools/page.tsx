@@ -34,7 +34,7 @@ export default async function ToolsPage({
     <>
       <PageHeader title={t("title")} lead={t("lead")} />
 
-      <div className="mt-11 grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div className="mt-11 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
         {tools.map((tool, i) => (
           <Reveal key={tool.name} delay={120 + i * 55}>
             <ToolCard tool={tool} desc={localized(locale, tool.desc, tool.desc_en)} />
