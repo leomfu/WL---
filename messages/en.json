@@ -93,7 +93,8 @@
     "morePosts": "More of it lives in the <link>blog</link>.",
     "noPosts": "No posts yet — the first one is coming.",
     "footerNote": "If you want to say something, just <link>send an email</link>. I usually reply within a few days.",
-    "copyright": "© {year} {name}"
+    "copyright": "© {year} {name}",
+    "quote": "Everything I learn has to end up as something that runs."
   },
   "projects": {
     "title": "Projects",

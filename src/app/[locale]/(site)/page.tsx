@@ -38,6 +38,8 @@ export async function generateMetadata({
  * 2026-09-08：顶上那张单色海报（PosterHero）搬去了爱好页的摄影栏——站主要求首页不放照片，
  * 那张背影照更该当摄影的开场。这里换成一块**报头**：Logo + 名字 + 一句话定位，
  * 纯排版，没有图。原来的 /zh/home/ 已经不存在，全站链接都指向语言根路径。
+ * 块 A 那句大字引言 2026-09-08 从硬编码搬进了 messages 的 `home.quote`
+ * （原来引的是已经被整篇换掉的旧关于页，句子也过时了）。
  * 四块层层收紧的密度，节奏全靠排版：
  * A 引言（整页最重，一句站主自己写的话）→ B 关于（收紧）→ C 在做的（编号清单）
  * → D 最近写的（最紧凑，日期领读）。原来单独的"现在是"板块已并入 C 的日期注记
@@ -59,12 +61,6 @@ export default async function HomePage({
   const now = getNow(locale);
   const featured = getProjects().filter((p) => p.featured).slice(0, 3);
   const posts = getPosts().slice(0, 4);
-
-  /** 块 A 的引言：站主自己在自我介绍里写的那句话，中英各取原文对应的一句 */
-  const quote =
-    locale === "en"
-      ? "Knowing how to use AI isn't the hard part. Knowing whether what it gives you is actually right is."
-      : "我不觉得会用 AI 是什么本事，真正难的是判断它给的东西对不对。";
 
   return (
     <>
@@ -95,7 +91,7 @@ export default async function HomePage({
       {/* 块 A · 引言：整页最重的一块 */}
       <Reveal delay={80} className="mt-[52px]">
         <h2 className="max-w-[900px] font-serif text-[26px] leading-[1.55] font-light tracking-[-0.01em] text-ink [text-wrap:pretty] sm:text-[34px]">
-          {quote}
+          {t("quote")}
         </h2>
       </Reveal>
 

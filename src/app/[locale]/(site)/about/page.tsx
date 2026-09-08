@@ -25,17 +25,21 @@ export async function generateMetadata({
 }
 
 /**
- * 关于页 —— 三块，从上到下一条**居中的脊**：
+ * 关于页 —— 三块：
  *
- *   正文    content/about/about.{locale}.md（2026-09-08 全文重写，见 docs/进度.md）
- *   履历    content/about/timeline.json
- *   爱好    「我的爱好」同心轨道图（components/about/HobbyOrbit）
+ *   正文 + 履历   左右并排（正文 content/about/about.{locale}.md，
+ *                 履历 content/about/timeline.json，右栏 sticky 跟着走）
+ *   爱好          「我的爱好」同心轨道图（components/about/HobbyOrbit），整栏居中
  *
- * ⚠️ 这一页自己套了一层 `max-w-[820px] mx-auto`，**比全站 1240px 的版心窄**。
- * 站主原话「内容居中一些，看着不别扭观感流畅」—— 700px 的正文列孤零零贴在
- * 1240px 版心的左边，右边空掉五百多像素，整页是歪的。收进一条居中的窄栏之后，
- * 标题、正文、履历、轨道图共用同一根中轴线，从上往下读是一条线不是两坨。
- * 别把这一层去掉改回全宽。
+ * ⚠️ 两处布局约束，都别动：
+ *
+ * ① 这一页套了一层 `max-w-[1080px] mx-auto`，**比全站 1240px 的版心窄**。
+ *    站主原话「内容居中一些，看着不别扭观感流畅」——正文列孤零零贴在版心左边、
+ *    右边空掉一大块，整页是歪的。收窄居中之后左右才平衡。
+ * ② 履历在**右栏**，不是正文下面。站主指定要「一边介绍一边显示经历」
+ *    （照隔壁 项目文件存放处/网站设计 那个站的关于页排的）——读到「客服那一年」
+ *    的时候，右边正好停着 2025.07 出港客服那一格，两边互相印证。
+ *    右栏 sticky 就是为这个：正文滚起来，履历不滚走。
  */
 export default async function AboutPage({
   params,
@@ -52,19 +56,20 @@ export default async function AboutPage({
   const tagline = locale === "en" ? siteConfig.taglineEn : siteConfig.tagline;
 
   return (
-    <div className="mx-auto w-full max-w-[820px]">
+    <div className="mx-auto w-full max-w-[1080px]">
       <PageHeader title={t("title")} lead={tagline} />
 
-      {/* .prose-bw 自带 700px 上限，在这条 820px 的窄栏里再居中一次，
-          左右各留 60px —— 和下面履历、轨道图的中轴对齐 */}
-      <Reveal delay={120} className="mt-11">
-        <div
-          className="prose-bw mx-auto"
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
-      </Reveal>
+      {/* 正文 | 履历。窄屏一栏时履历排在正文下面，顺序和阅读顺序一致 */}
+      <div className="mt-12 grid gap-14 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-16">
+        <Reveal delay={120}>
+          <div className="prose-bw" dangerouslySetInnerHTML={{ __html: html }} />
+        </Reveal>
 
-      <Timeline locale={locale} entries={getTimeline()} />
+        {/* top 要让开 fixed 顶栏（64px）再留一点空 */}
+        <aside className="lg:sticky lg:top-[88px] lg:self-start">
+          <Timeline locale={locale} entries={getTimeline()} />
+        </aside>
+      </div>
 
       <HobbyOrbit locale={locale} />
 

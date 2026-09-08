@@ -93,7 +93,8 @@
     "morePosts": "更多文章在 <link>博客</link>。",
     "noPosts": "还没有文章 —— 第一篇很快就写。",
     "footerNote": "想说点什么就 <link>写封邮件</link>，我一般两三天内回。",
-    "copyright": "© {year} {name}"
+    "copyright": "© {year} {name}",
+    "quote": "每学一样，得做出一个真在跑的东西。"
   },
   "projects": {
     "title": "项目",

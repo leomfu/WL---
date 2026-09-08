@@ -1,11 +1,13 @@
 import { getTranslations } from "next-intl/server";
-import { SectionTitle } from "@/components/ui/PageHeader";
 import { Reveal } from "@/components/ui/Reveal";
 import { localized } from "@/lib/format";
 import type { TimelineEntry } from "@/lib/types";
 
 /**
  * 关于页那条履历 —— content/about/timeline.json，一格一年。
+ *
+ * 摆在关于页的**右栏**（300px，sticky），所以这里的字号和间距都是按窄栏调的：
+ * 年份 11px、标题 14.5px、说明 12.5px。搬到宽处用要重新调，别直接照搬。
  *
  * 一条竖线串起来，每格左边一个空心点、点在线上。**最后一格的点是实心的**：
  * 那是「现在停在这儿」的意思，不是装饰。竖线只画到最后一个点为止（不往下拖一截），
@@ -24,14 +26,20 @@ export async function Timeline({
   const t = await getTranslations({ locale, namespace: "about.timeline" });
 
   return (
-    <Reveal delay={240} className="mt-[88px] border-t border-line pt-12">
-      <SectionTitle title={t("title")} note={t("note")} />
+    <Reveal delay={240}>
+      {/* 右栏顶上一道细线 + 小标签，和左边正文的第一行齐平 */}
+      <div className="flex items-baseline gap-3 border-b border-line pb-3">
+        <span className="text-[10.5px] tracking-(--tracking-label) text-faint">
+          {t("title")}
+        </span>
+        <span className="text-[11.5px] text-faint">{t("note")}</span>
+      </div>
 
-      <ol className="mt-8">
+      <ol className="mt-7">
         {entries.map((entry, i) => {
           const last = i === entries.length - 1;
           return (
-            <li key={entry.year} className="relative flex gap-6 sm:gap-8">
+            <li key={entry.year} className="relative flex gap-4">
               {/* 点 + 竖线那一列。竖线画在「不是最后一格」的行上，所以自然停在末点 */}
               <div className="relative flex w-[9px] shrink-0 justify-center pt-[7px]">
                 <span
@@ -51,14 +59,14 @@ export async function Timeline({
                 )}
               </div>
 
-              <div className={last ? "pb-0" : "pb-9"}>
-                <span className="font-mono text-[11.5px] tracking-[0.12em] text-faint tabular-nums">
+              <div className={last ? "pb-0" : "pb-7"}>
+                <span className="font-mono text-[11px] tracking-[0.12em] text-faint tabular-nums">
                   {entry.year}
                 </span>
-                <h3 className="mt-1.5 text-[15.5px] text-ink">
+                <h3 className="mt-1 text-[14.5px] leading-[1.5] text-ink">
                   {localized(locale, entry.title, entry.titleEn)}
                 </h3>
-                <p className="mt-1.5 max-w-[52ch] text-[13.5px] leading-[1.85] text-muted">
+                <p className="mt-1.5 text-[12.5px] leading-[1.8] text-muted">
                   {localized(locale, entry.detail, entry.detailEn)}
                 </p>
               </div>
