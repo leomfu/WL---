@@ -1,19 +1,23 @@
-I'm Weiliang, currently in Shanghai.
+I am Weiliang, 21, in Shanghai. I studied computer networking and graduated in July 2026.
 
-For the past year I've been working in customer support. The job taught me one thing: when a customer is anxious, the first thing to give them isn't an explanation — it's something certain. Where things stand, what I'm doing about it, and when it will be fixed.
+This year has been about one thing: getting AI into the actual work rather than stopping at having heard of it. The test is simple — everything I learn has to end up as something that runs. Three of them exist now: this site, a personal knowledge base, and a pipeline that builds my English study material. I use all three daily.
 
-## What I'm doing
+## How I learn
 
-That same year, I started using AI in earnest. Not to chat with — to get work done.
+I am not a programmer. Early on I could not have told you whether "large language model" and ChatGPT meant the same thing. So the first thing I built was not an app but a knowledge base: Obsidian plus Claude Code, turning everything I read into linked notes. I find the material and ask the questions; it summarises, cross-references and watches for contradictions.
 
-I built my own knowledge base with Claude Code and Obsidian. I drop in whatever I read, and the AI does the rest: reads it through, writes the summary, pulls out the concepts, cross-links them, appends to the log. It also runs a regular "health check" — looking for conclusions that contradict each other, orphaned notes nothing links to, and gaps that ought to be filled. I wrote those rules myself; essentially it's an SOP written for an AI to follow.
+The point is that what I learn stacks instead of evaporating. There is a ruleset in there I wrote myself, covering how material comes in, how it gets queried, and how it gets audited — the audit exists specifically to find conclusions that fight each other, and older claims that newer sources have already overturned.
 
-I also built Claude-Anki: it turns my notes into flashcards with real human pronunciation, automatically. Three decks and 220 cards so far, and I go through them every day.
+## What a year in support taught me
 
-Both come down to the same thing: I can take an idea, turn it into something that actually runs, and keep it running on its own.
+Before I graduated I spent a year as an outbound support agent at a logistics company. Phone and chat at the same time — shipping costs, delivery windows, pickups, waybills — plus every exception case tracked from intake to close. Complaints too.
 
-## Where I'm headed
+The single most useful thing I took from it: when someone is anxious, the first thing to hand them is not an explanation but a certainty. Give the time first, then work the problem. I still apply that writing docs and interface copy — say what happens next, then say why.
 
-I want to work in AI-related technical roles. Networking, databases and Linux are what I study; I've spent a year talking to customers, and putting complicated things into plain words is what I'm good at. The hands-on experience I'm still missing, I'm willing to learn from scratch.
+## What comes next
 
-Both projects are over in [projects](/projects). If you'd like to talk, just [send an email](/contact).
+What I am looking for is a job where this actually gets used. It does not have to be a coding role — operations, support, assistant work all qualify, as long as there is repetition, process and information worth organising. These projects are the evidence: someone without a CS background using AI to take a bilingual site with automation scripts from nothing to live. That beats claiming proficiency with AI tools.
+
+The gaps are on the table too: I learned React backwards from Next.js, I have not touched backend APIs, and my TypeScript types are not as disciplined as they should be. Those three are what I am working on.
+
+Everything I have built is in [Projects](/projects); if you want to talk, just [send an email](/contact).

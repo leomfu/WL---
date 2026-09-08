@@ -150,13 +150,20 @@
     "orbit": {
       "title": "我的爱好",
       "hint": "鼠标停住就不转了",
-      "note": "三样一直在做的事，都从同一个人身上长出来。转到哪个都行，点一下进去看。",
       "photos": "摄影",
       "photosCount": "{n} 辑",
       "records": "唱片",
       "recordsCount": "{n} 首",
       "library": "书影音",
-      "libraryCount": "{n} 条"
+      "libraryCount": "{n} 条",
+      "idle": "三样一直在做的事，都从同一个人身上长出来。停在哪个圈上，这里就说哪一样。",
+      "photosNote": "走过的地方，留下的光。按专题和年份收着，点进去看整辑。",
+      "recordsNote": "一台真能转、真出声的黑胶唱机，和一份按心情排的歌单。",
+      "libraryNote": "最近在看的书、电影和专辑 —— 读完就记，不然读完就忘了。"
+    },
+    "timeline": {
+      "title": "走到这儿",
+      "note": "从念书到上线"
     }
   },
   "contact": {

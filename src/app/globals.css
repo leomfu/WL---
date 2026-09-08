@@ -803,7 +803,10 @@
 
    结构：
 
-     .orbit             正方形舞台，尺寸和节点直径都写在这一层的 CSS 变量上
+     .orbit-wrap        舞台 + 下面那行随 hover 换的说明，一起被 :has() 选到
+       .orbit           正方形舞台，尺寸和节点直径都写在这一层的 CSS 变量上
+         ::before       一层极淡的白色径向光，把整张图从灰底上托起来
+       .orbit-ticks     内圈 60 道刻度，反着慢慢转（和唱片沟槽、番茄钟表盘同一套刻度语言）
        .orbit-ring      那一圈细线轨道（半径 --orbit-r，纯装饰）
        .orbit-hub       圆心：站主的 Logo。**不在转的那一层里**，它是不动的锚
        .orbit-rotor     唯一在转的一层，60 秒一圈
@@ -817,9 +820,12 @@
    **静止时**辐条的角度；`.orbit-face` 上那条 orbitCounter 动画抵消的是
    **转盘正在转的**那份。少一个字就是歪的。
 
-   交互：
+   交互（2026-09-08 第三轮加厚）：
      鼠标进舞台（或键盘 focus 到任一节点）→ 转盘停住，停在哪儿是哪儿；
-     停在某个节点上 → 它反白、它那根辐条变深、另外两根淡下去；
+     停在某个节点上 → 它反白+起一圈光晕、它那根辐条变深、另外两根淡下去、
+       轨道线整圈提亮一档、圆心的 Logo 让位（淡下去），
+       **图下面那行说明换成这一样的介绍**（三行叠在一起交叉淡入，靠 :has() 选，
+       所以整块仍然是零 JS 的；高度写死，换行不会把页面顶动）；
      点一下 → 去那一页。
 
    「减少动态效果」下：上面第 236 行那条全局兜底会把两条动画都掐成 0.01ms 跑一次，
@@ -847,7 +853,8 @@
   --orbit: 300px;      /* 舞台边长 */
   --orbit-node: 74px;  /* 节点圆直径 */
   --orbit-hub: 58px;   /* 圆心那个圆的直径 */
-  --orbit-spin: 60s;   /* 转一圈用多久 */
+  --orbit-spin: 42s;   /* 转一圈用多久。站主 2026-09-08 要求「再加一点流转的速度」，60s → 42s */
+  --orbit-ticks-spin: 150s; /* 内圈刻度反着转，慢得多，只当质感 */
   /* 轨道半径：节点圆要整个落在舞台里，所以要减掉半个节点再留 1px 给描边。
      ⚠️ 辐条真正**露出来**的那一截 = --orbit-r − 半个圆心 − 半个节点（两头都被盖住）。
      改这三个尺寸时先算一下这个差：小于 40px 左右，「连着」的感觉就没了。
@@ -859,12 +866,85 @@
   height: var(--orbit);
 }
 
+/* 一层极淡的白色径向光。内容区是浅灰渐变，纯放几个白圆上去会「浮」在上面；
+   垫这一层之后中间稍亮、边上化开，整张图像是长在页面上的 */
+.orbit::before {
+  content: "";
+  position: absolute;
+  inset: -14%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgb(255 255 255 / 85%) 0%,
+    rgb(255 255 255 / 45%) 42%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+/* 内圈 60 道刻度。conic-gradient 画满一整圈，再用 radial 的遮罩只留下细细一环 ——
+   和唱片的沟槽、番茄钟表盘那 60 道刻度是同一套语言，这里压得很淡，只当质感。
+   反着转，和外面三个节点错开，两层一起看才有「在走」的感觉 */
+.orbit-ticks {
+  /* 半径取轨道的 0.47 —— 大致落在辐条露出来那一段的中点，
+     离圆心和节点都不贴。别用「轨道半径减固定像素」：手机和桌面两套尺寸差得多，
+     减同一个数在小屏上会顶到节点上。 */
+  --orbit-ticks-r: calc(var(--orbit-r) * 0.47);
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(var(--orbit-ticks-r) * 2);
+  height: calc(var(--orbit-ticks-r) * 2);
+  translate: -50% -50%;
+  background: repeating-conic-gradient(
+    from 0deg,
+    var(--color-line-strong) 0deg 0.4deg,
+    transparent 0.4deg 6deg
+  );
+  /* ⚠️ closest-side 不能省：radial-gradient 默认按 farthest-corner 算，
+     正方形里 100% 会变成对角线的一半（≈ 半边长 ×1.414），遮罩环整个跑到方框外，
+     只在四个角露出一点点。写死 closest-side，100% 才是这个圆真正的半径。 */
+  mask: radial-gradient(
+    circle closest-side,
+    transparent calc(100% - 7px),
+    #000 calc(100% - 7px) calc(100% - 1px),
+    transparent calc(100% - 1px)
+  );
+  -webkit-mask: radial-gradient(
+    circle closest-side,
+    transparent calc(100% - 7px),
+    #000 calc(100% - 7px) calc(100% - 1px),
+    transparent calc(100% - 1px)
+  );
+  opacity: 0.5;
+  animation: orbitCounter var(--orbit-ticks-spin) linear infinite;
+  pointer-events: none;
+}
+
 @media (width >= 640px) {
   .orbit {
     --orbit: 440px;
     --orbit-node: 96px;
     --orbit-hub: 84px;
   }
+}
+
+/* 停在某个节点上时，整圈轨道提亮一档 —— 「它们都在同一条轨道上」这句话，
+   正是在你注意其中一个的时候最该说出来 */
+.orbit-wrap:has(.orbit-arm:hover) .orbit-ring,
+.orbit-wrap:has(.orbit-arm:focus-visible) .orbit-ring {
+  border-color: var(--color-line-strong);
+}
+
+/* 注意力挪到外圈时，圆心的 Logo 让位 */
+.orbit-wrap:has(.orbit-arm:hover) .orbit-hub-mark,
+.orbit-wrap:has(.orbit-arm:focus-visible) .orbit-hub-mark {
+  opacity: 0.28;
+}
+
+.orbit-hub-mark {
+  transition: opacity 0.32s ease;
 }
 
 .orbit-ring {
@@ -877,6 +957,7 @@
   border: 1px solid var(--color-line);
   border-radius: 50%;
   pointer-events: none;
+  transition: border-color 0.32s ease;
 }
 
 .orbit-hub {
@@ -906,7 +987,9 @@
 .orbit:hover .orbit-rotor,
 .orbit:focus-within .orbit-rotor,
 .orbit:hover .orbit-face,
-.orbit:focus-within .orbit-face {
+.orbit:focus-within .orbit-face,
+.orbit:hover .orbit-ticks,
+.orbit:focus-within .orbit-ticks {
   animation-play-state: paused;
 }
 
@@ -926,7 +1009,7 @@
 /* 停在某一根上时，另外两根淡下去 —— 「这条连线正被看着」 */
 .orbit:has(.orbit-arm:hover) .orbit-arm:not(:hover),
 .orbit:has(.orbit-arm:focus-visible) .orbit-arm:not(:focus-visible) {
-  opacity: 0.34;
+  opacity: 0.3;
 }
 
 .orbit-spoke {
@@ -966,16 +1049,22 @@
   transition:
     background-color 0.32s ease,
     border-color 0.32s ease,
+    box-shadow 0.32s ease,
     color 0.32s ease,
     scale 0.32s ease;
 }
 
 .orbit-arm:hover .orbit-node,
 .orbit-arm:focus-visible .orbit-node {
-  scale: 1.06;
+  scale: 1.07;
   border-color: var(--color-ink);
   background: var(--color-ink);
   color: var(--color-paper);
+  /* 一圈化开的光晕 + 一道向下的投影：反白之后这个圆要「浮起来」，
+     不然它只是变黑了，没有被拿到手上的感觉 */
+  box-shadow:
+    0 0 0 6px rgb(17 17 17 / 5%),
+    0 12px 30px rgb(17 17 17 / 16%);
 }
 
 .orbit-face {
@@ -985,4 +1074,40 @@
   gap: 3px;
   /* 抵消转盘正在转的那一份，和 .orbit-rotor 同一个时长 */
   animation: orbitCounter var(--orbit-spin) linear infinite;
+}
+
+/* 图下面那行说明：三条 + 一条默认的，叠在同一个格子里交叉淡入。
+   高度写死（grid 让它们占同一格），换哪一条页面都不会被顶动。
+   选中哪一条靠 :has() 看鼠标停在哪根辐条上 —— 所以这一整块还是零 JS。 */
+.orbit-notes {
+  display: grid;
+  min-height: 3.4rem;
+  place-items: center;
+}
+
+.orbit-note {
+  grid-area: 1 / 1;
+  max-width: 44ch;
+  opacity: 0;
+  text-align: center;
+  transition: opacity 0.34s ease;
+}
+
+/* 没停在任何一根上：显示默认那条 */
+.orbit-note[data-k="idle"] {
+  opacity: 1;
+}
+
+.orbit-wrap:has(.orbit-arm:hover) .orbit-note[data-k="idle"],
+.orbit-wrap:has(.orbit-arm:focus-visible) .orbit-note[data-k="idle"] {
+  opacity: 0;
+}
+
+.orbit-wrap:has(.orbit-arm[data-k="photos"]:hover) .orbit-note[data-k="photos"],
+.orbit-wrap:has(.orbit-arm[data-k="photos"]:focus-visible) .orbit-note[data-k="photos"],
+.orbit-wrap:has(.orbit-arm[data-k="records"]:hover) .orbit-note[data-k="records"],
+.orbit-wrap:has(.orbit-arm[data-k="records"]:focus-visible) .orbit-note[data-k="records"],
+.orbit-wrap:has(.orbit-arm[data-k="library"]:hover) .orbit-note[data-k="library"],
+.orbit-wrap:has(.orbit-arm[data-k="library"]:focus-visible) .orbit-note[data-k="library"] {
+  opacity: 1;
 }

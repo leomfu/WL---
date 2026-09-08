@@ -17,8 +17,13 @@ import { siteConfig } from "~/site.config";
  * 各有一根辐条连回圆心 —— 三样东西是**同一个人身上长出来的**，这是这张图要说的话。
  * 和唱片页那张黑胶、番茄钟原来那只表盘同属一套圆形语言，不是另起一个视觉。
  *
- * 这是个**服务端组件**：数字（几辑照片、几首歌、几条书影音）在构建时数好写进 HTML，
- * 转和 hover 全是 CSS（见 globals.css 末尾那一大段），一行客户端 JS 都不用发。
+ * 同日第三轮又加厚了一次（站主：「再加一点流转的速度，再加点交互效果，再美观一些」）：
+ * 转速 60s → 42s；内圈补了 60 道反着转的刻度；节点反白时起一圈光晕；
+ * 停在某个节点上时轨道整圈提亮、圆心 Logo 让位、**图下面那行说明换成这一样的介绍**。
+ *
+ * 这仍然是个**服务端组件，零客户端 JS**：数字（几辑、几首、几条）在构建时数好写进
+ * HTML，转、hover、连那行会换的说明，全靠 CSS（`:has()` 选中鼠标停在哪根辐条上）。
+ * 那一大段样式在 globals.css 末尾，改之前先读那儿的结构说明。
  *
  * 三个节点是真链接（`<Link>`），所以：右键新标签页打开、键盘 Tab 过去回车、
  * 爬虫抓到三条内链 —— 都成立。别改成 onClick 跳转。
@@ -41,12 +46,12 @@ export async function HobbyOrbit({ locale }: { locale: string }) {
   ] as const;
 
   return (
-    <Reveal delay={180} className="mt-[88px] border-t border-line pt-12">
+    <Reveal delay={300} className="mt-[88px] border-t border-line pt-12">
       <SectionTitle title={t("title")} note={t("hint")} />
-      <p className="mt-3 max-w-[560px] text-[14px] leading-[1.85] text-muted">{t("note")}</p>
 
-      <div className="mt-10 flex justify-center sm:mt-12">
+      <div className="orbit-wrap mt-10 flex flex-col items-center">
         <div className="orbit">
+          <div className="orbit-ticks" aria-hidden />
           <div className="orbit-ring" aria-hidden />
 
           {/* 圆心：不动的那个锚。纯装饰，所以不可点也不进无障碍树 */}
@@ -56,7 +61,7 @@ export async function HobbyOrbit({ locale }: { locale: string }) {
               alt=""
               width={34}
               height={34}
-              className="size-[26px] object-contain opacity-80 sm:size-[32px]"
+              className="orbit-hub-mark size-[26px] object-contain opacity-80 sm:size-[32px]"
             />
           </div>
 
@@ -66,6 +71,7 @@ export async function HobbyOrbit({ locale }: { locale: string }) {
                 key={node.key}
                 href={localePath(locale, node.path)}
                 className="orbit-arm"
+                data-k={node.key}
                 style={{ "--a": ANGLES[i] } as React.CSSProperties}
               >
                 <span className="orbit-spoke" aria-hidden />
@@ -74,7 +80,7 @@ export async function HobbyOrbit({ locale }: { locale: string }) {
                     <span className="text-[14px] tracking-[0.04em] sm:text-[15px]">
                       {t(node.key)}
                     </span>
-                    <span className="text-[10.5px] tracking-[0.1em] opacity-60">
+                    <span className="text-[10.5px] tracking-[0.12em] opacity-65">
                       {node.count}
                     </span>
                   </span>
@@ -83,11 +89,23 @@ export async function HobbyOrbit({ locale }: { locale: string }) {
             ))}
           </div>
         </div>
+
+        {/* 停在哪个圈上，这里就说哪一样。四条叠在同一格里交叉淡入，高度固定不顶页面 */}
+        <div className="orbit-notes mt-9 w-full text-[13.5px] leading-[1.8] text-muted">
+          <p className="orbit-note text-faint" data-k="idle">
+            {t("idle")}
+          </p>
+          {nodes.map((node) => (
+            <p key={node.key} className="orbit-note" data-k={node.key}>
+              {t(`${node.key}Note`)}
+            </p>
+          ))}
+        </div>
       </div>
 
       {/* 三个节点在转，读屏和「不用鼠标的人」需要一份规规矩矩的清单兜底。
           视觉上它也有用：直接说清这三条链接通向哪儿。 */}
-      <ul className="mt-10 flex flex-wrap justify-center gap-x-8 gap-y-2 text-[13px] sm:mt-12">
+      <ul className="mt-8 flex flex-wrap justify-center gap-x-8 gap-y-2 text-[13px]">
         {nodes.map((node) => (
           <li key={node.key}>
             <Link

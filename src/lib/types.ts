@@ -218,3 +218,16 @@ export type RecordItem = {
   note?: string;
   noteEn?: string;
 };
+
+/**
+ * 关于页那条履历上的一格（content/about/timeline.json）。
+ * year 是 `YYYY.MM`，按时间**正序**写在 json 里，页面照原样渲染，不排序 ——
+ * 顺序是内容的一部分，站主想调换就直接改文件。
+ */
+export type TimelineEntry = {
+  year: string;
+  title: string;
+  titleEn?: string;
+  detail: string;
+  detailEn?: string;
+};

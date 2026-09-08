@@ -41,9 +41,11 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
 /**
  * 文章详情页：正文 + 长文侧边目录 + 上一篇/下一篇 + giscus 评论。
  *
- * 2026-09-08 全站改成整幅版面之后，**这一页仍然收成 700px 的阅读列**——
- * 一行文字横穿两千像素没人读得下去。列表、网格、照片墙铺满，正文不铺。
- * 侧边目录就摆在这一列右边的空处（`left-[calc(100%+56px)]` 是相对这一列算的）。
+ * **这一页收成 700px 的阅读列并居中**（`mx-auto max-w-column`）——一行文字横穿
+ * 一千二百像素读起来累，而且贴着左边看整页是歪的（站主 2026-09-08 的原话：
+ * 「看着有些分散太靠左边了」）。列表、网格、照片墙照旧铺满版心，只有正文收。
+ * 侧边目录摆在这一列右边的留白里（`left-[calc(100%+56px)]` 是相对这一列算的）：
+ * 列居中之后 700+56+190 = 946，落在 1240 版心内，正好把右边那块空白用掉。
  */
 export default async function PostPage({ params }: { params: Promise<Params> }) {
   const { locale, slug } = await params;
@@ -68,7 +70,7 @@ export default async function PostPage({ params }: { params: Promise<Params> }) 
   const langMismatch = post.lang !== locale;
 
   return (
-    <div className="relative max-w-column">
+    <div className="relative mx-auto max-w-column">
       <Reveal>
         <div className="flex flex-wrap items-center gap-3 text-[12.5px] text-faint">
           <span>{longDate(post.date, locale)}</span>

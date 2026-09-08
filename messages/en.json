@@ -150,13 +150,20 @@
     "orbit": {
       "title": "What I'm into",
       "hint": "Hover to stop the spin",
-      "note": "Three things I keep coming back to, all growing out of the same person. Stop it anywhere and click to go in.",
       "photos": "Photos",
       "photosCount": "{n, plural, =1 {# album} other {# albums}}",
       "records": "Records",
       "recordsCount": "{n, plural, =1 {# track} other {# tracks}}",
       "library": "Library",
-      "libraryCount": "{n, plural, =1 {# entry} other {# entries}}"
+      "libraryCount": "{n, plural, =1 {# entry} other {# entries}}",
+      "idle": "Three things I keep coming back to, all growing out of the same person. Stop on one and this line tells you about it.",
+      "photosNote": "Places I passed through, light I kept. Filed by series and by year — open one to see the whole set.",
+      "recordsNote": "A turntable that really spins and really plays, plus a chart sorted by mood.",
+      "libraryNote": "Books, films and albums I've been through lately — noted right after, or they evaporate."
+    },
+    "timeline": {
+      "title": "How I got here",
+      "note": "From school to shipped"
     }
   },
   "contact": {

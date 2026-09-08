@@ -28,9 +28,9 @@ export const siteConfig = {
    * ⚠️ 开场页正中那句**不是这个**，在 messages 的 intro.tagline 里，
    * 那句是给自己看的一句话，和这句职能不同，2026-08-29 起就不一样了，别再同步成一样的。
    */
-  tagline: "一个喜欢把问题查到根上、再把答案写下来给下一个人的技术支持新人。",
+  tagline: "在上海。学着用 AI 把手上的活干得更快更好，顺手做成能跑的东西。",
   taglineEn:
-    "A support newcomer who chases problems down to the root, then writes the answer down for the next person.",
+    "In Shanghai. Learning to use AI to do the work faster and better, and building the results into things that run.",
   /**
    * 短版一句话 —— 侧边栏那一行和分享图（og.png）都只有一行的位置，
    * 整句放不下会被截断，所以那两处用这个短版。改了要重跑 `npm run og`。

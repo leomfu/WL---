@@ -1,0 +1,37 @@
+[
+  {
+    "year": "2023.09",
+    "title": "郑州理工职业学院",
+    "titleEn": "Zhengzhou Institute of Technology",
+    "detail": "计算机网络技术。网络设备、Linux、MySQL、Python、云计算。",
+    "detailEn": "Computer networking — network hardware, Linux, MySQL, Python, virtualisation."
+  },
+  {
+    "year": "2025.07",
+    "title": "出港客服",
+    "titleEn": "Outbound support",
+    "detail": "郑州萤点科技。一年，电话与在线双线，异常件与投诉全程跟到闭环。",
+    "detailEn": "A year of phone and chat support, tracking exception cases and complaints through to resolution."
+  },
+  {
+    "year": "2026.06",
+    "title": "开始搭知识库",
+    "titleEn": "Started the vault",
+    "detail": "Obsidian 加 Claude Code。同月开始做 Claude-Anki 的英语流水线。",
+    "detailEn": "Obsidian plus Claude Code. The Claude-Anki English pipeline started the same month."
+  },
+  {
+    "year": "2026.07",
+    "title": "毕业，到上海",
+    "titleEn": "Graduated, moved to Shanghai",
+    "detail": "把 AI 和英语接着学下去。",
+    "detailEn": "Kept going on the AI and the English."
+  },
+  {
+    "year": "2026.08",
+    "title": "weiliang.dev 上线",
+    "titleEn": "weiliang.dev went live",
+    "detail": "中英双语，静态导出，四个自动化脚本，绑上自有域名。",
+    "detailEn": "Bilingual, statically exported, four automation scripts, on its own domain."
+  }
+]

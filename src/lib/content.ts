@@ -12,6 +12,7 @@ import type {
   PostType,
   Project,
   RecordItem,
+  TimelineEntry,
   Tool,
   Track,
   UsedRepo,
@@ -47,6 +48,10 @@ function readDoc(dir: string, base: string, locale: string) {
 }
 
 export const getAbout = (locale: string) => readDoc("about", "about", locale);
+
+/** 关于页那条履历。json 里怎么排页面就怎么显示，这里不排序 */
+export const getTimeline = () =>
+  readJson<TimelineEntry[]>("about/timeline.json", []);
 export const getHomeIntro = (locale: string) => readDoc("home", "intro", locale);
 
 export function getNow(locale: string) {
