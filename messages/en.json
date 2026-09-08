@@ -18,7 +18,7 @@
     },
     "photos": {
       "title": "Photos",
-      "description": "Photographs, grouped into series and a year-by-year archive."
+      "description": "Photographs by series and by year — places I passed through, light I kept."
     },
     "blog": {
       "title": "Blog",
@@ -26,7 +26,7 @@
     },
     "about": {
       "title": "About",
-      "description": "About me: background, current work, and what I'm into."
+      "description": "About me: background, what I'm building, and the three things I keep coming back to."
     },
     "tools": {
       "title": "Tools",
@@ -36,9 +36,13 @@
       "title": "Say something",
       "description": "Email and social accounts — every way to reach me."
     },
-    "hobbies": {
-      "title": "Hobbies",
-      "description": "Photos I shoot, records I play, books and films I keep — all on one page."
+    "records": {
+      "title": "Records",
+      "description": "A turntable that really spins and really plays, and what I listen to by mood."
+    },
+    "library": {
+      "title": "Library",
+      "description": "Books, films and albums I've been through lately."
     }
   },
   "intro": {
@@ -66,7 +70,6 @@
     "toHome": "Back to the home page",
     "news": "News",
     "records": "Records",
-    "hobbies": "Hobbies",
     "gadgets": "Gadgets"
   },
   "common": {
@@ -143,7 +146,18 @@
     "note": "The icons are monochrome until you hover them — then each one lights up in its own brand colour."
   },
   "about": {
-    "title": "About"
+    "title": "About",
+    "orbit": {
+      "title": "What I'm into",
+      "hint": "Hover to stop the spin",
+      "note": "Three things I keep coming back to, all growing out of the same person. Stop it anywhere and click to go in.",
+      "photos": "Photos",
+      "photosCount": "{n, plural, =1 {# album} other {# albums}}",
+      "records": "Records",
+      "recordsCount": "{n, plural, =1 {# track} other {# tracks}}",
+      "library": "Library",
+      "libraryCount": "{n, plural, =1 {# entry} other {# entries}}"
+    }
   },
   "contact": {
     "title": "Say something",
@@ -270,14 +284,6 @@
     "preview": "preview",
     "toRecords": "Back to Records",
     "fullVersion": "Hear it in full ↗"
-  },
-  "hobbies": {
-    "title": "Hobbies",
-    "lead": "What I shoot, what I play, what I read and watch — pick a tab.",
-    "tabPhotos": "Photos",
-    "tabRecords": "Records",
-    "tabLibrary": "Library",
-    "footerNote": "Curious about any of it? <link>Send an email</link>."
   },
   "gadgets": {
     "tabPomodoro": "Pomodoro",

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { MediaCard } from "@/components/ui/MediaCard";
+import { PageHeader } from "@/components/ui/PageHeader";
 import { Reveal } from "@/components/ui/Reveal";
 import { localized } from "@/lib/format";
 import { localePath } from "@/lib/nav";
@@ -9,12 +10,14 @@ import { albumDates, type Album } from "@/lib/photoTypes";
 import { PosterHero } from "./PosterHero";
 
 /**
- * 爱好页「摄影」那一栏 —— 原来的 /photos 列表页整块搬过来的（2026-09-08 合并）。
- * 两级组织没变：上半「专题」（成组的作品，大图卡片），下半「档案」（按年份分组）。
- * 单辑详情页仍在 /photos/<slug>/，只是没有 /photos/ 这个索引页了。
+ * 摄影页的全部内容。两级组织：
+ * 上半「专题」（成组的作品，大图卡片），下半「档案」（按年份分组的辑清单）。
  *
- * 开头那张双色调海报是从首页搬来的（站主要求首页不再放照片，
+ * 开头那张双色调海报是 2026-09-08 从首页搬来的（站主要求首页不再放照片，
  * 它更该当摄影的开场）——它本来就是站主自己那张背影照。
+ *
+ * 内容抽在这个组件里而不是直接写在 page.tsx 上：同一天这一块先被并进 /hobbies、
+ * 又被拆回独立页，抽出来之后那两次改动都只是换个外壳。
  */
 export async function PhotosSection({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: "photos" });
@@ -35,12 +38,12 @@ export async function PhotosSection({ locale }: { locale: string }) {
 
   return (
     <>
-      {/* 开场大图：负边距顶掉 main 的左右内边距，让海报出血到窗口两侧 */}
-      <div className="-mx-5 mt-8 mb-12 sm:-mx-10">
+      {/* 开场大图：负边距顶掉 main 的左右内边距，让海报铺满整个版心还多出一点 */}
+      <div className="-mx-5 mb-12 sm:-mx-10">
         <PosterHero />
       </div>
 
-      <p className="max-w-[640px] text-[15.5px] leading-[1.8] text-muted">{t("lead")}</p>
+      <PageHeader title={t("title")} lead={t("lead")} />
 
       {albums.length === 0 && (
         <Reveal delay={120}>

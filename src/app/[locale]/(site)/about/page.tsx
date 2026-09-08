@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { HobbyOrbit } from "@/components/about/HobbyOrbit";
 import { PageHeader, ContentFooter } from "@/components/ui/PageHeader";
 import { Reveal } from "@/components/ui/Reveal";
 import { getAbout } from "@/lib/content";
@@ -22,7 +23,11 @@ export async function generateMetadata({
   return pageMetadata(locale, "about", "/about");
 }
 
-/** 关于页 —— 正文全部来自 content/about/about.{locale}.md */
+/**
+ * 关于页 —— 正文全部来自 content/about/about.{locale}.md，
+ * 下半是 2026-09-08 并进来的「我的爱好」同心轨道图（components/about/HobbyOrbit）：
+ * 摄影 / 唱片 / 书影音三页不进顶栏，入口就是那张图上的三个节点。
+ */
 export default async function AboutPage({
   params,
 }: {
@@ -42,7 +47,9 @@ export default async function AboutPage({
       <Reveal delay={120} className="mt-10">
         <div className="prose-bw" dangerouslySetInnerHTML={{ __html: html }} />
       </Reveal>
-      <Reveal delay={240}>
+      <HobbyOrbit locale={locale} />
+
+      <Reveal delay={300}>
         <ContentFooter
           note={tHome.rich("footerNote", {
             link: (chunks) => (

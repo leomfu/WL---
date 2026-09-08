@@ -26,7 +26,7 @@
     },
     "about": {
       "title": "关于",
-      "description": "关于我：背景、在做什么、感兴趣的东西。"
+      "description": "关于我：背景、在做什么、感兴趣的东西，以及三样一直在做的爱好。"
     },
     "tools": {
       "title": "工具",
@@ -36,9 +36,13 @@
       "title": "说点什么",
       "description": "邮箱和社交账号 —— 想说点什么，这里都能找到我。"
     },
-    "hobbies": {
-      "title": "爱好",
-      "description": "拍的照片、听的唱片、看的书影音 —— 三样都在这一页，点上面切。"
+    "records": {
+      "title": "唱片",
+      "description": "一台真能转、真出声的黑胶唱机，和我按心情听的那些歌。"
+    },
+    "library": {
+      "title": "书影音",
+      "description": "最近在看的书、电影和专辑。"
     }
   },
   "intro": {
@@ -66,7 +70,6 @@
     "toHome": "回到首页",
     "news": "新闻",
     "records": "唱片",
-    "hobbies": "爱好",
     "gadgets": "小工具"
   },
   "common": {
@@ -143,7 +146,18 @@
     "note": "图标平时是黑白的，鼠标移上去才亮起各自的品牌色。"
   },
   "about": {
-    "title": "关于"
+    "title": "关于",
+    "orbit": {
+      "title": "我的爱好",
+      "hint": "鼠标停住就不转了",
+      "note": "三样一直在做的事，都从同一个人身上长出来。转到哪个都行，点一下进去看。",
+      "photos": "摄影",
+      "photosCount": "{n} 辑",
+      "records": "唱片",
+      "recordsCount": "{n} 首",
+      "library": "书影音",
+      "libraryCount": "{n} 条"
+    }
   },
   "contact": {
     "title": "说点什么",
@@ -270,14 +284,6 @@
     "preview": "试听",
     "toRecords": "回唱片页",
     "fullVersion": "去平台听完整版 ↗"
-  },
-  "hobbies": {
-    "title": "爱好",
-    "lead": "拍的、听的、看的 —— 三样都在这一页，点上面切一栏。",
-    "tabPhotos": "摄影",
-    "tabRecords": "唱片",
-    "tabLibrary": "书影音",
-    "footerNote": "想聊聊其中任何一样，<link>写封邮件</link>。"
   },
   "gadgets": {
     "tabPomodoro": "番茄钟",

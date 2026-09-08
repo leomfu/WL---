@@ -55,7 +55,8 @@
 
   /* --- 布局尺寸（画板定稿）--- */
   --spacing-topnav: 64px;     /* 顶部暗色导航条（移动端 56px，见 TopNav） */
-  --spacing-column: 700px;    /* 正文阅读列 —— 整幅版面里唯一还限宽的东西 */
+  --spacing-page: 1240px;     /* 居中版心 —— 内容区的外框 */
+  --spacing-column: 700px;    /* 正文阅读列 —— 版心之内再收一层，只给 markdown 正文 */
 
   /* --- 小标签字距 --- */
   --tracking-label: 0.2em;
@@ -247,9 +248,9 @@
    .prose-bw —— markdown 正文的排版（content/ 里的 md 渲染进来都套这个）
    彩色一律不进来：代码高亮走 src/lib/markdown.ts 里的灰阶主题。
    ========================================================================== */
-/* 2026-09-08 整幅版面之后，正文自己收成阅读列：一行拉满两千像素没人读得下去。
+/* 正文自己收成阅读列：1240px 的版心对一行文字来说仍然太宽。
    限宽放在 .prose-bw 上而不是外层容器上，是因为只有 markdown 正文需要它，
-   列表、网格、照片墙都该铺满。 */
+   列表、网格、照片墙都该铺满版心。 */
 .prose-bw {
   max-width: var(--spacing-column);
   color: var(--color-body);
@@ -791,4 +792,197 @@
    分开一条只是因为语义不同：那条属于唱片页那台唱机 */
 .mini-vinyl-spin {
   animation: dcSpin 1.8s linear infinite;
+}
+
+/* ==========================================================================
+   关于页「我的爱好」的同心轨道图（components/about/HobbyOrbit.tsx）
+
+   2026-09-08 站主要求：把爱好并进关于，做成「相互连接的互动感觉」，点了能进各自的页。
+   选的是**同心轨道**——和站里已有的圆形语言（唱片页那张黑胶、番茄钟原来那只表盘）
+   是同一套，不是另起一个视觉。
+
+   结构：
+
+     .orbit             正方形舞台，尺寸和节点直径都写在这一层的 CSS 变量上
+       .orbit-ring      那一圈细线轨道（半径 --orbit-r，纯装饰）
+       .orbit-hub       圆心：站主的 Logo。**不在转的那一层里**，它是不动的锚
+       .orbit-rotor     唯一在转的一层，60 秒一圈
+         .orbit-arm ×3  一根「辐条 + 节点」，整根绕圆心转到自己的角度 --a
+           .orbit-spoke   从圆心指向外的那道 1px 细线（pointer-events:none，
+                          只有节点圆是点击目标；1px 宽的线没法点）
+           .orbit-node    落在轨道上的那个圆，自己反向转 --a 摆正
+             .orbit-face  再反向转掉**转盘那份**角度，所以字始终是正的
+
+   两处反向旋转别混：`.orbit-node` 上那个 `rotate(calc(-1 * var(--a)))` 抵消的是
+   **静止时**辐条的角度；`.orbit-face` 上那条 orbitCounter 动画抵消的是
+   **转盘正在转的**那份。少一个字就是歪的。
+
+   交互：
+     鼠标进舞台（或键盘 focus 到任一节点）→ 转盘停住，停在哪儿是哪儿；
+     停在某个节点上 → 它反白、它那根辐条变深、另外两根淡下去；
+     点一下 → 去那一页。
+
+   「减少动态效果」下：上面第 236 行那条全局兜底会把两条动画都掐成 0.01ms 跑一次，
+   于是转盘停在 0°、字也是正的 —— 三个节点静止地摆在轨道上，功能一点不少。
+   ========================================================================== */
+@keyframes orbitSpin {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes orbitCounter {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: -360deg;
+  }
+}
+
+.orbit {
+  --orbit: 300px;      /* 舞台边长 */
+  --orbit-node: 74px;  /* 节点圆直径 */
+  --orbit-hub: 58px;   /* 圆心那个圆的直径 */
+  --orbit-spin: 60s;   /* 转一圈用多久 */
+  /* 轨道半径：节点圆要整个落在舞台里，所以要减掉半个节点再留 1px 给描边。
+     ⚠️ 辐条真正**露出来**的那一截 = --orbit-r − 半个圆心 − 半个节点（两头都被盖住）。
+     改这三个尺寸时先算一下这个差：小于 40px 左右，「连着」的感觉就没了。
+     现在是手机 46px / 桌面 81px。 */
+  --orbit-r: calc(var(--orbit) / 2 - var(--orbit-node) / 2 - 1px);
+
+  position: relative;
+  width: var(--orbit);
+  height: var(--orbit);
+}
+
+@media (width >= 640px) {
+  .orbit {
+    --orbit: 440px;
+    --orbit-node: 96px;
+    --orbit-hub: 84px;
+  }
+}
+
+.orbit-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(var(--orbit-r) * 2);
+  height: calc(var(--orbit-r) * 2);
+  translate: -50% -50%;
+  border: 1px solid var(--color-line);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.orbit-hub {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  display: flex;
+  width: var(--orbit-hub);
+  height: var(--orbit-hub);
+  align-items: center;
+  justify-content: center;
+  translate: -50% -50%;
+  border: 1px solid var(--color-line);
+  border-radius: 50%;
+  background: var(--color-card);
+  pointer-events: none;
+}
+
+.orbit-rotor {
+  position: absolute;
+  inset: 0;
+  animation: orbitSpin var(--orbit-spin) linear infinite;
+}
+
+/* 鼠标进舞台、或键盘 focus 到某个节点：停住。停在哪儿是哪儿，不回弹 */
+.orbit:hover .orbit-rotor,
+.orbit:focus-within .orbit-rotor,
+.orbit:hover .orbit-face,
+.orbit:focus-within .orbit-face {
+  animation-play-state: paused;
+}
+
+/* 零尺寸的一个点：它的孩子（辐条、节点）都是绝对定位，所以撑不开它。
+   这一点很关键 —— transform-origin 默认是自己的正中，0×0 的正中就是圆心本身，
+   `rotate` 才会绕着圆心转而不是绕着某个方框的中心。别给它宽高。 */
+.orbit-arm {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  rotate: var(--a);
+  transition: opacity 0.32s ease;
+}
+
+/* 停在某一根上时，另外两根淡下去 —— 「这条连线正被看着」 */
+.orbit:has(.orbit-arm:hover) .orbit-arm:not(:hover),
+.orbit:has(.orbit-arm:focus-visible) .orbit-arm:not(:focus-visible) {
+  opacity: 0.34;
+}
+
+.orbit-spoke {
+  position: absolute;
+  top: 0;
+  left: -0.5px;
+  width: 1px;
+  height: var(--orbit-r);
+  background: var(--color-line);
+  pointer-events: none;
+  transition: background-color 0.32s ease;
+}
+
+.orbit-arm:hover .orbit-spoke,
+.orbit-arm:focus-visible .orbit-spoke {
+  background: var(--color-ink);
+}
+
+.orbit-node {
+  position: absolute;
+  top: var(--orbit-r);
+  left: 0;
+  display: flex;
+  width: var(--orbit-node);
+  height: var(--orbit-node);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  /* 先摆到轨道上（top/left + 这个 -50%），再把辐条那份角度转回来，字才是正的 */
+  translate: -50% -50%;
+  rotate: calc(-1 * var(--a));
+  border: 1px solid var(--color-line);
+  border-radius: 50%;
+  background: var(--color-card);
+  box-shadow: 0 1px 2px rgb(17 17 17 / 3%);
+  transition:
+    background-color 0.32s ease,
+    border-color 0.32s ease,
+    color 0.32s ease,
+    scale 0.32s ease;
+}
+
+.orbit-arm:hover .orbit-node,
+.orbit-arm:focus-visible .orbit-node {
+  scale: 1.06;
+  border-color: var(--color-ink);
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+.orbit-face {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  /* 抵消转盘正在转的那一份，和 .orbit-rotor 同一个时长 */
+  animation: orbitCounter var(--orbit-spin) linear infinite;
 }

@@ -13,15 +13,21 @@ import { siteConfig } from "~/site.config";
 /**
  * 顶栏 —— 2026-09-08 取代原来的左侧暗色侧边栏（components/shell/Sidebar.tsx 已删）。
  *
- * 布局（对照站主给的参考图）：一条 64px 高的暗色横条钉在最上面，
- * 左边 Logo + 名字 + 八项导航，右边 中/EN · 分隔线 · 社交图标 · ⌘K。
+ * 布局：一条 64px 高的暗色横条钉在最上面，**三段式** ——
+ * 左 Logo + 名字 / 中 导航 / 右 中·EN · 分隔线 · 社交图标 · ⌘K。
  * 颜色仍走侧栏时代那套 shell-* 暗侧灰阶，所以整站的黑白关系没变，
  * 只是那块暗色从左边一竖条改成了上边一横条。
  *
+ * ⚠️ **导航是 `absolute left-1/2 -translate-x-1/2`，不是 flex 里的一项** ——
+ * 站主要求它在**视窗正中**（2026-09-08 第二轮）。用 flex 的话它的位置会被
+ * 左右两段的宽度推着走：中文和英文的名字不一样长、社交图标在 xl 才出现，
+ * 三种情况下导航都会落在不同的地方。绝对居中才是真的每次都在正中间。
+ * 七项导航约 380px，两侧留白在 lg（1024px）下也够，不会压到 Logo 或右边那组。
+ *
  * 断点：
  *   <lg   汉堡 + 全屏抽屉（抽屉里是竖排的同一份导航 + 社交 + 语言）
- *   lg    导航平铺，社交图标先收起来（八项导航 + 名字已经占满）
- *   xl    社交图标一起出来，就是参考图那一行
+ *   lg    导航平铺居中，社交图标先收起来
+ *   xl    社交图标一起出来
  *
  * 顶栏是 fixed 的（不随内容滚走），页面内容由 SiteShell 用 padding-top 让位。
  */
@@ -136,7 +142,7 @@ export function TopNav() {
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-40 h-14 border-b border-shell-line bg-shell text-shell-ink lg:h-16">
-        <div className="flex h-full items-center gap-8 px-5 sm:px-10">
+        <div className="relative flex h-full items-center px-5 sm:px-10">
           {/* Logo + 名字 —— 都回首页 */}
           <Link
             href={homeHref}
@@ -157,8 +163,8 @@ export function TopNav() {
             </span>
           </Link>
 
-          {/* 导航（桌面端） */}
-          <nav className="hidden items-center gap-7 lg:flex">
+          {/* 导航（桌面端）—— 绝对居中，见文件顶部那段说明 */}
+          <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 lg:flex">
             {NAV_TOP.map(renderLink)}
           </nav>
 

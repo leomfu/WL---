@@ -17,8 +17,8 @@ import { useStoredState } from "@/lib/useStoredState";
  *
  * 选中项记在 localStorage（storageKey 各页自己给一个），常看哪一边下次进来就停在哪一边。
  *
- * 地址里带 `#<tab key>` 可以直接落到某一栏（/zh/hobbies/#records 就是唱片那栏）——
- * 2026-09-08 合并板块之后，⌘K 里「摄影」「唱片」「书影音」「新闻」这些旧入口
+ * 地址里带 `#<tab key>` 可以直接落到某一栏（/zh/blog/#world 就是「世界新闻」那栏）——
+ * 2026-09-08 合并板块之后，⌘K 里「新闻」「小工具」这些旧入口
  * 都是靠它跳到合并后页面的对应筛选上的。localStorage 里存的那个让位给 hash。
  */
 export function SegmentedTabs({
