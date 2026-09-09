@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
 import { localePath } from "@/lib/nav";
+import { TAB_HASH_EVENT } from "@/components/ui/SegmentedTabs";
 
 /**
  * ⌘K 命令面板 —— 搜文章标题/摘要、跳任意页面、切换语言。
@@ -88,6 +89,24 @@ export function CommandPalette({
       if (!row) return;
       close();
       router.push(row.href);
+
+      /**
+       * ⚠️ 别删这一段。`NAV_ALIASES`（lib/nav.ts）里「新闻」「小工具」这类入口是
+       * `/blog#world` 这种**带 hash 的同页地址**。同路由导航时 Next 只调
+       * `history.pushState`，而 **pushState 按规范不触发 `hashchange`**，
+       * 组件也不重挂载 —— 页面上认 hash 的 ui/SegmentedTabs 就永远收不到通知，
+       * 表现是地址栏变了、页面纹丝不动（2026-09-09 审出来的 bug）。
+       *
+       * 这里直接把目标 hash 广播出去，不依赖 `location.hash` 何时被写入，
+       * 所以没有时序竞态。跨页跳转时这条是多余的（那边靠挂载时读 location.hash），
+       * 但多余无害：收到的键不属于自己就是个空操作。
+       */
+      const hash = row.href.split("#")[1];
+      if (hash) {
+        window.dispatchEvent(
+          new CustomEvent(TAB_HASH_EVENT, { detail: decodeURIComponent(hash) }),
+        );
+      }
     },
     [close, router],
   );

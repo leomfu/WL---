@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Weiliang",
-    "description": "A support newcomer who chases problems down to the root, then writes the answer down for the next person. A personal site: projects, writing, thoughts, and a focus corner for doing nothing at all."
+    "description": "Weiliang's personal site. In Shanghai, learning to get AI into the actual work — everything I learn has to end up as something that runs. Projects I've built, things I've written, and what I keep coming back to."
   },
   "pageMeta": {
     "home": {
@@ -94,11 +94,11 @@
     "noPosts": "No posts yet — the first one is coming.",
     "footerNote": "If you want to say something, just <link>send an email</link>. I usually reply within a few days.",
     "copyright": "© {year} {name}",
-    "quote": "Everything I learn has to end up as something that runs."
+    "quote": "Everything I learn has to end up as something that runs.",
+    "noProjects": "Nothing flagged as in progress right now — everything is on the projects page."
   },
   "projects": {
     "title": "Projects",
-    "visit": "Live",
     "repo": "Source",
     "noLink": "No public link yet",
     "footerNote": "Curious about any of them? <link>Send an email</link>.",
@@ -265,8 +265,6 @@
     "close": "Close"
   },
   "news": {
-    "title": "News",
-    "lead": "Two things: what happened in the world today, and what shipped in AI — and what it's actually for. Everything here is an outbound link; nothing is reprinted.",
     "worldTitle": "World",
     "worldNote": "{n} stories · {outlets} outlets",
     "outletsLead": "The outlets I go to myself — head in for the full story:",
@@ -280,8 +278,7 @@
     "yesterday": "Yesterday",
     "empty": "Nothing pulled yet today.",
     "updated": "Last pulled {time}",
-    "neverUpdated": "Not pulled yet.",
-    "footerNote": "The source list lives in content/news/sources.json — open to read."
+    "neverUpdated": "Not pulled yet."
   },
   "player": {
     "regionLabel": "Mini player",
@@ -347,5 +344,12 @@
       "localOnly": "Lives only in this browser on this computer — no sync to your phone, gone if you clear browser data, and not encrypted. Export anything that matters."
     },
     "note": "Two small things I built that you can use right here: a pomodoro timer and a stack of notes. The notes live only in this browser on this machine."
+  },
+  "moved": {
+    "label": "This moved",
+    "go": "Go to {to} →",
+    "news": "News is now a tab on the blog page",
+    "focus": "The timer and notes now live under “Gadgets” on the projects page",
+    "guestbook": "The guestbook is gone — email me instead"
   }
 }

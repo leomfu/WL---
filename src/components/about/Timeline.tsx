@@ -38,8 +38,9 @@ export async function Timeline({
       <ol className="mt-7">
         {entries.map((entry, i) => {
           const last = i === entries.length - 1;
+          /* key 带上序号：同一个 YYYY.MM 出现两条时，光用年份会撞 */
           return (
-            <li key={entry.year} className="relative flex gap-4">
+            <li key={`${entry.year}-${i}`} className="relative flex gap-4">
               {/* 点 + 竖线那一列。竖线画在「不是最后一格」的行上，所以自然停在末点 */}
               <div className="relative flex w-[9px] shrink-0 justify-center pt-[7px]">
                 <span

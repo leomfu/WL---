@@ -34,7 +34,6 @@
      line/line-2/line-3 同理镜像 shell 那三级（离纸色越远、越显眼）。 */
   --color-desk-paper: #eaeaea;
   --color-desk-ink: #141414;
-  --color-desk-muted: #333333;
   --color-desk-dim: #555555;
   --color-desk-faint: #8a8a8a;
   --color-desk-mute: #999999;
@@ -261,11 +260,6 @@
 
 .prose-bw > * + * {
   margin-top: 20px;
-}
-
-/* 首页「现在是」这类短板块，段间距收紧一点（画板是 16px） */
-.prose-tight > * + * {
-  margin-top: 16px;
 }
 
 /* 首页块 B「关于」：比默认 .prose-bw（16px/1.9）再收紧一档，

@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import { useReducedMotion } from "motion/react";
 import { useTranslations } from "next-intl";
+import { useStoredState } from "@/lib/useStoredState";
 import { Notes } from "./Notes";
 import { PomodoroDial } from "./PomodoroDial";
 import { usePomodoro } from "./usePomodoro";
@@ -34,7 +34,10 @@ export function Gadgets() {
   const t = useTranslations("gadgets");
   const reduced = useReducedMotion() ?? false;
 
-  const [tab, setTab] = useState<Tab>("pomodoro");
+  /* 和外层的 ui/SegmentedTabs 一致：选中哪一样记在 localStorage，
+     刷新回来还停在原处。原来是裸 useState，刷新即丢，两层行为不对称 */
+  const [stored, setTab] = useStoredState("gadgets-tab", "pomodoro");
+  const tab = (TABS as readonly string[]).includes(stored) ? (stored as Tab) : "pomodoro";
   const pomodoro = usePomodoro();
 
   return (
@@ -70,7 +73,7 @@ export function Gadgets() {
       <div className="card-face mt-5 px-5 py-8 sm:px-10 sm:py-12">
         <div className={tab === "pomodoro" ? "flex justify-center" : "hidden"}>
           <div className="w-full max-w-[560px]">
-            <PomodoroDial pomodoro={pomodoro} reduced={reduced} />
+            <PomodoroDial pomodoro={pomodoro} reduced={reduced} active={tab === "pomodoro"} />
           </div>
         </div>
         <div className={tab === "notes" ? "flex justify-center" : "hidden"}>

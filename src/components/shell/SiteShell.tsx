@@ -25,8 +25,10 @@ export function SiteShell({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-dvh bg-shell">
       <TopNav />
-      {/* pt 要让开 fixed 顶栏的高度（移动端 56px / 桌面 64px），再加页面自己的上留白 */}
-      <main className="bg-content relative min-h-dvh px-5 pt-[92px] pb-20 sm:px-10 lg:pt-[128px] lg:pb-[88px]">
+      {/* pt 要让开 fixed 顶栏的高度，再加页面自己的上留白。
+          桌面档从 --spacing-topnav 算出来，改顶栏高度这里会跟着走；
+          移动端顶栏是 h-14(56px)，56+36=92 */}
+      <main className="bg-content relative min-h-dvh px-5 pt-[92px] pb-20 sm:px-10 lg:pt-[calc(var(--spacing-topnav)+64px)] lg:pb-[88px]">
         <Grain id="site-paper-grain" opacity={0.035} baseFrequency={0.8} numOctaves={4} blend="multiply" />
         {/* min-w-0：文章里一行很长的代码块会按最大内容宽度把容器撑开，
             反而让 <pre> 自己的 overflow-x:auto 失效，窄屏整页横向溢出 */}

@@ -90,11 +90,16 @@ export function TopNav() {
     );
   };
 
-  /** 中 / EN */
+  /**
+   * 中 / EN。
+   * ⚠️ 当前语言那一侧的 href 是 `"#"`（空操作），**不是首页**。
+   * 2026-09-09 修：搬顶栏时这里被写成了 homeHref，于是在 /zh/blog/ 上点「中」
+   * 会被踢回首页 —— 语言切换是每页都可能点的东西，坏掉的是全站级功能。
+   */
   const localeSwitch = (
     <span className="flex items-center gap-[7px] text-[11.5px] tracking-[0.06em]">
       <Link
-        href={locale === "zh" ? homeHref : otherLocaleHref}
+        href={locale === "zh" ? "#" : otherLocaleHref}
         aria-current={locale === "zh" ? "true" : undefined}
         className={locale === "zh" ? "text-shell-ink" : "text-shell-faint hover:text-shell-ink"}
       >
@@ -102,7 +107,7 @@ export function TopNav() {
       </Link>
       <span className="text-[#2E2E2E]">/</span>
       <Link
-        href={locale === "en" ? homeHref : otherLocaleHref}
+        href={locale === "en" ? "#" : otherLocaleHref}
         aria-current={locale === "en" ? "true" : undefined}
         className={locale === "en" ? "text-shell-ink" : "text-shell-faint hover:text-shell-ink"}
       >
@@ -141,7 +146,7 @@ export function TopNav() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-40 h-14 border-b border-shell-line bg-shell text-shell-ink lg:h-16">
+      <header className="fixed inset-x-0 top-0 z-40 h-14 border-b border-shell-line bg-shell text-shell-ink lg:h-(--spacing-topnav)">
         <div className="relative flex h-full items-center px-5 sm:px-10">
           {/* Logo + 名字 —— 都回首页 */}
           <Link

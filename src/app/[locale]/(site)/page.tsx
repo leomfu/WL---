@@ -128,6 +128,11 @@ export default async function HomePage({
             note={now.updated ? monthLabel(now.updated, locale) : undefined}
           />
           <div className="mt-2 flex flex-col">
+            {/* 和块 D 的 noPosts 对称：projects.json 里一条 featured 都没有时，
+                这一块原来只剩标题和「更多项目」一句空壳 */}
+            {featured.length === 0 && (
+              <p className="py-6 text-base leading-[1.9] text-muted">{t("noProjects")}</p>
+            )}
             {featured.map((project, i) => {
               const label = localized(locale, project.name, project.name_en);
               const desc = localized(locale, project.desc, project.desc_en);

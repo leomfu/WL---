@@ -25,9 +25,17 @@ const PHASES: Phase[] = ["focus", "short", "long"];
 export function PomodoroDial({
   pomodoro,
   reduced,
+  active = true,
 }: {
   pomodoro: Pomodoro;
   reduced: boolean;
+  /**
+   * 这一层现在看不看得见。切到「手记」那栏时它只是 `display:none`，组件并没有卸载
+   * （计时要接着走，所以不能卸载）—— 但 rAF 会照样 60fps 对着不可见的节点写
+   * `style.width`，白烧电。不可见时降级成每秒一跳：数字回来时仍然是对的。
+   * 2026-09-09 审出来补的。
+   */
+  active?: boolean;
 }) {
   const t = useTranslations("gadgets.pomodoro");
   const [moreOpen, setMoreOpen] = useState(false);
@@ -59,8 +67,9 @@ export function PomodoroDial({
 
     write();
     if (running) {
-      // 秒针级精度就够，但用 rAF 让进度线是平滑的；reduced 时退回每秒一跳
-      if (reduced) {
+      // 秒针级精度就够，但用 rAF 让进度线是平滑的；
+      // reduced（用户要求减少动态）或这一层不可见时，都退回每秒一跳
+      if (reduced || !active) {
         timer = setInterval(write, 1000);
       } else {
         const loop = () => {
@@ -74,7 +83,7 @@ export function PomodoroDial({
       if (frame) cancelAnimationFrame(frame);
       if (timer) clearInterval(timer);
     };
-  }, [reduced, remaining, running, total]);
+  }, [active, reduced, remaining, running, total]);
 
   return (
     <div className="flex w-full flex-col items-center gap-8 sm:gap-9">

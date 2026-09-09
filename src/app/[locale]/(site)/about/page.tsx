@@ -65,8 +65,8 @@ export default async function AboutPage({
           <div className="prose-bw" dangerouslySetInnerHTML={{ __html: html }} />
         </Reveal>
 
-        {/* top 要让开 fixed 顶栏（64px）再留一点空 */}
-        <aside className="lg:sticky lg:top-[88px] lg:self-start">
+        {/* top 要让开 fixed 顶栏再留一点空，高度从 token 算，别再写死 */}
+        <aside className="lg:sticky lg:top-[calc(var(--spacing-topnav)+24px)] lg:self-start">
           <Timeline locale={locale} entries={getTimeline()} />
         </aside>
       </div>
