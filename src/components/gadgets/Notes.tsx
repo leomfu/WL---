@@ -181,7 +181,7 @@ export function Notes({
 
       {/* 存在哪儿说清楚 + 导出全部。这两样是这个方案的必需品，不是装饰 */}
       <div className="flex flex-col items-center gap-2.5 border-t border-desk-line-2 pt-5 sm:flex-row sm:justify-between">
-        <p className="max-w-[400px] text-[10.5px] leading-[1.8] text-desk-mute">
+        <p className="max-w-note text-[10.5px] leading-[1.8] text-desk-mute">
           {t("localOnly")}
         </p>
         {notes.length > 0 && (

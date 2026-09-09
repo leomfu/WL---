@@ -33,7 +33,7 @@ export async function generateMetadata({
  *
  * ⚠️ 两处布局约束，都别动：
  *
- * ① 这一页套了一层 `max-w-[1080px] mx-auto`，**比全站 1240px 的版心窄**。
+ * ① 这一页套了一层 `max-w-page-narrow mx-auto`，**比全站 1240px 的版心窄**。
  *    站主原话「内容居中一些，看着不别扭观感流畅」——正文列孤零零贴在版心左边、
  *    右边空掉一大块，整页是歪的。收窄居中之后左右才平衡。
  * ② 履历在**右栏**，不是正文下面。站主指定要「一边介绍一边显示经历」
@@ -56,7 +56,7 @@ export default async function AboutPage({
   const tagline = locale === "en" ? siteConfig.taglineEn : siteConfig.tagline;
 
   return (
-    <div className="mx-auto w-full max-w-[1080px]">
+    <div className="mx-auto w-full max-w-page-narrow">
       <PageHeader title={t("title")} lead={tagline} />
 
       {/* 正文 | 履历。窄屏一栏时履历排在正文下面，顺序和阅读顺序一致 */}

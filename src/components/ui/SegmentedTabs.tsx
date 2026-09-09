@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { createContext, useEffect, useState, type ReactNode } from "react";
 import { useStoredState } from "@/lib/useStoredState";
 
 /**
@@ -8,6 +8,21 @@ import { useStoredState } from "@/lib/useStoredState";
  * 为什么不能只靠 `hashchange`：见 components/search/CommandPalette.tsx 里 `go()` 的注释。
  */
 export const TAB_HASH_EVENT = "segmented-tabs:select";
+
+/**
+ * 「你现在这一栏是不是选中的」。
+ *
+ * 未选中的那几栏也留在 DOM 里（只挂 hidden），所以**里面的组件自己看不出来
+ * 有没有被看见** —— 需要按需加载的内容（博客页那两栏新闻）靠这个 context 判断。
+ *
+ * ⚠️ 为什么不是直接传个 `(active) => ReactNode` 的函数：panel 的内容是**服务端**
+ * 组件渲染好再当 props 传进来的，而函数不能跨 RSC 边界传给客户端组件
+ * （"Functions cannot be passed directly to Client Components"）。
+ * context 可以：服务端只管把渲染好的元素交过来，provider 在客户端这一侧。
+ *
+ * 默认 `true` —— 不在筛选里单独用的组件，按「看得见」处理。
+ */
+export const TabActiveContext = createContext(true);
 
 /**
  * 页面顶部的一排筛选 —— 点一下切一块，不用往下滑。
@@ -39,7 +54,11 @@ export function SegmentedTabs({
 }: {
   storageKey: string;
   /** 至少两项；第一项是默认选中的那个 */
-  tabs: { key: string; label: string; content: ReactNode }[];
+  tabs: {
+    key: string;
+    label: string;
+    content: ReactNode;
+  }[];
 }) {
   const fallback = tabs[0]?.key ?? "";
   const [stored, setStored] = useStoredState(storageKey, fallback);
@@ -106,11 +125,16 @@ export function SegmentedTabs({
         })}
       </div>
 
-      {tabs.map((item) => (
-        <div key={item.key} className={current === item.key ? "" : "hidden"}>
-          {item.content}
-        </div>
-      ))}
+      {tabs.map((item) => {
+        const isActive = current === item.key;
+        return (
+          <div key={item.key} className={isActive ? "" : "hidden"}>
+            <TabActiveContext.Provider value={isActive}>
+              {item.content}
+            </TabActiveContext.Provider>
+          </div>
+        );
+      })}
     </>
   );
 }

@@ -158,9 +158,15 @@ export function usePomodoro() {
     [state],
   );
 
-  /** 阶段走完：专注 +1，然后排下一段（短休；满一轮换长休），但**不自动开始** */
-  const complete = useCallback(() => {
-    if (chimeOn === "1") chime();
+  /**
+   * 阶段走完：专注 +1，然后排下一段（短休；满一轮换长休），但**不自动开始**。
+   *
+   * `withChime=false` 用于「这一段是在组件没挂着的时候走完的」——见下面那个
+   * effect 里的 `overdueOnMount`。那一声的意思是「时间到了」，迟到几分钟再响
+   * 就是在错误的时间响，不如不响；结算照常，数字仍然是对的。
+   */
+  const complete = useCallback((withChime = true) => {
+    if (withChime && chimeOn === "1") chime();
     if (state.phase !== "focus") {
       save(fresh("focus", conf, state.done));
       return;
@@ -170,14 +176,23 @@ export function usePomodoro() {
     save(fresh(next, conf, done));
   }, [chimeOn, conf, save, state.done, state.phase]);
 
-  /** 只在结束那一刻醒一次。定时器被降频而提前醒了就重排，不会误判 */
+  /**
+   * 只在结束那一刻醒一次。定时器被降频而提前醒了就重排，不会误判。
+   *
+   * `endsAt` 是绝对时间戳且持久化，所以离开项目页再回来数字是对的；
+   * 但这一段要是在**组件没挂着的时候**走完的（人去了别的页面），
+   * 第一次 arm 时就已经是过期状态 —— 这时静默结算，别补一声迟到的铃。
+   */
   useEffect(() => {
     if (state.endsAt === null) return;
     let timer: ReturnType<typeof setTimeout>;
+    let firstArm = true;
     const arm = () => {
       const left = state.endsAt! - Date.now();
+      const overdueOnMount = firstArm && left <= 0;
+      firstArm = false;
       if (left <= 50) {
-        complete();
+        complete(!overdueOnMount);
         return;
       }
       timer = setTimeout(arm, Math.min(left, 30_000));

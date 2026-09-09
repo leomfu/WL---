@@ -38,7 +38,7 @@ export async function Moved({
       <p className="text-[10px] tracking-(--tracking-label) text-shell-faint uppercase">
         {t("label")}
       </p>
-      <h1 className="max-w-[30ch] font-serif text-[22px] leading-[1.5] font-light sm:text-[26px]">
+      <h1 className="max-w-note font-serif text-[22px] leading-[1.5] font-light sm:text-[26px]">
         {t(reasonKey)}
       </h1>
       <Link

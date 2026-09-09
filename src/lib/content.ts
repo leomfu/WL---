@@ -3,11 +3,8 @@ import path from "node:path";
 import matter from "gray-matter";
 import { excerpt, readingMinutes } from "./format";
 import type {
-  Digest,
   LibraryItem,
   MusicLibrary,
-  NewsBoard,
-  NewsData,
   Post,
   PostType,
   Project,
@@ -231,19 +228,6 @@ export function getRecords(): RecordItem[] {
   return readJson<{ items: RecordItem[] }>("music/records.json", { items: [] }).items;
 }
 
-/** 新闻页数据：latest.json 由 scripts/fetch-news.mjs 生成，digests.json 是手写/生成的解读 */
-export function getNews(): NewsData {
-  const latest = readJson<{ generatedAt: string; boards: NewsBoard[] }>("news/latest.json", {
-    generatedAt: "",
-    boards: [],
-  });
-  const digests = readJson<{ items: Digest[] }>("news/digests.json", { items: [] });
-  const empty = (key: NewsBoard["key"]): NewsBoard => ({ key, outlets: [], items: [] });
-
-  return {
-    generatedAt: latest.generatedAt,
-    world: latest.boards.find((b) => b.key === "world") ?? empty("world"),
-    ai: latest.boards.find((b) => b.key === "ai") ?? empty("ai"),
-    digests: [...digests.items].sort((a, b) => b.date.localeCompare(a.date)),
-  };
-}
+/* getNews() 2026-09-09 退场：新闻不再服务端渲染，改由 scripts/build-news-data.mjs
+   在构建时把 content/news/ 翻成 public/data/news.json，页面按需 fetch
+   （理由见 components/news/NewsPanel 顶部）。类型仍在 lib/types.ts 里，客户端在用。 */

@@ -247,7 +247,7 @@ export function PomodoroDial({
                 </button>
               )}
 
-              <p className="max-w-[340px] text-center text-[10.5px] leading-[1.8] text-desk-mute">
+              <p className="max-w-note text-center text-[10.5px] leading-[1.8] text-desk-mute">
                 {t("settingsNote")}
               </p>
             </div>

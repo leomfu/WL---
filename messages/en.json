@@ -278,7 +278,9 @@
     "yesterday": "Yesterday",
     "empty": "Nothing pulled yet today.",
     "updated": "Last pulled {time}",
-    "neverUpdated": "Not pulled yet."
+    "neverUpdated": "Not pulled yet.",
+    "loading": "Fetching today's news…",
+    "loadFailed": "Couldn't load the news — try refreshing."
   },
   "player": {
     "regionLabel": "Mini player",

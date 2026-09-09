@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { BlogList, type PostCard } from "@/components/blog/BlogList";
-import { AiNews, WorldNews } from "@/components/news/NewsSections";
+import { NewsPanel } from "@/components/news/NewsPanel";
 import { ContentFooter, PageHeader } from "@/components/ui/PageHeader";
 import { Reveal } from "@/components/ui/Reveal";
 import { SegmentedTabs } from "@/components/ui/SegmentedTabs";
@@ -33,6 +33,10 @@ export async function generateMetadata({
  *
  * 新闻原来是独立的 /news 页、页内自己还有两个筛选；这里没有套成两层，
  * 而是把那两个直接摊到同一排上 —— 两层筛选读起来是两个决定，一层只是一个。
+ *
+ * ⚠️ **只有「文章」是服务端渲染的**。两栏新闻 2026-09-09 改成了客户端按需加载
+ * （切过来才 fetch `/data/news.json`）—— 三栏全服务端渲染时这一页 HTML 有 187 KB，
+ * 只想读文章的人白扛一份新闻页。理由和取舍写在 components/news/NewsPanel 顶部。
  *
  * ⚠️ 三块必须分开。自己写的文章和抓来的新闻标题混在一张清单里，
  * 会让人以为那些新闻也是他写的。
@@ -87,16 +91,11 @@ export default async function BlogPage({
                 </div>
               ),
             },
-            {
-              key: "world",
-              label: t("tabWorld"),
-              content: <WorldNews locale={locale} />,
-            },
-            {
-              key: "ai",
-              label: t("tabAi"),
-              content: <AiNews locale={locale} />,
-            },
+            /* 这两栏是**按需加载**的：切过来才 fetch /data/news.json
+               （NewsPanel 从 TabActiveContext 得知自己有没有被选中）。
+               文章那一栏仍然是服务端渲染的，一个字没少 —— 理由见 NewsPanel 顶部 */
+            { key: "world", label: t("tabWorld"), content: <NewsPanel board="world" /> },
+            { key: "ai", label: t("tabAi"), content: <NewsPanel board="ai" /> },
           ]}
         />
       </Reveal>

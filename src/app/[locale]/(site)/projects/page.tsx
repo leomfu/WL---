@@ -65,7 +65,7 @@ export default async function ProjectsPage({
 
   const mineBlock = (
     <div className="mt-7">
-      <p className="mb-7 max-w-[60ch] text-[13.5px] leading-[1.9] text-muted">{t("mineNote")}</p>
+      <p className="mb-7 max-w-note text-[13.5px] leading-[1.9] text-muted">{t("mineNote")}</p>
       <div className="grid gap-5 sm:grid-cols-2">
         {projects.map((project, i) => (
           <ProjectCard
@@ -83,7 +83,7 @@ export default async function ProjectsPage({
 
   const usesBlock = (
     <div className="mt-7">
-      <p className="mb-6 max-w-[60ch] text-[13.5px] leading-[1.9] text-muted">
+      <p className="mb-6 max-w-note text-[13.5px] leading-[1.9] text-muted">
         {t("usesNote", { n: repos.length })}
       </p>
       <ListRowGroup>

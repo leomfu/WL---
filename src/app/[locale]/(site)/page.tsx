@@ -72,7 +72,7 @@ export default async function HomePage({
   const posts = getPosts().slice(0, 4);
 
   return (
-    <div className="mx-auto w-full max-w-[1080px]">
+    <div className="mx-auto w-full max-w-page-narrow">
       {/* 报头：Logo + 名字 + 一句话定位，靠一道细线收住 */}
       <Reveal className="flex flex-col gap-7 border-b border-line pb-11 sm:flex-row sm:items-end sm:justify-between sm:gap-10">
         <div className="flex items-center gap-5">
@@ -90,7 +90,7 @@ export default async function HomePage({
               {name}
             </h1>
             {/* 限宽：这句现在比原来长，不限的话会一直伸到右边那个眉标底下 */}
-            <p className="max-w-[46ch] text-[14px] leading-[1.7] text-muted sm:text-[15px]">
+            <p className="max-w-note text-[14px] leading-[1.7] text-muted sm:text-[15px]">
               {tagline}
             </p>
           </div>
@@ -102,7 +102,7 @@ export default async function HomePage({
 
       {/* 块 A · 引言：整页最重的一块 */}
       <Reveal delay={80} className="mt-[52px]">
-        <h2 className="max-w-[860px] font-serif text-[26px] leading-[1.55] font-light tracking-[-0.01em] text-ink [text-wrap:pretty] sm:text-[34px]">
+        <h2 className="max-w-display font-serif text-[26px] leading-[1.55] font-light tracking-[-0.01em] text-ink [text-wrap:pretty] sm:text-[34px]">
           {t("quote")}
         </h2>
       </Reveal>

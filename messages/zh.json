@@ -278,7 +278,9 @@
     "yesterday": "昨天",
     "empty": "今天还没抓到内容。",
     "updated": "最后一次抓取：{time}",
-    "neverUpdated": "还没抓过。"
+    "neverUpdated": "还没抓过。",
+    "loading": "正在取今天的新闻…",
+    "loadFailed": "新闻没取到 —— 刷新一下试试。"
   },
   "player": {
     "regionLabel": "迷你播放器",

@@ -46,7 +46,7 @@ export default async function ContactPage({
   const socials = siteConfig.socials;
 
   return (
-    <div className="mx-auto w-full max-w-[1080px]">
+    <div className="mx-auto w-full max-w-page-narrow">
       <PageHeader title={t("title")} lead={t("lead")} />
 
       <div className="mt-14 grid gap-14 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-16">

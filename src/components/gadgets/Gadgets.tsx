@@ -42,7 +42,7 @@ export function Gadgets() {
 
   return (
     <div className="mt-7">
-      <p className="mb-6 max-w-[620px] text-[13.5px] leading-[1.9] text-muted">
+      <p className="mb-6 max-w-column text-[13.5px] leading-[1.9] text-muted">
         {t("note")}
       </p>
 

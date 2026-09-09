@@ -49,3 +49,6 @@ docs/design/__pycache__/
 
 # 首页 hero 的原图：同上，只在本机放着，`npm run hero` 压出来的 webp 才进仓库
 /hero-src/
+
+# 由 scripts/build-news-data.mjs 从 content/news/ 推导而来，构建时自动生成
+public/data/news.json

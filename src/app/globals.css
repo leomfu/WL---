@@ -54,8 +54,18 @@
 
   /* --- 布局尺寸（画板定稿）--- */
   --spacing-topnav: 64px;     /* 顶部暗色导航条（移动端 56px，见 TopNav） */
-  --spacing-page: 1240px;     /* 居中版心 —— 内容区的外框 */
-  --spacing-column: 700px;    /* 正文阅读列 —— 版心之内再收一层，只给 markdown 正文 */
+
+  /* --- 版心：外框那一层。宽度档位的完整说明见 docs/进度.md 末尾那张表 --- */
+  --spacing-page: 1240px;        /* 默认：列表、网格、照片墙铺满它 */
+  --spacing-page-narrow: 1080px; /* 首页 / 关于 / 联系 —— 内容量少的那几页 */
+
+  /* --- 行宽（文字量度）：版心之内，一行字最多多长 ---
+     2026-09-09 收敛：原来散落着 860/760/720/620/400/340px 和 60ch/46ch/30ch
+     九种写法、三种单位，同一件事没有统一标准。现在只剩下面三档，
+     **新代码不许再写裸值**，挑一档用。 */
+  --spacing-display: 860px;   /* 大字引言那一档（衬线 26–34px） */
+  --spacing-column: 700px;    /* 正文和引导语 —— markdown 正文也用它 */
+  --spacing-note: 420px;      /* 小注记、说明、一句话补充 */
 
   /* --- 小标签字距 --- */
   --tracking-label: 0.2em;
@@ -1081,7 +1091,7 @@
 
 .orbit-note {
   grid-area: 1 / 1;
-  max-width: 44ch;
+  max-width: var(--spacing-note);
   opacity: 0;
   text-align: center;
   transition: opacity 0.34s ease;
