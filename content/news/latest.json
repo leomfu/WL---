@@ -1,6 +1,6 @@
 {
   "note": "由 scripts/fetch-news.mjs 生成，别手改。源清单在 sources.json。",
-  "generatedAt": "2026-09-10T23:38:49.900Z",
+  "generatedAt": "2026-09-11T23:50:08.272Z",
   "boards": [
     {
       "key": "world",
@@ -53,244 +53,244 @@
       ],
       "items": [
         {
-          "title": "Israel says it destroyed Hezbollah base in Lebanon’s Ali al-Taher ridge",
-          "url": "https://www.aljazeera.com/news/2026/9/10/israel-says-it-destroyed-hezbollah-base-in-lebanons-ali-al-taher-ridge?traffic_source=rss",
+          "title": "UN extends partial Sudan arms embargo for a month",
+          "url": "https://www.aljazeera.com/news/2026/9/11/un-extends-partial-sudan-arms-embargo-for-a-month?traffic_source=rss",
           "source": "半岛电视台",
           "sourceEn": "Al Jazeera",
-          "at": "2026-09-10T22:33:41.000Z",
-          "date": "2026-09-11"
+          "at": "2026-09-11T23:08:05.000Z",
+          "date": "2026-09-12"
         },
         {
-          "title": "Spain’s Parliament backs citizenship for Western Saharans born before 1977",
-          "url": "https://www.aljazeera.com/news/2026/9/10/spains-parliament-backs-citizenship-for-western-saharans-born-before-1977?traffic_source=rss",
+          "title": "Flavio Bolsonaro faces corruption probe weeks before Brazil election",
+          "url": "https://www.aljazeera.com/news/2026/9/11/flavio-bolsonaro-faces-corruption-probe-weeks-before-brazil-election?traffic_source=rss",
           "source": "半岛电视台",
           "sourceEn": "Al Jazeera",
-          "at": "2026-09-10T21:47:14.000Z",
-          "date": "2026-09-11"
+          "at": "2026-09-11T22:57:51.000Z",
+          "date": "2026-09-12"
         },
         {
-          "title": "LG defends smart-TV features amid audio surveillance allegations",
-          "url": "https://www.aljazeera.com/news/2026/9/10/lg-defends-smart-tv-features-amid-audio-surveillance-allegations?traffic_source=rss",
+          "title": "Arrest made over the death of black woman found hanged from tree",
+          "url": "https://www.bbc.co.uk/news/articles/cqjkejq5750o?at_medium=RSS&at_campaign=rss",
+          "source": "BBC World",
+          "sourceEn": "BBC World",
+          "at": "2026-09-11T22:57:42.000Z",
+          "date": "2026-09-12"
+        },
+        {
+          "title": "Houthis Seize a Key Red Sea Island, Threatening Another Global Oil Route",
+          "url": "https://www.nytimes.com/2026/09/11/world/middleeast/yemen-houthis-bab-al-mandab.html",
+          "source": "纽约时报",
+          "sourceEn": "NYT World",
+          "at": "2026-09-11T22:22:16.000Z",
+          "date": "2026-09-12"
+        },
+        {
+          "title": "Houthis claim major advance in Yemen and tighten grip on Red Sea shipping lane",
+          "url": "https://www.bbc.co.uk/news/articles/c23x72yx2rvo?at_medium=RSS&at_campaign=rss",
+          "source": "BBC World",
+          "sourceEn": "BBC World",
+          "at": "2026-09-11T22:17:45.000Z",
+          "date": "2026-09-12"
+        },
+        {
+          "title": "Israeli demolitions threaten schools and homes in Masafer Yatta",
+          "url": "https://www.aljazeera.com/features/2026/9/11/israeli-demolitions-threaten-schools-and-homes-in-masafer-yatta?traffic_source=rss",
           "source": "半岛电视台",
           "sourceEn": "Al Jazeera",
-          "at": "2026-09-10T21:33:28.000Z",
-          "date": "2026-09-11"
+          "at": "2026-09-11T21:53:34.000Z",
+          "date": "2026-09-12"
         },
         {
-          "title": "Peru joins US-led ‘Shield of the Americas’ security alliance",
-          "url": "https://www.aljazeera.com/news/2026/9/10/peru-joins-us-led-shield-of-the-americas-security-alliance?traffic_source=rss",
-          "source": "半岛电视台",
-          "sourceEn": "Al Jazeera",
-          "at": "2026-09-10T21:31:06.000Z",
-          "date": "2026-09-11"
-        },
-        {
-          "title": "Republican midterm convention live: Trump, Vance headline day two in Dallas",
-          "url": "https://www.aljazeera.com/news/liveblog/2026/9/10/republican-midterm-convention-live-trump-headlines-day-2-of-dallas-rally?traffic_source=rss",
-          "source": "半岛电视台",
-          "sourceEn": "Al Jazeera",
-          "at": "2026-09-10T21:31:03.000Z",
-          "date": "2026-09-11"
-        },
-        {
-          "title": "Canada offers air defense support for Ukraine as Zelenskyy visits",
-          "url": "https://www.theguardian.com/world/2026/sep/10/zelenskyy-canada-visit",
-          "source": "卫报",
-          "sourceEn": "The Guardian",
-          "at": "2026-09-10T20:35:06.000Z",
-          "date": "2026-09-11"
-        },
-        {
-          "title": "Ancient Tombs, Untouched by Looters, Are Found Under Peru’s Sands",
-          "url": "https://www.nytimes.com/2026/09/10/world/americas/peru-tombs-chimu-archaeology.html",
-          "source": "纽约时报",
-          "sourceEn": "NYT World",
-          "at": "2026-09-10T20:28:06.000Z",
-          "date": "2026-09-11"
-        },
-        {
-          "title": "After a Difficult Loss, Nigeria Has Become a Source of Pain for Chimamanda Ngozi Adichie",
-          "url": "https://www.nytimes.com/2026/09/10/world/africa/chimamanda-ngozi-adichie-nigeria-son-death.html",
-          "source": "纽约时报",
-          "sourceEn": "NYT World",
-          "at": "2026-09-10T20:05:21.000Z",
-          "date": "2026-09-11"
-        },
-        {
-          "title": "Houthis Seize Strategic Red Sea Port, a Major Victory for Iranian Ally",
-          "url": "https://www.nytimes.com/2026/09/10/world/middleeast/yemens-houthis-seize-strategic-red-sea-port-officials-say.html",
-          "source": "纽约时报",
-          "sourceEn": "NYT World",
-          "at": "2026-09-10T19:31:30.000Z",
-          "date": "2026-09-11"
-        },
-        {
-          "title": "More than 20 children killed in DR Congo school fire",
-          "url": "https://www.bbc.co.uk/news/articles/cgjq15j7318o?at_medium=RSS&at_campaign=rss",
-          "source": "BBC World",
-          "sourceEn": "BBC World",
-          "at": "2026-09-10T19:16:24.000Z",
-          "date": "2026-09-11"
-        },
-        {
-          "title": "Digital data leeches: trading on our profiles",
-          "url": "https://www.dw.com/en/digital-data-leeches-trading-on-our-profiles/a-79219770?maca=en-rss-en-world-4025-rdf",
-          "source": "德国之声",
-          "sourceEn": "DW",
-          "at": "2026-09-10T19:08:00.000Z",
-          "date": "2026-09-11"
-        },
-        {
-          "title": "Moscow Claims Ukraine Planned to Start a War Between Russia and the U.K.",
-          "url": "https://www.nytimes.com/2026/09/10/world/europe/russia-ukraine-uk-embassy.html",
-          "source": "纽约时报",
-          "sourceEn": "NYT World",
-          "at": "2026-09-10T18:47:10.000Z",
-          "date": "2026-09-11"
-        },
-        {
-          "title": "Yemen's Houthis reportedly seize strategic Red Sea port of Mokha",
-          "url": "https://www.bbc.co.uk/news/articles/c4g7vr0lngwo?at_medium=RSS&at_campaign=rss",
-          "source": "BBC World",
-          "sourceEn": "BBC World",
-          "at": "2026-09-10T18:15:47.000Z",
-          "date": "2026-09-11"
-        },
-        {
-          "title": "25 years after 9/11: Al-Qaeda weakened but not gone",
-          "url": "https://www.dw.com/en/25-years-after-9-11-al-qaeda-weakened-but-not-gone/a-79202457?maca=en-rss-en-world-4025-rdf",
-          "source": "德国之声",
-          "sourceEn": "DW",
-          "at": "2026-09-10T18:05:00.000Z",
-          "date": "2026-09-11"
-        },
-        {
-          "title": "Secret son revelation ignites bitter succession dispute in Ugandan kingdom",
-          "url": "https://www.theguardian.com/world/2026/sep/10/uganda-king-secret-son-succession-dispute",
-          "source": "卫报",
-          "sourceEn": "The Guardian",
-          "at": "2026-09-10T17:29:20.000Z",
-          "date": "2026-09-11"
-        },
-        {
-          "title": "Can Trump really pay $5,000 to every American adult?",
-          "url": "https://www.bbc.co.uk/news/articles/c8r6vj7r8rko?at_medium=RSS&at_campaign=rss",
-          "source": "BBC World",
-          "sourceEn": "BBC World",
-          "at": "2026-09-10T16:48:37.000Z",
-          "date": "2026-09-11"
-        },
-        {
-          "title": "Pilot warned Amazon cargo plane going too fast before deadly crash, data shows",
-          "url": "https://www.bbc.co.uk/news/articles/cj4jynv59ddo?at_medium=RSS&at_campaign=rss",
-          "source": "BBC World",
-          "sourceEn": "BBC World",
-          "at": "2026-09-10T16:31:30.000Z",
-          "date": "2026-09-11"
-        },
-        {
-          "title": "Germany’s Goethe-Institut is closing in Russia. Russians tell DW how canceled exams are upending their plans",
-          "url": "https://www.dw.com/en/germany-s-goethe-institut-is-closing-in-russia-russians-tell-dw-how-canceled-exams-are-upending-their-plans/a-79218936?maca=en-rss-en-world-4025-rdf",
-          "source": "德国之声",
-          "sourceEn": "DW",
-          "at": "2026-09-10T16:17:00.000Z",
-          "date": "2026-09-11"
-        },
-        {
-          "title": "Israel's Netanyahu to sue newspaper over claim UAE warned him of 7 October attack",
-          "url": "https://www.bbc.co.uk/news/articles/c1kxwm870g1o?at_medium=RSS&at_campaign=rss",
-          "source": "BBC World",
-          "sourceEn": "BBC World",
-          "at": "2026-09-10T15:54:17.000Z",
-          "date": "2026-09-10"
-        },
-        {
-          "title": "African Parks: when conservation becomes a question of power",
-          "url": "https://www.dw.com/en/african-parks-when-conservation-becomes-a-question-of-power/a-78914372?maca=en-rss-en-world-4025-rdf",
-          "source": "德国之声",
-          "sourceEn": "DW",
-          "at": "2026-09-10T15:24:00.000Z",
-          "date": "2026-09-10"
-        },
-        {
-          "title": "North Korea spends war windfall on arms, infrastructure",
-          "url": "https://www.dw.com/en/north-korea-spends-war-windfall-on-arms-infrastructure/a-79218305?maca=en-rss-en-world-4025-rdf",
-          "source": "德国之声",
-          "sourceEn": "DW",
-          "at": "2026-09-10T14:56:00.000Z",
-          "date": "2026-09-10"
-        },
-        {
-          "title": "青島北海造船廠外籍貨輪大火 失聯25人已確定全部死亡",
-          "url": "https://www.bbc.com/zhongwen/articles/czjzvdxw8gvo/trad?at_medium=RSS&at_campaign=rss",
-          "source": "BBC 中文",
-          "sourceEn": "BBC Chinese",
-          "at": "2026-09-10T12:47:54.000Z",
-          "date": "2026-09-10"
-        },
-        {
-          "title": "The ‘Forever War’ in Afghanistan: 25 Years in Pictures",
-          "url": "https://www.nytimes.com/2026/09/10/world/asia/afghanistan-war-photojournalism.html",
-          "source": "纽约时报",
-          "sourceEn": "NYT World",
-          "at": "2026-09-10T11:52:52.000Z",
-          "date": "2026-09-10"
-        },
-        {
-          "title": "香港記協主席訴《華爾街日報》解僱案 法庭判局部有罪",
-          "url": "https://www.bbc.com/zhongwen/articles/ckgxyvrel0ko/trad?at_medium=RSS&at_campaign=rss",
-          "source": "BBC 中文",
-          "sourceEn": "BBC Chinese",
-          "at": "2026-09-10T10:46:03.000Z",
-          "date": "2026-09-10"
-        },
-        {
-          "title": "Scientists say August was Earth's hottest month they've measured",
-          "url": "https://www.npr.org/2026/09/10/nx-s1-5964676/scientists-august-hottest",
+          "title": "The other side of 9/11: Afghans reckon with America's long shadow",
+          "url": "https://www.npr.org/2026/09/11/nx-s1-5949270/the-other-side-of-9-11-afghans-reckon-with-americas-long-shadow",
           "source": "NPR",
           "sourceEn": "NPR",
-          "at": "2026-09-10T08:54:00.000Z",
-          "date": "2026-09-10"
+          "at": "2026-09-11T21:36:20.000Z",
+          "date": "2026-09-12"
         },
         {
-          "title": "UN peacekeepers give NPR a rare look behind Israeli lines",
-          "url": "https://www.npr.org/2026/09/10/nx-s1-5962860/un-peacekeepers-give-npr-a-rare-look-behind-israeli-lines",
+          "title": "Saudi Arabia says East-West pipeline hit by drones launched from Iraq",
+          "url": "https://www.aljazeera.com/news/2026/9/11/saudi-arabia-says-east-west-pipeline-hit-by-drones-launched-from-iraq?traffic_source=rss",
+          "source": "半岛电视台",
+          "sourceEn": "Al Jazeera",
+          "at": "2026-09-11T21:30:47.000Z",
+          "date": "2026-09-12"
+        },
+        {
+          "title": "Sabalenka vs Rybakina: US Open women’s singles final – start, prize, form",
+          "url": "https://www.aljazeera.com/sports/2026/9/11/sabalenka-rybakina-us-open-2026-womens-singles-final-time-form-head-to-head?traffic_source=rss",
+          "source": "半岛电视台",
+          "sourceEn": "Al Jazeera",
+          "at": "2026-09-11T21:28:34.000Z",
+          "date": "2026-09-12"
+        },
+        {
+          "title": "Passenger train derails in France leaving at least 44 injured",
+          "url": "https://www.bbc.co.uk/news/articles/c8d37dm8d8mo?at_medium=RSS&at_campaign=rss",
+          "source": "BBC World",
+          "sourceEn": "BBC World",
+          "at": "2026-09-11T21:25:32.000Z",
+          "date": "2026-09-12"
+        },
+        {
+          "title": "Why Emerging Powers Keep Joining BRICS, Even When They Disagree",
+          "url": "https://www.nytimes.com/2026/09/11/world/asia/brics-meeting-summit-delhi.html",
+          "source": "纽约时报",
+          "sourceEn": "NYT World",
+          "at": "2026-09-11T20:45:24.000Z",
+          "date": "2026-09-12"
+        },
+        {
+          "title": "Tragic death of woman who testified against father in notorious mafia murder of mother",
+          "url": "https://www.bbc.co.uk/news/articles/c39mr81j2j1o?at_medium=RSS&at_campaign=rss",
+          "source": "BBC World",
+          "sourceEn": "BBC World",
+          "at": "2026-09-11T20:34:29.000Z",
+          "date": "2026-09-12"
+        },
+        {
+          "title": "Amid war and sanctions, many Iranians are losing their jobs and struggling to get by",
+          "url": "https://www.npr.org/2026/09/11/g-s1-142935/iran-us-war-jobs-economy",
           "source": "NPR",
           "sourceEn": "NPR",
-          "at": "2026-09-10T08:43:02.000Z",
-          "date": "2026-09-10"
+          "at": "2026-09-11T19:39:35.000Z",
+          "date": "2026-09-12"
         },
         {
-          "title": "'I'll never trust them again': Some Afghans who helped the U.S. post-9/11 regret it",
-          "url": "https://www.npr.org/2026/09/10/nx-s1-5958661/ill-never-trust-them-again-some-afghans-who-helped-the-u-s-post-9-11-regret-it",
-          "source": "NPR",
-          "sourceEn": "NPR",
-          "at": "2026-09-10T08:41:01.000Z",
-          "date": "2026-09-10"
+          "title": "As Russia Again Draws Near, a Frontline City Fears Obliteration This Time",
+          "url": "https://www.nytimes.com/2026/09/11/world/europe/ukraine-russia-izium-donetsk.html",
+          "source": "纽约时报",
+          "sourceEn": "NYT World",
+          "at": "2026-09-11T18:08:17.000Z",
+          "date": "2026-09-12"
         },
         {
-          "title": "蘋果摺疊式iPhone：新任掌舵人的豪賭，能轉化為實質銷量嗎？",
-          "url": "https://www.bbc.com/zhongwen/articles/cwyzp5561n2o/trad?at_medium=RSS&at_campaign=rss",
-          "source": "BBC 中文",
-          "sourceEn": "BBC Chinese",
-          "at": "2026-09-10T05:37:21.000Z",
-          "date": "2026-09-10"
+          "title": "Norway's Princess Astrid dies two days after attending brother King Harald's funeral",
+          "url": "https://www.bbc.co.uk/news/articles/cgjq1qy98vjo?at_medium=RSS&at_campaign=rss",
+          "source": "BBC World",
+          "sourceEn": "BBC World",
+          "at": "2026-09-11T16:00:59.000Z",
+          "date": "2026-09-12"
         },
         {
-          "title": "Rubio signals shift to working with allies to fight drug trade as latest boat strike kills three",
-          "url": "https://www.theguardian.com/us-news/2026/sep/09/rubio-us-allies-drug-trafficking",
+          "title": "Buddhist monk arrested in Thailand on suspicion of embezzling $2.8m",
+          "url": "https://www.theguardian.com/world/2026/sep/11/thai-police-arrest-buddhist-abbot-suspicion-embezzling",
           "source": "卫报",
           "sourceEn": "The Guardian",
-          "at": "2026-09-10T01:02:42.000Z",
-          "date": "2026-09-10"
+          "at": "2026-09-11T15:01:36.000Z",
+          "date": "2026-09-11"
         },
         {
-          "title": "911事件25週年：震驚世界的襲擊如何發生，造成多少人死亡？",
-          "url": "https://www.bbc.com/zhongwen/articles/ced7g3qpyyjo/trad?at_medium=RSS&at_campaign=rss",
+          "title": "Iran pursues cautious escalation ahead of US midterms",
+          "url": "https://www.dw.com/en/iran-pursues-cautious-escalation-ahead-of-us-midterms/a-79237061?maca=en-rss-en-world-4025-rdf",
+          "source": "德国之声",
+          "sourceEn": "DW",
+          "at": "2026-09-11T14:54:00.000Z",
+          "date": "2026-09-11"
+        },
+        {
+          "title": "India's BRICS strategy tested with Xi, Putin set to visit",
+          "url": "https://www.dw.com/en/india-s-brics-strategy-tested-with-xi-putin-set-to-visit/a-79231879?maca=en-rss-en-world-4025-rdf",
+          "source": "德国之声",
+          "sourceEn": "DW",
+          "at": "2026-09-11T13:31:00.000Z",
+          "date": "2026-09-11"
+        },
+        {
+          "title": "香港支聯會「煽動顛覆」案：被告們的伴侶與戰友",
+          "url": "https://www.bbc.com/zhongwen/articles/cq63868gq5qo/trad?at_medium=RSS&at_campaign=rss",
           "source": "BBC 中文",
           "sourceEn": "BBC Chinese",
-          "at": "2026-09-10T00:14:46.000Z",
-          "date": "2026-09-10"
+          "at": "2026-09-11T13:23:08.000Z",
+          "date": "2026-09-11"
+        },
+        {
+          "title": "香港支聯會「煽動顛覆」案：李卓人、鄒幸彤、何俊仁判囚5至7年",
+          "url": "https://www.bbc.com/zhongwen/articles/cvgyj1x17vko/trad?at_medium=RSS&at_campaign=rss",
+          "source": "BBC 中文",
+          "sourceEn": "BBC Chinese",
+          "at": "2026-09-11T13:22:16.000Z",
+          "date": "2026-09-11"
+        },
+        {
+          "title": "Uber leaves two key African markets — and their drivers in despair",
+          "url": "https://www.dw.com/en/uber-leaves-two-key-african-markets-and-their-drivers-in-despair/a-79232189?maca=en-rss-en-world-4025-rdf",
+          "source": "德国之声",
+          "sourceEn": "DW",
+          "at": "2026-09-11T12:57:00.000Z",
+          "date": "2026-09-11"
+        },
+        {
+          "title": "Iran war: Saudi-Houthi escalation intensifies Yemen conflict",
+          "url": "https://www.dw.com/en/iran-war-saudi-houthi-escalation-intensifies-yemen-conflict/a-79226627?maca=en-rss-en-world-4025-rdf",
+          "source": "德国之声",
+          "sourceEn": "DW",
+          "at": "2026-09-11T11:52:00.000Z",
+          "date": "2026-09-11"
+        },
+        {
+          "title": "At BRICS Summit, China and India Vie for Influence",
+          "url": "https://www.nytimes.com/2026/09/11/world/asia/china-india-brics-summit.html",
+          "source": "纽约时报",
+          "sourceEn": "NYT World",
+          "at": "2026-09-11T11:48:03.000Z",
+          "date": "2026-09-11"
+        },
+        {
+          "title": "Inside an Ancient Lebanese City Engulfed by War",
+          "url": "https://www.nytimes.com/2026/09/11/world/middleeast/tyre-engulfed-war-lebanon.html",
+          "source": "纽约时报",
+          "sourceEn": "NYT World",
+          "at": "2026-09-11T11:25:47.000Z",
+          "date": "2026-09-11"
+        },
+        {
+          "title": "Why North Korea's Kim Jong Un doesn't need a US deal",
+          "url": "https://www.dw.com/en/why-north-korea-s-kim-jong-un-doesn-t-need-a-us-deal/a-79227854?maca=en-rss-en-world-4025-rdf",
+          "source": "德国之声",
+          "sourceEn": "DW",
+          "at": "2026-09-11T10:40:00.000Z",
+          "date": "2026-09-11"
+        },
+        {
+          "title": "習近平七年來首次訪印前瞻：中印回暖背後的美國陰影與西藏問題",
+          "url": "https://www.bbc.com/zhongwen/articles/cqxvzdx4d10o/trad?at_medium=RSS&at_campaign=rss",
+          "source": "BBC 中文",
+          "sourceEn": "BBC Chinese",
+          "at": "2026-09-11T10:06:48.000Z",
+          "date": "2026-09-11"
+        },
+        {
+          "title": "The U.S.-Canada trade war is creating a headache for auto-parts makers",
+          "url": "https://www.npr.org/2026/09/11/nx-s1-5961530/canada-trade-war-auto-parts-supply-chain",
+          "source": "NPR",
+          "sourceEn": "NPR",
+          "at": "2026-09-11T09:00:00.000Z",
+          "date": "2026-09-11"
+        },
+        {
+          "title": "911事件25年後 美國機場安檢醞釀「鬆綁」",
+          "url": "https://www.bbc.com/zhongwen/articles/ced75zwgd1lo/trad?at_medium=RSS&at_campaign=rss",
+          "source": "BBC 中文",
+          "sourceEn": "BBC Chinese",
+          "at": "2026-09-11T07:40:27.000Z",
+          "date": "2026-09-11"
+        },
+        {
+          "title": "Why gains by Iran-backed Houthis in Yemen could push gas prices even higher",
+          "url": "https://www.npr.org/2026/09/11/nx-s1-5966379/houthi-gains-gas-prices",
+          "source": "NPR",
+          "sourceEn": "NPR",
+          "at": "2026-09-11T07:32:27.000Z",
+          "date": "2026-09-11"
+        },
+        {
+          "title": "Hong Kong court sentences 3 Tiananmen vigil organizers to prison",
+          "url": "https://www.npr.org/2026/09/11/g-s1-142832/hong-kong-court-sentences-vigil-organizers",
+          "source": "NPR",
+          "sourceEn": "NPR",
+          "at": "2026-09-11T06:42:04.000Z",
+          "date": "2026-09-11"
         }
       ]
     },
@@ -335,6 +335,38 @@
       ],
       "items": [
         {
+          "title": "v2.1.269",
+          "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.269",
+          "source": "Claude Code 发版",
+          "sourceEn": "Claude Code releases",
+          "at": "2026-09-11T19:17:55.000Z",
+          "date": "2026-09-12"
+        },
+        {
+          "title": "Elevated errors for Claude Mythos 5.1 and Claude Fable 5.1",
+          "url": "https://status.claude.com/incidents/t33dncr5ydvl",
+          "source": "Claude 状态",
+          "sourceEn": "Claude status",
+          "at": "2026-09-11T14:37:11.000Z",
+          "date": "2026-09-11"
+        },
+        {
+          "title": "Degraded functionality for Claude Cowork on Windows",
+          "url": "https://status.claude.com/incidents/r1pqn1kb4hvk",
+          "source": "Claude 状态",
+          "sourceEn": "Claude status",
+          "at": "2026-09-11T14:19:51.000Z",
+          "date": "2026-09-11"
+        },
+        {
+          "title": "Rapidly scaling online storage to serve over 1 billion ChatGPT users",
+          "url": "https://openai.com/index/scaling-storage-one-billion-users-part-one",
+          "source": "OpenAI",
+          "sourceEn": "OpenAI",
+          "at": "2026-09-11T10:00:00.000Z",
+          "date": "2026-09-11"
+        },
+        {
           "title": "Elevated latency on the Claude API for some users",
           "url": "https://status.claude.com/incidents/2pt83vlkk7x7",
           "source": "Claude 状态",
@@ -348,14 +380,6 @@
           "source": "Claude Code 发版",
           "sourceEn": "Claude Code releases",
           "at": "2026-09-10T20:30:54.000Z",
-          "date": "2026-09-11"
-        },
-        {
-          "title": "Degraded functionality for Claude Cowork on Windows",
-          "url": "https://status.claude.com/incidents/r1pqn1kb4hvk",
-          "source": "Claude 状态",
-          "sourceEn": "Claude status",
-          "at": "2026-09-10T17:20:39.000Z",
           "date": "2026-09-11"
         },
         {
@@ -463,14 +487,6 @@
           "date": "2026-09-09"
         },
         {
-          "title": "GPT-6 Astra: The next generation in intelligence for work",
-          "url": "https://openai.com/index/gpt-6-astra-next-generation-work",
-          "source": "OpenAI",
-          "sourceEn": "OpenAI",
-          "at": "2026-09-09T11:00:00.000Z",
-          "date": "2026-09-09"
-        },
-        {
           "title": "v2.1.266",
           "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.266",
           "source": "Claude Code 发版",
@@ -509,22 +525,6 @@
           "sourceEn": "Claude Code releases",
           "at": "2026-09-06T02:54:20.000Z",
           "date": "2026-09-06"
-        },
-        {
-          "title": "v2.1.261",
-          "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.261",
-          "source": "Claude Code 发版",
-          "sourceEn": "Claude Code releases",
-          "at": "2026-09-04T19:58:10.000Z",
-          "date": "2026-09-05"
-        },
-        {
-          "title": "v2.1.260",
-          "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.260",
-          "source": "Claude Code 发版",
-          "sourceEn": "Claude Code releases",
-          "at": "2026-09-03T23:48:12.000Z",
-          "date": "2026-09-04"
         }
       ]
     }
